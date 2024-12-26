@@ -1,0 +1,14 @@
+{
+    "current_version": "1.0.0",
+    "latest_version": "1.0.1",
+    "update_info": {
+        "1.0.0": {
+            "download_url": "/Users/kimnamjun/Documents/python/dellapp/1.0.0/DellProject.app",
+            "release_notes": "Mac OS Dell Monitoring 프로그램 개시"
+        },
+        "1.0.1": {
+            "download_url": "/Users/kimnamjun/Documents/python/dellapp/1.0.1/DellProject.app",
+            "release_notes": "버그 수정 및 기능 개선"
+        }
+    }
+}
