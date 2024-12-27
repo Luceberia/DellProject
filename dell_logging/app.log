@@ -1,0 +1,105 @@
+2024-12-27 00:38:14 - [65479] - dell_idrac_monitor - DEBUG - 서버 정보 로드 완료: 3개의 서버
+2024-12-27 00:38:14 - [65479] - dell_idrac_monitor - INFO - 빠른 연결 서버 설정: web1
+2024-12-27 00:38:32 - [65479] - dell_idrac_monitor - INFO - 애플리케이션 종료 프로세스 시작
+2024-12-27 00:38:32 - [65479] - dell_idrac_monitor - DEBUG - 서버 연결 해제 중...
+2024-12-27 00:38:32 - [65479] - dell_idrac_monitor - DEBUG - 서버 연결 해제 완료
+2024-12-27 00:38:32 - [65479] - dell_idrac_monitor - DEBUG - 리소스 정리 중...
+2024-12-27 01:14:42 - [75110] - dell_idrac_monitor - DEBUG - 서버 정보 로드 완료: 3개의 서버
+2024-12-27 01:14:42 - [75110] - dell_idrac_monitor - INFO - 빠른 연결 서버 설정: web1
+2024-12-27 01:15:27 - [75538] - dell_idrac_monitor - DEBUG - 서버 정보 로드 완료: 3개의 서버
+2024-12-27 01:15:27 - [75538] - dell_idrac_monitor - INFO - 빠른 연결 서버 설정: web1
+2024-12-27 01:15:40 - [75683] - dell_idrac_monitor - DEBUG - 서버 정보 로드 완료: 3개의 서버
+2024-12-27 01:15:40 - [75683] - dell_idrac_monitor - INFO - 빠른 연결 서버 설정: web1
+2024-12-27 01:15:48 - [75683] - dell_idrac_monitor - DEBUG - 빠른 연결 버튼 클릭
+2024-12-27 01:15:48 - [75683] - dell_idrac_monitor - DEBUG - 빠른 연결 시도 시작
+2024-12-27 01:15:48 - [75683] - dell_idrac_monitor - DEBUG - Redfish 이벤트 서비스 상태 확인 시작
+2024-12-27 01:15:48 - [75683] - dell_idrac_monitor - INFO - Redfish 이벤트 구독 상태: 비활성화
+2024-12-27 01:15:48 - [75683] - dell_idrac_monitor - INFO - 구독이 비활성화되어 있어 폴링 방식으로 전환
+2024-12-27 01:15:48 - [75683] - dell_idrac_monitor - DEBUG - 연결 상태 업데이트: 연결됨 (41ms)
+2024-12-27 01:15:48 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-27 01:15:48 - [75683] - dell_idrac_monitor - DEBUG - SEL 로그 카운트 변경: 0 → 18
+2024-12-27 01:15:48 - [75683] - dell_idrac_monitor - DEBUG - 현재 서버 표시 업데이트: web1 (192.168.0.85)
+2024-12-27 01:15:48 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: 시스템 기본 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1
+2024-12-27 01:15:48 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: BIOS 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Bios
+2024-12-27 01:15:48 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: iDRAC 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1
+2024-12-27 01:15:48 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Processors
+2024-12-27 01:15:48 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: 메모리 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Memory
+2024-12-27 01:15:48 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: 스토리지 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Storage
+2024-12-27 01:15:48 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: 전원 상태 조회 - URL: https://192.168.0.85:443/redfish/v1/Chassis/System.Embedded.1/Power
+2024-12-27 01:15:48 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: 시스템 기본 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1
+2024-12-27 01:15:48 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: BIOS 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Bios
+2024-12-27 01:15:48 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: iDRAC 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1
+2024-12-27 01:15:48 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Processors
+2024-12-27 01:15:48 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: 메모리 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Memory
+2024-12-27 01:15:49 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: 스토리지 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Storage
+2024-12-27 01:15:49 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: 전원 상태 조회 - URL: https://192.168.0.85:443/redfish/v1/Chassis/System.Embedded.1/Power
+2024-12-27 01:15:51 - [75683] - dell_idrac_monitor - DEBUG - 시스템 상태 정보 조회 시도
+2024-12-27 01:15:51 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Processors
+2024-12-27 01:15:51 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: 메모리 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Memory
+2024-12-27 01:15:51 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: 스토리지 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Storage
+2024-12-27 01:15:51 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: 네트워크 어댑터 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters
+2024-12-27 01:15:52 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: 전원 상태 조회 - URL: https://192.168.0.85:443/redfish/v1/Chassis/System.Embedded.1/Power
+2024-12-27 01:15:52 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: iDRAC 상세 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellAttributes/iDRAC.Embedded.1
+2024-12-27 01:15:52 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: License 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellLicenses
+2024-12-27 01:15:58 - [75683] - dell_idrac_monitor - DEBUG - 현재 서버 표시 업데이트: web2 (192.168.0.85)
+2024-12-27 01:15:58 - [75683] - dell_idrac_monitor - DEBUG - Redfish 이벤트 서비스 상태 확인 시작
+2024-12-27 01:15:58 - [75683] - dell_idrac_monitor - INFO - Redfish 이벤트 구독 상태: 비활성화
+2024-12-27 01:15:58 - [75683] - dell_idrac_monitor - INFO - 구독이 비활성화되어 있어 폴링 방식으로 전환
+2024-12-27 01:15:58 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:8443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-27 01:15:58 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: 시스템 기본 정보 조회 - URL: https://192.168.0.85:8443/redfish/v1/Systems/System.Embedded.1
+2024-12-27 01:15:58 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: BIOS 정보 조회 - URL: https://192.168.0.85:8443/redfish/v1/Systems/System.Embedded.1/Bios
+2024-12-27 01:15:58 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: iDRAC 정보 조회 - URL: https://192.168.0.85:8443/redfish/v1/Managers/iDRAC.Embedded.1
+2024-12-27 01:15:58 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://192.168.0.85:8443/redfish/v1/Systems/System.Embedded.1/Processors
+2024-12-27 01:15:58 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: 메모리 정보 조회 - URL: https://192.168.0.85:8443/redfish/v1/Systems/System.Embedded.1/Memory
+2024-12-27 01:15:59 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: 스토리지 정보 조회 - URL: https://192.168.0.85:8443/redfish/v1/Systems/System.Embedded.1/Storage
+2024-12-27 01:15:59 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: 전원 상태 조회 - URL: https://192.168.0.85:8443/redfish/v1/Chassis/System.Embedded.1/Power
+2024-12-27 01:15:59 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: 시스템 기본 정보 조회 - URL: https://192.168.0.85:8443/redfish/v1/Systems/System.Embedded.1
+2024-12-27 01:15:59 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: BIOS 정보 조회 - URL: https://192.168.0.85:8443/redfish/v1/Systems/System.Embedded.1/Bios
+2024-12-27 01:15:59 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: iDRAC 정보 조회 - URL: https://192.168.0.85:8443/redfish/v1/Managers/iDRAC.Embedded.1
+2024-12-27 01:15:59 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://192.168.0.85:8443/redfish/v1/Systems/System.Embedded.1/Processors
+2024-12-27 01:15:59 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: 메모리 정보 조회 - URL: https://192.168.0.85:8443/redfish/v1/Systems/System.Embedded.1/Memory
+2024-12-27 01:15:59 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: 스토리지 정보 조회 - URL: https://192.168.0.85:8443/redfish/v1/Systems/System.Embedded.1/Storage
+2024-12-27 01:15:59 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: 전원 상태 조회 - URL: https://192.168.0.85:8443/redfish/v1/Chassis/System.Embedded.1/Power
+2024-12-27 01:16:00 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://192.168.0.85:8443/redfish/v1/Systems/System.Embedded.1/Processors
+2024-12-27 01:16:00 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: 메모리 정보 조회 - URL: https://192.168.0.85:8443/redfish/v1/Systems/System.Embedded.1/Memory
+2024-12-27 01:16:01 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: 스토리지 정보 조회 - URL: https://192.168.0.85:8443/redfish/v1/Systems/System.Embedded.1/Storage
+2024-12-27 01:16:01 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: 네트워크 어댑터 정보 조회 - URL: https://192.168.0.85:8443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters
+2024-12-27 01:16:01 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: 전원 상태 조회 - URL: https://192.168.0.85:8443/redfish/v1/Chassis/System.Embedded.1/Power
+2024-12-27 01:16:01 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: iDRAC 상세 정보 조회 - URL: https://192.168.0.85:8443/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellAttributes/iDRAC.Embedded.1
+2024-12-27 01:16:01 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: License 정보 조회 - URL: https://192.168.0.85:8443/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellLicenses
+2024-12-27 01:16:04 - [75683] - dell_idrac_monitor - INFO - 서버 연결 상태 변경: 192.168.0.85 (응답시간: 15ms)
+2024-12-27 01:16:05 - [75683] - dell_idrac_monitor - DEBUG - 시스템 정보 조회 시도
+2024-12-27 01:16:05 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: BIOS 정보 조회 - URL: https://192.168.0.85:8443/redfish/v1/Systems/System.Embedded.1/Bios
+2024-12-27 01:16:05 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: iDRAC 상세 정보 조회 - URL: https://192.168.0.85:8443/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellAttributes/iDRAC.Embedded.1
+2024-12-27 01:16:05 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:8443/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellAttributes/System.Embedded.1
+2024-12-27 01:16:05 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: 네트워크 어댑터 정보 조회 - URL: https://192.168.0.85:8443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters
+2024-12-27 01:16:06 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:8443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Embedded.1/NetworkDeviceFunctions/NIC.Embedded.1-1-1/Oem/Dell/DellNetworkAttributes/NIC.Embedded.1-1-1
+2024-12-27 01:16:06 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:8443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Embedded.1/NetworkDeviceFunctions/NIC.Embedded.2-1-1/Oem/Dell/DellNetworkAttributes/NIC.Embedded.2-1-1
+2024-12-27 01:16:06 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:8443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Integrated.1/NetworkDeviceFunctions/NIC.Integrated.1-1-1/Oem/Dell/DellNetworkAttributes/NIC.Integrated.1-1-1
+2024-12-27 01:16:06 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:8443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Integrated.1/NetworkDeviceFunctions/NIC.Integrated.1-2-1/Oem/Dell/DellNetworkAttributes/NIC.Integrated.1-2-1
+2024-12-27 01:16:06 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:8443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.1/NetworkDeviceFunctions/NIC.Slot.1-1-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.1-1-1
+2024-12-27 01:16:06 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:8443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.1/NetworkDeviceFunctions/NIC.Slot.1-2-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.1-2-1
+2024-12-27 01:16:06 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:8443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.2/NetworkDeviceFunctions/NIC.Slot.2-1-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.2-1-1
+2024-12-27 01:16:06 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:8443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.2/NetworkDeviceFunctions/NIC.Slot.2-2-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.2-2-1
+2024-12-27 01:16:06 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:8443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.3/NetworkDeviceFunctions/NIC.Slot.3-1-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.3-1-1
+2024-12-27 01:16:06 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:8443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.3/NetworkDeviceFunctions/NIC.Slot.3-2-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.3-2-1
+2024-12-27 01:16:11 - [75683] - dell_idrac_monitor - DEBUG - SEL 로그 팝업창 열기 시도
+2024-12-27 01:16:11 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:8443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-27 01:16:12 - [75683] - dell_idrac_monitor - DEBUG - 전체 이벤트 업데이트: 18개
+2024-12-27 01:16:12 - [75683] - dell_idrac_monitor - DEBUG - 페이지 업데이트 - 시작: 0, 끝: 18, 전체: 18
+2024-12-27 01:16:12 - [75683] - dell_idrac_monitor - DEBUG - SEL 로그 데이터 업데이트: 18개 항목
+2024-12-27 01:16:18 - [75683] - dell_idrac_monitor - DEBUG - SEL 로그 팝업창 열기 시도
+2024-12-27 01:16:18 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:8443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-27 01:16:19 - [75683] - dell_idrac_monitor - DEBUG - 전체 이벤트 업데이트: 18개
+2024-12-27 01:16:19 - [75683] - dell_idrac_monitor - DEBUG - 페이지 업데이트 - 시작: 0, 끝: 18, 전체: 18
+2024-12-27 01:16:19 - [75683] - dell_idrac_monitor - DEBUG - SEL 로그 데이터 업데이트: 18개 항목
+2024-12-27 01:16:22 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: 시스템 기본 정보 조회 - URL: https://192.168.0.85:8443/redfish/v1/Systems/System.Embedded.1
+2024-12-27 01:16:22 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: BIOS 정보 조회 - URL: https://192.168.0.85:8443/redfish/v1/Systems/System.Embedded.1/Bios
+2024-12-27 01:16:22 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: iDRAC 정보 조회 - URL: https://192.168.0.85:8443/redfish/v1/Managers/iDRAC.Embedded.1
+2024-12-27 01:16:22 - [75683] - dell_idrac_monitor - DEBUG - Dell 지원 사이트 접근: 모델 기반 URL - https://www.dell.com/support/home/ko-kr/product-support/product/poweredge-r650/overview
+2024-12-27 01:16:29 - [75683] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-27 01:16:29 - [75683] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:8443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-27 01:17:01 - [75683] - dell_idrac_monitor - INFO - 애플리케이션 종료 프로세스 시작
+2024-12-27 01:17:01 - [75683] - dell_idrac_monitor - DEBUG - 서버 연결 해제 중...
+2024-12-27 01:17:01 - [75683] - dell_idrac_monitor - DEBUG - 서버 연결 해제 완료
+2024-12-27 01:17:01 - [75683] - dell_idrac_monitor - DEBUG - 리소스 정리 중...
