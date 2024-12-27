@@ -1,3 +1,0 @@
-([('DellIDRACMonitor',
-   '/Users/kimnamjun/Documents/python/dell/app/dist/DellIDRACMonitor',
-   'EXECUTABLE')],)
