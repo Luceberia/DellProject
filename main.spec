@@ -1,8 +1,17 @@
 # -*- mode: python ; coding: utf-8 -*-
 
 import os
+import re
 
-VERSION = '1.0.0'
+def get_version():
+    with open('version.py', 'r', encoding='utf-8') as f:
+        content = f.read()
+        version_match = re.search(r'__version__\s*=\s*["\']([^"\']+)["\']', content)
+        if version_match:
+            return version_match.group(1)
+    return '0.0.0'
+
+VERSION = get_version()
 
 a = Analysis(
     ['main.py'],
@@ -60,19 +69,16 @@ app = BUNDLE(
     exe,
     name='DellIDRACMonitor.app',
     icon=None,
-    bundle_identifier='com.yourcompany.DellIDRACMonitor',  # 고유 번들 식별자
+    bundle_identifier='com.yourcompany.DellIDRACMonitor',
     version=VERSION,
     info_plist={
         'CFBundleShortVersionString': VERSION,
         'CFBundleVersion': VERSION,
         'LSMinimumSystemVersion': '10.13.0',
         'NSHighResolutionCapable': True,
-        'NSRequiresAquaSystemAppearance': False,
-        # 필요한 권한 설정
-        'NSAppleEventsUsageDescription': '앱 업데이트를 위해 관리자 권한이 필요합니다.',
-        'NSSystemAdministrationUsageDescription': '시스템 관리 작업을 수행하기 위해 권한이 필요합니다.',
-        # 앱 실행 권한 설정
-        'LSUIElement': False,  # Dock에 아이콘 표시
-        'LSBackgroundOnly': False,  # 백그라운드 전용 여부
+        'NSAppleEventsUsageDescription': '앱 업데이트 및 시스템 관리를 위해 권한이 필요합니다.',
+        'NSSystemAdministrationUsageDescription': '시스템 모니터링을 위해 관리자 권한이 필요합니다.',
+        'LSUIElement': False,
+        'LSBackgroundOnly': False
     }
 )
