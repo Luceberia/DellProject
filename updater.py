@@ -128,14 +128,16 @@ def download_and_apply_update(download_url, progress_dialog):
         script_content = f'''#!/bin/bash
         sleep 2
 
+        # 관리자 권한이 필요한 작업
         osascript -e 'do shell script "rm -rf \\"{current_app}\\" && \
         cp -R \\"{new_app}\\" \\"/Applications/\\" && \
         chmod -R 755 \\"/Applications/DellIDRACMonitor.app\\" && \
         xattr -rd com.apple.quarantine \\"/Applications/DellIDRACMonitor.app\\" && \
         rm -rf \\"{update_path}\\"" with administrator privileges'
 
-        # 앱 실행
-        open "/Applications/DellIDRACMonitor.app"
+        # 별도의 명령으로 앱 실행
+        sleep 1
+        osascript -e 'tell application "/Applications/DellIDRACMonitor.app" to activate'
         '''
 
         with open(update_script, 'w') as f:
