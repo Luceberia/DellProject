@@ -8,7 +8,10 @@ from ui.components.monitor_section import create_monitor_section
 from ui.components.hardware_section import create_hardware_section
 from ui.components.settings_dialog import SettingsDialog
 from version import __version__
-from updater import update_application
+from updater import check_for_updates, download_and_apply_update
+import os
+import sys
+import subprocess
 
 logger = setup_logging()
 
@@ -21,8 +24,8 @@ class DellIDRACMonitor(QMainWindow):
 
         # 업데이트 체크 타이머 설정
         self.update_timer = QTimer(self)
-        self.update_timer.timeout.connect(lambda: update_application(self))
-        self.update_timer.start(3600000)  # 1시간마다 체크
+        self.update_timer.timeout.connect(self.check_updates)
+        self.update_timer.start(60000)  # 1분마다 체크
 
         self.center()
         
@@ -105,3 +108,52 @@ class DellIDRACMonitor(QMainWindow):
             cp = screen.availableGeometry().center()
             qr.moveCenter(cp)
             self.move(qr.topLeft())
+
+    def check_updates(self):
+        try:
+            from version import __version__
+            update_info = check_for_updates(__version__)
+            if update_info:
+                latest_version = update_info['tag_name'].replace('v', '')
+                reply = QMessageBox.question(
+                    self,
+                    "업데이트 확인",
+                    f"새로운 버전이 있습니다!\n\n"
+                    f"현재 버전: {__version__}\n"
+                    f"최신 버전: {latest_version}\n\n"
+                    "업데이트를 진행하시겠습니까?",
+                    QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+                    QMessageBox.StandardButton.No
+                )
+                if reply == QMessageBox.StandardButton.Yes:
+                    self.apply_update(update_info)
+        except Exception as e:
+            logger.error(f"업데이트 확인 중 오류 발생: {e}")
+
+    def apply_update(self, update_info):
+        try:
+            download_url = update_info['assets'][0]['browser_download_url']
+            progress = QProgressDialog("업데이트 다운로드 중...", "취소", 0, 100, self)
+            progress.setWindowModality(Qt.WindowModality.WindowModal)
+            progress.show()
+            
+            try:
+                if download_and_apply_update(download_url, progress):
+                    logger.debug("업데이트 파일 다운로드 및 설치 완료")
+                    QMessageBox.information(self, "업데이트 완료", 
+                        "업데이트가 완료되었습니다. 프로그램이 자동으로 재시작됩니다.")
+                    
+                    # 정상적인 종료 처리
+                    self.cleanup()  # 리소스 정리
+                    sys.exit(0)
+                else:
+                    logger.error("업데이트 적용 실패")
+                    QMessageBox.warning(self, "업데이트 실패", 
+                        "업데이트 중 오류가 발생했습니다.")
+            finally:
+                progress.close()
+                
+        except Exception as e:
+            logger.error(f"업데이트 중 오류 발생: {e}", exc_info=True)
+            QMessageBox.warning(self, "업데이트 오류", 
+                f"업데이트 중 오류가 발생했습니다: {e}")
