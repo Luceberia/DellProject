@@ -145,8 +145,6 @@ def download_and_apply_update(download_url, progress_dialog):
         # 스크립트 실행
         subprocess.run(['/bin/bash', update_script], check=True)
         logger.debug("업데이트 스크립트 실행 완료")
-        # 메시지 박스는 여기서만 표시
-        QMessageBox.information(None, "업데이트 알림", "업데이트가 완료되었습니다. 프로그램을 다시 시작합니다.")
         return True
 
     except subprocess.CalledProcessError as e:
