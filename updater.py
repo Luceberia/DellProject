@@ -127,7 +127,14 @@ def download_and_apply_update(download_url, progress_dialog):
         update_script = os.path.join(update_path, "update.sh")
         script_content = f'''#!/bin/bash
         sleep 2
-        osascript -e 'do shell script "rm -rf \\"{current_app}\\" && cp -R \\"{new_app}\\" \\"/Applications/\\" && chmod -R 755 \\"/Applications/DellIDRACMonitor.app\\" && xattr -rd com.apple.quarantine \\"/Applications/DellIDRACMonitor.app\\" && rm -rf \\"{update_path}\\"" with administrator privileges'
+
+        osascript -e 'do shell script "rm -rf \\"{current_app}\\" && \
+        cp -R \\"{new_app}\\" \\"/Applications/\\" && \
+        chmod -R 755 \\"/Applications/DellIDRACMonitor.app\\" && \
+        xattr -rd com.apple.quarantine \\"/Applications/DellIDRACMonitor.app\\" && \
+        rm -rf \\"{update_path}\\"" with administrator privileges'
+
+        # 앱 실행
         open "/Applications/DellIDRACMonitor.app"
         '''
 
@@ -136,20 +143,19 @@ def download_and_apply_update(download_url, progress_dialog):
         os.chmod(update_script, 0o755)
 
         # 스크립트 실행
-        try:
-            subprocess.run(['/bin/bash', update_script], check=True)
-            logger.debug("업데이트 스크립트 실행 완료")
-            QMessageBox.information(None, "업데이트 알림", "업데이트가 완료되었습니다. 프로그램을 다시 시작합니다.")
-            return True
-        except subprocess.CalledProcessError as e:
-            logger.error(f"스크립트 실행 실패: {e}")
-            QMessageBox.critical(None, "업데이트 오류", "업데이트 적용 중 오류가 발생했습니다.")
-            return False
+        subprocess.run(['/bin/bash', update_script], check=True)
+        logger.debug("업데이트 스크립트 실행 완료")
+        # 메시지 박스는 여기서만 표시
+        QMessageBox.information(None, "업데이트 알림", "업데이트가 완료되었습니다. 프로그램을 다시 시작합니다.")
+        return True
 
+    except subprocess.CalledProcessError as e:
+        logger.error(f"스크립트 실행 실패: {e}")
+        QMessageBox.critical(None, "업데이트 오류", "업데이트 적용 중 오류가 발생했습니다.")
+        return False
     except Exception as e:
         logger.error(f"업데이트 중 오류 발생: {str(e)}", exc_info=True)
         return False
-
     finally:
         if update_path and os.path.exists(update_path):
             logger.debug(f"임시 디렉토리 정리: {update_path}")
