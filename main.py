@@ -1,6 +1,8 @@
 import sys
 import os
 from PyQt6.QtWidgets import QApplication
+from PyQt6.QtCore import QTimer, Qt
+from PyQt6.QtGui import QScreen
 
 if getattr(sys, 'frozen', False):
     # PyInstaller로 패키징된 경우

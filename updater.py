@@ -126,21 +126,12 @@ def download_and_apply_update(download_url, progress_dialog):
         # 업데이트 스크립트 생성
         update_script = os.path.join(update_path, "update.sh")
         script_content = f'''#!/bin/bash
-        sleep 2
-
-        # 관리자 권한이 필요한 작업
+        # 관리자 권한으로 앱 업데이트
         osascript -e 'do shell script "rm -rf \\"{current_app}\\" && \
         cp -R \\"{new_app}\\" \\"/Applications/\\" && \
         chmod -R 755 \\"/Applications/DellIDRACMonitor.app\\" && \
         xattr -rd com.apple.quarantine \\"/Applications/DellIDRACMonitor.app\\" && \
         rm -rf \\"{update_path}\\"" with administrator privileges'
-
-        # 프로세스 종료 대기 후 앱 실행
-        sleep 3
-        until ! pgrep -f "DellIDRACMonitor" > /dev/null; do
-            sleep 1
-        done
-        open -n "/Applications/DellIDRACMonitor.app"
         '''
 
         with open(update_script, 'w') as f:
@@ -148,10 +139,7 @@ def download_and_apply_update(download_url, progress_dialog):
         os.chmod(update_script, 0o755)
 
         # 스크립트 실행
-        subprocess.Popen(['/bin/bash', update_script], 
-                        start_new_session=True,
-                        stdout=subprocess.DEVNULL,
-                        stderr=subprocess.DEVNULL)
+        subprocess.run(['/bin/bash', update_script], check=True)
         logger.debug("업데이트 스크립트 실행 완료")
         return True
 

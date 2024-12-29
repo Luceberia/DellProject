@@ -53,7 +53,7 @@ def get_log_dir():
     if getattr(sys, 'frozen', False):
         # 배포 모드 (PyInstaller로 패키징된 경우)
         if sys.platform == 'darwin':  # macOS
-            log_dir = Path.home() / 'Library' / 'Logs' / 'DellIDRACMonitor'
+            log_dir = Path.home() / 'Library' / 'Logs' / 'DellIDRACMonitor' # ~/Library/Logs/DellIDRACMonitor/
         elif sys.platform == 'win32':  # Windows
             log_dir = Path(os.getenv('APPDATA')) / 'DellIDRACMonitor' / 'Logs'
         else:  # Linux 등 기타 OS

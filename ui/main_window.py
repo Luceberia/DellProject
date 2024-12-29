@@ -139,6 +139,25 @@ class DellIDRACMonitor(QMainWindow):
             
             try:
                 if download_and_apply_update(download_url, progress):
+                    # 재시작 스크립트 생성
+                    restart_cmd = '''#!/bin/bash
+                    sleep 3
+                    until ! pgrep -f "DellIDRACMonitor" > /dev/null; do
+                        sleep 1
+                    done
+                    open -n "/Applications/DellIDRACMonitor.app"
+                    '''
+                    
+                    with open('/tmp/restart_app.sh', 'w') as f:
+                        f.write(restart_cmd)
+                    os.chmod('/tmp/restart_app.sh', 0o755)
+                    
+                    # 백그라운드에서 재시작 스크립트 실행
+                    subprocess.Popen(['/bin/bash', '/tmp/restart_app.sh'], 
+                                start_new_session=True,
+                                stdout=subprocess.DEVNULL,
+                                stderr=subprocess.DEVNULL)
+                    
                     logger.debug("업데이트 파일 다운로드 및 설치 완료")
                     QMessageBox.information(self, "업데이트 완료", 
                         "업데이트가 완료되었습니다. 프로그램이 자동으로 재시작됩니다.")
