@@ -79,6 +79,18 @@ app = BUNDLE(
         'NSAppleEventsUsageDescription': '앱 업데이트 및 시스템 관리를 위해 권한이 필요합니다.',
         'NSSystemAdministrationUsageDescription': '시스템 모니터링을 위해 관리자 권한이 필요합니다.',
         'LSUIElement': False,
-        'LSBackgroundOnly': False
+        'LSBackgroundOnly': False,
+        'NSRequiresAquaSystemAppearance': False,
+        'CFBundleDisplayName': 'DellIDRACMonitor',
+        'CFBundleName': 'DellIDRACMonitor',
+        'CFBundlePackageType': 'APPL',
+        'CFBundleSignature': '????',
+        'LSApplicationCategoryType': 'public.app-category.utilities',
+        # 추가할 설정
+        'NSMainNibFile': '',  # 메인 nib 파일 없음을 명시
+        'NSSupportsAutomaticTermination': False,  # 자동 종료 비활성화
+        'NSHumanReadableCopyright': f'© 2024 DellIDRACMonitor {VERSION}',  # 저작권 정보
+        'CFBundleDocumentTypes': [],  # 문서 타입 명시
+        'CFBundleURLTypes': []  # URL 스킴 명시
     }
 )

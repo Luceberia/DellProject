@@ -1,7 +1,7 @@
 from config.system.log_config import setup_logging
 from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QMessageBox, QProgressDialog
 from PyQt6.QtGui import QGuiApplication, QCloseEvent, QDesktopServices
-from PyQt6.QtCore import QCoreApplication, QTimer, Qt, QProcess
+from PyQt6.QtCore import QCoreApplication, QTimer, Qt, QProcess, QThread, pyqtSignal
 from typing import Optional
 from ui.components.server_section import create_server_section
 from ui.components.monitor_section import create_monitor_section
@@ -19,9 +19,18 @@ class DellIDRACMonitor(QMainWindow):
     def __init__(self):
         super().__init__()
         self._is_closing = False
+        self.setAttribute(Qt.WidgetAttribute.WA_DeleteOnClose, False)
         self.setWindowTitle(f"Dell iDRAC Monitor {__version__}")
         self.resize(500, 400)
 
+        # UI 초기화만 먼저 수행
+        self.init_ui()
+        self.show()  # UI 즉시 표시
+        
+        # 서버 정보 로드와 설정은 UI 표시 후 비동기로 실행
+        QTimer.singleShot(0, self.check_server_settings)
+
+    def init_ui(self):
         # 업데이트 체크 타이머 설정
         self.update_timer = QTimer(self)
         self.update_timer.timeout.connect(self.check_updates)
@@ -53,12 +62,10 @@ class DellIDRACMonitor(QMainWindow):
         main_layout.addWidget(create_monitor_section())
         main_layout.addWidget(self.hardware_section)
 
-        # 종료 시그널 연결
-        self._is_closing = False
-        
-        # 저장된 서버가 없으면 설정 창 자동으로 표시
+    def check_server_settings(self):
+        """서버 설정 확인"""
         from config.server.server_config import server_config
-        if not server_config.get_all_servers():
+        if not server_config.servers:
             self.show_settings_dialog()
 
     def closeEvent(self, a0: Optional[QCloseEvent]) -> None:
