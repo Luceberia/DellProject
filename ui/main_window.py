@@ -136,24 +136,35 @@ class DellIDRACMonitor(QMainWindow):
             progress = QProgressDialog("업데이트 다운로드 중...", "취소", 0, 100, self)
             progress.setWindowModality(Qt.WindowModality.WindowModal)
             progress.show()
-            
-            try:
-                if download_and_apply_update(download_url, progress):
-                    logger.debug("업데이트 파일 다운로드 및 설치 완료")
-                    QMessageBox.information(self, "업데이트 완료", 
-                        "업데이트가 완료되었습니다. 프로그램이 자동으로 재시작됩니다.")
-                    
-                    # 정상적인 종료 처리
-                    self.cleanup()  # 리소스 정리
-                    sys.exit(0)
-                else:
-                    logger.error("업데이트 적용 실패")
-                    QMessageBox.warning(self, "업데이트 실패", 
-                        "업데이트 중 오류가 발생했습니다.")
-            finally:
-                progress.close()
+
+            if download_and_apply_update(download_url, progress):
+                # 재시작 스크립트 생성
+                restart_script = f'''#!/bin/bash
+                sleep 3
+                open "/Applications/DellIDRACMonitor.app"
+                '''
                 
+                with open('/tmp/restart.sh', 'w') as f:
+                    f.write(restart_script)
+                os.chmod('/tmp/restart.sh', 0o755)
+                
+                # QProcess로 재시작 스크립트 실행
+                process = QProcess()
+                process.startDetached('bash', ['/tmp/restart.sh'])
+                
+                logger.debug("업데이트 파일 다운로드 및 설치 완료")
+                QMessageBox.information(self, "업데이트 완료", 
+                                    "업데이트가 완료되었습니다. 프로그램을 재시작합니다.")
+                
+                self.cleanup()
+                sys.exit(0)
+            else:
+                logger.error("업데이트 적용 실패")
+                QMessageBox.warning(self, "업데이트 실패", 
+                                "업데이트 중 오류가 발생했습니다.")
         except Exception as e:
             logger.error(f"업데이트 중 오류 발생: {e}", exc_info=True)
             QMessageBox.warning(self, "업데이트 오류", 
-                f"업데이트 중 오류가 발생했습니다: {e}")
+                            f"업데이트 중 오류가 발생했습니다: {e}")
+        finally:
+            progress.close()
