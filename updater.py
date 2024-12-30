@@ -15,11 +15,11 @@ def check_for_updates(current_version):
     try:
         api_url = "https://api.github.com/repos/Luceberia/DellProject/releases/latest"
         response = requests.get(api_url)
+        
         if response.status_code == 200:
             latest_release = response.json()
             latest_version = latest_release['tag_name'].replace('v', '')
             
-            # 버전 비교를 위해 튜플로 변환
             current = tuple(map(int, current_version.split('.')))
             latest = tuple(map(int, latest_version.split('.')))
             
@@ -27,8 +27,10 @@ def check_for_updates(current_version):
             
             if latest > current:
                 return latest_release
+                
     except Exception as e:
         logger.error(f"업데이트 확인 중 오류 발생: {e}")
+    
     return None
 
 def get_app_version():

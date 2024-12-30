@@ -7,6 +7,8 @@ from ui.components.server_section import create_server_section
 from ui.components.monitor_section import create_monitor_section
 from ui.components.hardware_section import create_hardware_section
 from ui.components.settings_dialog import SettingsDialog
+from datetime import datetime, timedelta
+import requests
 from version import __version__
 from updater import check_for_updates, download_and_apply_update
 import os
@@ -22,50 +24,39 @@ class DellIDRACMonitor(QMainWindow):
         self.setAttribute(Qt.WidgetAttribute.WA_DeleteOnClose, False)
         self.setWindowTitle(f"Dell iDRAC Monitor {__version__}")
         self.resize(500, 400)
-
-        # UI 초기화만 먼저 수행
-        self.init_ui()
-        self.show()  # UI 즉시 표시
         
-        # 서버 정보 로드와 설정은 UI 표시 후 비동기로 실행
+        # 마지막 업데이트 확인 시간 저장
+        self.last_update_check = datetime.now()
+        
+        self.init_ui()
+        self.show()
         QTimer.singleShot(0, self.check_server_settings)
 
     def init_ui(self):
-        # 메뉴바 생성
         menubar = self.menuBar()
         help_menu = menubar.addMenu('도움말')
         
-        # 로그 폴더 열기 액션 추가
+        # 업데이트 확인 메뉴 추가
+        check_update_action = help_menu.addAction('업데이트 확인')
+        check_update_action.triggered.connect(self.check_updates)
+        
         open_log_action = help_menu.addAction('로그 폴더 열기')
         open_log_action.triggered.connect(self.open_log_folder)
         
-        # 업데이트 체크 타이머 설정
-        self.update_timer = QTimer(self)
-        self.update_timer.timeout.connect(self.check_updates)
-        self.update_timer.start(60000)  # 1분마다 체크
-
         self.center()
         
-        # 중앙 위젯 생성
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
         main_layout = QVBoxLayout(central_widget)
-
-        # 설정 다이얼로그 초기화
+        
         self.settings_dialog = SettingsDialog(self)
-        
-        # 서버 섹션 초기화
         self.server_section = create_server_section()
-        
-        # 하드웨어 섹션 초기화 (연결 전 상태)
         self.hardware_section = create_hardware_section(self)
         
-        # 서버 섹션 시그널 연결
         self.server_section.server_connection_changed.connect(
             self.hardware_section.on_server_connected
         )
-
-        # 각 섹션 추가
+        
         main_layout.addWidget(self.server_section)
         main_layout.addWidget(create_monitor_section())
         main_layout.addWidget(self.hardware_section)
@@ -126,28 +117,42 @@ class DellIDRACMonitor(QMainWindow):
 
     def check_updates(self):
         try:
-            from version import __version__
-            update_info = check_for_updates(__version__)
-            if update_info:
-                latest_version = update_info['tag_name'].replace('v', '')
-                reply = QMessageBox.question(
-                    self,
-                    "업데이트 확인",
-                    f"새로운 버전이 있습니다!\n\n"
-                    f"현재 버전: {__version__}\n"
-                    f"최신 버전: {latest_version}\n\n"
-                    "업데이트를 진행하시겠습니까?",
-                    QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
-                    QMessageBox.StandardButton.No
-                )
-                if reply == QMessageBox.StandardButton.Yes:
-                    self.apply_update(update_info)
+            # 하루에 한 번만 자동 체크
+            if datetime.now() - self.last_update_check < timedelta(days=1):
+                return
+
+            api_url = "https://api.github.com/repos/Luceberia/DellProject/releases/latest"
+            response = requests.get(api_url)
+            
+            if response.status_code == 200:
+                release_info = response.json()
+                latest_version = release_info['tag_name'].replace('v', '')
+                
+                logger.debug(f"현재 버전: {__version__}, 최신 버전: {latest_version}")
+                
+                if latest_version != __version__:
+                    reply = QMessageBox.question(
+                        self,
+                        "업데이트 확인",
+                        f"새로운 버전이 있습니다!\n\n"
+                        f"현재 버전: {__version__}\n"
+                        f"최신 버전: {latest_version}\n\n"
+                        "업데이트를 진행하시겠습니까?",
+                        QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+                        QMessageBox.StandardButton.No
+                    )
+                    
+                    if reply == QMessageBox.StandardButton.Yes:
+                        self.apply_update(release_info)
+                
+                self.last_update_check = datetime.now()
+                
         except Exception as e:
             logger.error(f"업데이트 확인 중 오류 발생: {e}")
 
-    def apply_update(self, update_info):
+    def apply_update(self, release_info):
         try:
-            download_url = update_info['assets'][0]['browser_download_url']
+            download_url = release_info['assets'][0]['browser_download_url']
             progress = QProgressDialog("업데이트 다운로드 중...", "취소", 0, 100, self)
             progress.setWindowModality(Qt.WindowModality.WindowModal)
             progress.show()
