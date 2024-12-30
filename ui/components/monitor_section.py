@@ -33,8 +33,8 @@ def create_section(title, items, parent=None):
         "BIOS 설정": "🔧",
         "SSH 연결": "🔌",
         # 로그 섹션
-        "SEL LOG": "📜",
-        "LC LOG": "📋"
+        "LC LOG": "📜",
+        "TSR LOG": "📋",
     }
     
     buttons = {}
@@ -57,12 +57,12 @@ def create_section(title, items, parent=None):
         # SSH 연결 버튼 클릭 이벤트 처리
         elif item == "SSH 연결":
             btn.clicked.connect(lambda checked=False, p=parent: open_ssh_connection(p))
-        # SEL LOG와 LC LOG 버튼 클릭 이벤트 처리
-        elif item == "SEL LOG":
-            btn.clicked.connect(lambda checked=False, p=parent: show_sel_log_popup(p))
+        # LC LOG와 TSR LOG 버튼 클릭 이벤트 처리
         elif item == "LC LOG":
             btn.clicked.connect(lambda checked=False, p=parent: show_lc_log_popup(p))
-            
+        elif item == "TSR LOG":
+            btn.clicked.connect(lambda checked=False, p=parent: show_tsr_log_popup(p))
+
     return group, buttons
 
 def get_main_window() -> Optional[QMainWindow]:
@@ -82,7 +82,7 @@ def create_monitor_section(parent=None):
     sections = {
         "📊 모니터링": ["시스템 상태", "펌웨어 정보"],
         "⚙️ 관리": ["BIOS 설정", "SSH 연결"],
-        "📋 로그": ["SEL LOG", "LC LOG"]
+        "📋 로그": ["LC LOG", "TSR LOG"]
     }
     
     for title, items in sections.items():
@@ -152,6 +152,12 @@ def show_ssh_command_dialog(parent):
                 "needs_confirm": True,
                 "confirm_message": "SEL 로그를 초기화하시겠습니까?",
                 "post_action": "refresh_sel"
+            },
+            "TSR 로그 수집": {  # TSR 로그 수집 명령어 추가
+                "command": "racadm techsupreport collect -t Sysinfo,TTYLog",
+                "needs_input": False,
+                "needs_confirm": False,
+                "is_tsr": True  # TSR 로그 수집임을 표시
             }
         }
     }
@@ -257,63 +263,108 @@ def show_ssh_command_dialog(parent):
     if not command_info:  # 카테고리가 선택된 경우
         return True, None
         
-    # 확인이 필요한 명령어인 경우
-    if command_info.get('needs_confirm'):
-        confirm = QMessageBox.question(
-            dialog,
-            "확인",
-            command_info['confirm_message'],
-            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
-            QMessageBox.StandardButton.No
-        )
-        if confirm == QMessageBox.StandardButton.No:
-            return False, None  # Cancel 버튼과 동일하게 처리
-    
-    # 입력이 필요한 명령어인 경우
-    if command_info.get('needs_input'):
-        hostname = show_hostname_input_dialog(dialog)
-        if hostname is not None:
-            return True, command_info['command'].format(hostname=hostname)
-        return False, None  # Cancel 버튼과 동일하게 처리
-    
-    return True, command_info['command']
+    return True, command_info
 
-def show_context_menu(pos, tree, favorites, settings):
-    item = tree.itemAt(pos)
-    if not item:
-        return
-        
-    command_info = item.data(0, Qt.ItemDataRole.UserRole)
-    if not command_info:  # 카테고리인 경우
-        return
-        
-    menu = QMenu()
-    command_name = item.text(0)
-    
-    if command_name in favorites:
-        action = menu.addAction("즐겨찾기 제거")
-        action.triggered.connect(
-            lambda: remove_from_favorites(command_name, favorites, settings)
-        )
-    else:
-        action = menu.addAction("즐겨찾기 추가")
-        action.triggered.connect(
-            lambda: add_to_favorites(command_name, favorites, settings)
-        )
-    
-    menu.exec(tree.viewport().mapToGlobal(pos))
+def collect_tsr_log(parent, host, username, password=None):
+    """TSR 로그를 Redfish API를 통해 수집하고 로컬로 다운로드합니다."""
+    progress = QProgressDialog("TSR 로그 수집 중...", "취소", 0, 100, parent)
+    progress.setWindowModality(Qt.WindowModality.WindowModal)
+    progress.setAutoClose(True)
+    progress.setAutoReset(True)
+    progress.setMinimumDuration(0)
+    progress.show()
 
-def add_to_favorites(command_name, favorites, settings, update_callback):
-    if command_name not in favorites:
-        favorites.append(command_name)
-        settings.setValue('ssh_favorites', favorites)
-        update_callback()
+    # 홈 디렉토리에 저장할 파일명 생성
+    timestamp = time.strftime("%Y%m%d_%H%M%S")
+    tsr_filename = f"tsr_log_{host}_{timestamp}.zip"
+    home_dir = str(Path.home())
+    local_path = os.path.join(home_dir, "Downloads", tsr_filename)
 
-def remove_from_favorites(command_name, favorites, settings, update_callback):
-    if command_name in favorites:
-        favorites.remove(command_name)
-        settings.setValue('ssh_favorites', favorites)
-        update_callback()
+    def update_progress():
+        nonlocal progress_value
+        if progress_value < 95:  # 95%까지만 자동으로 증가
+            progress_value += 1
+            progress.setValue(progress_value)
+
+    try:
+        progress_value = 0
+        progress.setValue(progress_value)
+        progress.setLabelText("TSR 로그 수집 중...")
+
+        # Redfish API 엔드포인트
+        base_url = f"https://{host}/redfish/v1"
+        managers_url = f"{base_url}/Managers/iDRAC.Embedded.1"
+        export_url = f"{managers_url}/Oem/Dell/DellLCService/Actions/DellLCService.ExportTechSupportReport"
+
+        # 인증 및 헤더 설정
+        auth = (username, password) if password else None
+        headers = {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+
+        # TSR 수집 요청
+        data = {
+            "ShareType": "Local",
+            "DataSelectorArrayIn": ["SelLog", "TTYLog"],
+            "FileName": tsr_filename
+        }
+
+        # SSL 검증 비활성화 (자체 서명 인증서 사용 시)
+        import urllib3
+        urllib3.disable_warnings()
+
+        # 진행 상태 업데이트를 위한 타이머 설정
+        timer = QTimer(parent)
+        timer.timeout.connect(update_progress)
+        timer.start(1000)  # 1초마다 업데이트
+
+        # TSR 수집 요청 보내기
+        response = requests.post(
+            export_url,
+            json=data,
+            auth=auth,
+            headers=headers,
+            verify=False  # SSL 검증 비활성화
+        )
+
+        if response.status_code != 202:
+            raise Exception(f"TSR 로그 수집 요청 실패: {response.text}")
+
+        # 작업 상태 모니터링
+        task_uri = response.headers.get('Location')
+        if not task_uri:
+            task_uri = response.json().get('@odata.id')
+
+        if not task_uri:
+            raise Exception("작업 상태를 모니터링할 수 없습니다.")
+
+        # 작업 완료 대기
+        while True:
+            task_response = requests.get(
+                f"https://{host}{task_uri}",
+                auth=auth,
+                headers=headers,
+                verify=False
+            )
+            
+            task_data = task_response.json()
+            if task_data.get('TaskState') == 'Completed':
+                break
+            elif task_data.get('TaskState') in ['Failed', 'Exception', 'Killed']:
+                raise Exception(f"TSR 로그 수집 실패: {task_data.get('Messages', [{}])[0].get('Message')}")
+            
+            time.sleep(2)
+
+        progress.setValue(100)
+        QMessageBox.information(parent, "완료", f"TSR 로그가 성공적으로 수집되었습니다.\n저장 위치: {local_path}")
+
+    except Exception as e:
+        logger.error(f"TSR 로그 수집 중 오류 발생: {str(e)}")
+        QMessageBox.critical(parent, "오류", f"TSR 로그 수집 중 오류가 발생했습니다: {str(e)}")
+    finally:
+        timer.stop() if 'timer' in locals() else None
+        progress.close()
 
 def open_ssh_connection(parent):
     try:
@@ -340,10 +391,10 @@ def open_ssh_connection(parent):
             return
         
         # SSH 명령어 선택 대화상자 표시
-        proceed, selected_command = show_ssh_command_dialog(parent)
+        proceed, command_info = show_ssh_command_dialog(parent)
         
         # Cancel 버튼을 눌렀으면 종료
-        if not proceed:
+        if not proceed or not command_info:
             return
             
         from utils.ssh_utils import open_ssh_terminal
@@ -356,15 +407,20 @@ def open_ssh_connection(parent):
             "password": server_info.get('PASSWORD')
         }
         
-        if selected_command is not None:
-            ssh_params["command"] = selected_command
+        # TSR 로그 수집인 경우
+        if command_info.get('is_tsr'):
+            collect_tsr_log(parent, ssh_params['host'], ssh_params['username'], ssh_params['password'])
+        else:
+            # 일반 SSH 명령어 실행
+            if command_info.get('command') is not None:
+                ssh_params["command"] = command_info['command']
             
-        # SSH 명령어 실행
-        open_ssh_terminal(**ssh_params)
+            # SSH 명령어 실행
+            open_ssh_terminal(**ssh_params)
         
-        # SEL 로그 초기화 후 갱신
-        if selected_command == "racadm clrsel":
-            QTimer.singleShot(2000, lambda: refresh_sel_after_clear(main_window))
+            # SEL 로그 초기화 후 갱신
+            if command_info.get('command') == "racadm clrsel":
+                QTimer.singleShot(2000, lambda: refresh_sel_after_clear(main_window))
             
     except Exception as e:
         logger.error(f"SSH 연결 실패: {str(e)}")
@@ -375,11 +431,6 @@ def open_ssh_connection(parent):
             parent
         )
         error_dialog.exec()
-
-def refresh_sel_after_clear(main_window):
-    """SEL 로그 초기화 후 이벤트 로그 갱신"""
-    if hasattr(main_window, 'server_section'):
-        main_window.server_section.update_log_count()
 
 def show_all_status(parent):
     """CPU(GPU포함) 정보 / MEMORY 정보 / STORAGE 정보 / NIC 정보 / PSU 정보 / iDRAC MAC 정보를 통합하여 테이블 형식으로 반환"""
@@ -1822,6 +1873,72 @@ def show_sel_log_popup(parent):
 
 def show_lc_log_popup(parent):
     show_log_popup(parent, 'lc')
+
+def show_tsr_log_popup(parent):
+    logger.debug("TSR 로그 수집 시도")
+    main_window = parent.window()
+    if not hasattr(main_window, 'server_section'):
+        error_dialog = ErrorDialog(
+            "서버 연결 오류",
+            "서버가 연결되어 있지 않습니다.",
+            "서버를 먼저 연결한 후 다시 시도해주세요.",
+            parent
+        )
+        error_dialog.exec()
+        return
+
+    server_info = main_window.server_section.current_server_info
+    if not server_info:
+        error_dialog = ErrorDialog(
+            "서버 연결 오류",
+            "서버 정보를 찾을 수 없습니다.",
+            "서버를 선택한 후 다시 시도해주세요.",
+            parent
+        )
+        error_dialog.exec()
+        return
+
+    progress_dialog = QProgressDialog("TSR 로그 수집 중...", "취소", 0, 100, parent)
+    progress_dialog.setWindowModality(Qt.WindowModality.WindowModal)
+    progress_dialog.setWindowTitle("TSR 로그 수집")
+    progress_dialog.setAutoClose(True)
+    progress_dialog.setMinimumDuration(0)
+    progress_dialog.show()
+
+    try:
+        server_manager = DellServerManager(
+            ip=server_info['IP'],
+            port=server_info['PORT'],
+            auth=(server_info['USERNAME'], server_info['PASSWORD'])
+        )
+
+        def update_progress(progress):
+            progress_dialog.setValue(int(progress))
+
+        tsr_file = server_manager.collect_tsr_log(progress_callback=update_progress)
+        
+        if tsr_file:
+            QMessageBox.information(parent, "완료", f"TSR 로그가 성공적으로 수집되었습니다.\n저장 위치: {tsr_file}")
+        else:
+            error_dialog = ErrorDialog(
+                "TSR 로그 수집 오류",
+                "TSR 로그 수집에 실패했습니다.",
+                "서버 연결 상태를 확인하고 다시 시도해주세요.",
+                parent
+            )
+            error_dialog.exec()
+
+    except Exception as e:
+        logger.error(f"TSR 로그 수집 중 오류 발생: {str(e)}")
+        error_dialog = ErrorDialog(
+            "TSR 로그 수집 오류",
+            "TSR 로그 수집에 실패했습니다.",
+            str(e),
+            parent
+        )
+        error_dialog.exec()
+    finally:
+        progress_dialog.close()
 
 def update_all_status():
     """모든 시스템 상태 정보 업데이트"""

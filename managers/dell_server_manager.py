@@ -3,6 +3,8 @@ import requests
 from endpoints.redfish_endpoints import RedfishEndpoints
 import urllib3
 import time
+import os
+from pathlib import Path
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -516,3 +518,86 @@ class DellServerManager:
             logger.error(f"네트워크 설정 조회 실패: {str(e)}")
             raise
 
+    def collect_tsr_log(self, progress_callback=None):
+        try:
+            managers_url = f"{self.endpoints.base_url}/Managers/iDRAC.Embedded.1"
+            export_url = f"{managers_url}/Oem/Dell/DellLCService/Actions/DellLCService.ExportTechSupportReport"
+            
+            basic_info = self.fetch_basic_info()
+            service_tag = basic_info['system'].get('ServiceTag', "Unknown")
+
+            timestamp = time.strftime("%Y%m%d_%H%M%S")
+            filename = f"TSR_Log_{service_tag}_{timestamp}.zip"
+            
+            data = {
+                "ShareType": "Local",
+                "DataSelectorArrayIn": ["SelLog", "TTYLog"],
+                "FileName": filename
+            }
+            
+            logger.info(f"TSR 로그 수집 요청 시작: {filename}")
+            response = requests.post(
+                export_url,
+                json=data,
+                auth=self.auth,
+                headers={'Content-Type': 'application/json'},
+                verify=False
+            )
+            
+            if response.status_code != 202:
+                raise Exception(f"TSR 로그 수집 요청 실패: {response.text}")
+            
+            task_uri = response.headers.get('Location') or response.json().get('@odata.id')
+            if not task_uri:
+                raise Exception("작업 상태를 모니터링할 수 없습니다.")
+            
+            logger.info("TSR 로그 수집 작업 모니터링 시작")
+            while True:
+                task_response = requests.get(
+                    f"{self.endpoints.base_url}{task_uri}",
+                    auth=self.auth,
+                    verify=False
+                )
+                
+                task_data = task_response.json()
+                task_state = task_data.get('TaskState')
+                if task_state == 'Completed':
+                    logger.info("TSR 로그 수집 완료")
+                    break
+                elif task_state in ['Failed', 'Exception', 'Killed']:
+                    error_message = task_data.get('Messages', [{}])[0].get('Message', '알 수 없는 오류')
+                    raise Exception(f"TSR 로그 수집 실패: {error_message}")
+                
+                time.sleep(2)
+                if progress_callback:
+                    progress_callback(task_data.get('PercentComplete', 0))
+            
+            logger.info("TSR 로그 파일 다운로드 시작")
+            download_url = f"{self.endpoints.base_url}/redfish/v1/UpdateService/FirmwareInventory/{filename}"
+            download_response = requests.get(
+                download_url,
+                auth=self.auth,
+                verify=False,
+                stream=True
+            )
+            
+            if download_response.status_code == 200:
+                download_path = os.path.join(os.path.expanduser("~"), "Downloads", filename)
+                total_size = int(download_response.headers.get('content-length', 0))
+                downloaded = 0
+                with open(download_path, 'wb') as file:
+                    for chunk in download_response.iter_content(chunk_size=8192):
+                        file.write(chunk)
+                        downloaded += len(chunk)
+                        if progress_callback and total_size:
+                            progress = (downloaded / total_size) * 100
+                            progress_callback(progress)
+                
+                logger.info(f"TSR 로그 다운로드 완료: {download_path}")
+                return download_path
+            else:
+                raise Exception(f"TSR 로그 다운로드 실패: HTTP 상태 코드 {download_response.status_code}")
+        
+        except Exception as e:
+            logger.error(f"TSR 로그 수집 중 오류 발생: {str(e)}")
+            return None
