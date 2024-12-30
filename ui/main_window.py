@@ -1,7 +1,7 @@
 from config.system.log_config import setup_logging, get_log_dir
-from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QMessageBox, QProgressDialog, QMenuBar, QDialog
+from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QMessageBox, QProgressDialog, QDialog
 from PyQt6.QtGui import QGuiApplication, QCloseEvent, QDesktopServices
-from PyQt6.QtCore import QCoreApplication, QTimer, Qt, QProcess, QThread, pyqtSignal, QUrl, QPoint
+from PyQt6.QtCore import QCoreApplication, QTimer, Qt, QUrl
 from typing import Optional
 from ui.components.server_section import create_server_section
 from ui.components.monitor_section import create_monitor_section
@@ -23,7 +23,7 @@ class DellIDRACMonitor(QMainWindow):
         super().__init__()
         self._is_closing = False
         self.setAttribute(Qt.WidgetAttribute.WA_DeleteOnClose, False)
-        self.setWindowTitle(f"Dell iDRAC Monitor {__version__}")
+        self.setWindowTitle(f"Dell iDRAC Monitor")
         self.resize(500, 400)
         
         # 마지막 업데이트 확인 시간 저장

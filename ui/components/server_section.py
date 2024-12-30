@@ -8,6 +8,7 @@ from managers.dell_server_manager import DellServerManager
 from ui.components.update_dialog import UpdateDialog
 from ui.components.popups.help_dialog import HelpDialog
 from utils.server_utils import convert_to_dict
+from version import __version__
 from updater import check_for_updates
 import requests
 import time
@@ -49,8 +50,8 @@ class ServerSection(QGroupBox):
             ("⚙️ 설정", self.show_settings),
             ("🔌 연결", self.check_server_connection),
             ("🔔 0", None),
-            ("🏷️ 버전", self.show_version_info),
-            ("❓ 도움말", self.show_help)
+            ("❓ 도움말", self.show_help),
+            ("v" + __version__, self.show_version_info),
         ]
         
         for text, callback in button_configs:
@@ -360,7 +361,7 @@ class ServerSection(QGroupBox):
     def disable_all_buttons(self):
         """모든 기능 버튼 비활성화"""
         for name, button in self.tools_buttons.items():
-            if name not in ["⚙️ 설정", "🔌 연결","🏷️ 버전", "❓ 도움말"]:  # 설정, 연결, 버전, 도움말 버튼은 제외
+            if name not in ["⚙️ 설정", "🔌 연결", "❓ 도움말", "v" + __version__]:  # 설정, 연결, 버전, 도움말 버튼은 제외
                 button.setEnabled(False)
         
         # 상태 표시 업데이트
