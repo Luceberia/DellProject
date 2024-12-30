@@ -1,10 +1,11 @@
 from config.system.log_config import setup_logging
-from PyQt6.QtWidgets import QGroupBox, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QSizePolicy, QMessageBox
+from PyQt6.QtWidgets import QGroupBox, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QSizePolicy, QDialog
 from PyQt6.QtCore import pyqtSignal, QTimer, QDateTime
 from ui.components.settings_dialog import SettingsDialog
 from network.connection_manager import ConnectionManager
 from config.server.server_config import server_config
 from managers.dell_server_manager import DellServerManager
+from ui.components.update_dialog import UpdateDialog
 from ui.components.popups.help_dialog import HelpDialog
 from utils.server_utils import convert_to_dict
 from updater import check_for_updates
@@ -48,7 +49,7 @@ class ServerSection(QGroupBox):
             ("⚙️ 설정", self.show_settings),
             ("🔌 연결", self.check_server_connection),
             ("🔔 0", None),
-            ("버전", self.show_version_info),
+            ("🏷️ 버전", self.show_version_info),
             ("❓ 도움말", self.show_help)
         ]
         
@@ -67,30 +68,33 @@ class ServerSection(QGroupBox):
         try:
             from version import __version__
             latest_release = check_for_updates(__version__)
-            if latest_release:
-                latest_version = latest_release['tag_name'].replace('v', '')
-                reply = QMessageBox.question(
-                    self, 
-                    "업데이트 가능",
-                    f"새로운 버전이 있습니다!\n\n"
-                    f"현재 버전: {__version__}\n"
-                    f"최신 버전: {latest_version}\n\n"
-                    "업데이트를 진행하시겠습니까?",
-                    QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
-                    QMessageBox.StandardButton.No
-                )
-                if reply == QMessageBox.StandardButton.Yes:
-                    main_window = self.window()
-                    if hasattr(main_window, 'apply_update'):
-                        main_window.apply_update(latest_release)
-            else:
-                QMessageBox.information(self, "버전 정보",
-                    f"현재 버전: {__version__}\n"
-                    "최신 버전을 사용 중입니다.")
+            
+            version_info = {
+                'current': __version__,
+                'latest': latest_release['tag_name'].replace('v', '') if latest_release else __version__
+            }
+            
+            dialog = UpdateDialog(
+                self,
+                version_info,
+                is_update=(latest_release is not None)
+            )
+            
+            result = dialog.exec()
+            
+            if result == QDialog.DialogCode.Accepted and latest_release:
+                main_window = self.window()
+                if hasattr(main_window, 'apply_update'):
+                    main_window.apply_update(latest_release)
+                    
         except Exception as e:
             self.logger.error(f"버전 확인 중 오류 발생: {e}")
-            QMessageBox.warning(self, "버전 확인 오류",
-                "버전 정보를 확인하는 중 오류가 발생했습니다.")
+            error_dialog = UpdateDialog(
+                self,
+                {'current': str(e)},
+                is_update=False
+            )
+            error_dialog.exec()
 
     def show_help(self):
         help_dialog = HelpDialog(self)
@@ -356,7 +360,7 @@ class ServerSection(QGroupBox):
     def disable_all_buttons(self):
         """모든 기능 버튼 비활성화"""
         for name, button in self.tools_buttons.items():
-            if name not in ["⚙️ 설정", "🔌 연결","버전", "❓ 도움말"]:  # 설정, 연결, 버전, 도움말 버튼은 제외
+            if name not in ["⚙️ 설정", "🔌 연결","🏷️ 버전", "❓ 도움말"]:  # 설정, 연결, 버전, 도움말 버튼은 제외
                 button.setEnabled(False)
         
         # 상태 표시 업데이트
