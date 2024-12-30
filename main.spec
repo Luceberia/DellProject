@@ -2,6 +2,7 @@
 
 import os
 import re
+from subprocess import call
 
 def get_version():
     with open('version.py', 'r', encoding='utf-8') as f:
@@ -86,11 +87,41 @@ app = BUNDLE(
         'CFBundlePackageType': 'APPL',
         'CFBundleSignature': '????',
         'LSApplicationCategoryType': 'public.app-category.utilities',
-        # 추가할 설정
-        'NSMainNibFile': '',  # 메인 nib 파일 없음을 명시
-        'NSSupportsAutomaticTermination': False,  # 자동 종료 비활성화
-        'NSHumanReadableCopyright': f'© 2024 DellIDRACMonitor {VERSION}',  # 저작권 정보
-        'CFBundleDocumentTypes': [],  # 문서 타입 명시
-        'CFBundleURLTypes': []  # URL 스킴 명시
+        'NSMainNibFile': '',
+        'NSSupportsAutomaticTermination': False,
+        'NSHumanReadableCopyright': f'© 2024 DellIDRACMonitor {VERSION}',
+        'CFBundleDocumentTypes': [],
+        'CFBundleURLTypes': [],
+        'LSMultipleInstancesProhibited': True,
     }
 )
+
+# 현재 작업 디렉토리와 dist 폴더 경로 설정
+current_dir = os.getcwd()
+dist_dir = os.path.join(current_dir, 'dist')
+
+# DMG 파일 경로 지정
+dmg_path = os.path.join(dist_dir, 'DellIDRACMonitor.dmg')
+app_path = os.path.join(dist_dir, 'DellIDRACMonitor.app')
+
+# 기존 DMG 파일이 있다면 제거
+if os.path.exists(dmg_path):
+    os.remove(dmg_path)
+
+# DMG 생성
+call([
+    'create-dmg',
+    '--volname', 'DellIDRACMonitor',
+    '--window-pos', '200', '120',
+    '--window-size', '600', '300',
+    '--icon-size', '100',
+    '--icon', 'DellIDRACMonitor.app', '175', '120',
+    '--hide-extension', 'DellIDRACMonitor.app',
+    '--app-drop-link', '425', '120',
+    dmg_path,
+    app_path
+])
+
+# DMG 파일이 생성되면 자동으로 언마운트
+if os.path.exists(dmg_path):
+    call(['hdiutil', 'detach', '/Volumes/DellIDRACMonitor', '-force'])

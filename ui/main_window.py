@@ -1,12 +1,13 @@
 from config.system.log_config import setup_logging, get_log_dir
-from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QMessageBox, QProgressDialog, QMenuBar
+from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QMessageBox, QProgressDialog, QMenuBar, QDialog
 from PyQt6.QtGui import QGuiApplication, QCloseEvent, QDesktopServices
-from PyQt6.QtCore import QCoreApplication, QTimer, Qt, QProcess, QThread, pyqtSignal, QUrl
+from PyQt6.QtCore import QCoreApplication, QTimer, Qt, QProcess, QThread, pyqtSignal, QUrl, QPoint
 from typing import Optional
 from ui.components.server_section import create_server_section
 from ui.components.monitor_section import create_monitor_section
 from ui.components.hardware_section import create_hardware_section
 from ui.components.settings_dialog import SettingsDialog
+from ui.components.update_dialog import UpdateDialog
 from datetime import datetime, timedelta
 import requests
 from version import __version__
@@ -106,21 +107,8 @@ class DellIDRACMonitor(QMainWindow):
         """설정 창을 표시합니다."""
         self.settings_dialog.exec()
 
-    def center(self):
-        """윈도우를 화면 중앙에 배치합니다."""
-        qr = self.frameGeometry()
-        screen = QGuiApplication.primaryScreen()
-        if screen is not None:
-            cp = screen.availableGeometry().center()
-            qr.moveCenter(cp)
-            self.move(qr.topLeft())
-
     def check_updates(self):
         try:
-            # 하루에 한 번만 자동 체크
-            if datetime.now() - self.last_update_check < timedelta(days=1):
-                return
-
             api_url = "https://api.github.com/repos/Luceberia/DellProject/releases/latest"
             response = requests.get(api_url)
             
@@ -130,25 +118,32 @@ class DellIDRACMonitor(QMainWindow):
                 
                 logger.debug(f"현재 버전: {__version__}, 최신 버전: {latest_version}")
                 
-                if latest_version != __version__:
-                    reply = QMessageBox.question(
-                        self,
-                        "업데이트 확인",
-                        f"새로운 버전이 있습니다!\n\n"
-                        f"현재 버전: {__version__}\n"
-                        f"최신 버전: {latest_version}\n\n"
-                        "업데이트를 진행하시겠습니까?",
-                        QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
-                        QMessageBox.StandardButton.No
-                    )
-                    
-                    if reply == QMessageBox.StandardButton.Yes:
-                        self.apply_update(release_info)
+                version_info = {
+                    'current': __version__,
+                    'latest': latest_version
+                }
                 
+                dialog = UpdateDialog(
+                    self, 
+                    version_info, 
+                    is_update=(latest_version != __version__)
+                )
+                
+                result = dialog.exec()
+                
+                if result == QDialog.DialogCode.Accepted and latest_version != __version__:
+                    self.apply_update(release_info)
+                    
                 self.last_update_check = datetime.now()
                 
         except Exception as e:
             logger.error(f"업데이트 확인 중 오류 발생: {e}")
+            error_dialog = UpdateDialog(
+                self, 
+                {'current': str(e)}, 
+                is_update=False
+            )
+            error_dialog.exec()
 
     def apply_update(self, release_info):
         try:
@@ -200,3 +195,12 @@ class DellIDRACMonitor(QMainWindow):
         """로그 폴더를 Finder에서 엽니다."""
         log_dir = get_log_dir()
         QDesktopServices.openUrl(QUrl.fromLocalFile(str(log_dir)))
+
+    def center(self):
+        """윈도우를 화면 중앙에 배치합니다."""
+        qr = self.frameGeometry()
+        screen = QGuiApplication.primaryScreen()
+        if screen is not None:
+            cp = screen.availableGeometry().center()
+            qr.moveCenter(cp)
+            self.move(qr.topLeft())
