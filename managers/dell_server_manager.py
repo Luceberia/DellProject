@@ -520,9 +520,6 @@ class DellServerManager:
 
     def collect_tsr_log(self, progress_callback=None):
         try:
-            managers_url = f"{self.endpoints.base_url}/Managers/iDRAC.Embedded.1"
-            export_url = f"{managers_url}/Oem/Dell/DellLCService/Actions/DellLCService.ExportTechSupportReport"
-            
             basic_info = self.fetch_basic_info()
             service_tag = basic_info['system'].get('ServiceTag', "Unknown")
 
@@ -537,7 +534,7 @@ class DellServerManager:
             
             logger.info(f"TSR 로그 수집 요청 시작: {filename}")
             response = requests.post(
-                export_url,
+                self.endpoints.tsr_export,
                 json=data,
                 auth=self.auth,
                 headers={'Content-Type': 'application/json'},
@@ -573,7 +570,7 @@ class DellServerManager:
                     progress_callback(task_data.get('PercentComplete', 0))
             
             logger.info("TSR 로그 파일 다운로드 시작")
-            download_url = f"{self.endpoints.base_url}/redfish/v1/UpdateService/FirmwareInventory/{filename}"
+            download_url = f"{self.endpoints.firmware_inventory}/{filename}"
             download_response = requests.get(
                 download_url,
                 auth=self.auth,

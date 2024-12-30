@@ -58,6 +58,9 @@ class URLPattern:
     NETWORK_ADAPTER_ATTRIBUTES = f"{CHASSIS_NETWORK}/{{adapter_id}}/NetworkDeviceFunctions/{{func_id}}/Oem/Dell/DellNetworkAttributes/{{func_id}}"
     NETWORK_ATTRIBUTES_REGISTRY = f"{BASE}/Registries/NetworkAttributesRegistry_{{func_id}}"
 
+    # TSR 로그 관련 엔드포인트 추가
+    TSR_EXPORT = f"{MANAGERS}/Oem/Dell/DellLCService/Actions/DellLCService.ExportTechSupportReport"
+
 class RedfishEndpoints:
     def __init__(self, ip: str, port: str = "443"):
         """
@@ -128,6 +131,9 @@ class RedfishEndpoints:
                 # 펌웨어 관련
                 '/redfish/v1/UpdateService/FirmwareInventory': '펌웨어 인벤토리 조회',
                 '/redfish/v1/UpdateService/FirmwareInventory/{component_id}': '펌웨어 인벤토리 조회',
+
+                # TSR LOG 수집 관련
+                '/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellLCService/Actions/DellLCService.ExportTechSupportReport': 'TSR 로그 수집',
 
             }.get(pattern, '알 수 없는 요청')
         
