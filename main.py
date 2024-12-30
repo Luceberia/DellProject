@@ -20,6 +20,7 @@ logger = setup_logging()
 
 def main():
     app = QApplication(sys.argv)
+    app.setQuitOnLastWindowClosed(False)
     window = DellIDRACMonitor()
     window.show()
     sys.exit(app.exec())
