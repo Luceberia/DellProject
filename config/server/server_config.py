@@ -7,10 +7,24 @@ from typing import Dict, Optional
 logger = setup_logging()
 
 class ServerConfig:
+    _instance = None
+    _initialized = False
+    
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super(ServerConfig, cls).__new__(cls)
+        return cls._instance
+    
     def __init__(self):
-        self.config_manager = ConfigManager()
-        self.servers: Dict[str, IDRACConfig] = {}
-        self.observers = []
+        if not self._initialized:
+            self.config_manager = ConfigManager()
+            self.servers: Dict[str, IDRACConfig] = {}
+            self.observers = []
+            self.quick_connect_server = None
+            self._initialized = True
+    
+    def initialize(self):
+        """서버 설정 초기화"""
         self.quick_connect_server = self.load_quick_connect_server()
         self.load_servers()
 

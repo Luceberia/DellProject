@@ -1,7 +1,7 @@
 from config.system.log_config import setup_logging, get_log_dir
 from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QMessageBox, QProgressDialog, QDialog
 from PyQt6.QtGui import QGuiApplication, QCloseEvent, QDesktopServices
-from PyQt6.QtCore import QCoreApplication, QTimer, Qt, QUrl
+from PyQt6.QtCore import Qt, QUrl, QCoreApplication
 from typing import Optional
 from ui.components.server_section import create_server_section
 from ui.components.monitor_section import create_monitor_section
@@ -31,7 +31,6 @@ class DellIDRACMonitor(QMainWindow):
         
         self.init_ui()
         self.show()
-        QTimer.singleShot(0, self.check_server_settings)
 
     def init_ui(self):
         menubar = self.menuBar()
@@ -61,6 +60,13 @@ class DellIDRACMonitor(QMainWindow):
         main_layout.addWidget(self.server_section)
         main_layout.addWidget(create_monitor_section())
         main_layout.addWidget(self.hardware_section)
+
+    def showEvent(self, event):
+        """윈도우가 실제로 화면에 표시된 후 호출되는 이벤트"""
+        super().showEvent(event)
+        from config.server.server_config import server_config
+        server_config.initialize()  # 서버 설정 초기화
+        self.check_server_settings()
 
     def check_server_settings(self):
         """서버 설정 확인"""
