@@ -13,25 +13,43 @@ from updater import check_for_updates
 import requests
 import time
 
-logger = setup_logging()
-
 class ServerSection(QGroupBox):
     server_connection_changed = pyqtSignal(dict)
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.logger = logger
+        self.logger = None
         self.current_server_info = None
-        self.connection_manager = ConnectionManager()
+        self.connection_manager = None
         self.connection_timer = QTimer()
         self.connection_timer.timeout.connect(self.check_connection_health)
         self.connection_retry_count = 0
         self.last_response_time = None
         self.last_log_check_time = 0
-        self.log_check_interval = 30  # 30초
+        self.log_check_interval = 30
         self.last_log_count = 0
-        self.use_event_subscription = False  # 이벤트 구독 사용 여부
+        self.use_event_subscription = False
+        
+        # 기본 UI 설정
         self.setup_ui()
-        self.connection_timer.start(5000)
+        
+        # 나머지 초기화는 비동기로 수행
+        QTimer.singleShot(0, self.delayed_init)
+
+    def delayed_init(self):
+        """지연된 초기화 수행"""
+        self.logger = setup_logging()
+        self.connection_manager = ConnectionManager()
+        # 연결 타이머는 실제 서버 선택 후에 시작
+
+    def start_connection_timer(self):
+        """서버가 선택되었을 때만 타이머 시작"""
+        if not self.connection_timer.isActive():
+            self.connection_timer.start(5000)
+
+    def stop_connection_timer(self):
+        """서버 연결이 해제되었을 때 타이머 중지"""
+        if self.connection_timer.isActive():
+            self.connection_timer.stop()
 
     def setup_ui(self):
         """UI 초기화"""
@@ -137,7 +155,7 @@ class ServerSection(QGroupBox):
         self.update_log_count()
         
         # 연결 상태 모니터링 시작
-        self.connection_timer.start(5000)
+        self.start_connection_timer()
         
         # 시스템 정보 업데이트 시그널 발생
         self.server_connection_changed.emit(server_info)
@@ -172,7 +190,7 @@ class ServerSection(QGroupBox):
 
     def disconnect_server(self):
         """서버 연결 해제 및 상태 초기화"""
-        self.connection_timer.stop()
+        self.stop_connection_timer()
         self.server_manager = None
         self.current_server_info = None
         self.connection_retry_count = 0
@@ -244,7 +262,7 @@ class ServerSection(QGroupBox):
                 self.update_current_server_label(server_dict)
                 
                 # 연결 상태 모니터링 시작
-                self.connection_timer.start(5000)
+                self.start_connection_timer()
                 
                 # 시스템 정보 업데이트 시그널 발생
                 self.server_connection_changed.emit(server_dict)

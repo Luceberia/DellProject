@@ -1,7 +1,7 @@
 from config.system.log_config import setup_logging, get_log_dir
 from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QMessageBox, QProgressDialog, QDialog
 from PyQt6.QtGui import QGuiApplication, QCloseEvent, QDesktopServices
-from PyQt6.QtCore import Qt, QUrl, QCoreApplication
+from PyQt6.QtCore import Qt, QUrl, QCoreApplication, QTimer
 from typing import Optional
 from ui.components.server_section import create_server_section
 from ui.components.monitor_section import create_monitor_section
@@ -29,10 +29,15 @@ class DellIDRACMonitor(QMainWindow):
         # 마지막 업데이트 확인 시간 저장
         self.last_update_check = datetime.now()
         
-        self.init_ui()
+        # 기본 UI만 초기화
+        self.init_basic_ui()
         self.show()
+        
+        # 나머지 컴포넌트들은 비동기적으로 초기화
+        QTimer.singleShot(0, self.init_components)
 
-    def init_ui(self):
+    def init_basic_ui(self):
+        """기본 UI 컴포넌트만 초기화"""
         menubar = self.menuBar()
         help_menu = menubar.addMenu('도움말')
         
@@ -47,8 +52,10 @@ class DellIDRACMonitor(QMainWindow):
         
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
-        main_layout = QVBoxLayout(central_widget)
-        
+        self.main_layout = QVBoxLayout(central_widget)
+
+    def init_components(self):
+        """나머지 컴포넌트들을 비동기적으로 초기화"""
         self.settings_dialog = SettingsDialog(self)
         self.server_section = create_server_section()
         self.hardware_section = create_hardware_section(self)
@@ -57,16 +64,22 @@ class DellIDRACMonitor(QMainWindow):
             self.hardware_section.on_server_connected
         )
         
-        main_layout.addWidget(self.server_section)
-        main_layout.addWidget(create_monitor_section())
-        main_layout.addWidget(self.hardware_section)
+        self.main_layout.addWidget(self.server_section)
+        self.main_layout.addWidget(create_monitor_section())
+        self.main_layout.addWidget(self.hardware_section)
+        
+        # 서버 설정 초기화를 별도 타이머로 실행
+        QTimer.singleShot(100, self.init_server_config)
+
+    def init_server_config(self):
+        """서버 설정 초기화를 비동기로 수행"""
+        from config.server.server_config import server_config
+        server_config.initialize()  # 서버 설정 초기화
+        self.check_server_settings()
 
     def showEvent(self, event):
         """윈도우가 실제로 화면에 표시된 후 호출되는 이벤트"""
         super().showEvent(event)
-        from config.server.server_config import server_config
-        server_config.initialize()  # 서버 설정 초기화
-        self.check_server_settings()
 
     def check_server_settings(self):
         """서버 설정 확인"""
