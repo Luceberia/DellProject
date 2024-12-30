@@ -1,7 +1,7 @@
-from config.system.log_config import setup_logging
-from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QMessageBox, QProgressDialog
+from config.system.log_config import setup_logging, get_log_dir
+from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QMessageBox, QProgressDialog, QMenuBar
 from PyQt6.QtGui import QGuiApplication, QCloseEvent, QDesktopServices
-from PyQt6.QtCore import QCoreApplication, QTimer, Qt, QProcess, QThread, pyqtSignal
+from PyQt6.QtCore import QCoreApplication, QTimer, Qt, QProcess, QThread, pyqtSignal, QUrl
 from typing import Optional
 from ui.components.server_section import create_server_section
 from ui.components.monitor_section import create_monitor_section
@@ -31,6 +31,14 @@ class DellIDRACMonitor(QMainWindow):
         QTimer.singleShot(0, self.check_server_settings)
 
     def init_ui(self):
+        # 메뉴바 생성
+        menubar = self.menuBar()
+        help_menu = menubar.addMenu('도움말')
+        
+        # 로그 폴더 열기 액션 추가
+        open_log_action = help_menu.addAction('로그 폴더 열기')
+        open_log_action.triggered.connect(self.open_log_folder)
+        
         # 업데이트 체크 타이머 설정
         self.update_timer = QTimer(self)
         self.update_timer.timeout.connect(self.check_updates)
@@ -182,3 +190,8 @@ class DellIDRACMonitor(QMainWindow):
             logger.error(f"업데이트 중 오류 발생: {e}", exc_info=True)
             QMessageBox.warning(self, "업데이트 오류", 
                 f"업데이트 중 오류가 발생했습니다: {e}")
+
+    def open_log_folder(self):
+        """로그 폴더를 Finder에서 엽니다."""
+        log_dir = get_log_dir()
+        QDesktopServices.openUrl(QUrl.fromLocalFile(str(log_dir)))
