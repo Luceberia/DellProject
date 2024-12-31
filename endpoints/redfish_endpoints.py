@@ -61,6 +61,11 @@ class URLPattern:
     # TSR 로그 관련 엔드포인트 추가
     TSR_EXPORT = f"{MANAGERS}/Oem/Dell/DellLCService/Actions/DellLCService.ExportTechSupportReport"
 
+    # JobService 관련 엔드포인트 추가
+    JOB_SERVICE = f"{BASE}/JobService"
+    JOB_COLLECTION = f"{JOB_SERVICE}/Jobs"
+    JOB_DETAILS = f"{JOB_COLLECTION}/{{job_id}}"
+
 class RedfishEndpoints:
     def __init__(self, ip: str, port: str = "443"):
         """
@@ -343,3 +348,18 @@ class RedfishEndpoints:
             func_id=func_id
         )
         return self.get_url(pattern)
+
+    # JobService 관련 메서드 추가
+    @property
+    def job_service(self) -> str:
+        """JobService 정보 조회"""
+        return self.get_url(URLPattern.JOB_SERVICE)
+
+    @property
+    def job_collection(self) -> str:
+        """Job 컬렉션 조회"""
+        return self.get_url(URLPattern.JOB_COLLECTION)
+
+    def get_job_details_url(self, job_id: str) -> str:
+        """특정 Job 상세 정보 조회"""
+        return self.get_url(URLPattern.JOB_DETAILS.format(job_id=job_id))

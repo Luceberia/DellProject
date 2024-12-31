@@ -96,3 +96,1379 @@
 2024-12-31 01:01:23 - [19988] - dell_idrac_monitor - DEBUG - 서버 연결 해제 중...
 2024-12-31 01:01:23 - [19988] - dell_idrac_monitor - DEBUG - 서버 연결 해제 완료
 2024-12-31 01:01:23 - [19988] - dell_idrac_monitor - DEBUG - 리소스 정리 중...
+2024-12-31 21:36:34 - [84384] - dell_idrac_monitor - DEBUG - 서버 정보 로드 완료: 3개의 서버
+2024-12-31 21:36:34 - [84384] - dell_idrac_monitor - INFO - 빠른 연결 서버 설정: web1
+2024-12-31 21:36:43 - [84384] - dell_idrac_monitor - DEBUG - 빠른 연결 버튼 클릭
+2024-12-31 21:36:43 - [84384] - dell_idrac_monitor - DEBUG - 빠른 연결 시도 시작
+2024-12-31 21:36:43 - [84384] - dell_idrac_monitor - DEBUG - Redfish 이벤트 서비스 상태 확인 시작
+2024-12-31 21:36:43 - [84384] - dell_idrac_monitor - INFO - Redfish 이벤트 구독 상태: 비활성화
+2024-12-31 21:36:43 - [84384] - dell_idrac_monitor - INFO - 구독이 비활성화되어 있어 폴링 방식으로 전환
+2024-12-31 21:36:43 - [84384] - dell_idrac_monitor - DEBUG - 연결 상태 업데이트: 연결됨 (55ms)
+2024-12-31 21:36:43 - [84384] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 21:36:43 - [84384] - dell_idrac_monitor - DEBUG - SEL 로그 카운트 변경: 0 → 18
+2024-12-31 21:36:43 - [84384] - dell_idrac_monitor - DEBUG - 현재 서버 표시 업데이트: web1 (192.168.0.85)
+2024-12-31 21:36:43 - [84384] - dell_idrac_monitor - DEBUG - Redfish API 요청: 시스템 기본 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1
+2024-12-31 21:36:43 - [84384] - dell_idrac_monitor - DEBUG - Redfish API 요청: BIOS 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Bios
+2024-12-31 21:36:43 - [84384] - dell_idrac_monitor - DEBUG - Redfish API 요청: iDRAC 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1
+2024-12-31 21:36:43 - [84384] - dell_idrac_monitor - DEBUG - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Processors
+2024-12-31 21:36:43 - [84384] - dell_idrac_monitor - DEBUG - Redfish API 요청: 메모리 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Memory
+2024-12-31 21:36:43 - [84384] - dell_idrac_monitor - DEBUG - Redfish API 요청: 스토리지 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Storage
+2024-12-31 21:36:43 - [84384] - dell_idrac_monitor - DEBUG - Redfish API 요청: 전원 상태 조회 - URL: https://192.168.0.85:443/redfish/v1/Chassis/System.Embedded.1/Power
+2024-12-31 21:36:43 - [84384] - dell_idrac_monitor - DEBUG - Redfish API 요청: 시스템 기본 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1
+2024-12-31 21:36:43 - [84384] - dell_idrac_monitor - DEBUG - Redfish API 요청: BIOS 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Bios
+2024-12-31 21:36:43 - [84384] - dell_idrac_monitor - DEBUG - Redfish API 요청: iDRAC 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1
+2024-12-31 21:36:43 - [84384] - dell_idrac_monitor - DEBUG - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Processors
+2024-12-31 21:36:43 - [84384] - dell_idrac_monitor - DEBUG - Redfish API 요청: 메모리 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Memory
+2024-12-31 21:36:44 - [84384] - dell_idrac_monitor - DEBUG - Redfish API 요청: 스토리지 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Storage
+2024-12-31 21:36:44 - [84384] - dell_idrac_monitor - DEBUG - Redfish API 요청: 전원 상태 조회 - URL: https://192.168.0.85:443/redfish/v1/Chassis/System.Embedded.1/Power
+2024-12-31 21:36:57 - [84384] - dell_idrac_monitor - INFO - 애플리케이션 종료 프로세스 시작
+2024-12-31 21:36:57 - [84384] - dell_idrac_monitor - DEBUG - 서버 연결 해제 중...
+2024-12-31 21:36:57 - [84384] - dell_idrac_monitor - DEBUG - 서버 연결 해제 완료
+2024-12-31 21:36:57 - [84384] - dell_idrac_monitor - DEBUG - 리소스 정리 중...
+2024-12-31 21:39:51 - [86625] - dell_idrac_monitor - DEBUG - 서버 정보 로드 완료: 3개의 서버
+2024-12-31 21:39:51 - [86625] - dell_idrac_monitor - INFO - 빠른 연결 서버 설정: web1
+2024-12-31 21:40:02 - [86625] - dell_idrac_monitor - DEBUG - 빠른 연결 버튼 클릭
+2024-12-31 21:40:02 - [86625] - dell_idrac_monitor - DEBUG - 빠른 연결 시도 시작
+2024-12-31 21:40:02 - [86625] - dell_idrac_monitor - DEBUG - Redfish 이벤트 서비스 상태 확인 시작
+2024-12-31 21:40:02 - [86625] - dell_idrac_monitor - INFO - Redfish 이벤트 구독 상태: 비활성화
+2024-12-31 21:40:02 - [86625] - dell_idrac_monitor - INFO - 구독이 비활성화되어 있어 폴링 방식으로 전환
+2024-12-31 21:40:02 - [86625] - dell_idrac_monitor - DEBUG - 연결 상태 업데이트: 연결됨 (35ms)
+2024-12-31 21:40:02 - [86625] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 21:40:02 - [86625] - dell_idrac_monitor - DEBUG - SEL 로그 카운트 변경: 0 → 18
+2024-12-31 21:40:02 - [86625] - dell_idrac_monitor - DEBUG - 현재 서버 표시 업데이트: web1 (192.168.0.85)
+2024-12-31 21:40:02 - [86625] - dell_idrac_monitor - DEBUG - Redfish API 요청: 시스템 기본 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1
+2024-12-31 21:40:02 - [86625] - dell_idrac_monitor - DEBUG - Redfish API 요청: BIOS 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Bios
+2024-12-31 21:40:02 - [86625] - dell_idrac_monitor - DEBUG - Redfish API 요청: iDRAC 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1
+2024-12-31 21:40:02 - [86625] - dell_idrac_monitor - DEBUG - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Processors
+2024-12-31 21:40:02 - [86625] - dell_idrac_monitor - DEBUG - Redfish API 요청: 메모리 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Memory
+2024-12-31 21:40:02 - [86625] - dell_idrac_monitor - DEBUG - Redfish API 요청: 스토리지 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Storage
+2024-12-31 21:40:03 - [86625] - dell_idrac_monitor - DEBUG - Redfish API 요청: 전원 상태 조회 - URL: https://192.168.0.85:443/redfish/v1/Chassis/System.Embedded.1/Power
+2024-12-31 21:40:03 - [86625] - dell_idrac_monitor - DEBUG - Redfish API 요청: 시스템 기본 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1
+2024-12-31 21:40:03 - [86625] - dell_idrac_monitor - DEBUG - Redfish API 요청: BIOS 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Bios
+2024-12-31 21:40:03 - [86625] - dell_idrac_monitor - DEBUG - Redfish API 요청: iDRAC 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1
+2024-12-31 21:40:03 - [86625] - dell_idrac_monitor - DEBUG - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Processors
+2024-12-31 21:40:03 - [86625] - dell_idrac_monitor - DEBUG - Redfish API 요청: 메모리 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Memory
+2024-12-31 21:40:03 - [86625] - dell_idrac_monitor - DEBUG - Redfish API 요청: 스토리지 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Storage
+2024-12-31 21:40:03 - [86625] - dell_idrac_monitor - DEBUG - Redfish API 요청: 전원 상태 조회 - URL: https://192.168.0.85:443/redfish/v1/Chassis/System.Embedded.1/Power
+2024-12-31 21:40:21 - [86625] - dell_idrac_monitor - INFO - 애플리케이션 종료 프로세스 시작
+2024-12-31 21:40:21 - [86625] - dell_idrac_monitor - DEBUG - 서버 연결 해제 중...
+2024-12-31 21:40:21 - [86625] - dell_idrac_monitor - DEBUG - 서버 연결 해제 완료
+2024-12-31 21:40:21 - [86625] - dell_idrac_monitor - DEBUG - 리소스 정리 중...
+2024-12-31 21:43:03 - [87464] - dell_idrac_monitor - DEBUG - 서버 정보 로드 완료: 3개의 서버
+2024-12-31 21:43:03 - [87464] - dell_idrac_monitor - INFO - 빠른 연결 서버 설정: web1
+2024-12-31 21:43:40 - [87554] - dell_idrac_monitor - DEBUG - 서버 정보 로드 완료: 3개의 서버
+2024-12-31 21:43:40 - [87554] - dell_idrac_monitor - INFO - 빠른 연결 서버 설정: web1
+2024-12-31 21:43:42 - [87554] - dell_idrac_monitor - DEBUG - 시스템 정보 조회 시도
+2024-12-31 21:43:42 - [87554] - dell_idrac_monitor - WARNING - 서버 정보가 없음
+2024-12-31 21:43:47 - [87554] - dell_idrac_monitor - INFO - 애플리케이션 종료 프로세스 시작
+2024-12-31 21:43:47 - [87554] - dell_idrac_monitor - DEBUG - 서버 연결 해제 중...
+2024-12-31 21:43:47 - [87554] - dell_idrac_monitor - DEBUG - 서버 연결 해제 완료
+2024-12-31 21:43:47 - [87554] - dell_idrac_monitor - DEBUG - 리소스 정리 중...
+2024-12-31 21:43:56 - [87594] - dell_idrac_monitor - DEBUG - 서버 정보 로드 완료: 3개의 서버
+2024-12-31 21:43:56 - [87594] - dell_idrac_monitor - INFO - 빠른 연결 서버 설정: web1
+2024-12-31 21:44:16 - [87594] - dell_idrac_monitor - INFO - 애플리케이션 종료 프로세스 시작
+2024-12-31 21:44:16 - [87594] - dell_idrac_monitor - DEBUG - 서버 연결 해제 중...
+2024-12-31 21:44:16 - [87594] - dell_idrac_monitor - DEBUG - 서버 연결 해제 완료
+2024-12-31 21:44:16 - [87594] - dell_idrac_monitor - DEBUG - 리소스 정리 중...
+2024-12-31 21:45:33 - [88168] - dell_idrac_monitor - DEBUG - 서버 정보 로드 완료: 3개의 서버
+2024-12-31 21:45:33 - [88168] - dell_idrac_monitor - INFO - 빠른 연결 서버 설정: web1
+2024-12-31 21:45:36 - [88168] - dell_idrac_monitor - ERROR - 서버 정보 조회 실패: name 'QSettings' is not defined
+2024-12-31 21:47:47 - [88437] - dell_idrac_monitor - DEBUG - 서버 정보 로드 완료: 3개의 서버
+2024-12-31 21:47:47 - [88437] - dell_idrac_monitor - INFO - 빠른 연결 서버 설정: web1
+2024-12-31 21:47:48 - [88437] - dell_idrac_monitor - DEBUG - 빠른 연결 버튼 클릭
+2024-12-31 21:47:48 - [88437] - dell_idrac_monitor - DEBUG - 빠른 연결 시도 시작
+2024-12-31 21:47:48 - [88437] - dell_idrac_monitor - DEBUG - Redfish 이벤트 서비스 상태 확인 시작
+2024-12-31 21:47:48 - [88437] - dell_idrac_monitor - INFO - Redfish 이벤트 구독 상태: 비활성화
+2024-12-31 21:47:48 - [88437] - dell_idrac_monitor - INFO - 구독이 비활성화되어 있어 폴링 방식으로 전환
+2024-12-31 21:47:48 - [88437] - dell_idrac_monitor - DEBUG - 연결 상태 업데이트: 연결됨 (38ms)
+2024-12-31 21:47:48 - [88437] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 21:47:49 - [88437] - dell_idrac_monitor - DEBUG - SEL 로그 카운트 변경: 0 → 18
+2024-12-31 21:47:49 - [88437] - dell_idrac_monitor - DEBUG - 현재 서버 표시 업데이트: web1 (192.168.0.85)
+2024-12-31 21:47:49 - [88437] - dell_idrac_monitor - DEBUG - Redfish API 요청: 시스템 기본 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1
+2024-12-31 21:47:49 - [88437] - dell_idrac_monitor - DEBUG - Redfish API 요청: BIOS 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Bios
+2024-12-31 21:47:49 - [88437] - dell_idrac_monitor - DEBUG - Redfish API 요청: iDRAC 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1
+2024-12-31 21:47:49 - [88437] - dell_idrac_monitor - DEBUG - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Processors
+2024-12-31 21:47:49 - [88437] - dell_idrac_monitor - DEBUG - Redfish API 요청: 메모리 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Memory
+2024-12-31 21:47:49 - [88437] - dell_idrac_monitor - DEBUG - Redfish API 요청: 스토리지 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Storage
+2024-12-31 21:47:49 - [88437] - dell_idrac_monitor - DEBUG - Redfish API 요청: 전원 상태 조회 - URL: https://192.168.0.85:443/redfish/v1/Chassis/System.Embedded.1/Power
+2024-12-31 21:47:49 - [88437] - dell_idrac_monitor - DEBUG - Redfish API 요청: 시스템 기본 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1
+2024-12-31 21:47:49 - [88437] - dell_idrac_monitor - DEBUG - Redfish API 요청: BIOS 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Bios
+2024-12-31 21:47:49 - [88437] - dell_idrac_monitor - DEBUG - Redfish API 요청: iDRAC 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1
+2024-12-31 21:47:49 - [88437] - dell_idrac_monitor - DEBUG - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Processors
+2024-12-31 21:47:49 - [88437] - dell_idrac_monitor - DEBUG - Redfish API 요청: 메모리 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Memory
+2024-12-31 21:47:49 - [88437] - dell_idrac_monitor - DEBUG - Redfish API 요청: 스토리지 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Storage
+2024-12-31 21:47:49 - [88437] - dell_idrac_monitor - DEBUG - Redfish API 요청: 전원 상태 조회 - URL: https://192.168.0.85:443/redfish/v1/Chassis/System.Embedded.1/Power
+2024-12-31 21:47:50 - [88437] - dell_idrac_monitor - ERROR - 서버 정보 조회 실패: name 'QSettings' is not defined
+2024-12-31 21:59:20 - [90574] - dell_idrac_monitor - DEBUG - 서버 정보 로드 완료: 3개의 서버
+2024-12-31 21:59:20 - [90574] - dell_idrac_monitor - INFO - 빠른 연결 서버 설정: web1
+2024-12-31 21:59:23 - [90574] - dell_idrac_monitor - INFO - 애플리케이션 종료 프로세스 시작
+2024-12-31 21:59:23 - [90574] - dell_idrac_monitor - DEBUG - 서버 연결 해제 중...
+2024-12-31 21:59:23 - [90574] - dell_idrac_monitor - DEBUG - 서버 연결 해제 완료
+2024-12-31 21:59:23 - [90574] - dell_idrac_monitor - DEBUG - 리소스 정리 중...
+2024-12-31 21:59:43 - [90769] - dell_idrac_monitor - DEBUG - 서버 정보 로드 완료: 3개의 서버
+2024-12-31 21:59:43 - [90769] - dell_idrac_monitor - INFO - 빠른 연결 서버 설정: web1
+2024-12-31 22:03:34 - [91783] - dell_idrac_monitor - DEBUG - 서버 정보 로드 완료: 3개의 서버
+2024-12-31 22:03:34 - [91783] - dell_idrac_monitor - INFO - 빠른 연결 서버 설정: web1
+2024-12-31 22:03:35 - [91783] - dell_idrac_monitor - INFO - 애플리케이션 종료 프로세스 시작
+2024-12-31 22:03:35 - [91783] - dell_idrac_monitor - DEBUG - 서버 연결 해제 중...
+2024-12-31 22:03:35 - [91783] - dell_idrac_monitor - DEBUG - 서버 연결 해제 완료
+2024-12-31 22:03:35 - [91783] - dell_idrac_monitor - DEBUG - 리소스 정리 중...
+2024-12-31 22:09:08 - [92816] - dell_idrac_monitor - DEBUG - 서버 정보 로드 완료: 3개의 서버
+2024-12-31 22:09:08 - [92816] - dell_idrac_monitor - INFO - 빠른 연결 서버 설정: web1
+2024-12-31 22:09:10 - [92816] - dell_idrac_monitor - DEBUG - 작업 관리자 다이얼로그 표시 시도
+2024-12-31 22:09:10 - [92816] - dell_idrac_monitor - WARNING - 서버 정보가 없음
+2024-12-31 22:09:12 - [92816] - dell_idrac_monitor - DEBUG - 빠른 연결 버튼 클릭
+2024-12-31 22:09:12 - [92816] - dell_idrac_monitor - DEBUG - 빠른 연결 시도 시작
+2024-12-31 22:09:12 - [92816] - dell_idrac_monitor - DEBUG - Redfish 이벤트 서비스 상태 확인 시작
+2024-12-31 22:09:12 - [92816] - dell_idrac_monitor - INFO - Redfish 이벤트 구독 상태: 비활성화
+2024-12-31 22:09:12 - [92816] - dell_idrac_monitor - INFO - 구독이 비활성화되어 있어 폴링 방식으로 전환
+2024-12-31 22:09:12 - [92816] - dell_idrac_monitor - DEBUG - 연결 상태 업데이트: 연결됨 (40ms)
+2024-12-31 22:09:12 - [92816] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:09:12 - [92816] - dell_idrac_monitor - DEBUG - SEL 로그 카운트 변경: 0 → 18
+2024-12-31 22:09:12 - [92816] - dell_idrac_monitor - DEBUG - 현재 서버 표시 업데이트: web1 (192.168.0.85)
+2024-12-31 22:09:12 - [92816] - dell_idrac_monitor - DEBUG - Redfish API 요청: 시스템 기본 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1
+2024-12-31 22:09:12 - [92816] - dell_idrac_monitor - DEBUG - Redfish API 요청: BIOS 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Bios
+2024-12-31 22:09:12 - [92816] - dell_idrac_monitor - DEBUG - Redfish API 요청: iDRAC 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1
+2024-12-31 22:09:12 - [92816] - dell_idrac_monitor - DEBUG - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Processors
+2024-12-31 22:09:12 - [92816] - dell_idrac_monitor - DEBUG - Redfish API 요청: 메모리 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Memory
+2024-12-31 22:09:12 - [92816] - dell_idrac_monitor - DEBUG - Redfish API 요청: 스토리지 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Storage
+2024-12-31 22:09:12 - [92816] - dell_idrac_monitor - DEBUG - Redfish API 요청: 전원 상태 조회 - URL: https://192.168.0.85:443/redfish/v1/Chassis/System.Embedded.1/Power
+2024-12-31 22:09:12 - [92816] - dell_idrac_monitor - DEBUG - Redfish API 요청: 시스템 기본 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1
+2024-12-31 22:09:12 - [92816] - dell_idrac_monitor - DEBUG - Redfish API 요청: BIOS 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Bios
+2024-12-31 22:09:12 - [92816] - dell_idrac_monitor - DEBUG - Redfish API 요청: iDRAC 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1
+2024-12-31 22:09:12 - [92816] - dell_idrac_monitor - DEBUG - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Processors
+2024-12-31 22:09:12 - [92816] - dell_idrac_monitor - DEBUG - Redfish API 요청: 메모리 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Memory
+2024-12-31 22:09:13 - [92816] - dell_idrac_monitor - DEBUG - Redfish API 요청: 스토리지 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Storage
+2024-12-31 22:09:13 - [92816] - dell_idrac_monitor - DEBUG - Redfish API 요청: 전원 상태 조회 - URL: https://192.168.0.85:443/redfish/v1/Chassis/System.Embedded.1/Power
+2024-12-31 22:09:14 - [92816] - dell_idrac_monitor - DEBUG - 작업 관리자 다이얼로그 표시 시도
+2024-12-31 22:09:14 - [92816] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:09:14 - [92816] - dell_idrac_monitor - ERROR - 작업 관리자 표시 중 오류 발생: 'Id'
+2024-12-31 22:09:42 - [92816] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:09:42 - [92816] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:10:17 - [92816] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:10:17 - [92816] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:10:52 - [92816] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:10:52 - [92816] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:11:22 - [92816] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:11:22 - [92816] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:11:57 - [92816] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:11:57 - [92816] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:12:32 - [92816] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:12:32 - [92816] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:13:02 - [92816] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:13:02 - [92816] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:13:05 - [92816] - dell_idrac_monitor - INFO - 프로그램 재시작 시도
+2024-12-31 22:13:05 - [92816] - dell_idrac_monitor - INFO - 새 프로세스 시작
+2024-12-31 22:13:05 - [92816] - dell_idrac_monitor - INFO - 프로그램 종료
+2024-12-31 22:13:05 - [92816] - dell_idrac_monitor - INFO - 애플리케이션 종료 프로세스 시작
+2024-12-31 22:13:05 - [92816] - dell_idrac_monitor - DEBUG - 서버 연결 해제 중...
+2024-12-31 22:13:05 - [92816] - dell_idrac_monitor - DEBUG - 서버 연결 해제 완료
+2024-12-31 22:13:05 - [92816] - dell_idrac_monitor - DEBUG - 리소스 정리 중...
+2024-12-31 22:13:05 - [92816] - dell_idrac_monitor - DEBUG - 리소스 정리 완료
+2024-12-31 22:13:05 - [92816] - dell_idrac_monitor - DEBUG - 업데이트 타이머 정리 중...
+2024-12-31 22:13:05 - [92816] - dell_idrac_monitor - DEBUG - 업데이트 타이머 정리 완료
+2024-12-31 22:13:05 - [92816] - dell_idrac_monitor - INFO - 애플리케이션 종료 완료
+2024-12-31 22:13:06 - [93674] - dell_idrac_monitor - DEBUG - 서버 정보 로드 완료: 3개의 서버
+2024-12-31 22:13:06 - [93674] - dell_idrac_monitor - INFO - 빠른 연결 서버 설정: web1
+2024-12-31 22:13:08 - [93674] - dell_idrac_monitor - DEBUG - 빠른 연결 버튼 클릭
+2024-12-31 22:13:08 - [93674] - dell_idrac_monitor - DEBUG - 빠른 연결 시도 시작
+2024-12-31 22:13:08 - [93674] - dell_idrac_monitor - DEBUG - Redfish 이벤트 서비스 상태 확인 시작
+2024-12-31 22:13:08 - [93674] - dell_idrac_monitor - INFO - Redfish 이벤트 구독 상태: 비활성화
+2024-12-31 22:13:08 - [93674] - dell_idrac_monitor - INFO - 구독이 비활성화되어 있어 폴링 방식으로 전환
+2024-12-31 22:13:08 - [93674] - dell_idrac_monitor - DEBUG - 연결 상태 업데이트: 연결됨 (32ms)
+2024-12-31 22:13:08 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:13:08 - [93674] - dell_idrac_monitor - DEBUG - SEL 로그 카운트 변경: 0 → 18
+2024-12-31 22:13:08 - [93674] - dell_idrac_monitor - DEBUG - 현재 서버 표시 업데이트: web1 (192.168.0.85)
+2024-12-31 22:13:08 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 시스템 기본 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1
+2024-12-31 22:13:08 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: BIOS 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Bios
+2024-12-31 22:13:08 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: iDRAC 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1
+2024-12-31 22:13:08 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Processors
+2024-12-31 22:13:08 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 메모리 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Memory
+2024-12-31 22:13:08 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 스토리지 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Storage
+2024-12-31 22:13:08 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 전원 상태 조회 - URL: https://192.168.0.85:443/redfish/v1/Chassis/System.Embedded.1/Power
+2024-12-31 22:13:08 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 시스템 기본 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1
+2024-12-31 22:13:08 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: BIOS 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Bios
+2024-12-31 22:13:08 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: iDRAC 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1
+2024-12-31 22:13:08 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Processors
+2024-12-31 22:13:08 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 메모리 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Memory
+2024-12-31 22:13:08 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 스토리지 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Storage
+2024-12-31 22:13:08 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 전원 상태 조회 - URL: https://192.168.0.85:443/redfish/v1/Chassis/System.Embedded.1/Power
+2024-12-31 22:13:10 - [93674] - dell_idrac_monitor - DEBUG - 작업 관리자 다이얼로그 표시 시도
+2024-12-31 22:13:10 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:13:10 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:13:10 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:13:10 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:13:10 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:13:10 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:13:10 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:13:10 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:13:10 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:13:10 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:13:22 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:13:22 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:13:22 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:13:22 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:13:22 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:13:22 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:13:22 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:13:22 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:13:22 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:13:22 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:13:36 - [93674] - dell_idrac_monitor - DEBUG - 작업 관리자 다이얼로그 표시 시도
+2024-12-31 22:13:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:13:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:13:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:13:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:13:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:13:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:13:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:13:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:13:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:13:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:13:38 - [93674] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:13:38 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:13:59 - [93674] - dell_idrac_monitor - DEBUG - 작업 관리자 다이얼로그 표시 시도
+2024-12-31 22:13:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:13:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:13:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:13:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:13:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:13:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:13:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:13:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:13:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:13:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:14:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:14:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:14:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:14:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:14:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:14:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:14:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:14:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:14:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:14:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:14:13 - [93674] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:14:13 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:14:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:14:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:14:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:14:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:14:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:14:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:14:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:14:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:14:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:14:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:14:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:14:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:14:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:14:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:14:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:14:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:14:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:14:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:14:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:14:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:14:48 - [93674] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:14:48 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:14:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:14:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:14:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:14:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:14:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:14:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:14:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:14:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:14:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:14:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:15:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:15:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:15:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:15:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:15:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:15:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:15:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:15:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:15:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:15:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:15:18 - [93674] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:15:18 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:15:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:15:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:15:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:15:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:15:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:15:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:15:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:15:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:15:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:15:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:15:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:15:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:15:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:15:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:15:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:15:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:15:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:15:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:15:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:15:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:15:53 - [93674] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:15:53 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:15:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:15:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:15:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:15:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:15:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:15:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:15:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:15:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:15:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:15:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:16:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:16:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:16:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:16:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:16:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:16:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:16:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:16:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:16:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:16:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:16:23 - [93674] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:16:23 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:16:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:16:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:16:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:16:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:16:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:16:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:16:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:16:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:16:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:16:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:16:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:16:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:16:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:16:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:16:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:16:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:16:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:16:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:16:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:16:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:16:58 - [93674] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:16:58 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:16:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:16:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:16:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:16:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:16:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:16:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:16:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:16:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:16:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:16:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:17:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:17:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:17:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:17:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:17:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:17:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:17:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:17:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:17:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:17:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:17:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:17:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:17:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:17:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:17:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:17:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:17:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:17:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:17:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:17:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:17:33 - [93674] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:17:33 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:17:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:17:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:17:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:17:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:17:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:17:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:17:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:17:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:17:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:17:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:17:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:17:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:17:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:17:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:17:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:17:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:17:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:17:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:17:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:17:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:18:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:18:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:18:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:18:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:18:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:18:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:18:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:18:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:18:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:18:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:18:08 - [93674] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:18:08 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:18:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:18:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:18:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:18:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:18:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:18:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:18:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:18:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:18:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:18:29 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:18:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:18:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:18:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:18:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:18:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:18:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:18:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:18:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:18:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:18:36 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:18:38 - [93674] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:18:38 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:18:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:18:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:18:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:18:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:18:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:18:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:18:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:18:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:18:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:18:59 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:19:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:19:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:19:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:19:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:19:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:19:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:19:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:19:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:19:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:19:06 - [93674] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:19:12 - [93674] - dell_idrac_monitor - INFO - 프로그램 재시작 시도
+2024-12-31 22:19:12 - [93674] - dell_idrac_monitor - INFO - 새 프로세스 시작
+2024-12-31 22:19:12 - [93674] - dell_idrac_monitor - INFO - 프로그램 종료
+2024-12-31 22:19:12 - [93674] - dell_idrac_monitor - INFO - 애플리케이션 종료 프로세스 시작
+2024-12-31 22:19:12 - [93674] - dell_idrac_monitor - DEBUG - 서버 연결 해제 중...
+2024-12-31 22:19:12 - [93674] - dell_idrac_monitor - DEBUG - 서버 연결 해제 완료
+2024-12-31 22:19:12 - [93674] - dell_idrac_monitor - DEBUG - 리소스 정리 중...
+2024-12-31 22:19:12 - [93674] - dell_idrac_monitor - DEBUG - 리소스 정리 완료
+2024-12-31 22:19:12 - [93674] - dell_idrac_monitor - DEBUG - 업데이트 타이머 정리 중...
+2024-12-31 22:19:12 - [93674] - dell_idrac_monitor - DEBUG - 업데이트 타이머 정리 완료
+2024-12-31 22:19:12 - [93674] - dell_idrac_monitor - INFO - 애플리케이션 종료 완료
+2024-12-31 22:19:13 - [94964] - dell_idrac_monitor - DEBUG - 서버 정보 로드 완료: 3개의 서버
+2024-12-31 22:19:13 - [94964] - dell_idrac_monitor - INFO - 빠른 연결 서버 설정: web1
+2024-12-31 22:19:14 - [94964] - dell_idrac_monitor - DEBUG - 빠른 연결 버튼 클릭
+2024-12-31 22:19:14 - [94964] - dell_idrac_monitor - DEBUG - 빠른 연결 시도 시작
+2024-12-31 22:19:14 - [94964] - dell_idrac_monitor - DEBUG - Redfish 이벤트 서비스 상태 확인 시작
+2024-12-31 22:19:14 - [94964] - dell_idrac_monitor - INFO - Redfish 이벤트 구독 상태: 비활성화
+2024-12-31 22:19:14 - [94964] - dell_idrac_monitor - INFO - 구독이 비활성화되어 있어 폴링 방식으로 전환
+2024-12-31 22:19:14 - [94964] - dell_idrac_monitor - DEBUG - 연결 상태 업데이트: 연결됨 (27ms)
+2024-12-31 22:19:14 - [94964] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:19:14 - [94964] - dell_idrac_monitor - DEBUG - SEL 로그 카운트 변경: 0 → 18
+2024-12-31 22:19:14 - [94964] - dell_idrac_monitor - DEBUG - 현재 서버 표시 업데이트: web1 (192.168.0.85)
+2024-12-31 22:19:14 - [94964] - dell_idrac_monitor - DEBUG - Redfish API 요청: 시스템 기본 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1
+2024-12-31 22:19:14 - [94964] - dell_idrac_monitor - DEBUG - Redfish API 요청: BIOS 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Bios
+2024-12-31 22:19:14 - [94964] - dell_idrac_monitor - DEBUG - Redfish API 요청: iDRAC 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1
+2024-12-31 22:19:14 - [94964] - dell_idrac_monitor - DEBUG - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Processors
+2024-12-31 22:19:14 - [94964] - dell_idrac_monitor - DEBUG - Redfish API 요청: 메모리 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Memory
+2024-12-31 22:19:14 - [94964] - dell_idrac_monitor - DEBUG - Redfish API 요청: 스토리지 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Storage
+2024-12-31 22:19:14 - [94964] - dell_idrac_monitor - DEBUG - Redfish API 요청: 전원 상태 조회 - URL: https://192.168.0.85:443/redfish/v1/Chassis/System.Embedded.1/Power
+2024-12-31 22:19:14 - [94964] - dell_idrac_monitor - DEBUG - Redfish API 요청: 시스템 기본 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1
+2024-12-31 22:19:14 - [94964] - dell_idrac_monitor - DEBUG - Redfish API 요청: BIOS 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Bios
+2024-12-31 22:19:14 - [94964] - dell_idrac_monitor - DEBUG - Redfish API 요청: iDRAC 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1
+2024-12-31 22:19:14 - [94964] - dell_idrac_monitor - DEBUG - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Processors
+2024-12-31 22:19:14 - [94964] - dell_idrac_monitor - DEBUG - Redfish API 요청: 메모리 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Memory
+2024-12-31 22:19:15 - [94964] - dell_idrac_monitor - DEBUG - Redfish API 요청: 스토리지 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Storage
+2024-12-31 22:19:15 - [94964] - dell_idrac_monitor - DEBUG - Redfish API 요청: 전원 상태 조회 - URL: https://192.168.0.85:443/redfish/v1/Chassis/System.Embedded.1/Power
+2024-12-31 22:19:16 - [94964] - dell_idrac_monitor - DEBUG - 작업 관리자 다이얼로그 표시 시도
+2024-12-31 22:19:16 - [94964] - dell_idrac_monitor - ERROR - 작업 관리자 표시 중 오류 발생: name 'QComboBox' is not defined
+2024-12-31 22:19:42 - [94964] - dell_idrac_monitor - INFO - 프로그램 재시작 시도
+2024-12-31 22:19:42 - [94964] - dell_idrac_monitor - INFO - 새 프로세스 시작
+2024-12-31 22:19:42 - [94964] - dell_idrac_monitor - INFO - 프로그램 종료
+2024-12-31 22:19:42 - [94964] - dell_idrac_monitor - INFO - 애플리케이션 종료 프로세스 시작
+2024-12-31 22:19:42 - [94964] - dell_idrac_monitor - DEBUG - 서버 연결 해제 중...
+2024-12-31 22:19:42 - [94964] - dell_idrac_monitor - DEBUG - 서버 연결 해제 완료
+2024-12-31 22:19:42 - [94964] - dell_idrac_monitor - DEBUG - 리소스 정리 중...
+2024-12-31 22:19:42 - [94964] - dell_idrac_monitor - DEBUG - 리소스 정리 완료
+2024-12-31 22:19:42 - [94964] - dell_idrac_monitor - DEBUG - 업데이트 타이머 정리 중...
+2024-12-31 22:19:42 - [94964] - dell_idrac_monitor - DEBUG - 업데이트 타이머 정리 완료
+2024-12-31 22:19:42 - [94964] - dell_idrac_monitor - INFO - 애플리케이션 종료 완료
+2024-12-31 22:19:43 - [95319] - dell_idrac_monitor - DEBUG - 서버 정보 로드 완료: 3개의 서버
+2024-12-31 22:19:43 - [95319] - dell_idrac_monitor - INFO - 빠른 연결 서버 설정: web1
+2024-12-31 22:19:44 - [95319] - dell_idrac_monitor - DEBUG - 빠른 연결 버튼 클릭
+2024-12-31 22:19:44 - [95319] - dell_idrac_monitor - DEBUG - 빠른 연결 시도 시작
+2024-12-31 22:19:44 - [95319] - dell_idrac_monitor - DEBUG - Redfish 이벤트 서비스 상태 확인 시작
+2024-12-31 22:19:44 - [95319] - dell_idrac_monitor - INFO - Redfish 이벤트 구독 상태: 비활성화
+2024-12-31 22:19:44 - [95319] - dell_idrac_monitor - INFO - 구독이 비활성화되어 있어 폴링 방식으로 전환
+2024-12-31 22:19:44 - [95319] - dell_idrac_monitor - DEBUG - 연결 상태 업데이트: 연결됨 (30ms)
+2024-12-31 22:19:44 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:19:44 - [95319] - dell_idrac_monitor - DEBUG - SEL 로그 카운트 변경: 0 → 18
+2024-12-31 22:19:44 - [95319] - dell_idrac_monitor - DEBUG - 현재 서버 표시 업데이트: web1 (192.168.0.85)
+2024-12-31 22:19:44 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 시스템 기본 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1
+2024-12-31 22:19:44 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: BIOS 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Bios
+2024-12-31 22:19:44 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: iDRAC 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1
+2024-12-31 22:19:44 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Processors
+2024-12-31 22:19:44 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 메모리 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Memory
+2024-12-31 22:19:44 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 스토리지 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Storage
+2024-12-31 22:19:45 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 전원 상태 조회 - URL: https://192.168.0.85:443/redfish/v1/Chassis/System.Embedded.1/Power
+2024-12-31 22:19:45 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 시스템 기본 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1
+2024-12-31 22:19:45 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: BIOS 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Bios
+2024-12-31 22:19:45 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: iDRAC 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1
+2024-12-31 22:19:45 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Processors
+2024-12-31 22:19:45 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 메모리 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Memory
+2024-12-31 22:19:45 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 스토리지 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Storage
+2024-12-31 22:19:45 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 전원 상태 조회 - URL: https://192.168.0.85:443/redfish/v1/Chassis/System.Embedded.1/Power
+2024-12-31 22:19:46 - [95319] - dell_idrac_monitor - DEBUG - 작업 관리자 다이얼로그 표시 시도
+2024-12-31 22:19:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:19:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:19:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:19:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:19:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:19:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:19:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:19:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:19:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:19:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:19:53 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:19:53 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:19:53 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:19:53 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:19:53 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:19:53 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:19:53 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:19:53 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:19:53 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:19:53 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:19:53 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:19:53 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:19:53 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:19:53 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:19:53 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:19:53 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:19:53 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:19:53 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:19:53 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:19:53 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:19:53 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:19:53 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:19:53 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:19:53 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:19:53 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:19:53 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:19:53 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:19:53 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:19:53 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:19:53 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:19:53 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:19:53 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:19:53 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:19:53 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:19:53 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:19:53 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:19:53 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:19:53 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:19:53 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:19:53 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:19:54 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:19:55 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:19:55 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:19:55 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:19:55 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:19:55 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:19:55 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:19:55 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:19:55 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:19:55 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:19:55 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:19:55 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:19:55 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:19:55 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:19:55 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:19:55 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:19:55 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:19:55 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:19:55 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:19:55 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:19:55 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:19:55 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:19:55 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:19:55 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:19:55 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:19:55 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:19:55 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:19:55 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:19:55 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:19:55 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:19:55 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:20:00 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:20:00 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:20:01 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:20:01 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:20:01 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:20:01 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:20:01 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:20:01 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:20:01 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:20:01 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:20:02 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:20:02 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:20:02 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:20:02 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:20:02 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:20:02 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:20:02 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:20:02 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:20:02 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:20:02 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:20:04 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:20:04 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:20:04 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:20:04 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:20:04 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:20:04 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:20:04 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:20:04 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:20:04 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:20:04 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:20:14 - [95319] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:20:14 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:20:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:20:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:20:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:20:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:20:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:20:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:20:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:20:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:20:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:20:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:20:23 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:20:23 - [95319] - dell_idrac_monitor - ERROR - Job 큐 삭제 실패: 404 Client Error: Not Found for url: https://192.168.0.85:443/redfish/v1/JobService/Jobs/Actions/JobService.DeleteJobQueue
+2024-12-31 22:20:32 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:20:32 - [95319] - dell_idrac_monitor - ERROR - Job 삭제 실패 (Job ID: JID_111380525077): 405 Client Error: Not Allowed for url: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:20:44 - [95319] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:20:44 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:20:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:20:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:20:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:20:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:20:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:20:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:20:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:20:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:20:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:20:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:21:05 - [95319] - dell_idrac_monitor - DEBUG - 작업 관리자 다이얼로그 표시 시도
+2024-12-31 22:21:05 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:21:05 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:21:05 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:21:05 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:21:05 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:21:05 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:21:05 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:21:05 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:21:05 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:21:05 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:21:14 - [95319] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:21:14 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:21:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:21:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:21:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:21:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:21:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:21:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:21:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:21:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:21:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:21:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:21:35 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:21:35 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:21:35 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:21:35 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:21:35 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:21:35 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:21:35 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:21:35 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:21:35 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:21:35 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:21:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:21:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:21:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:21:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:21:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:21:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:21:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:21:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:21:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:21:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:21:49 - [95319] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:21:49 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:22:05 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:22:05 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:22:05 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:22:05 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:22:05 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:22:05 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:22:05 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:22:05 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:22:05 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:22:05 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:22:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:22:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:22:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:22:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:22:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:22:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:22:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:22:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:22:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:22:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:22:24 - [95319] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:22:24 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:22:35 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:22:35 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:22:35 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:22:35 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:22:35 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:22:35 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:22:35 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:22:35 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:22:35 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:22:35 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:22:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:22:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:22:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:22:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:22:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:22:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:22:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:22:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:22:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:22:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:22:59 - [95319] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:22:59 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:23:05 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:23:05 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:23:05 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:23:05 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:23:05 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:23:05 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:23:05 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:23:05 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:23:05 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:23:05 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:23:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:23:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:23:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:23:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:23:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:23:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:23:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:23:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:23:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:23:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:23:34 - [95319] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:23:34 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:23:35 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:23:35 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:23:35 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:23:35 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:23:35 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:23:35 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:23:35 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:23:35 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:23:35 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:23:35 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:23:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:23:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:23:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:23:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:23:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:23:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:23:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:23:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:23:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:23:46 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:24:05 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:24:05 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:24:05 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:24:05 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:24:05 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:24:05 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:24:05 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:24:05 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:24:05 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:24:05 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:24:09 - [95319] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:24:09 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:24:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:24:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:24:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:24:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:24:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:24:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:24:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:24:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:24:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:24:16 - [95319] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:24:32 - [95319] - dell_idrac_monitor - INFO - 프로그램 재시작 시도
+2024-12-31 22:24:32 - [95319] - dell_idrac_monitor - INFO - 새 프로세스 시작
+2024-12-31 22:24:32 - [95319] - dell_idrac_monitor - INFO - 프로그램 종료
+2024-12-31 22:24:32 - [95319] - dell_idrac_monitor - INFO - 애플리케이션 종료 프로세스 시작
+2024-12-31 22:24:32 - [95319] - dell_idrac_monitor - DEBUG - 서버 연결 해제 중...
+2024-12-31 22:24:32 - [95319] - dell_idrac_monitor - DEBUG - 서버 연결 해제 완료
+2024-12-31 22:24:32 - [95319] - dell_idrac_monitor - DEBUG - 리소스 정리 중...
+2024-12-31 22:24:32 - [95319] - dell_idrac_monitor - DEBUG - 리소스 정리 완료
+2024-12-31 22:24:32 - [95319] - dell_idrac_monitor - DEBUG - 업데이트 타이머 정리 중...
+2024-12-31 22:24:32 - [95319] - dell_idrac_monitor - DEBUG - 업데이트 타이머 정리 완료
+2024-12-31 22:24:32 - [95319] - dell_idrac_monitor - INFO - 애플리케이션 종료 완료
+2024-12-31 22:24:33 - [96118] - dell_idrac_monitor - DEBUG - 서버 정보 로드 완료: 3개의 서버
+2024-12-31 22:24:33 - [96118] - dell_idrac_monitor - INFO - 빠른 연결 서버 설정: web1
+2024-12-31 22:24:34 - [96118] - dell_idrac_monitor - DEBUG - 빠른 연결 버튼 클릭
+2024-12-31 22:24:34 - [96118] - dell_idrac_monitor - DEBUG - 빠른 연결 시도 시작
+2024-12-31 22:24:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish 이벤트 서비스 상태 확인 시작
+2024-12-31 22:24:34 - [96118] - dell_idrac_monitor - INFO - Redfish 이벤트 구독 상태: 비활성화
+2024-12-31 22:24:34 - [96118] - dell_idrac_monitor - INFO - 구독이 비활성화되어 있어 폴링 방식으로 전환
+2024-12-31 22:24:34 - [96118] - dell_idrac_monitor - DEBUG - 연결 상태 업데이트: 연결됨 (29ms)
+2024-12-31 22:24:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:24:34 - [96118] - dell_idrac_monitor - DEBUG - SEL 로그 카운트 변경: 0 → 18
+2024-12-31 22:24:34 - [96118] - dell_idrac_monitor - DEBUG - 현재 서버 표시 업데이트: web1 (192.168.0.85)
+2024-12-31 22:24:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 시스템 기본 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1
+2024-12-31 22:24:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: BIOS 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Bios
+2024-12-31 22:24:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: iDRAC 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1
+2024-12-31 22:24:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Processors
+2024-12-31 22:24:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 메모리 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Memory
+2024-12-31 22:24:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 스토리지 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Storage
+2024-12-31 22:24:35 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 전원 상태 조회 - URL: https://192.168.0.85:443/redfish/v1/Chassis/System.Embedded.1/Power
+2024-12-31 22:24:35 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 시스템 기본 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1
+2024-12-31 22:24:35 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: BIOS 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Bios
+2024-12-31 22:24:35 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: iDRAC 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1
+2024-12-31 22:24:35 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Processors
+2024-12-31 22:24:35 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 메모리 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Memory
+2024-12-31 22:24:35 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 스토리지 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Storage
+2024-12-31 22:24:35 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 전원 상태 조회 - URL: https://192.168.0.85:443/redfish/v1/Chassis/System.Embedded.1/Power
+2024-12-31 22:24:36 - [96118] - dell_idrac_monitor - DEBUG - 작업 관리자 다이얼로그 표시 시도
+2024-12-31 22:24:36 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:24:36 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:24:36 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:24:36 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:24:36 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:24:36 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:24:36 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:24:36 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:24:36 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:24:36 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:25:04 - [96118] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:25:04 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:25:06 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:25:06 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:25:06 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:25:06 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:25:06 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:25:06 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:25:06 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:25:06 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:25:06 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:25:06 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:25:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:25:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:25:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:25:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:25:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:25:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:25:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:25:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:25:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:25:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:25:37 - [96118] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:25:37 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:26:04 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:26:04 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:26:04 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:26:04 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:26:04 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:26:04 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:26:04 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:26:04 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:26:04 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:26:04 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:26:12 - [96118] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:26:12 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:26:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:26:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:26:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:26:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:26:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:26:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:26:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:26:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:26:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:26:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:26:42 - [96118] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:26:42 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:27:04 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:27:04 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:27:04 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:27:04 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:27:04 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:27:04 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:27:04 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:27:04 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:27:04 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:27:04 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:27:12 - [96118] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:27:12 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:27:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:27:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:27:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:27:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:27:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:27:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:27:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:27:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:27:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:27:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:27:47 - [96118] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:27:47 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:28:04 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:28:04 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:28:04 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:28:04 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:28:04 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:28:04 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:28:04 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:28:04 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:28:04 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:28:04 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:28:22 - [96118] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:28:22 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:28:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:28:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:28:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:28:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:28:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:28:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:28:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:28:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:28:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:28:34 - [96118] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:28:42 - [96118] - dell_idrac_monitor - INFO - 프로그램 재시작 시도
+2024-12-31 22:28:42 - [96118] - dell_idrac_monitor - INFO - 새 프로세스 시작
+2024-12-31 22:28:42 - [96118] - dell_idrac_monitor - INFO - 프로그램 종료
+2024-12-31 22:28:42 - [96118] - dell_idrac_monitor - INFO - 애플리케이션 종료 프로세스 시작
+2024-12-31 22:28:42 - [96118] - dell_idrac_monitor - DEBUG - 서버 연결 해제 중...
+2024-12-31 22:28:42 - [96118] - dell_idrac_monitor - DEBUG - 서버 연결 해제 완료
+2024-12-31 22:28:42 - [96118] - dell_idrac_monitor - DEBUG - 리소스 정리 중...
+2024-12-31 22:28:42 - [96118] - dell_idrac_monitor - DEBUG - 리소스 정리 완료
+2024-12-31 22:28:42 - [96118] - dell_idrac_monitor - DEBUG - 업데이트 타이머 정리 중...
+2024-12-31 22:28:42 - [96118] - dell_idrac_monitor - DEBUG - 업데이트 타이머 정리 완료
+2024-12-31 22:28:42 - [96118] - dell_idrac_monitor - INFO - 애플리케이션 종료 완료
+2024-12-31 22:28:43 - [97427] - dell_idrac_monitor - DEBUG - 서버 정보 로드 완료: 3개의 서버
+2024-12-31 22:28:43 - [97427] - dell_idrac_monitor - INFO - 빠른 연결 서버 설정: web1
+2024-12-31 22:28:43 - [97427] - dell_idrac_monitor - DEBUG - 빠른 연결 버튼 클릭
+2024-12-31 22:28:43 - [97427] - dell_idrac_monitor - DEBUG - 빠른 연결 시도 시작
+2024-12-31 22:28:43 - [97427] - dell_idrac_monitor - DEBUG - Redfish 이벤트 서비스 상태 확인 시작
+2024-12-31 22:28:43 - [97427] - dell_idrac_monitor - INFO - Redfish 이벤트 구독 상태: 비활성화
+2024-12-31 22:28:43 - [97427] - dell_idrac_monitor - INFO - 구독이 비활성화되어 있어 폴링 방식으로 전환
+2024-12-31 22:28:43 - [97427] - dell_idrac_monitor - DEBUG - 연결 상태 업데이트: 연결됨 (30ms)
+2024-12-31 22:28:43 - [97427] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:28:44 - [97427] - dell_idrac_monitor - DEBUG - SEL 로그 카운트 변경: 0 → 18
+2024-12-31 22:28:44 - [97427] - dell_idrac_monitor - DEBUG - 현재 서버 표시 업데이트: web1 (192.168.0.85)
+2024-12-31 22:28:44 - [97427] - dell_idrac_monitor - DEBUG - Redfish API 요청: 시스템 기본 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1
+2024-12-31 22:28:44 - [97427] - dell_idrac_monitor - DEBUG - Redfish API 요청: BIOS 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Bios
+2024-12-31 22:28:44 - [97427] - dell_idrac_monitor - DEBUG - Redfish API 요청: iDRAC 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1
+2024-12-31 22:28:44 - [97427] - dell_idrac_monitor - DEBUG - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Processors
+2024-12-31 22:28:44 - [97427] - dell_idrac_monitor - DEBUG - Redfish API 요청: 메모리 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Memory
+2024-12-31 22:28:44 - [97427] - dell_idrac_monitor - DEBUG - Redfish API 요청: 스토리지 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Storage
+2024-12-31 22:28:44 - [97427] - dell_idrac_monitor - DEBUG - Redfish API 요청: 전원 상태 조회 - URL: https://192.168.0.85:443/redfish/v1/Chassis/System.Embedded.1/Power
+2024-12-31 22:28:44 - [97427] - dell_idrac_monitor - DEBUG - Redfish API 요청: 시스템 기본 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1
+2024-12-31 22:28:44 - [97427] - dell_idrac_monitor - DEBUG - Redfish API 요청: BIOS 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Bios
+2024-12-31 22:28:44 - [97427] - dell_idrac_monitor - DEBUG - Redfish API 요청: iDRAC 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1
+2024-12-31 22:28:44 - [97427] - dell_idrac_monitor - DEBUG - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Processors
+2024-12-31 22:28:44 - [97427] - dell_idrac_monitor - DEBUG - Redfish API 요청: 메모리 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Memory
+2024-12-31 22:28:44 - [97427] - dell_idrac_monitor - DEBUG - Redfish API 요청: 스토리지 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Storage
+2024-12-31 22:28:44 - [97427] - dell_idrac_monitor - DEBUG - Redfish API 요청: 전원 상태 조회 - URL: https://192.168.0.85:443/redfish/v1/Chassis/System.Embedded.1/Power
+2024-12-31 22:28:45 - [97427] - dell_idrac_monitor - DEBUG - 작업 관리자 다이얼로그 표시 시도
+2024-12-31 22:28:45 - [97427] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:28:45 - [97427] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:28:45 - [97427] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:28:45 - [97427] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:28:45 - [97427] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:28:45 - [97427] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:28:45 - [97427] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:28:45 - [97427] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:28:45 - [97427] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:28:45 - [97427] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:29:15 - [97427] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:29:15 - [97427] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:29:15 - [97427] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:29:15 - [97427] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:29:15 - [97427] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:29:15 - [97427] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:29:15 - [97427] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:29:15 - [97427] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:29:15 - [97427] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:29:15 - [97427] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:29:17 - [97427] - dell_idrac_monitor - INFO - 프로그램 재시작 시도
+2024-12-31 22:29:17 - [97427] - dell_idrac_monitor - INFO - 새 프로세스 시작
+2024-12-31 22:29:17 - [97427] - dell_idrac_monitor - INFO - 프로그램 종료
+2024-12-31 22:29:17 - [97427] - dell_idrac_monitor - INFO - 애플리케이션 종료 프로세스 시작
+2024-12-31 22:29:17 - [97427] - dell_idrac_monitor - DEBUG - 서버 연결 해제 중...
+2024-12-31 22:29:17 - [97427] - dell_idrac_monitor - DEBUG - 서버 연결 해제 완료
+2024-12-31 22:29:17 - [97427] - dell_idrac_monitor - DEBUG - 리소스 정리 중...
+2024-12-31 22:29:17 - [97427] - dell_idrac_monitor - DEBUG - 리소스 정리 완료
+2024-12-31 22:29:17 - [97427] - dell_idrac_monitor - DEBUG - 업데이트 타이머 정리 중...
+2024-12-31 22:29:17 - [97427] - dell_idrac_monitor - DEBUG - 업데이트 타이머 정리 완료
+2024-12-31 22:29:17 - [97427] - dell_idrac_monitor - INFO - 애플리케이션 종료 완료
+2024-12-31 22:29:18 - [97632] - dell_idrac_monitor - DEBUG - 서버 정보 로드 완료: 3개의 서버
+2024-12-31 22:29:18 - [97632] - dell_idrac_monitor - INFO - 빠른 연결 서버 설정: web1
+2024-12-31 22:29:18 - [97632] - dell_idrac_monitor - DEBUG - 빠른 연결 버튼 클릭
+2024-12-31 22:29:18 - [97632] - dell_idrac_monitor - DEBUG - 빠른 연결 시도 시작
+2024-12-31 22:29:18 - [97632] - dell_idrac_monitor - DEBUG - Redfish 이벤트 서비스 상태 확인 시작
+2024-12-31 22:29:19 - [97632] - dell_idrac_monitor - INFO - Redfish 이벤트 구독 상태: 비활성화
+2024-12-31 22:29:19 - [97632] - dell_idrac_monitor - INFO - 구독이 비활성화되어 있어 폴링 방식으로 전환
+2024-12-31 22:29:19 - [97632] - dell_idrac_monitor - DEBUG - 연결 상태 업데이트: 연결됨 (28ms)
+2024-12-31 22:29:19 - [97632] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:29:19 - [97632] - dell_idrac_monitor - DEBUG - SEL 로그 카운트 변경: 0 → 18
+2024-12-31 22:29:19 - [97632] - dell_idrac_monitor - DEBUG - 현재 서버 표시 업데이트: web1 (192.168.0.85)
+2024-12-31 22:29:19 - [97632] - dell_idrac_monitor - DEBUG - Redfish API 요청: 시스템 기본 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1
+2024-12-31 22:29:19 - [97632] - dell_idrac_monitor - DEBUG - Redfish API 요청: BIOS 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Bios
+2024-12-31 22:29:19 - [97632] - dell_idrac_monitor - DEBUG - Redfish API 요청: iDRAC 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1
+2024-12-31 22:29:19 - [97632] - dell_idrac_monitor - DEBUG - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Processors
+2024-12-31 22:29:19 - [97632] - dell_idrac_monitor - DEBUG - Redfish API 요청: 메모리 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Memory
+2024-12-31 22:29:19 - [97632] - dell_idrac_monitor - DEBUG - Redfish API 요청: 스토리지 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Storage
+2024-12-31 22:29:19 - [97632] - dell_idrac_monitor - DEBUG - Redfish API 요청: 전원 상태 조회 - URL: https://192.168.0.85:443/redfish/v1/Chassis/System.Embedded.1/Power
+2024-12-31 22:29:19 - [97632] - dell_idrac_monitor - DEBUG - Redfish API 요청: 시스템 기본 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1
+2024-12-31 22:29:19 - [97632] - dell_idrac_monitor - DEBUG - Redfish API 요청: BIOS 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Bios
+2024-12-31 22:29:19 - [97632] - dell_idrac_monitor - DEBUG - Redfish API 요청: iDRAC 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1
+2024-12-31 22:29:19 - [97632] - dell_idrac_monitor - DEBUG - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Processors
+2024-12-31 22:29:19 - [97632] - dell_idrac_monitor - DEBUG - Redfish API 요청: 메모리 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Memory
+2024-12-31 22:29:19 - [97632] - dell_idrac_monitor - DEBUG - Redfish API 요청: 스토리지 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Storage
+2024-12-31 22:29:19 - [97632] - dell_idrac_monitor - DEBUG - Redfish API 요청: 전원 상태 조회 - URL: https://192.168.0.85:443/redfish/v1/Chassis/System.Embedded.1/Power
+2024-12-31 22:29:20 - [97632] - dell_idrac_monitor - DEBUG - 작업 관리자 다이얼로그 표시 시도
+2024-12-31 22:29:20 - [97632] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:29:20 - [97632] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:29:20 - [97632] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:29:20 - [97632] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:29:20 - [97632] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:29:20 - [97632] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:29:20 - [97632] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:29:20 - [97632] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:29:20 - [97632] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:29:20 - [97632] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:29:34 - [97632] - dell_idrac_monitor - INFO - 프로그램 재시작 시도
+2024-12-31 22:29:34 - [97632] - dell_idrac_monitor - INFO - 새 프로세스 시작
+2024-12-31 22:29:34 - [97632] - dell_idrac_monitor - INFO - 프로그램 종료
+2024-12-31 22:29:34 - [97632] - dell_idrac_monitor - INFO - 애플리케이션 종료 프로세스 시작
+2024-12-31 22:29:34 - [97632] - dell_idrac_monitor - DEBUG - 서버 연결 해제 중...
+2024-12-31 22:29:34 - [97632] - dell_idrac_monitor - DEBUG - 서버 연결 해제 완료
+2024-12-31 22:29:34 - [97632] - dell_idrac_monitor - DEBUG - 리소스 정리 중...
+2024-12-31 22:29:34 - [97632] - dell_idrac_monitor - DEBUG - 리소스 정리 완료
+2024-12-31 22:29:34 - [97632] - dell_idrac_monitor - DEBUG - 업데이트 타이머 정리 중...
+2024-12-31 22:29:34 - [97632] - dell_idrac_monitor - DEBUG - 업데이트 타이머 정리 완료
+2024-12-31 22:29:34 - [97632] - dell_idrac_monitor - INFO - 애플리케이션 종료 완료
+2024-12-31 22:29:35 - [97693] - dell_idrac_monitor - DEBUG - 서버 정보 로드 완료: 3개의 서버
+2024-12-31 22:29:35 - [97693] - dell_idrac_monitor - INFO - 빠른 연결 서버 설정: web1
+2024-12-31 22:29:35 - [97693] - dell_idrac_monitor - DEBUG - 빠른 연결 버튼 클릭
+2024-12-31 22:29:35 - [97693] - dell_idrac_monitor - DEBUG - 빠른 연결 시도 시작
+2024-12-31 22:29:35 - [97693] - dell_idrac_monitor - DEBUG - Redfish 이벤트 서비스 상태 확인 시작
+2024-12-31 22:29:35 - [97693] - dell_idrac_monitor - INFO - Redfish 이벤트 구독 상태: 비활성화
+2024-12-31 22:29:35 - [97693] - dell_idrac_monitor - INFO - 구독이 비활성화되어 있어 폴링 방식으로 전환
+2024-12-31 22:29:35 - [97693] - dell_idrac_monitor - DEBUG - 연결 상태 업데이트: 연결됨 (32ms)
+2024-12-31 22:29:35 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:29:36 - [97693] - dell_idrac_monitor - DEBUG - SEL 로그 카운트 변경: 0 → 18
+2024-12-31 22:29:36 - [97693] - dell_idrac_monitor - DEBUG - 현재 서버 표시 업데이트: web1 (192.168.0.85)
+2024-12-31 22:29:36 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 시스템 기본 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1
+2024-12-31 22:29:36 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: BIOS 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Bios
+2024-12-31 22:29:36 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: iDRAC 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1
+2024-12-31 22:29:36 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Processors
+2024-12-31 22:29:36 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 메모리 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Memory
+2024-12-31 22:29:36 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 스토리지 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Storage
+2024-12-31 22:29:36 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 전원 상태 조회 - URL: https://192.168.0.85:443/redfish/v1/Chassis/System.Embedded.1/Power
+2024-12-31 22:29:36 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 시스템 기본 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1
+2024-12-31 22:29:36 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: BIOS 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Bios
+2024-12-31 22:29:36 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: iDRAC 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1
+2024-12-31 22:29:36 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Processors
+2024-12-31 22:29:36 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 메모리 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Memory
+2024-12-31 22:29:36 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 스토리지 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Storage
+2024-12-31 22:29:36 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 전원 상태 조회 - URL: https://192.168.0.85:443/redfish/v1/Chassis/System.Embedded.1/Power
+2024-12-31 22:29:37 - [97693] - dell_idrac_monitor - DEBUG - 작업 관리자 다이얼로그 표시 시도
+2024-12-31 22:29:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:29:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:29:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:29:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:29:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:29:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:29:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:29:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:29:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:29:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:30:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:30:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:30:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:30:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:30:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:30:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:30:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:30:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:30:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:30:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:30:10 - [97693] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:30:10 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:30:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:30:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:30:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:30:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:30:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:30:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:30:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:30:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:30:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:30:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:30:40 - [97693] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:30:40 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:31:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:31:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:31:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:31:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:31:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:31:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:31:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:31:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:31:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:31:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:31:15 - [97693] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:31:15 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:31:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:31:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:31:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:31:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:31:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:31:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:31:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:31:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:31:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:31:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:31:45 - [97693] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:31:45 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:32:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:32:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:32:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:32:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:32:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:32:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:32:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:32:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:32:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:32:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:32:20 - [97693] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:32:20 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:32:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:32:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:32:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:32:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:32:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:32:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:32:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:32:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:32:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:32:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:32:50 - [97693] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:32:50 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:33:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:33:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:33:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:33:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:33:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:33:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:33:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:33:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:33:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:33:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:33:25 - [97693] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:33:25 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:33:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:33:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:33:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:33:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:33:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:33:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:33:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:33:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:33:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:33:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:34:00 - [97693] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:34:00 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:34:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:34:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:34:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:34:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:34:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:34:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:34:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:34:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:34:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:34:07 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:34:35 - [97693] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:34:35 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:34:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:34:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:34:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:34:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:34:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:34:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:34:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:34:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:34:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:34:37 - [97693] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:34:54 - [97693] - dell_idrac_monitor - INFO - 프로그램 재시작 시도
+2024-12-31 22:34:54 - [97693] - dell_idrac_monitor - INFO - 새 프로세스 시작
+2024-12-31 22:34:54 - [97693] - dell_idrac_monitor - INFO - 프로그램 종료
+2024-12-31 22:34:54 - [97693] - dell_idrac_monitor - INFO - 애플리케이션 종료 프로세스 시작
+2024-12-31 22:34:54 - [97693] - dell_idrac_monitor - DEBUG - 서버 연결 해제 중...
+2024-12-31 22:34:54 - [97693] - dell_idrac_monitor - DEBUG - 서버 연결 해제 완료
+2024-12-31 22:34:54 - [97693] - dell_idrac_monitor - DEBUG - 리소스 정리 중...
+2024-12-31 22:34:54 - [97693] - dell_idrac_monitor - DEBUG - 리소스 정리 완료
+2024-12-31 22:34:54 - [97693] - dell_idrac_monitor - DEBUG - 업데이트 타이머 정리 중...
+2024-12-31 22:34:54 - [97693] - dell_idrac_monitor - DEBUG - 업데이트 타이머 정리 완료
+2024-12-31 22:34:54 - [97693] - dell_idrac_monitor - INFO - 애플리케이션 종료 완료
+2024-12-31 22:34:55 - [99296] - dell_idrac_monitor - DEBUG - 서버 정보 로드 완료: 3개의 서버
+2024-12-31 22:34:55 - [99296] - dell_idrac_monitor - INFO - 빠른 연결 서버 설정: web1
+2024-12-31 22:42:57 - [99296] - dell_idrac_monitor - INFO - 프로그램 재시작 시도
+2024-12-31 22:42:57 - [99296] - dell_idrac_monitor - INFO - 새 프로세스 시작
+2024-12-31 22:42:57 - [99296] - dell_idrac_monitor - INFO - 프로그램 종료
+2024-12-31 22:42:57 - [99296] - dell_idrac_monitor - INFO - 애플리케이션 종료 프로세스 시작
+2024-12-31 22:42:57 - [99296] - dell_idrac_monitor - DEBUG - 서버 연결 해제 중...
+2024-12-31 22:42:57 - [99296] - dell_idrac_monitor - DEBUG - 서버 연결 해제 완료
+2024-12-31 22:42:57 - [99296] - dell_idrac_monitor - DEBUG - 리소스 정리 중...
+2024-12-31 22:42:57 - [99296] - dell_idrac_monitor - DEBUG - 리소스 정리 완료
+2024-12-31 22:42:57 - [99296] - dell_idrac_monitor - DEBUG - 업데이트 타이머 정리 중...
+2024-12-31 22:42:57 - [99296] - dell_idrac_monitor - DEBUG - 업데이트 타이머 정리 완료
+2024-12-31 22:42:57 - [99296] - dell_idrac_monitor - INFO - 애플리케이션 종료 완료
+2024-12-31 22:42:57 - [3103] - dell_idrac_monitor - DEBUG - 서버 정보 로드 완료: 3개의 서버
+2024-12-31 22:42:57 - [3103] - dell_idrac_monitor - INFO - 빠른 연결 서버 설정: web1
+2024-12-31 22:42:58 - [3103] - dell_idrac_monitor - DEBUG - 빠른 연결 버튼 클릭
+2024-12-31 22:42:58 - [3103] - dell_idrac_monitor - DEBUG - 빠른 연결 시도 시작
+2024-12-31 22:42:58 - [3103] - dell_idrac_monitor - DEBUG - Redfish 이벤트 서비스 상태 확인 시작
+2024-12-31 22:42:58 - [3103] - dell_idrac_monitor - INFO - Redfish 이벤트 구독 상태: 비활성화
+2024-12-31 22:42:58 - [3103] - dell_idrac_monitor - INFO - 구독이 비활성화되어 있어 폴링 방식으로 전환
+2024-12-31 22:42:58 - [3103] - dell_idrac_monitor - DEBUG - 연결 상태 업데이트: 연결됨 (30ms)
+2024-12-31 22:42:58 - [3103] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:42:59 - [3103] - dell_idrac_monitor - DEBUG - SEL 로그 카운트 변경: 0 → 18
+2024-12-31 22:42:59 - [3103] - dell_idrac_monitor - DEBUG - 현재 서버 표시 업데이트: web1 (192.168.0.85)
+2024-12-31 22:42:59 - [3103] - dell_idrac_monitor - DEBUG - Redfish API 요청: 시스템 기본 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1
+2024-12-31 22:42:59 - [3103] - dell_idrac_monitor - DEBUG - Redfish API 요청: BIOS 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Bios
+2024-12-31 22:42:59 - [3103] - dell_idrac_monitor - DEBUG - Redfish API 요청: iDRAC 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1
+2024-12-31 22:42:59 - [3103] - dell_idrac_monitor - DEBUG - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Processors
+2024-12-31 22:42:59 - [3103] - dell_idrac_monitor - DEBUG - Redfish API 요청: 메모리 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Memory
+2024-12-31 22:42:59 - [3103] - dell_idrac_monitor - DEBUG - Redfish API 요청: 스토리지 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Storage
+2024-12-31 22:42:59 - [3103] - dell_idrac_monitor - DEBUG - Redfish API 요청: 전원 상태 조회 - URL: https://192.168.0.85:443/redfish/v1/Chassis/System.Embedded.1/Power
+2024-12-31 22:42:59 - [3103] - dell_idrac_monitor - DEBUG - Redfish API 요청: 시스템 기본 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1
+2024-12-31 22:42:59 - [3103] - dell_idrac_monitor - DEBUG - Redfish API 요청: BIOS 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Bios
+2024-12-31 22:42:59 - [3103] - dell_idrac_monitor - DEBUG - Redfish API 요청: iDRAC 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1
+2024-12-31 22:42:59 - [3103] - dell_idrac_monitor - DEBUG - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Processors
+2024-12-31 22:42:59 - [3103] - dell_idrac_monitor - DEBUG - Redfish API 요청: 메모리 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Memory
+2024-12-31 22:42:59 - [3103] - dell_idrac_monitor - DEBUG - Redfish API 요청: 스토리지 정보 조회 - URL: https://192.168.0.85:443/redfish/v1/Systems/System.Embedded.1/Storage
+2024-12-31 22:42:59 - [3103] - dell_idrac_monitor - DEBUG - Redfish API 요청: 전원 상태 조회 - URL: https://192.168.0.85:443/redfish/v1/Chassis/System.Embedded.1/Power
+2024-12-31 22:43:33 - [3103] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:43:33 - [3103] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:44:08 - [3103] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:44:08 - [3103] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:44:12 - [3103] - dell_idrac_monitor - DEBUG - 작업 관리자 다이얼로그 표시 시도
+2024-12-31 22:44:12 - [3103] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:44:12 - [3103] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:44:12 - [3103] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:44:12 - [3103] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:44:12 - [3103] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:44:12 - [3103] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:44:12 - [3103] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:44:12 - [3103] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:44:12 - [3103] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:44:12 - [3103] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:44:42 - [3103] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs
+2024-12-31 22:44:42 - [3103] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008670311302
+2024-12-31 22:44:42 - [3103] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_008673538938
+2024-12-31 22:44:42 - [3103] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111373459114
+2024-12-31 22:44:42 - [3103] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111379880301
+2024-12-31 22:44:42 - [3103] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380041311
+2024-12-31 22:44:42 - [3103] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380152517
+2024-12-31 22:44:42 - [3103] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380414079
+2024-12-31 22:44:42 - [3103] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/JID_111380525077
+2024-12-31 22:44:42 - [3103] - dell_idrac_monitor - DEBUG - Redfish API 요청: 알 수 없는 요청 - URL: https://192.168.0.85:443/redfish/v1/JobService/Jobs/RID_111380686015
+2024-12-31 22:44:43 - [3103] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:44:43 - [3103] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:44:50 - [3103] - dell_idrac_monitor - DEBUG - 작업 관리자 다이얼로그 종료: 타이머 정지
+2024-12-31 22:45:18 - [3103] - dell_idrac_monitor - DEBUG - 폴링 방식으로 SEL 로그 조회
+2024-12-31 22:45:18 - [3103] - dell_idrac_monitor - DEBUG - Redfish API 요청: SEL 로그 엔트리 조회 - URL: https://192.168.0.85:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Entries
+2024-12-31 22:45:24 - [3103] - dell_idrac_monitor - DEBUG - 현재 버전: 1.0.17, 최신 버전: 1.0.16

@@ -598,3 +598,47 @@ class DellServerManager:
         except Exception as e:
             logger.error(f"TSR 로그 수집 중 오류 발생: {str(e)}")
             return None
+
+    def fetch_job_queue(self):
+        """Job 큐 조회"""
+        try:
+            response = self.session.get(self.endpoints.job_collection, auth=self.auth, verify=False)
+            response.raise_for_status()
+            return response.json()
+        except Exception as e:
+            logger.error(f"Job 큐 조회 실패: {str(e)}")
+            raise
+
+    def fetch_job_details(self, job_id):
+        """특정 Job 상세 정보 조회"""
+        try:
+            url = self.endpoints.get_job_details_url(job_id)
+            response = self.session.get(url, auth=self.auth, verify=False)
+            response.raise_for_status()
+            return response.json()
+        except Exception as e:
+            logger.error(f"Job 상세 정보 조회 실패 (Job ID: {job_id}): {str(e)}")
+            raise
+
+    def delete_job(self, job_id):
+        """특정 Job 삭제"""
+        try:
+            url = self.endpoints.get_job_details_url(job_id)
+            response = self.session.delete(url, auth=self.auth, verify=False)
+            response.raise_for_status()
+            return True
+        except Exception as e:
+            logger.error(f"Job 삭제 실패 (Job ID: {job_id}): {str(e)}")
+            raise
+
+    def clear_job_queue(self):
+        """전체 Job 큐 삭제"""
+        try:
+            url = f"{self.endpoints.job_collection}/Actions/JobService.DeleteJobQueue"
+            payload = {"JobID": "JID_CLEARALL"}
+            response = self.session.post(url, json=payload, auth=self.auth, verify=False)
+            response.raise_for_status()
+            return True
+        except Exception as e:
+            logger.error(f"Job 큐 삭제 실패: {str(e)}")
+            raise

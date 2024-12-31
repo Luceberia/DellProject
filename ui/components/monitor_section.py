@@ -1,7 +1,7 @@
 import pandas as pd
 from PyQt6.QtGui import QColor, QIcon, QImage, QPixmap
 from config.system.log_config import setup_logging
-from PyQt6.QtWidgets import QDialog, QFileDialog, QGroupBox, QHBoxLayout, QMessageBox, QTreeWidget, QTreeWidgetItem, QVBoxLayout, QPushButton, QProgressDialog, QApplication, QMainWindow, QLabel, QSpinBox, QProgressBar, QCheckBox, QDialogButtonBox, QLineEdit, QTreeView, QMenu
+from PyQt6.QtWidgets import QDialog, QFileDialog, QGroupBox, QHBoxLayout, QMessageBox, QTreeWidget, QTreeWidgetItem, QVBoxLayout, QPushButton, QProgressDialog, QApplication, QMainWindow, QLabel, QSpinBox, QProgressBar, QCheckBox, QDialogButtonBox, QLineEdit, QComboBox, QMenu
 from PyQt6.QtCore import Qt, QTimer, QSettings
 from typing import Optional, cast
 from ui.components.popups.system_event_popup import SystemEventPopup
@@ -54,6 +54,9 @@ def create_section(title, items, parent=None):
         # BIOS 설정 버튼 클릭 이벤트 처리
         elif item == "BIOS 설정":
             btn.clicked.connect(lambda checked=False, p=parent: show_system_info(p))
+        # 작업 관리 버튼 클릭 이벤트 처리
+        elif item == "작업 관리":
+            btn.clicked.connect(lambda checked=False, p=parent: show_task_manager(p))
         # SSH 연결 버튼 클릭 이벤트 처리
         elif item == "SSH 연결":
             btn.clicked.connect(lambda checked=False, p=parent: open_ssh_connection(p))
@@ -81,7 +84,7 @@ def create_monitor_section(parent=None):
     
     sections = {
         "📊 모니터링": ["시스템 상태", "펌웨어 정보"],
-        "⚙️ 관리": ["BIOS 설정", "SSH 연결"],
+        "⚙️ 관리": ["BIOS 설정", "작업 관리", "SSH 연결"],
         "📋 로그": ["LC LOG", "TSR LOG"]
     }
     
@@ -969,7 +972,7 @@ def show_all_status(parent):
                                                                     # 타이머 설정
                                                                     start_time = time.time()
                                                                     last_progress = 0
-                                                                    timer = QTimer()
+                                                                    timer = QTimer(parent)
                                                                     
                                                                     def update_progress():
                                                                         try:
@@ -1983,3 +1986,243 @@ def update_all_status():
         
     except Exception as e:
         logger.error(f"시스템 상태 정보 업데이트 실패: {str(e)}")
+
+def show_task_manager(parent):
+    """작업 관리자 다이얼로그 표시"""
+    logger.debug("작업 관리자 다이얼로그 표시 시도")
+    
+    main_window = parent.window()
+    if not hasattr(main_window, 'server_section'):
+        logger.warning("서버 섹션을 찾을 수 없음")
+        error_dialog = ErrorDialog(
+            "서버 연결 오류",
+            "서버가 연결되어 있지 않습니다.",
+            "서버를 먼저 연결한 후 다시 시도해주세요.",
+            parent
+        )
+        error_dialog.exec()
+        return
+
+    server_info = main_window.server_section.current_server_info
+    if not server_info:
+        logger.warning("서버 정보가 없음")
+        error_dialog = ErrorDialog(
+            "서버 연결 오류",
+            "서버 정보를 찾을 수 없습니다.",
+            "서버를 선택한 후 다시 시도해주세요.",
+            parent
+        )
+        error_dialog.exec()
+        return
+
+    try:
+        server_manager = DellServerManager(
+            ip=server_info['IP'],
+            port=server_info['PORT'],
+            auth=(server_info['USERNAME'], server_info['PASSWORD'])
+        )
+
+        dialog = QDialog(parent)
+        dialog.setWindowTitle("작업 관리")
+        dialog.resize(900, 600)
+        layout = QVBoxLayout(dialog)
+
+        # 필터 컨트롤 추가
+        filter_layout = QHBoxLayout()
+        status_combo = QComboBox()
+        status_combo.addItems(['전체', 'Completed', 'Failed', 'Running'])
+        search_input = QLineEdit()
+        search_input.setPlaceholderText("작업 ID 또는 이름으로 검색")
+        
+        filter_layout.addWidget(QLabel("상태:"))
+        filter_layout.addWidget(status_combo)
+        filter_layout.addWidget(search_input)
+        layout.addLayout(filter_layout)
+
+        # 작업 목록 트리 위젯
+        tree_widget = QTreeWidget(dialog)
+        tree_widget.setHeaderLabels(["작업 ID", "작업 종류", "상태", "진행률", "시작 시간", "종료 시간"])
+        
+        # 컬럼 너비 최적화
+        tree_widget.setColumnWidth(0, 150)  # 작업 ID
+        tree_widget.setColumnWidth(1, 200)  # 작업 종류
+        tree_widget.setColumnWidth(2, 100)  # 상태
+        tree_widget.setColumnWidth(3, 80)   # 진행률
+        tree_widget.setColumnWidth(4, 150)  # 시작 시간
+        tree_widget.setColumnWidth(5, 150)  # 종료 시간
+        layout.addWidget(tree_widget)
+
+        # 버튼 레이아웃
+        button_layout = QHBoxLayout()
+        refresh_button = QPushButton("새로고침")
+        refresh_button.setIcon(QIcon("refresh_icon.png"))
+        delete_button = QPushButton("선택 작업 삭제")
+        delete_button.setIcon(QIcon("delete_icon.png"))
+        clear_button = QPushButton("완료된 작업 정리")
+        clear_button.setIcon(QIcon("clear_icon.png"))
+        
+        button_layout.addWidget(refresh_button)
+        button_layout.addWidget(delete_button)
+        button_layout.addWidget(clear_button)
+        button_layout.addStretch()
+        layout.addLayout(button_layout)
+
+        def add_job_to_tree(job_details):
+            item = QTreeWidgetItem(tree_widget)
+            item.setText(0, job_details.get('Id', 'N/A'))
+            item.setText(1, job_details.get('Name', 'N/A'))
+            
+            status = job_details.get('JobState', 'N/A')
+            item.setText(2, status)
+            
+            # 상태에 따른 색상 설정
+            if status == 'Completed':
+                item.setForeground(2, QColor('green'))
+            elif status == 'Failed':
+                item.setForeground(2, QColor('red'))
+            elif status == 'Running':
+                item.setForeground(2, QColor('blue'))
+            
+            # 진행률을 프로그레스바로 표시
+            progress = job_details.get('PercentComplete', 0)
+            progress_bar = QProgressBar()
+            progress_bar.setValue(progress)
+            progress_bar.setStyleSheet("""
+                QProgressBar {
+                    border: 1px solid grey;
+                    border-radius: 2px;
+                    text-align: center;
+                }
+                QProgressBar::chunk {
+                    background-color: #2196F3;
+                }
+            """)
+            tree_widget.setItemWidget(item, 3, progress_bar)
+            
+            # 시간 형식 개선
+            start_time = job_details.get('StartTime', 'N/A')
+            end_time = job_details.get('EndTime', 'N/A')
+            item.setText(4, format_time(start_time) if start_time != 'N/A' else 'N/A')
+            item.setText(5, format_time(end_time) if end_time != 'N/A' else 'N/A')
+
+        def refresh_jobs():
+            tree_widget.clear()
+            try:
+                jobs = server_manager.fetch_job_queue()
+                job_items = []
+                has_running_jobs = False
+                
+                for job in jobs.get('Members', []):
+                    job_id = job['@odata.id'].split('/')[-1]
+                    job_details = server_manager.fetch_job_details(job_id)
+                    
+                    # 진행 중인 작업 확인
+                    if job_details.get('JobState') == 'Running':
+                        has_running_jobs = True
+                    
+                    # 필터링 적용
+                    if status_combo.currentText() != '전체' and job_details.get('JobState') != status_combo.currentText():
+                        continue
+                    
+                    search_text = search_input.text().lower()
+                    if search_text and search_text not in job_details.get('Id', '').lower() and \
+                       search_text not in job_details.get('Name', '').lower():
+                        continue
+                    
+                    job_items.append((job_details.get('StartTime', ''), job_details))
+                
+                # 진행 중인 작업이 있으면 갱신 주기 변경
+                if has_running_jobs:
+                    timer.setInterval(5000)  # 5초마다 갱신
+                else:
+                    timer.setInterval(30000)  # 30초마다 갱신
+                
+                # 시작 시간 기준 내림차순 정렬
+                job_items.sort(key=lambda x: x[0], reverse=True)
+                
+                for _, job_details in job_items:
+                    add_job_to_tree(job_details)
+                    
+            except Exception as e:
+                QMessageBox.critical(dialog, "오류", f"작업 목록 조회 실패: {str(e)}")
+
+        def delete_selected_job():
+            selected_items = tree_widget.selectedItems()
+            if not selected_items:
+                QMessageBox.warning(dialog, "경고", "삭제할 작업을 선택해주세요.")
+                return
+            
+            job_id = selected_items[0].text(0)
+            confirm = QMessageBox.question(
+                dialog, 
+                "확인", 
+                f"작업 {job_id}를 삭제하시겠습니까?",
+                QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+            )
+            
+            if confirm == QMessageBox.StandardButton.Yes:
+                try:
+                    server_manager.delete_job(job_id)
+                    refresh_jobs()
+                except Exception as e:
+                    QMessageBox.critical(dialog, "오류", f"작업 삭제 실패: {str(e)}")
+
+        def clear_all_jobs():
+            confirm = QMessageBox.question(
+                dialog,
+                "확인",
+                "완료된 작업을 모두 삭제하시겠습니까?",
+                QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+            )
+            
+            if confirm == QMessageBox.StandardButton.Yes:
+                try:
+                    server_manager.clear_job_queue()
+                    refresh_jobs()
+                except Exception as e:
+                    QMessageBox.critical(dialog, "오류", f"작업 큐 삭제 실패: {str(e)}")
+
+        # 다이얼로그가 닫힐 때 타이머 정지를 위한 이벤트 처리
+        def on_dialog_finished():
+            timer.stop()
+            logger.debug("작업 관리자 다이얼로그 종료: 타이머 정지")
+            
+        # 이벤트 연결
+        refresh_button.clicked.connect(refresh_jobs)
+        delete_button.clicked.connect(delete_selected_job)
+        clear_button.clicked.connect(clear_all_jobs)
+        status_combo.currentTextChanged.connect(refresh_jobs)
+        search_input.textChanged.connect(refresh_jobs)
+
+        # 타이머 설정 및 시작
+        timer = QTimer(dialog)
+        timer.timeout.connect(refresh_jobs)
+        dialog.finished.connect(on_dialog_finished)
+        
+        # 초기 작업 목록 로드 및 타이머 시작
+        refresh_jobs()  # 다이얼로그가 열릴 때 첫 조회
+        timer.start(30000)  # 30초 주기로 시작
+        
+        dialog.exec()
+
+    except Exception as e:
+        logger.error(f"작업 관리자 표시 중 오류 발생: {str(e)}")
+        error_dialog = ErrorDialog(
+            "작업 관리자 오류",
+            "작업 관리자를 표시하는 중 오류가 발생했습니다.",
+            str(e),
+            parent
+        )
+        error_dialog.exec()
+
+def format_time(time_str):
+    """시간 형식을 보기 좋게 변환"""
+    if time_str and time_str != 'N/A':
+        try:
+            date_parts = time_str.split('T')
+            if len(date_parts) == 2:
+                return f"{date_parts[0]} {date_parts[1][:8]}"
+        except:
+            pass
+    return time_str
+
