@@ -1,10 +1,13 @@
-from config.system.log_config import logger
+from config.system.log_config import setup_logging
 import requests
 from endpoints.redfish_endpoints import RedfishEndpoints
 import urllib3
 import time
 import os
 from pathlib import Path
+
+# logger 객체 생성
+logger = setup_logging()
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 

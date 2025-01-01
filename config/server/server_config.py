@@ -1,9 +1,10 @@
-from config.system.log_config import logger, setup_logging
+from config.system.log_config import setup_logging
 from config.data.models import IDRACConfig
 from utils.server_utils import convert_to_idrac_config, convert_to_dict
 from utils.config_utils import ConfigManager
 from typing import Dict, Optional
 
+# logger 객체 생성
 logger = setup_logging()
 
 class ServerConfig:

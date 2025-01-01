@@ -1,4 +1,5 @@
-from config.system.log_config import setup_logging, get_log_dir
+from config.system.app_config import ResourceManager
+from config.system.log_config import setup_logging
 from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QMessageBox, QProgressDialog, QDialog
 from PyQt6.QtGui import QGuiApplication, QCloseEvent, QDesktopServices
 from PyQt6.QtCore import Qt, QUrl, QCoreApplication
@@ -199,7 +200,7 @@ class DellIDRACMonitor(QMainWindow):
 
     def open_log_folder(self):
         """로그 폴더를 Finder에서 엽니다."""
-        log_dir = get_log_dir()
+        log_dir = ResourceManager.get_log_dir()
         QDesktopServices.openUrl(QUrl.fromLocalFile(str(log_dir)))
 
     def center(self):
