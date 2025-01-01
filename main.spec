@@ -41,7 +41,7 @@ a = Analysis(
     runtime_hooks=[],
     excludes=[],
     noarchive=False,
-    optimize=0,
+    optimize=1,
 )
 pyz = PYZ(a.pure)
 
@@ -56,7 +56,11 @@ exe = EXE(
     bootloader_ignore_signals=False,
     strip=False,
     upx=True,
-    upx_exclude=[],
+    upx_exclude=[
+        'vcruntime140.dll',
+        'python*.dll',
+        'Qt*.dll'
+    ],
     runtime_tmpdir=None,
     console=False,
     disable_windowed_traceback=False,
@@ -75,7 +79,7 @@ app = BUNDLE(
     info_plist={
         'CFBundleShortVersionString': VERSION,
         'CFBundleVersion': VERSION,
-        'LSMinimumSystemVersion': '10.13.0',
+        'LSMinimumSystemVersion': '10.15.0',
         'NSHighResolutionCapable': True,
         'NSAppleEventsUsageDescription': '앱 업데이트 및 시스템 관리를 위해 권한이 필요합니다.',
         'NSSystemAdministrationUsageDescription': '시스템 모니터링을 위해 관리자 권한이 필요합니다.',
@@ -93,6 +97,12 @@ app = BUNDLE(
         'CFBundleDocumentTypes': [],
         'CFBundleURLTypes': [],
         'LSMultipleInstancesProhibited': True,
+        'NSSupportsAutomaticGraphicsSwitching': True,
+        'LSEnvironment': {
+            'MallocNanoZone': '0'
+        },
+        'DTSDKName': 'macosx11.3',
+        'disable_windowed_traceback': True,
     }
 )
 
