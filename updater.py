@@ -8,13 +8,26 @@ from PyQt6.QtWidgets import QApplication, QMessageBox, QProgressDialog
 from PyQt6.QtCore import Qt
 from config.system.log_config import setup_logging
 import requests
+import certifi
 
 logger = setup_logging()
+
+# certifi 경로 직접 지정
+CERT_PATH = certifi.where()
 
 def check_for_updates(current_version):
     try:
         api_url = "https://api.github.com/repos/Luceberia/DellProject/releases/latest"
-        response = requests.get(api_url)
+        headers = {
+            'Accept': 'application/vnd.github.v3+json'
+        }
+        
+        # verify 매개변수에 certifi 경로 직접 전달
+        response = requests.get(
+            api_url, 
+            headers=headers, 
+            verify=CERT_PATH
+        )
         
         if response.status_code == 200:
             latest_release = response.json()
@@ -28,6 +41,8 @@ def check_for_updates(current_version):
             if latest > current:
                 return latest_release
                 
+    except requests.exceptions.SSLError as e:
+        logger.error(f"SSL 인증서 오류: {e}")
     except Exception as e:
         logger.error(f"업데이트 확인 중 오류 발생: {e}")
     
