@@ -12,21 +12,20 @@ import certifi
 
 logger = setup_logging()
 
-# certifi 경로 직접 지정
-CERT_PATH = certifi.where()
+# 시스템 인증서와 certifi 인증서 모두 설정
+os.environ['SSL_CERT_FILE'] = '/etc/ssl/cert.pem'
+os.environ['REQUESTS_CA_BUNDLE'] = certifi.where()
 
 def check_for_updates(current_version):
     try:
         api_url = "https://api.github.com/repos/Luceberia/DellProject/releases/latest"
         headers = {
-            'Accept': 'application/vnd.github.v3+json'
+            'Accept': 'application/vnd.github.v3+json',
+            'User-Agent': 'DellIDRACMonitor'
         }
-        
-        # verify 매개변수에 certifi 경로 직접 전달
-        response = requests.get(
-            api_url, 
+        response = requests.get(api_url, 
             headers=headers, 
-            verify=CERT_PATH
+            verify='/etc/ssl/cert.pem'
         )
         
         if response.status_code == 200:

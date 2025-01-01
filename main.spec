@@ -21,6 +21,7 @@ a = Analysis(
         ('/Users/kimnamjun/.pyenv/versions/3.12.8/lib/libpython3.12.dylib', './Contents/Frameworks')
     ],
     datas=[
+        (certifi.where(), 'certifi'),
         ('version.py', '.'),
         ('common', 'common'),
         ('config', 'config'),
