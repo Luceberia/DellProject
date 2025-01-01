@@ -5,7 +5,6 @@ from ui.components.settings_dialog import SettingsDialog
 from network.connection_manager import ConnectionManager
 from config.server.server_config import server_config
 from managers.dell_server_manager import DellServerManager
-from ui.components.update_dialog import UpdateDialog
 from ui.components.popups.help_dialog import HelpDialog
 from version import __version__
 from updater import show_update_dialog
@@ -69,6 +68,8 @@ class ServerSection(QGroupBox):
             main_window = self.window()
             if hasattr(main_window, 'apply_update'):
                 main_window.apply_update(latest_release)
+            else:
+                QMessageBox.warning(self, "업데이트 오류", "업데이트 기능을 찾을 수 없습니다.")
 
     def show_help(self):
         help_dialog = HelpDialog(self)

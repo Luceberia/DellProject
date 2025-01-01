@@ -1,17 +1,16 @@
 from config.system.app_config import ResourceManager
 from config.system.log_config import setup_logging
-from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QDialog
+from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QDialog, QProgressDialog, QMessageBox, QApplication
 from PyQt6.QtGui import QGuiApplication, QCloseEvent, QDesktopServices
-from PyQt6.QtCore import Qt, QUrl, QCoreApplication
+from PyQt6.QtCore import Qt, QUrl, QCoreApplication, QDateTime
 from typing import Optional
 from ui.components.server_section import create_server_section
 from ui.components.monitor_section import create_monitor_section
 from ui.components.hardware_section import create_hardware_section
 from ui.components.settings_dialog import SettingsDialog
-from ui.components.update_dialog import UpdateDialog
 from datetime import datetime
 from version import __version__
-from updater import show_update_dialog
+from updater import show_update_dialog, download_and_apply_update
 
 
 logger = setup_logging()
@@ -115,7 +114,20 @@ class DellIDRACMonitor(QMainWindow):
         result, latest_release = show_update_dialog(self, __version__)
         if result == QDialog.DialogCode.Accepted and latest_release:
             self.apply_update(latest_release)
-            self.last_update_check = datetime.now()
+            self.last_update_check = QDateTime.currentDateTime()
+
+    def apply_update(self, latest_release):
+        download_url = latest_release['assets'][0]['browser_download_url']
+        progress_dialog = QProgressDialog("업데이트 다운로드 중...", "취소", 0, 100, self)
+        progress_dialog.setWindowModality(Qt.WindowModal)
+        progress_dialog.setMinimumDuration(0)
+        
+        if download_and_apply_update(download_url, progress_dialog):
+            QMessageBox.information(self, "업데이트 완료", "업데이트가 성공적으로 완료되었습니다. 프로그램을 재시작합니다.")
+            self.close()
+            QApplication.quit()
+        else:
+            QMessageBox.warning(self, "업데이트 실패", "업데이트 적용에 실패했습니다. 수동으로 최신 버전을 다운로드해 주세요.")
 
     def open_log_folder(self):
         """로그 폴더를 Finder에서 엽니다."""

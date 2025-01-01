@@ -11,6 +11,7 @@ from ui.components.update_dialog import UpdateDialog
 from version import __version__
 import requests
 import certifi
+from packaging import version
 
 logger = setup_logging()
 
@@ -33,14 +34,11 @@ def check_for_updates(current_version):
         if response.status_code == 200:
             latest_release = response.json()
             latest_version = latest_release['tag_name'].replace('v', '')
+            current_version = get_app_version()
             
-            version_info = {
-                'current': current_version,
-                'latest': latest_version
-            }
-            
-            return latest_release if tuple(map(int, latest_version.split('.'))) > tuple(map(int, current_version.split('.'))) else None
-                
+            if version.parse(latest_version) > version.parse(current_version):
+                return latest_release
+            return None
     except Exception as e:
         logger.error(f"업데이트 확인 중 오류 발생: {e}")
         return None
@@ -48,38 +46,25 @@ def check_for_updates(current_version):
 def show_update_dialog(parent, current_version):
     try:
         latest_release = check_for_updates(current_version)
-        
-        version_info = {
-            'current': current_version,
-            'latest': latest_release['tag_name'].replace('v', '') if latest_release else current_version
-        }
-        
-        # 버전 정보 로깅 추가
-        logger.debug(f"현재 버전: {current_version}, 최신 버전: {version_info['latest']}")
-        
-        dialog = UpdateDialog(
-            parent,
-            version_info,
-            is_update=(latest_release is not None)
-        )
-        
-        result = dialog.exec()
-        
-        # 사용자 선택 결과 로깅 추가
-        if result == QDialog.DialogCode.Accepted and latest_release:
-            logger.info("사용자가 업데이트를 승인했습니다.")
-        
-        return result, latest_release
-        
+        if latest_release:
+            version_info = {
+                'current': current_version,
+                'latest': latest_release['tag_name'].replace('v', '')
+            }
+            logger.debug(f"현재 버전: {current_version}, 최신 버전: {version_info['latest']}")
+            dialog = UpdateDialog(parent, version_info, is_update=True)
+            result = dialog.exec()
+            if result == QDialog.DialogCode.Accepted:
+                logger.info("사용자가 업데이트를 승인했습니다.")
+                return result, latest_release
+        else:
+            logger.info("최신 버전을 사용 중입니다.")
+            QMessageBox.information(parent, "업데이트 확인", "현재 최신 버전을 사용 중입니다.")
     except Exception as e:
         logger.error(f"업데이트 확인 중 오류 발생: {e}")
-        error_dialog = UpdateDialog(
-            parent,
-            {'current': str(e)},
-            is_update=False
-        )
+        error_dialog = UpdateDialog(parent, {'current': str(e)}, is_update=False)
         error_dialog.exec()
-        return None, None
+    return None, None
 
 def get_app_version():
     try:
