@@ -1,6 +1,6 @@
 from config.system.app_config import ResourceManager
 from config.system.log_config import setup_logging
-from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QMessageBox, QProgressDialog, QDialog
+from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QDialog
 from PyQt6.QtGui import QGuiApplication, QCloseEvent, QDesktopServices
 from PyQt6.QtCore import Qt, QUrl, QCoreApplication
 from typing import Optional
@@ -9,13 +9,10 @@ from ui.components.monitor_section import create_monitor_section
 from ui.components.hardware_section import create_hardware_section
 from ui.components.settings_dialog import SettingsDialog
 from ui.components.update_dialog import UpdateDialog
-from datetime import datetime, timedelta
-import requests
+from datetime import datetime
 from version import __version__
-from updater import check_for_updates, download_and_apply_update
-import os
-import sys
-import subprocess
+from updater import show_update_dialog
+
 
 logger = setup_logging()
 
@@ -115,88 +112,10 @@ class DellIDRACMonitor(QMainWindow):
         self.settings_dialog.exec()
 
     def check_updates(self):
-        try:
-            api_url = "https://api.github.com/repos/Luceberia/DellProject/releases/latest"
-            response = requests.get(api_url)
-            
-            if response.status_code == 200:
-                release_info = response.json()
-                latest_version = release_info['tag_name'].replace('v', '')
-                
-                logger.debug(f"현재 버전: {__version__}, 최신 버전: {latest_version}")
-                
-                version_info = {
-                    'current': __version__,
-                    'latest': latest_version
-                }
-                
-                dialog = UpdateDialog(
-                    self, 
-                    version_info, 
-                    is_update=(latest_version != __version__)
-                )
-                
-                result = dialog.exec()
-                
-                if result == QDialog.DialogCode.Accepted and latest_version != __version__:
-                    self.apply_update(release_info)
-                    
-                self.last_update_check = datetime.now()
-                
-        except Exception as e:
-            logger.error(f"업데이트 확인 중 오류 발생: {e}")
-            error_dialog = UpdateDialog(
-                self, 
-                {'current': str(e)}, 
-                is_update=False
-            )
-            error_dialog.exec()
-
-    def apply_update(self, release_info):
-        try:
-            download_url = release_info['assets'][0]['browser_download_url']
-            progress = QProgressDialog("업데이트 다운로드 중...", "취소", 0, 100, self)
-            progress.setWindowModality(Qt.WindowModality.WindowModal)
-            progress.show()
-            
-            try:
-                if download_and_apply_update(download_url, progress):
-                    # 재시작 스크립트 생성
-                    restart_cmd = '''#!/bin/bash
-                    sleep 3
-                    until ! pgrep -f "DellIDRACMonitor" > /dev/null; do
-                        sleep 1
-                    done
-                    open -n "/Applications/DellIDRACMonitor.app"
-                    '''
-                    
-                    with open('/tmp/restart_app.sh', 'w') as f:
-                        f.write(restart_cmd)
-                    os.chmod('/tmp/restart_app.sh', 0o755)
-                    
-                    # 백그라운드에서 재시작 스크립트 실행
-                    subprocess.Popen(['/bin/bash', '/tmp/restart_app.sh'], 
-                                start_new_session=True,
-                                stdout=subprocess.DEVNULL,
-                                stderr=subprocess.DEVNULL)
-                    
-                    logger.debug("업데이트 파일 다운로드 및 설치 완료")
-                    QMessageBox.information(self, "업데이트 완료", 
-                        "업데이트가 완료되었습니다. 프로그램이 자동으로 재시작됩니다.")
-                    
-                    self.cleanup()
-                    sys.exit(0)
-                else:
-                    logger.error("업데이트 적용 실패")
-                    QMessageBox.warning(self, "업데이트 실패", 
-                        "업데이트 중 오류가 발생했습니다.")
-            finally:
-                progress.close()
-                
-        except Exception as e:
-            logger.error(f"업데이트 중 오류 발생: {e}", exc_info=True)
-            QMessageBox.warning(self, "업데이트 오류", 
-                f"업데이트 중 오류가 발생했습니다: {e}")
+        result, latest_release = show_update_dialog(self, __version__)
+        if result == QDialog.DialogCode.Accepted and latest_release:
+            self.apply_update(latest_release)
+            self.last_update_check = datetime.now()
 
     def open_log_folder(self):
         """로그 폴더를 Finder에서 엽니다."""

@@ -7,10 +7,8 @@ from config.server.server_config import server_config
 from managers.dell_server_manager import DellServerManager
 from ui.components.update_dialog import UpdateDialog
 from ui.components.popups.help_dialog import HelpDialog
-from utils.server_utils import convert_to_dict
 from version import __version__
-from updater import check_for_updates
-import requests
+from updater import show_update_dialog
 import time
 
 logger = setup_logging()
@@ -66,36 +64,11 @@ class ServerSection(QGroupBox):
         layout.addWidget(tools_group)
 
     def show_version_info(self):
-        try:
-            from version import __version__
-            latest_release = check_for_updates(__version__)
-            
-            version_info = {
-                'current': __version__,
-                'latest': latest_release['tag_name'].replace('v', '') if latest_release else __version__
-            }
-            
-            dialog = UpdateDialog(
-                self,
-                version_info,
-                is_update=(latest_release is not None)
-            )
-            
-            result = dialog.exec()
-            
-            if result == QDialog.DialogCode.Accepted and latest_release:
-                main_window = self.window()
-                if hasattr(main_window, 'apply_update'):
-                    main_window.apply_update(latest_release)
-                    
-        except Exception as e:
-            self.logger.error(f"버전 확인 중 오류 발생: {e}")
-            error_dialog = UpdateDialog(
-                self,
-                {'current': str(e)},
-                is_update=False
-            )
-            error_dialog.exec()
+        result, latest_release = show_update_dialog(self, __version__)
+        if result == QDialog.DialogCode.Accepted and latest_release:
+            main_window = self.window()
+            if hasattr(main_window, 'apply_update'):
+                main_window.apply_update(latest_release)
 
     def show_help(self):
         help_dialog = HelpDialog(self)

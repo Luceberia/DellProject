@@ -2,6 +2,7 @@
 
 import os
 import re
+import certifi
 from subprocess import call
 
 def get_version():
@@ -25,7 +26,6 @@ a = Analysis(
         ('version.py', '.'),
         ('common', 'common'),
         ('config', 'config'),
-        ('dell_logging', 'dell_logging'),
         ('endpoints', 'endpoints'),
         ('error', 'error'),
         ('icon', 'icon'),
