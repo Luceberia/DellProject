@@ -37,22 +37,43 @@ class ResourceManager:
         return resource_dir
 
     @staticmethod
-    def get_log_dir():
-        if getattr(sys, 'frozen', False):
-            if sys.platform == 'darwin':  # macOS
-                log_dir = Path.home() / 'Library' / 'Logs' / 'DellIDRACMonitor'
-            elif sys.platform == 'win32':  # Windows
-                log_dir = Path(os.getenv('APPDATA')) / 'DellIDRACMonitor' / 'Logs'
-            else:  # Linux 등 기타 OS
-                log_dir = Path.home() / '.dell_idrac_monitor' / 'logs'
-        else:
-            log_dir = ResourceManager.get_resource_dir() / 'logs'
+    def extract_package_resources():
+        """패키지 리소스를 라이브러리 디렉토리로 추출"""
+        if not getattr(sys, 'frozen', False):
+            return
+            
+        resource_dir = ResourceManager.get_resource_dir()
+        base_path = sys._MEIPASS
         
-        log_dir.mkdir(parents=True, exist_ok=True)
-        return log_dir
+        try:
+            # PyQt6 번역 파일 복사
+            translations_dir = resource_dir / 'translations' / 'PyQt6' / 'Qt6' / 'translations'
+            translations_dir.mkdir(parents=True, exist_ok=True)
+            qt_translations = os.path.join(base_path, 'PyQt6', 'Qt6', 'translations')
+            if os.path.exists(qt_translations):
+                for file in os.listdir(qt_translations):
+                    if file.endswith('.qm'):
+                        src = os.path.join(qt_translations, file)
+                        dst = translations_dir / file
+                        if not dst.exists():
+                            shutil.copy2(src, dst)
+            
+            # 설정 파일 복사
+            config_dir = resource_dir / 'config'
+            for subdir in ['server', 'data']:
+                (config_dir / subdir).mkdir(parents=True, exist_ok=True)
+                
+            # 기타 필요한 파일들 복사
+            for dirname in ['cache', 'temp']:
+                dir_path = resource_dir / dirname
+                dir_path.mkdir(parents=True, exist_ok=True)
+                        
+        except Exception as e:
+            print(f"리소스 추출 중 오류 발생: {e}")
 
     @staticmethod
     def setup_directories():
+        """디렉토리 구조 생성 및 리소스 추출"""
         resource_dir = ResourceManager.get_resource_dir()
         directories = {
             'config': ['server', 'data'],
@@ -62,8 +83,12 @@ class ResourceManager:
             'temp': []
         }
 
+        # 디렉토리 구조 생성
         for dir_name, subdirs in directories.items():
             dir_path = resource_dir / dir_name
             dir_path.mkdir(parents=True, exist_ok=True)
             for subdir in subdirs:
                 (dir_path / subdir).mkdir(parents=True, exist_ok=True)
+        
+        # 리소스 파일 추출
+        ResourceManager.extract_package_resources()
