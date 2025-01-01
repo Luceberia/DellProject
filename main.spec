@@ -17,7 +17,9 @@ VERSION = get_version()
 a = Analysis(
     ['main.py'],
     pathex=[],
-    binaries=[],
+    binaries=[
+        ('/Users/kimnamjun/.pyenv/versions/3.12.8/lib/libpython3.12.dylib', './Contents/Frameworks')
+    ],
     datas=[
         ('version.py', '.'),
         ('common', 'common'),
@@ -32,6 +34,7 @@ a = Analysis(
         ('utils', 'utils'),
         ('updater.py', '.'),
         ('main.py', '.'),
+        ('resources', 'resources'),
     ],
     hiddenimports=[
         'requests', 
@@ -47,7 +50,35 @@ a = Analysis(
         'PyQt6.QtWidgets',
         'PyQt6.QtGui', 
         'cryptography.fernet',
-        'logging.handlers'
+        'logging.handlers',
+        'common.cache.cache_manager',
+        'common.data.data_processor',
+        'common.hardware.hardware_info',
+        'config.data.data_config',
+        'config.data.models',
+        'config.server.dell_config',
+        'config.server.server_config',
+        'config.system.app_config',
+        'config.system.log_config',
+        'endpoints.redfish_endpoints',
+        'error.error_handler',
+        'managers.dell_server_manager',
+        'network.connection_manager',
+        'ui.components.hardware_section',
+        'ui.components.monitor_section',
+        'ui.components.server_section',
+        'ui.components.settings_dialog',
+        'ui.components.update_dialog',
+        'ui.components.popups.detail_dialog',
+        'ui.components.popups.error_dialog',
+        'ui.components.popups.help_dialog',
+        'ui.components.popups.system_event_popup',
+        'ui.main_window',
+        'utils.async_utils',
+        'utils.config_utils',
+        'utils.server_utils',
+        'utils.ssh_utils',
+        'utils.utils',
     ],
     hookspath=[],
     hooksconfig={},
@@ -61,30 +92,37 @@ pyz = PYZ(a.pure)
 exe = EXE(
     pyz,
     a.scripts,
-    a.binaries,
-    a.datas,
     [],
+    exclude_binaries=True,
     name='DellIDRACMonitor',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
     upx=True,
-    upx_exclude=[
-        'vcruntime140.dll',
-        'python*.dll',
-        'Qt*.dll'
-    ],
-    runtime_tmpdir=None,
     console=False,
     disable_windowed_traceback=False,
     argv_emulation=False,
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
+    runtime_tmpdir=None,
+    codesign_flags=[],
+    rpath=['@executable_path/../Frameworks'],
+)
+
+coll = COLLECT(
+    exe,
+    a.binaries,
+    a.zipfiles,
+    a.datas,
+    strip=False,
+    upx=True,
+    upx_exclude=[],
+    name='DellIDRACMonitor'
 )
 
 app = BUNDLE(
-    exe,
+    coll,
     name='DellIDRACMonitor.app',
     icon=None,
     bundle_identifier='com.yourcompany.DellIDRACMonitor',

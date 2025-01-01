@@ -1,1 +1,1 @@
-__version__ = "1.0.18"
+__version__ = "0.0.0" # onefile mode -> onedir mode 변경
