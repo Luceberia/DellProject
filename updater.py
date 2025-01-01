@@ -1,194 +1,40 @@
 import os
-import sys
-import shutil
-import zipfile
-import subprocess
-import tempfile
-from PyQt6.QtWidgets import QApplication, QMessageBox, QDialog
-from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QMessageBox, QDialog
 from config.system.log_config import setup_logging
 from ui.components.update_dialog import UpdateDialog
 from version import __version__
 import requests
-import certifi
-from packaging import version
+import webbrowser
 
 logger = setup_logging()
 
-# 시스템 인증서와 certifi 인증서 모두 설정
+# 시스템의 기본 인증서 사용
 os.environ['SSL_CERT_FILE'] = '/etc/ssl/cert.pem'
-os.environ['REQUESTS_CA_BUNDLE'] = certifi.where()
+os.environ['REQUESTS_CA_BUNDLE'] = '/etc/ssl/cert.pem'
 
-def check_for_updates(current_version):
+def check_for_updates(current_version, parent=None):
     try:
         api_url = "https://api.github.com/repos/Luceberia/DellProject/releases/latest"
-        headers = {
-            'Accept': 'application/vnd.github.v3+json',
-            'User-Agent': 'DellIDRACMonitor'
-        }
-        response = requests.get(api_url, 
-            headers=headers, 
-            verify='/etc/ssl/cert.pem'
-        )
+        response = requests.get(api_url, headers={'Accept': 'application/vnd.github.v3+json'})
         
         if response.status_code == 200:
             latest_release = response.json()
             latest_version = latest_release['tag_name'].replace('v', '')
-            current_version = get_app_version()
             
-            if version.parse(latest_version) > version.parse(current_version):
-                return latest_release
-            return None
-    except Exception as e:
-        logger.error(f"업데이트 확인 중 오류 발생: {e}")
-        return None
-
-def show_update_dialog(parent, current_version):
-    try:
-        latest_release = check_for_updates(current_version)
-        if latest_release:
             version_info = {
                 'current': current_version,
-                'latest': latest_release['tag_name'].replace('v', '')
+                'latest': latest_version
             }
-            logger.debug(f"현재 버전: {current_version}, 최신 버전: {version_info['latest']}")
+            
+            logger.debug(f"현재 버전: {current_version}, 최신 버전: {latest_version}")
             dialog = UpdateDialog(parent, version_info, is_update=True)
             result = dialog.exec()
+            
             if result == QDialog.DialogCode.Accepted:
                 logger.info("사용자가 업데이트를 승인했습니다.")
-                return result, latest_release
-        else:
-            logger.info("최신 버전을 사용 중입니다.")
-            QMessageBox.information(parent, "업데이트 확인", "현재 최신 버전을 사용 중입니다.")
+                webbrowser.open(latest_release['html_url'])
+            
     except Exception as e:
         logger.error(f"업데이트 확인 중 오류 발생: {e}")
         error_dialog = UpdateDialog(parent, {'current': str(e)}, is_update=False)
         error_dialog.exec()
-    return None, None
-
-def get_app_version():
-    try:
-        bundle_path = os.path.abspath(os.path.join(os.path.dirname(sys.executable), '..', 'Info.plist'))
-        with open(bundle_path, 'rb') as fp:
-            pl = plistlib.load(fp)
-            return pl.get('CFBundleShortVersionString', '0.0.0')
-    except Exception as e:
-        logger.error(f"버전 확인 중 오류: {e}")
-        return '0.0.0'
-
-def download_and_apply_update(download_url, progress_dialog):
-    progress_dialog.setWindowModality(Qt.WindowModality.WindowModal)
-    progress_dialog.show()
-    logger.debug("업데이트 프로세스 시작")
-
-    if not download_url:
-        logger.error("다운로드 URL이 유효하지 않습니다")
-        return False
-        
-    if not os.path.exists(sys.executable):
-        logger.error("현재 실행 파일 경로를 찾을 수 없습니다")
-        return False
-
-    update_path = None
-    try:
-        # 현재 실행 중인 앱의 경로 확인
-        current_app = os.path.abspath(sys.executable)
-        if '.app' not in current_app:
-            current_app = os.path.dirname(os.path.dirname(current_app))
-            if os.path.exists(current_app + '.app'):
-                current_app = current_app + '.app'
-        elif 'Contents/MacOS' in current_app:
-            current_app = os.path.dirname(os.path.dirname(os.path.dirname(current_app)))
-            
-        # macOS 앱 번들 경로 확인
-        if not current_app.endswith('.app'):
-            current_app = '/Applications/DellIDRACMonitor.app'
-            
-        logger.debug(f"현재 앱 경로: {current_app}")
-
-        # 임시 디렉토리 생성
-        update_path = os.path.join(tempfile.gettempdir(), 'DellIDRACMonitor_update')
-        logger.debug(f"업데이트 임시 디렉토리 생성: {update_path}")
-        os.makedirs(update_path, exist_ok=True)
-
-        # 다운로드 처리
-        zip_path = os.path.join(update_path, "update.zip")
-        logger.debug(f"다운로드 파일 경로: {zip_path}")
-        logger.debug(f"업데이트 파일 다운로드 시작: {download_url}")
-
-        response = requests.get(download_url, stream=True)
-        total_size = int(response.headers.get('content-length', 0))
-        block_size = 8192
-        progress = 0
-        last_logged_percent = -1
-
-        with open(zip_path, 'wb') as f:
-            for chunk in response.iter_content(chunk_size=block_size):
-                if chunk:
-                    f.write(chunk)
-                    progress += len(chunk)
-                    percent = int(progress * 100 / total_size)
-                    progress_dialog.setValue(percent)
-                    
-                    current_ten_percent = (percent // 10) * 10
-                    if current_ten_percent > last_logged_percent:
-                        logger.debug(f"다운로드 진행률: {current_ten_percent}%")
-                        last_logged_percent = current_ten_percent
-                    
-                    QApplication.processEvents()
-
-        # 압축 해제
-        logger.debug("ZIP 파일 압축 해제 시작")
-        with zipfile.ZipFile(zip_path, 'r') as zip_ref:
-            logger.debug(f"ZIP 파일 내용: {zip_ref.namelist()}")
-            zip_ref.extractall(update_path)
-
-        logger.debug(f"압축 해제된 디렉토리 내용: {os.listdir(update_path)}")
-
-        # 새 앱 찾기
-        app_name = "DellIDRACMonitor.app"
-        new_app = None
-        for root, dirs, files in os.walk(update_path):
-            if app_name in dirs:
-                new_app = os.path.join(root, app_name)
-                logger.debug(f"앱 발견: {new_app}")
-                break
-
-        if not new_app:
-            logger.error(f"새 버전 앱을 찾을 수 없음")
-            return False
-
-        # 업데이트 스크립트 생성
-        update_script = os.path.join(update_path, "update.sh")
-        script_content = f'''#!/bin/bash
-        # 관리자 권한으로 앱 업데이트
-        osascript -e 'do shell script "rm -rf \\"{current_app}\\" && \
-        cp -R \\"{new_app}\\" \\"/Applications/\\" && \
-        chmod -R 755 \\"/Applications/DellIDRACMonitor.app\\" && \
-        xattr -rd com.apple.quarantine \\"/Applications/DellIDRACMonitor.app\\" && \
-        rm -rf \\"{update_path}\\"" with administrator privileges'
-        '''
-
-        with open(update_script, 'w') as f:
-            f.write(script_content)
-        os.chmod(update_script, 0o755)
-
-        # 스크립트 실행
-        subprocess.run(['/bin/bash', update_script], check=True)
-        logger.debug("업데이트 스크립트 실행 완료")
-        return True
-
-    except subprocess.CalledProcessError as e:
-        logger.error(f"스크립트 실행 실패: {e}")
-        QMessageBox.critical(None, "업데이트 오류", "업데이트 적용 중 오류가 발생했습니다.")
-        return False
-    except Exception as e:
-        logger.error(f"업데이트 중 오류 발생: {str(e)}", exc_info=True)
-        return False
-    finally:
-        if update_path and os.path.exists(update_path):
-            logger.debug(f"임시 디렉토리 정리: {update_path}")
-            try:
-                shutil.rmtree(update_path)
-            except Exception as cleanup_error:
-                logger.error(f"임시 디렉토리 정리 중 오류: {str(cleanup_error)}")

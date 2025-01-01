@@ -19,7 +19,7 @@ a = Analysis(
     ['main.py'],
     pathex=[],
     binaries=[
-        ('/Users/kimnamjun/.pyenv/versions/3.12.8/lib/libpython3.12.dylib', './Contents/Frameworks')
+        ('/Users/kimnamjun/.pyenv/versions/3.12.8/lib/libpython3.12.dylib', './Contents/Frameworks'),
     ],
     datas=[
         (certifi.where(), 'certifi'),
@@ -104,10 +104,8 @@ exe = EXE(
     disable_windowed_traceback=False,
     argv_emulation=False,
     target_arch=None,
-    codesign_identity=None,
     entitlements_file=None,
     runtime_tmpdir=None,
-    codesign_flags=[],
     rpath=['@executable_path/../Frameworks'],
 )
 
@@ -133,28 +131,16 @@ app = BUNDLE(
         'CFBundleVersion': VERSION,
         'LSMinimumSystemVersion': '10.15.0',
         'NSHighResolutionCapable': True,
-        'NSAppleEventsUsageDescription': '앱 업데이트 및 시스템 관리를 위해 권한이 필요합니다.',
-        'NSSystemAdministrationUsageDescription': '시스템 모니터링을 위해 관리자 권한이 필요합니다.',
         'LSUIElement': False,
-        'LSBackgroundOnly': False,
-        'NSRequiresAquaSystemAppearance': False,
         'CFBundleDisplayName': 'DellIDRACMonitor',
         'CFBundleName': 'DellIDRACMonitor',
         'CFBundlePackageType': 'APPL',
         'CFBundleSignature': '????',
-        'LSApplicationCategoryType': 'public.app-category.utilities',
-        'NSMainNibFile': '',
-        'NSSupportsAutomaticTermination': False,
         'NSHumanReadableCopyright': f'© 2024 DellIDRACMonitor {VERSION}',
-        'CFBundleDocumentTypes': [],
-        'CFBundleURLTypes': [],
         'LSMultipleInstancesProhibited': True,
-        'NSSupportsAutomaticGraphicsSwitching': True,
-        'LSEnvironment': {
-            'MallocNanoZone': '0'
-        },
-        'DTSDKName': 'macosx11.3',
-        'disable_windowed_traceback': True,
+        'CFBundleExecutable': 'DellIDRACMonitor',
+        'CFBundleInfoDictionaryVersion': '6.0',
+        'CFBundleSupportedPlatforms': ['MacOSX']
     }
 )
 

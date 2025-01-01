@@ -1,5 +1,5 @@
 from config.system.log_config import setup_logging
-from PyQt6.QtWidgets import QGroupBox, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QSizePolicy, QDialog
+from PyQt6.QtWidgets import QGroupBox, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QSizePolicy
 from PyQt6.QtCore import pyqtSignal, QTimer, QDateTime
 from ui.components.settings_dialog import SettingsDialog
 from network.connection_manager import ConnectionManager
@@ -7,7 +7,6 @@ from config.server.server_config import server_config
 from managers.dell_server_manager import DellServerManager
 from ui.components.popups.help_dialog import HelpDialog
 from version import __version__
-from updater import show_update_dialog
 import time
 
 logger = setup_logging()
@@ -63,13 +62,8 @@ class ServerSection(QGroupBox):
         layout.addWidget(tools_group)
 
     def show_version_info(self):
-        result, latest_release = show_update_dialog(self, __version__)
-        if result == QDialog.DialogCode.Accepted and latest_release:
-            main_window = self.window()
-            if hasattr(main_window, 'apply_update'):
-                main_window.apply_update(latest_release)
-            else:
-                QMessageBox.warning(self, "업데이트 오류", "업데이트 기능을 찾을 수 없습니다.")
+        from updater import check_for_updates
+        check_for_updates(__version__)
 
     def show_help(self):
         help_dialog = HelpDialog(self)
