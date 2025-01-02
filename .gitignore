@@ -1,3 +1,6 @@
+# PyQt6 관련 파일
+*.abi3.so
+
 # Python
 __pycache__/
 *.py[cod]
@@ -14,6 +17,43 @@ build/
 
 # Mac
 .DS_Store
+*.app/
 
 # Logs
 *.log
+
+# 리소스 파일
+resources/logs/
+
+# 컴파일된 바이너리
+*.dylib
+*.so
+
+# 특정 디렉토리
+dist/
+build/
+
+# PyInstaller
+*.spec
+
+# Version file (if auto-generated)
+version.py
+
+# 컴파일된 UI 파일
+*.ui.py
+*.qrc.py
+
+# 빌드 산출물
+*.dmg
+DellIDRACMonitor.app/
+DellIDRACMonitor/
+
+# 임시 파일
+*.bak
+*.tmp
+*.swp
+
+# 환경 설정
+.env
+config/local/*
+!config/local/.gitkeep

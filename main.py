@@ -20,7 +20,7 @@ def main():
 
     progress = QProgressDialog()
     progress.setWindowTitle("DellIDRACMonitor")
-    progress.setLabelText("애플리케이션 초기화 중...")
+    progress.setLabelText("데이터베이스 연결 중...")
     progress.setWindowModality(Qt.WindowModality.ApplicationModal)
     progress.setWindowFlags(
         Qt.WindowType.WindowStaysOnTopHint |
@@ -29,23 +29,25 @@ def main():
     )
     progress.setCancelButton(None)
     progress.setMinimumDuration(0)
-    progress.setMinimumWidth(400)
+    progress.setMinimumWidth(300)
+    progress.setMinimumHeight(100)
     progress.setStyleSheet("""
         QProgressDialog {
-            background-color: transparent;
+            background-color: #2b2b2b;
             border: none;
+            border-radius: 12px;
         }
         QLabel {
-            color: #000000;
-            font-size: 13px;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 20px;
+            qproperty-alignment: AlignCenter;
         }
         QProgressBar {
+            height: 0px;
+            max-height: 0px;
             border: none;
-            background-color: #f0f0f0;
-            height: 6px;
-        }
-        QProgressBar::chunk {
-            background-color: #0064FF;
         }
     """)
 
