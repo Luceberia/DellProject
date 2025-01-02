@@ -41,6 +41,9 @@ class ConnectionLogFilter(logging.Filter):
             return False
             
         if "Redfish API 요청" in record.msg:
+            # SEL 및 LC 로그 엔트리 조회는 로깅하지 않음
+            if "로그 엔트리 조회" in record.msg:
+                return False
             return record.levelno == logging.DEBUG
             
         if "시스템 상태" in record.msg or "정보 업데이트" in record.msg:

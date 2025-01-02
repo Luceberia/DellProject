@@ -418,30 +418,26 @@ class DellServerManager:
             logger.debug(f"GPU 정보 조회 중 오류 발생: {str(e)}")
             return {'GPUDevices': []}
 
-    def fetch_log_entries(self, log_type='sel', progress_callback=None, limit=300):
+    def fetch_sel_entries(self, progress_callback=None, limit=300):
+        """SEL 로그 엔트리 조회"""
         try:
-            base_url = self.endpoints.sel_entries if log_type == 'sel' else self.endpoints.lc_entries
             all_entries = []
-            
-            # 먼저 전체 로그 목록을 가져와서 최신 ID 확인
-            response = requests.get(base_url, auth=self.auth, verify=False)
+            response = self.session.get(self.endpoints.sel_entries, auth=self.auth, verify=False)
             response.raise_for_status()
             data = response.json()
             
-            # 전체 개수와 최신 ID 확인
             total_count = data.get('Members@odata.count', 0)
             if total_count == 0:
                 return {'Members': [], 'TotalCount': 0}
                 
-            # 최신 ID부터 역순으로 조회
             start_id = total_count
             entries_found = 0
             
             while entries_found < limit and start_id > 0:
-                entry_url = f"{base_url}/{start_id}"
+                entry_url = f"{self.endpoints.sel_entries}/{start_id}"
                 
                 try:
-                    response = requests.get(entry_url, auth=self.auth, verify=False)
+                    response = self.session.get(entry_url, auth=self.auth, verify=False)
                     response.raise_for_status()
                     entry_data = response.json()
                     all_entries.append(entry_data)
@@ -457,7 +453,6 @@ class DellServerManager:
                         
                 start_id -= 1
             
-            # 시간순 정렬 (혹시 모를 순서 불일치 대비)
             sorted_entries = sorted(all_entries, 
                                 key=lambda x: x.get('Created', ''), 
                                 reverse=True)
@@ -468,8 +463,86 @@ class DellServerManager:
             return {'Members': sorted_entries[:limit], 'TotalCount': len(sorted_entries)}
             
         except Exception as e:
-            logger.error(f"{log_type.upper()} 로그 엔트리 조회 실패: {str(e)}")
+            logger.error(f"SEL 로그 엔트리 조회 실패: {str(e)}")
             return {'Members': []}
+
+    def fetch_lc_entries(self, progress_callback=None, limit=300):
+        """LC 로그 엔트리 조회"""
+        try:
+            all_entries = []
+            response = self.session.get(self.endpoints.lc_entries, auth=self.auth, verify=False)
+            response.raise_for_status()
+            data = response.json()
+            
+            total_count = data.get('Members@odata.count', 0)
+            if total_count == 0:
+                return {'Members': [], 'TotalCount': 0}
+                
+            start_id = total_count
+            entries_found = 0
+            
+            while entries_found < limit and start_id > 0:
+                entry_url = f"{self.endpoints.lc_entries}/{start_id}"
+                
+                try:
+                    response = self.session.get(entry_url, auth=self.auth, verify=False)
+                    response.raise_for_status()
+                    entry_data = response.json()
+                    all_entries.append(entry_data)
+                    entries_found += 1
+                    
+                    if progress_callback:
+                        progress = min((entries_found / limit) * 100, 100)
+                        progress_callback(progress)
+                    
+                except requests.exceptions.HTTPError as e:
+                    if e.response.status_code != 404:
+                        raise
+                        
+                start_id -= 1
+            
+            sorted_entries = sorted(all_entries, 
+                                key=lambda x: x.get('Created', ''), 
+                                reverse=True)
+            
+            if progress_callback:
+                progress_callback(100)
+                
+            return {'Members': sorted_entries[:limit], 'TotalCount': len(sorted_entries)}
+            
+        except Exception as e:
+            logger.error(f"LC 로그 엔트리 조회 실패: {str(e)}")
+            return {'Members': []}
+
+    def clear_sel_logs(self):
+        """SEL 로그 클리어"""
+        try:
+            response = self.session.post(self.endpoints.clear_sel_log, auth=self.auth, verify=False)
+            response.raise_for_status()
+            return True
+        except Exception as e:
+            logger.error(f"SEL 로그 클리어 실패: {str(e)}")
+            raise
+
+    def fetch_sel_service(self):
+        """SEL 로그 서비스 정보 조회"""
+        try:
+            response = self.session.get(self.endpoints.sel_log_service, auth=self.auth, verify=False)
+            response.raise_for_status()
+            return response.json()
+        except Exception as e:
+            logger.error(f"SEL 로그 서비스 정보 조회 실패: {str(e)}")
+            raise
+
+    def fetch_lc_service(self):
+        """LC 로그 서비스 정보 조회"""
+        try:
+            response = self.session.get(self.endpoints.lc_log_service, auth=self.auth, verify=False)
+            response.raise_for_status()
+            return response.json()
+        except Exception as e:
+            logger.error(f"LC 로그 서비스 정보 조회 실패: {str(e)}")
+            raise
 
     def fetch_firmware_inventory(self):
         """전체 펌웨어 인벤토리 정보 조회"""

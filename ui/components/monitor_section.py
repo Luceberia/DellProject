@@ -1827,45 +1827,162 @@ def show_log_popup(parent, log_type):
         )
         error_dialog.exec()
         return
-    
-    progress_dialog = QProgressDialog(f"{log_type.upper()} 로그 로딩 중...", None, 0, 100, parent)
-    progress_dialog.setWindowModality(Qt.WindowModality.WindowModal)
-    progress_dialog.setWindowTitle("데이터 로드")
-    progress_dialog.setAutoClose(True)
-    progress_dialog.setMinimumDuration(0)
-    
+
     try:
         server_manager = DellServerManager(
             ip=server_info['IP'],
             port=server_info['PORT'],
             auth=(server_info['USERNAME'], server_info['PASSWORD'])
         )
+
+        dialog = QDialog(parent)
+        dialog.setWindowTitle(f"{log_type.upper()} 로그")
+        dialog.resize(1000, 600)
+        layout = QVBoxLayout(dialog)
+
+        # 필터 컨트롤 추가
+        filter_layout = QHBoxLayout()
         
-        def update_progress(progress):
-            progress_dialog.setLabelText(f"{log_type.upper()} 로그 로드 중... {int(progress)}%")
-            progress_dialog.setValue(int(progress))
+        # 심각도 필터
+        severity_combo = QComboBox()
+        severity_combo.addItems(['전체', 'Critical', 'Warning', 'OK'])
         
-        progress_dialog.show()
-        log_entries = server_manager.fetch_log_entries(log_type, progress_callback=update_progress)
+        # 검색 입력
+        search_input = QLineEdit()
+        search_input.setPlaceholderText("메시지 내용으로 검색")
         
-        if log_entries:
-            popup = SystemEventPopup(parent)
-            popup.update_events(log_entries)
+        filter_layout.addWidget(QLabel("심각도:"))
+        filter_layout.addWidget(severity_combo)
+        filter_layout.addWidget(search_input)
+        layout.addLayout(filter_layout)
+
+        # 로그 목록 트리 위젯
+        tree_widget = QTreeWidget(dialog)
+        tree_widget.setHeaderLabels(["ID", "심각도", "생성 시간", "메시지"])
+        
+        # 컬럼 너비 최적화
+        tree_widget.setColumnWidth(0, 100)   # ID
+        tree_widget.setColumnWidth(1, 100)   # 심각도
+        tree_widget.setColumnWidth(2, 150)   # 생성 시간
+        tree_widget.setColumnWidth(3, 600)   # 메시지
+        layout.addWidget(tree_widget)
+
+        # 버튼 레이아웃
+        button_layout = QHBoxLayout()
+        refresh_button = QPushButton("새로고침")
+        
+        # SEL 로그일 경우에만 클리어 버튼 추가
+        if log_type == 'sel':
+            clear_button = QPushButton("로그 클리어")
+            clear_button.setIcon(QIcon("clear_icon.png"))
+        
+        button_layout.addWidget(refresh_button)
+        if log_type == 'sel':
+            button_layout.addWidget(clear_button)
+        button_layout.addStretch()
+        layout.addLayout(button_layout)
+
+        def add_log_to_tree(log_entry):
+            item = QTreeWidgetItem(tree_widget)
             
-            def show_popup():
+            # ID 설정
+            item.setText(0, log_entry.get('Id', 'N/A'))
+            
+            # 심각도 설정 및 색상 적용
+            severity = log_entry.get('Severity', 'N/A')
+            item.setText(1, severity)
+            if severity == 'Critical':
+                item.setForeground(1, QColor('red'))
+            elif severity == 'Warning':
+                item.setForeground(1, QColor('orange'))
+            elif severity == 'OK':
+                item.setForeground(1, QColor('green'))
+            
+            # 시간 형식 변환
+            created_time = log_entry.get('Created', 'N/A')
+            item.setText(2, format_time(created_time))
+            
+            # 메시지
+            item.setText(3, log_entry.get('Message', 'N/A'))
+
+        def refresh_logs():
+            tree_widget.clear()
+            progress_dialog = QProgressDialog(f"{log_type.upper()} 로그 로드 중...", None, 0, 100, dialog)
+            progress_dialog.setWindowModality(Qt.WindowModality.WindowModal)
+            
+            def update_progress(progress):
+                progress_dialog.setValue(int(progress))
+            
+            try:
+                # 로그 타입에 따라 적절한 메서드 호출
+                if log_type == 'sel':
+                    log_entries = server_manager.fetch_sel_entries(progress_callback=update_progress)
+                else:  # log_type == 'lc'
+                    log_entries = server_manager.fetch_lc_entries(progress_callback=update_progress)
+                
+                entries = log_entries.get('Members', [])
+                
+                # 필터링 적용
+                filtered_entries = []
+                severity_filter = severity_combo.currentText()
+                search_text = search_input.text().lower()
+                
+                for entry in entries:
+                    # 심각도 필터 적용
+                    if severity_filter != '전체' and entry.get('Severity') != severity_filter:
+                        continue
+                    
+                    # 검색어 필터 적용
+                    if search_text and search_text not in entry.get('Message', '').lower():
+                        continue
+                    
+                    filtered_entries.append(entry)
+                
+                # 시간 기준 내림차순 정렬
+                filtered_entries.sort(key=lambda x: x.get('Created', ''), reverse=True)
+                
+                for entry in filtered_entries:
+                    add_log_to_tree(entry)
+                
                 progress_dialog.close()
-                popup.exec()
+                
+            except Exception as e:
+                progress_dialog.close()
+                QMessageBox.critical(dialog, "오류", f"로그 조회 실패: {str(e)}")
+
+        def clear_logs():
+            confirm = QMessageBox.question(
+                dialog,
+                "확인",
+                "모든 SEL 로그를 삭제하시겠습니까?",
+                QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+            )
             
-            QTimer.singleShot(500, show_popup)
-            logger.debug(f"{log_type.upper()} 로그 데이터 업데이트: {len(log_entries.get('Members', []))}개 항목")
-            
+            if confirm == QMessageBox.StandardButton.Yes:
+                try:
+                    server_manager.clear_sel_logs()
+                    refresh_logs()
+                    QMessageBox.information(dialog, "성공", "SEL 로그가 성공적으로 삭제되었습니다.")
+                except Exception as e:
+                    QMessageBox.critical(dialog, "오류", f"로그 삭제 실패: {str(e)}")
+
+        # 이벤트 연결
+        refresh_button.clicked.connect(refresh_logs)
+        if log_type == 'sel':
+            clear_button.clicked.connect(clear_logs)
+        severity_combo.currentTextChanged.connect(refresh_logs)
+        search_input.textChanged.connect(refresh_logs)
+        
+        # 초기 로그 목록 로드
+        refresh_logs()
+        
+        dialog.exec()
+
     except Exception as e:
-        progress_dialog.close()
-        logger.error(f"{log_type.upper()} 로그 데이터 조회/표시 실패: {str(e)}")
-        logger.exception(e)
+        logger.error(f"{log_type.upper()} 로그 표시 중 오류 발생: {str(e)}")
         error_dialog = ErrorDialog(
-            f"{log_type.upper()} 로그 조회 오류",
-            "로그 데이터를 조회하는 중 오류가 발생했습니다.",
+            "로그 조회 오류",
+            "로그를 표시하는 중 오류가 발생했습니다.",
             str(e),
             parent
         )
@@ -2225,4 +2342,3 @@ def format_time(time_str):
         except:
             pass
     return time_str
-

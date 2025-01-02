@@ -7,6 +7,7 @@ from config.server.server_config import server_config
 from managers.dell_server_manager import DellServerManager
 from ui.components.popups.help_dialog import HelpDialog
 from version import __version__
+import requests
 import time
 
 logger = setup_logging()
@@ -354,7 +355,8 @@ class ServerSection(QGroupBox):
             return
             
         try:
-            sel_entries = self.server_manager.fetch_log_entries('sel')
+            # SEL 로그 엔트리 조회
+            sel_entries = self.server_manager.fetch_sel_entries()
             entries = sel_entries.get('Members', [])
             count = len(entries)
             
@@ -368,7 +370,16 @@ class ServerSection(QGroupBox):
                 
                 # 툴팁 업데이트
                 current_time = QDateTime.currentDateTime().toString("yyyy-MM-dd hh:mm:ss")
-                bell_button.setToolTip(f"마지막 업데이트: {current_time}")
+                bell_button.setToolTip(f"마지막 업데이트: {current_time}\nSEL 로그: {count}개")
+                
+                # SEL 서비스 정보도 함께 조회
+                try:
+                    sel_service = self.server_manager.fetch_sel_service()
+                    if sel_service:
+                        service_status = sel_service.get('Status', {}).get('State', 'Unknown')
+                        bell_button.setToolTip(bell_button.toolTip() + f"\n서비스 상태: {service_status}")
+                except Exception as e:
+                    logger.debug(f"SEL 서비스 정보 조회 실패: {str(e)}")
                 
         except Exception as e:
             logger.error(f"SEL 로그 카운트 업데이트 실패: {str(e)}")

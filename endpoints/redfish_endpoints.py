@@ -35,7 +35,6 @@ class URLPattern:
     MANAGER_LC_LOG = f"{MANAGERS}/LogServices/Lclog"
     MANAGER_LC_ENTRIES = f"{MANAGERS}/LogServices/Lclog/Entries"
     MANAGER_SEL_CLEAR = f"{MANAGERS}/LogServices/Sel/Actions/LogService.ClearLog"
-    MANAGER_LC_CLEAR = f"{MANAGERS}/LogServices/Lclog/Actions/LogService.ClearLog"
 
     # GPU 관련 엔드포인트
     SYSTEM_GPU = f"{SYSTEMS}/Processors"
@@ -118,7 +117,6 @@ class RedfishEndpoints:
                 '/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel/Actions/LogService.ClearLog': 'SEL 로그 클리어',
                 '/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Lclog': 'LC 로그 서비스 조회',
                 '/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Lclog/Entries': 'LC 로그 엔트리 조회',
-                '/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Lclog/Actions/LogService.ClearLog': 'LC 로그 클리어',
                 
                 # 업데이트 서비스
                 '/redfish/v1/UpdateService': '업데이트 서비스 조회',
@@ -254,11 +252,6 @@ class RedfishEndpoints:
     def clear_sel_log(self) -> str:
         """SEL 로그 클리어 액션 URL"""
         return self.get_url(URLPattern.MANAGER_SEL_CLEAR)
-    
-    @property
-    def clear_lc_log(self) -> str:
-        """LC 로그 클리어 액션 URL"""
-        return self.get_url(URLPattern.MANAGER_LC_CLEAR)
     
     # 업데이트 서비스 관련 엔드포인트
     @property
