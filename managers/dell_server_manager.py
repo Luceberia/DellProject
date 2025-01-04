@@ -5,6 +5,7 @@ import urllib3
 import time
 import os
 from pathlib import Path
+from functools import lru_cache
 
 # logger 객체 생성
 logger = setup_logging()
@@ -15,39 +16,92 @@ class DellServerManager:
     def __init__(self, ip: str, port: str, auth: tuple):
         self.endpoints = RedfishEndpoints(ip, port)
         self.auth = auth
-        self.timeout = 5  # 기본 타임아웃 5초
+        self.timeout = 3  # 타임아웃을 3초로 줄임
         self.session = requests.Session()
-        self.session.verify = False  # SSL 커뮤리를 불행
-        
+        self.session.verify = False
+        self.cache = {}
+        self.cache_ttl = 300  # 5분
+        self.last_etag = {}
+
+    def check_connection(self):
+        """서버와의 기본 연결 상태 확인"""
+        try:
+            response = self.session.get(
+                f"{self.endpoints.base_url}/redfish/v1", 
+                auth=self.auth,
+                verify=False,
+                timeout=self.timeout
+            )
+            response.raise_for_status()
+            return True
+        except requests.exceptions.RequestException as e:
+            logger.error(f"서버 연결 확인 실패: {str(e)}")
+            return False
+
+    @lru_cache(maxsize=32)        
     def fetch_basic_info(self):
         """시스템 기본 정보 조회"""
-        try:
-            responses = {
-                'system': self.session.get(self.endpoints.system, auth=self.auth, verify=False),
-                'bios': self.session.get(self.endpoints.bios, auth=self.auth, verify=False),
-                'idrac': self.session.get(self.endpoints.managers, auth=self.auth, verify=False)
+        # 먼저 기본 연결 상태 확인
+        if not self.check_connection():
+            raise requests.exceptions.ConnectionError("서버와 연결할 수 없습니다.")
+            
+        max_retries = 2
+        retry_delay = 1
+        
+        for attempt in range(max_retries):
+            try:
+                responses = {
+                    'system': self.session.get(self.endpoints.system, auth=self.auth, verify=False, timeout=self.timeout),
+                    'bios': self.session.get(self.endpoints.bios, auth=self.auth, verify=False, timeout=self.timeout),
+                    'idrac': self.session.get(self.endpoints.managers, auth=self.auth, verify=False, timeout=self.timeout)
+                }
+                
+                for response in responses.values():
+                    response.raise_for_status()
+                
+                system_info = responses['system'].json()
+                bios_info = responses['bios'].json()
+                idrac_info = responses['idrac'].json()
+                
+                service_tag = system_info.get('SKU', 'None')
+                
+                return {
+                    'system': {
+                        **system_info,
+                        'ServiceTag': service_tag
+                    },
+                    'bios': bios_info,
+                    'idrac': idrac_info
+                }
+            except requests.exceptions.RequestException as e:
+                if attempt < max_retries - 1:
+                    logger.warning(f"연결 시도 {attempt + 1}/{max_retries} 실패: {str(e)}")
+                    time.sleep(retry_delay)
+                else:
+                    logger.error(f"최대 재시도 횟수 초과: {str(e)}")
+                    raise
+
+    def get_cached_data(self, key, fetch_func):
+        if key not in self.cache or time.time() - self.cache[key]['timestamp'] > self.cache_ttl:
+            self.cache[key] = {
+                'data': fetch_func(),
+                'timestamp': time.time()
             }
-            
-            for response in responses.values():
-                response.raise_for_status()
-            
-            system_info = responses['system'].json()
-            bios_info = responses['bios'].json()
-            idrac_info = responses['idrac'].json()
-            
-            service_tag = system_info.get('SKU', 'None')
-            
-            return {
-                'system': {
-                    **system_info,
-                    'ServiceTag': service_tag
-                },
-                'bios': bios_info,
-                'idrac': idrac_info
-            }
-        except Exception as e:
-            logger.error(f"기본 정보 조회 실패: {e}")
-            raise
+        return self.cache[key]['data']
+
+    def fetch_system_info(self):
+        return self.get_cached_data('system_info', self.fetch_basic_info)
+
+    def fetch_differential_update(self, endpoint):
+        headers = {'If-None-Match': self.last_etag.get(endpoint, '')}
+        response = self.session.get(endpoint, auth=self.auth, headers=headers, verify=False)
+        if response.status_code == 304:  # Not Modified
+            return None
+        self.last_etag[endpoint] = response.headers.get('ETag', '')
+        return response.json()
+
+    def fetch_system_info_differential(self):
+        return self.fetch_differential_update(self.endpoints.system)
 
     def fetch_bios_info(self):
         """BIOS 상세 정보 조회"""
@@ -517,7 +571,13 @@ class DellServerManager:
     def clear_sel_logs(self):
         """SEL 로그 클리어"""
         try:
-            response = self.session.post(self.endpoints.clear_sel_log, auth=self.auth, verify=False)
+            response = self.session.post(
+                self.endpoints.clear_sel_log,
+                headers={'Content-Type': 'application/json'},
+                json={},  # 빈 JSON 객체 전송
+                auth=self.auth,
+                verify=False
+            )
             response.raise_for_status()
             return True
         except Exception as e:
@@ -604,8 +664,6 @@ class DellServerManager:
             
             data = {
                 "ShareType": "Local",
-                "DataSelectorArrayIn": ["SelLog", "TTYLog"],
-                "FileName": filename
             }
             
             logger.info(f"TSR 로그 수집 요청 시작: {filename}")

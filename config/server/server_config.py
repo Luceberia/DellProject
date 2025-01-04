@@ -23,6 +23,7 @@ class ServerConfig:
             self.observers = []
             self.quick_connect_server = None
             self._initialized = True
+            self.initialize()
     
     def initialize(self):
         """서버 설정 초기화"""
@@ -151,5 +152,16 @@ class ServerConfig:
         except Exception as e:
             logger.error(f"빠른 연결 서버 정보 조회 실패: {str(e)}")
             return None
+
+    def save_quick_connect_server(self, server_name: str):
+        """빠른 연결 서버 설정 저장"""
+        try:
+            config = self.config_manager.load_config()
+            config['quick_connect_server'] = server_name
+            self.config_manager.save_config(config)
+            self.quick_connect_server = server_name
+            logger.info(f"빠른 연결 서버 설정 저장: {server_name}")
+        except Exception as e:
+            logger.error(f"빠른 연결 서버 설정 저장 실패: {str(e)}")
 
 server_config = ServerConfig()

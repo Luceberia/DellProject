@@ -342,6 +342,12 @@ class RedfishEndpoints:
         )
         return self.get_url(pattern)
 
+    # TSR 로그 수집 관련 엔드포인트
+    @property
+    def tsr_export(self) -> str:
+        """TSR(Tech Support Report) 로그 수집을 위한 URL 반환"""
+        return self.get_url(URLPattern.TSR_EXPORT)
+
     # JobService 관련 메서드 추가
     @property
     def job_service(self) -> str:

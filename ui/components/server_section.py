@@ -7,382 +7,404 @@ from config.server.server_config import server_config
 from managers.dell_server_manager import DellServerManager
 from ui.components.popups.help_dialog import HelpDialog
 from version import __version__
+from collections import OrderedDict
 import requests
 import time
 
 logger = setup_logging()
 
-class ServerSection(QGroupBox):
-    server_connection_changed = pyqtSignal(dict)
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self.logger = logger
-        self.current_server_info = None
-        self.connection_manager = ConnectionManager()
-        self.connection_timer = QTimer()
-        self.connection_timer.timeout.connect(self.check_connection_health)
-        self.connection_retry_count = 0
-        self.last_response_time = None
-        self.last_log_check_time = 0
-        self.log_check_interval = 30  # 30초
-        self.last_log_count = 0
-        self.use_event_subscription = False  # 이벤트 구독 사용 여부
+class ServerUIManager:
+    def __init__(self, parent):
+        self.parent = parent
         self.setup_ui()
-        self.connection_timer.start(5000)
 
     def setup_ui(self):
-        """UI 초기화"""
-        layout = QVBoxLayout(self)
-        
-        # 현재 서버 표시
-        self.current_server_label = QLabel("현재 서버: 서버를 선택해 주세요")
-        layout.addWidget(self.current_server_label)
-        
-        # 도구 버튼 그룹
+        layout = QVBoxLayout(self.parent)
+        self.parent.current_server_label = QLabel("현재 서버: 서버를 선택해 주세요")
+        layout.addWidget(self.parent.current_server_label)
+        self.setup_tools_group(layout)
+
+    def setup_tools_group(self, layout):
         tools_group = QGroupBox("도구")
         tools_layout = QHBoxLayout()
-        
-        self.tools_buttons = {}
+        self.parent.tools_buttons = {}
         button_configs = [
-            ("⚙️ 설정", self.show_settings),
-            ("🔌 연결", self.check_server_connection),
+            ("⚙️ 설정", self.parent.show_settings),
+            ("🔌 연결", self.parent.toggle_server_connection),
             ("🔔 0", None),
-            ("❓ 도움말", self.show_help),
-            ("v" + __version__, self.show_version_info),
+            ("❓ 도움말", self.parent.show_help),
+            (f"v{__version__}", self.parent.show_version_info),
         ]
-        
         for text, callback in button_configs:
             button = QPushButton(text)
             button.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
             if callback:
                 button.clicked.connect(callback)
             tools_layout.addWidget(button)
-            self.tools_buttons[text] = button
-        
+            self.parent.tools_buttons[text] = button
         tools_group.setLayout(tools_layout)
         layout.addWidget(tools_group)
+
+class CacheManager:
+    def __init__(self, max_size=100, ttl=300):  # 300초(5분) TTL
+        self.cache = OrderedDict()
+        self.max_size = max_size
+        self.ttl = ttl
+
+    def get(self, key):
+        if key in self.cache:
+            value, timestamp = self.cache[key]
+            if time.time() - timestamp <= self.ttl:
+                return value
+            del self.cache[key]
+        return None
+
+    def set(self, key, value):
+        if len(self.cache) >= self.max_size:
+            self.cache.popitem(last=False)
+        self.cache[key] = (value, time.time())
+
+class ServerSection(QGroupBox):
+    # 상수 정의
+    RETRY_MAX_COUNT = 3
+    RETRY_INTERVAL = 5
+    MIN_POLLING_INTERVAL = 5000
+    MAX_POLLING_INTERVAL = 60000
+    LOG_CHECK_INTERVAL = 30
+    RESPONSE_TIME_THRESHOLD = 300
+    RESPONSE_TIME_CRITICAL = 1000
+
+    server_connection_changed = pyqtSignal(dict)
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.logger = logger
+        self.current_server_info = None
+        self.connection_manager = ConnectionManager()
+        self.cache_manager = CacheManager()
+        self.ui_manager = ServerUIManager(self)
+        self.setup_timers()
+        self.cached_data = {}
+
+    def setup_timers(self):
+        self.connection_timer = QTimer()
+        self.connection_timer.timeout.connect(self.check_connection_health)
+        self.connection_retry_count = 0
+        self.last_response_time = None
+        self.last_log_check_time = 0
+        self.use_event_subscription = False
+        self.current_polling_interval = self.MIN_POLLING_INTERVAL
 
     def show_version_info(self):
         from updater import check_for_updates
         check_for_updates(__version__)
 
     def show_help(self):
-        help_dialog = HelpDialog(self)
-        help_dialog.exec()
+        HelpDialog(self).exec()
 
     def show_settings(self):
-        dialog = SettingsDialog(self)
-        dialog.exec()
+        SettingsDialog(self).exec()
 
-    def on_server_connected(self, server_info):
-        """서버 연결 시그널 처리"""
-        self.current_server_info = server_info
-        self.update_current_server_label(server_info)
-        
-        # DellServerManager 인스턴스 생성
+    def toggle_server_connection(self):
+        if hasattr(self, 'server_manager'):
+            self.disconnect_server()
+        else:
+            current_server = self.current_server_label.text()
+            if "서버를 선택해 주세요" in current_server:
+                self.logger.warning("서버가 선택되지 않았습니다.")
+                return
+            server_name = current_server.replace("현재 서버: ", "").split('(')[0].strip()
+            server_info = server_config.get_server(server_name)
+            if server_info:
+                self.connect_server(server_info)
+            else:
+                self.logger.error(f"서버 정보를 찾을 수 없습니다: {server_name}")
+
+    def connect_server(self, server_info):
+        try:
+            self.update_ui_status("connecting")
+            server_dict = self.convert_server_info(server_info)
+            response_time = self.connection_manager.check_connection_with_timeout(server_dict)
+            if response_time:
+                self.setup_successful_connection(server_dict, response_time)
+            else:
+                self.update_ui_status("disconnected", "연결 실패")
+        except Exception as e:
+            self.logger.error(f"서버 연결 실패: {str(e)}")
+            self.update_ui_status("disconnected", "연결 오류")
+
+    def setup_successful_connection(self, server_dict, response_time):
+        self.current_server_info = server_dict
         self.server_manager = DellServerManager(
-            ip=server_info['IP'],
-            port=server_info.get('PORT', '443'),
-            auth=(server_info['USERNAME'], server_info['PASSWORD'])
+            ip=server_dict['IP'],
+            port=server_dict.get('PORT', '443'),
+            auth=(server_dict['USERNAME'], server_dict['PASSWORD'])
         )
+        
+        self.update_log_count()  # SEL 로그 먼저 조회
+        self.check_event_subscription()
+        self.setup_sel_log_button()
+        self.update_ui_status("connected", {"response_time": response_time})
+        self.reset_connection_state()
+        self.server_connection_changed.emit(server_dict)
+        self.update_ui_on_connection()
 
-        self.check_event_subscription()  # 이벤트 구독 상태 확인
+    def disconnect_server(self):
+        self.connection_timer.stop()
+        self.server_manager = None
+        self.current_server_info = None
+        self.update_ui_status("disconnected")
+        self.cached_data.clear()
 
-        # SEL 로그 버튼 이벤트 핸들러 연결
+    def check_connection_health(self):
+        if not self.current_server_info:
+            return
+
+        cached_health = self.cache_manager.get('connection_health')
+        if cached_health:
+            return cached_health
+
+        try:
+            start_time = time.time()
+            if not self.server_manager.check_connection():
+                self.handle_connection_failure()
+                return
+
+            response_time = int((time.time() - start_time) * 1000)
+            self.cache_manager.set('connection_health', response_time)
+            self.process_successful_health_check(response_time)
+        except Exception as e:
+            self.logger.error(f"서버 연결 확인 중 오류 발생: {str(e)}")
+            self.handle_connection_failure()
+
+    def process_successful_health_check(self, response_time):
+        self.last_response_time = response_time
+        self.connection_retry_count = 0
+        self.update_ui_status("connected", {"response_time": response_time})
+        self.adjust_polling_interval(response_time)
+        self.check_sel_logs_if_needed()
+
+    def handle_connection_failure(self):
+        self.connection_retry_count += 1
+        self.update_ui_status("connecting", f"재연결 시도 중... (시도 횟수: {self.connection_retry_count})")
+        if self.connection_retry_count >= self.RETRY_MAX_COUNT:
+            self.logger.warning(f"연결 재시도 계속 진행 중... (현재 시도 횟수: {self.connection_retry_count})")
+            self.adjust_polling_interval(None)
+
+    def adjust_polling_interval(self, response_time):
+        if response_time is None or response_time >= self.RESPONSE_TIME_CRITICAL:
+            new_interval = min(self.connection_timer.interval() + 5000, self.MAX_POLLING_INTERVAL)
+            self.connection_timer.setInterval(new_interval)
+            self.logger.warning(f"폴링 간격 조정: {new_interval}ms")
+        elif response_time < self.RESPONSE_TIME_THRESHOLD:
+            self.connection_timer.setInterval(self.MIN_POLLING_INTERVAL)
+
+    def check_sel_logs_if_needed(self):
+        current_time = time.time()
+        if current_time - self.last_log_check_time >= self.LOG_CHECK_INTERVAL:
+            self.check_sel_logs()
+            self.last_log_check_time = current_time
+
+    def check_sel_logs(self):
+        try:
+            previous_count = int(self.tools_buttons["🔔 0"].text().split()[1])
+            self.update_log_count()
+            new_count = int(self.tools_buttons["🔔 0"].text().split()[1])
+            if new_count != previous_count:
+                self.logger.info(f"SEL 로그 카운트 변경: {previous_count} → {new_count}")
+        except Exception as e:
+            self.logger.error(f"SEL 로그 확인 실패: {str(e)}")
+
+    def update_log_count(self):
+        if not hasattr(self, 'server_manager'):
+            return
+        try:
+            sel_entries = self.server_manager.fetch_sel_entries()
+            count = len(sel_entries.get('Members', []))
+            self.update_log_ui(count)
+            self.logger.debug(f"SEL 로그 카운트 업데이트: {count}")
+        except Exception as e:
+            self.logger.error(f"SEL 로그 카운트 업데이트 실패: {str(e)}")
+            self.update_log_ui(0)
+
+    def update_log_ui(self, count):
+        bell_button = self.tools_buttons["🔔 0"]
+        bell_button.setText(f"🔔 {count}")
+        current_time = QDateTime.currentDateTime().toString("yyyy-MM-dd hh:mm:ss")
+        tooltip = f"마지막 업데이트: {current_time}\nSEL 로그: {count}개"
+        try:
+            sel_service = self.server_manager.fetch_sel_service()
+            if sel_service:
+                service_status = sel_service.get('Status', {}).get('State', 'Unknown')
+                tooltip += f"\n서비스 상태: {service_status}"
+        except Exception as e:
+            self.logger.debug(f"SEL 서비스 정보 조회 실패: {str(e)}")
+        bell_button.setToolTip(tooltip)
+
+    def check_event_subscription(self):
+        if not hasattr(self, 'server_manager'):
+            self.use_event_subscription = False
+            return
+        try:
+            base_url = f"https://{self.current_server_info['IP']}:{self.current_server_info['PORT']}"
+            service_response = requests.get(
+                f"{base_url}/redfish/v1/EventService",
+                auth=self.server_manager.auth,
+                verify=False
+            )
+            if service_response.status_code == 200:
+                self.process_event_service_response(service_response, base_url)
+            else:
+                self.use_event_subscription = False
+                self.logger.warning("이벤트 서비스 비활성화 상태 - 폴링 방식으로 전환")
+        except Exception as e:
+            self.use_event_subscription = False
+            self.logger.error(f"이벤트 서비스 확인 실패: {str(e)}")
+
+    def process_event_service_response(self, service_response, base_url):
+        service_data = service_response.json()
+        if service_data.get('Status', {}).get('State') == 'Enabled':
+            self.check_subscription_status(base_url)
+        else:
+            self.use_event_subscription = False
+            self.logger.warning("이벤트 서비스 비활성화 상태 - 폴링 방식으로 전환")
+
+    def check_subscription_status(self, base_url):
+        subscription_response = requests.get(
+            f"{base_url}/redfish/v1/EventService/Subscriptions",
+            auth=self.server_manager.auth,
+            verify=False
+        )
+        if subscription_response.status_code == 200:
+            subscriptions = subscription_response.json().get('Members', [])
+            self.use_event_subscription = len(subscriptions) > 0
+            self.logger.info(f"Redfish 이벤트 구독 상태: {'활성화' if self.use_event_subscription else '비활성화'}")
+            if not self.use_event_subscription:
+                self.logger.info("구독이 비활성화되어 있어 폴링 방식으로 전환")
+                self.last_log_check_time = time.time()
+                self.update_log_count()
+        else:
+            self.use_event_subscription = False
+            self.logger.warning("구독 상태 확인 실패 - 폴링 방식으로 전환")
+            self.update_log_count()
+
+    def update_ui_status(self, status_type, data=None):
+        if status_type == "connected":
+            self.update_ui_connected(data)
+        elif status_type == "connecting":
+            self.update_ui_connecting(data)
+        elif status_type == "disconnected":
+            self.update_ui_disconnected(data)
+
+    def update_ui_connected(self, data):
+        server_name = self.current_server_info.get('NAME', 'Unknown')
+        server_ip = self.current_server_info.get('IP', '')
+        response_time = data.get('response_time') if data else None
+        self.current_server_label.setText(f"현재 서버: {server_name} ({server_ip})")
+        status_text = f"✅ 연결됨 ({response_time}ms)" if response_time else "✅ 연결됨"
+        self.tools_buttons["🔌 연결"].setText(status_text)
+
+    def update_ui_connecting(self, message="연결 중..."):
+        self.current_server_label.setText("현재 서버: 연결 시도 중...")
+        self.tools_buttons["🔌 연결"].setText(f"🔄 {message}")
+
+    def update_ui_disconnected(self, message="연결 해제됨"):
+        self.current_server_label.setText("현재 서버: 서버를 선택해 주세요")
+        self.tools_buttons["🔌 연결"].setText(f"🔌 {message}")
+        self.tools_buttons["🔔 0"].setText("🔔 0")
+
+    def setup_sel_log_button(self):
         from ui.components.monitor_section import show_sel_log_popup
         bell_button = self.tools_buttons["🔔 0"]
         bell_button.clicked.disconnect() if bell_button.receivers(bell_button.clicked) > 0 else None
         bell_button.clicked.connect(lambda: show_sel_log_popup(self))
-        
-        # 연결 상태 초기화
+
+    def reset_connection_state(self):
         self.connection_retry_count = 0
         self.last_response_time = None
-        
-        # 상태 업데이트 및 버튼 활성화
-        self.update_connection_status("연결됨", "✅")
-        self.enable_all_buttons()
-        
-        # 로그 카운트 업데이트
-        self.update_log_count()
-        
-        # 연결 상태 모니터링 시작
-        self.connection_timer.start(5000)
-        
-        # 시스템 정보 업데이트 시그널 발생
-        self.server_connection_changed.emit(server_info)
-        
-        # 메인 윈도우의 다른 섹션 업데이트
+        self.connection_timer.start(self.MIN_POLLING_INTERVAL)
+
+    def update_ui_on_connection(self):
         main_window = self.window()
         if hasattr(main_window, 'hardware_section'):
             main_window.hardware_section.update_system_info()
         if hasattr(main_window, 'monitor_section'):
             main_window.monitor_section.update_all_status()
 
-    def update_current_server_label(self, server_info):
-        """현재 서버 표시 레이블 업데이트"""
-        display_text = f"{server_info.get('NAME')} ({server_info.get('IP')})"
-        self.current_server_label.setText(f"현재 서버: {display_text}")
-        logger.debug(f"현재 서버 표시 업데이트: {display_text}")
+    @staticmethod
+    def convert_server_info(server_info):
+        if hasattr(server_info, 'NAME'):
+            return {
+                'NAME': server_info.NAME,
+                'IP': server_info.IP,
+                'PORT': server_info.PORT,
+                'USERNAME': server_info.USERNAME,
+                'PASSWORD': server_info.PASSWORD
+            }
+        return server_info
 
-    def check_server_connection(self):
-        """연결 버튼 클릭 이벤트 처리"""
-        if hasattr(self, 'server_manager'):
-            self.disconnect_server()
-            return
-
-        current_server = self.current_server_label.text()
-        if "서버를 선택해 주세요" in current_server:
-            return
-            
-        server_name = current_server.replace("현재 서버: ", "").split('(')[0].strip()
-        server_info = server_config.get_server(server_name)
-        if server_info:
-            self.connect_server(server_info)
-
-    def disconnect_server(self):
-        """서버 연결 해제 및 상태 초기화"""
-        self.connection_timer.stop()
-        self.server_manager = None
-        self.current_server_info = None
-        self.connection_retry_count = 0
-        self.last_response_time = None
-        
-        # UI 상태 초기화
-        self.update_connection_status("연결 해제됨", "🔌")
-        self.current_server_label.setText("현재 서버: 서버를 선택해 주세요")
-        self.tools_buttons["🔔 0"].setText("🔔 0")
-        
-        # 이벤트 핸들러 제거
-        bell_button = self.tools_buttons["🔔 0"]
-        if bell_button.receivers(bell_button.clicked) > 0:
-            bell_button.clicked.disconnect()
-        
-        # 버튼 상태 초기화
-        self.disable_all_buttons()
-        
-        # 설정, 연결, 도움말 버튼은 다시 활성화
-        self.tools_buttons["⚙️ 설정"].setEnabled(True)
-        self.tools_buttons["🔌 연결"].setEnabled(True)
-        self.tools_buttons["❓ 도움말"].setEnabled(True)
-
-    def connect_server(self, server_info):
-        """서버 연결 및 상태 모니터링 시작"""
-        try:
-            self.update_connection_status("연결 중...", "🔄")
-            
-            # 서버 정보를 딕셔너리로 변환
-            if hasattr(server_info, 'NAME'):  # IDRACConfig 인스턴스인 경우
-                server_dict = {
-                    'NAME': server_info.NAME,
-                    'IP': server_info.IP,
-                    'PORT': server_info.PORT,
-                    'USERNAME': server_info.USERNAME,
-                    'PASSWORD': server_info.PASSWORD
-                }
-            else:  # 이미 딕셔너리인 경우
-                server_dict = server_info
-            
-            # 연결 시도
-            response_time = self.connection_manager.check_connection_with_timeout(server_dict)
-            if response_time:
-                self.current_server_info = server_dict
-                self.server_manager = DellServerManager(
-                    ip=server_dict['IP'],
-                    port=server_dict['PORT'],
-                    auth=(server_dict['USERNAME'], server_dict['PASSWORD'])
-                )
-                
-                # 이벤트 구독 상태 확인
-                self.check_event_subscription()
-
-                # SEL 로그 버튼 이벤트 핸들러 연결
-                from ui.components.monitor_section import show_sel_log_popup
-                bell_button = self.tools_buttons["🔔 0"]
-                bell_button.clicked.disconnect() if bell_button.receivers(bell_button.clicked) > 0 else None
-                bell_button.clicked.connect(lambda: show_sel_log_popup(self))
-                
-                self.update_connection_status(f"연결됨 ({response_time}ms)", "✅")
-                self.connection_retry_count = 0
-                self.last_response_time = response_time
-                
-                # 상태 업데이트 및 버튼 활성화
-                self.enable_all_buttons()
-                self.update_log_count()
-                
-                # 현재 서버 레이블 업데이트
-                self.update_current_server_label(server_dict)
-                
-                # 연결 상태 모니터링 시작
-                self.connection_timer.start(5000)
-                
-                # 시스템 정보 업데이트 시그널 발생
-                self.server_connection_changed.emit(server_dict)
-                
-                # 메인 윈도우의 다른 섹션 업데이트
-                main_window = self.window()
-                if hasattr(main_window, 'hardware_section'):
-                    main_window.hardware_section.update_system_info()
-                if hasattr(main_window, 'monitor_section'):
-                    main_window.monitor_section.update_all_status()
-            else:
-                self.update_connection_status("연결 실패", "❌")
-                
-        except Exception as e:
-            logger.error(f"서버 연결 실패: {str(e)}")
-            self.update_connection_status("연결 오류", "❌")
+    def setup_successful_connection(self, server_dict, response_time):
+        self.current_server_info = server_dict
+        self.server_manager = DellServerManager(
+            ip=server_dict['IP'],
+            port=server_dict.get('PORT', '443'),
+            auth=(server_dict['USERNAME'], server_dict['PASSWORD'])
+        )
+        self.update_log_count()
+        self.check_event_subscription()
+        self.setup_sel_log_button()
+        self.update_ui_status("connected", {"response_time": response_time})
+        self.reset_connection_state()
+        self.server_connection_changed.emit(server_dict)
+        self.update_ui_on_connection()
 
     def check_event_subscription(self):
-        """Redfish 이벤트 구독 상태 확인"""
         if not hasattr(self, 'server_manager'):
-            logger.debug("서버 매니저가 초기화되지 않음")
+            self.logger.debug("서버 매니저가 초기화되지 않음")
             self.use_event_subscription = False
             return
-            
         try:
             base_url = f"https://{self.current_server_info['IP']}:{self.current_server_info['PORT']}"
-            logger.debug("Redfish 이벤트 서비스 상태 확인 시작")
-            
+            self.logger.debug("Redfish 이벤트 서비스 상태 확인 시작")
             service_response = requests.get(
                 f"{base_url}/redfish/v1/EventService",
                 auth=self.server_manager.auth,
                 verify=False
             )
-            
             if service_response.status_code == 200:
-                service_data = service_response.json()
-                
-                if service_data.get('Status', {}).get('State') == 'Enabled':
-                    # 구독 상태 확인
-                    subscription_response = requests.get(
-                        f"{base_url}/redfish/v1/EventService/Subscriptions",
-                        auth=self.server_manager.auth,
-                        verify=False
-                    )
-                    
-                    if subscription_response.status_code == 200:
-                        subscriptions = subscription_response.json().get('Members', [])
-                        self.use_event_subscription = len(subscriptions) > 0
-                        logger.info(f"Redfish 이벤트 구독 상태: {'활성화' if self.use_event_subscription else '비활성화'}")
-                        
-                        if not self.use_event_subscription:
-                            logger.info("구독이 비활성화되어 있어 폴링 방식으로 전환")
-                            self.last_log_check_time = time.time()
-                    else:
-                        logger.warning("구독 상태 확인 실패 - 폴링 방식으로 전환")
-                        self.use_event_subscription = False
-                else:
-                    logger.warning("이벤트 서비스 비활성화 상태 - 폴링 방식으로 전환")
-                    self.use_event_subscription = False
-                    
-        except Exception as e:
-            logger.error(f"이벤트 서비스 확인 실패: {str(e)}")
-            self.use_event_subscription = False
-            logger.info("이벤트 서비스 확인 실패로 폴링 방식으로 전환")
-
-    def check_connection_health(self):
-        """주기적인 연결 상태 확인"""
-        if not self.current_server_info:
-            try:
-                response = requests.get(f"http://{self.current_server_label.text().split('(')[1].strip(')')}", timeout=2)
-                if response.status_code != 200:
-                    self.update_connection_status("서버 응답 없음", "⚠️")
-                    self.disable_all_buttons()
-            except:
-                self.update_connection_status("연결 끊김", "❌")
-                self.disable_all_buttons()
-            return
-
-        try:
-            response_time = self.connection_manager.check_connection_with_timeout(self.current_server_info, timeout=2)
-            current_time = time.time()
-            
-            if response_time:
-                if self.last_response_time is None or abs(response_time - self.last_response_time) > 50:
-                    logger.info(f"서버 연결 상태 변경: {self.current_server_info['IP']} (응답시간: {response_time}ms)")
-                
-                if response_time > 100:
-                    self.update_connection_status(f"응답 지연 ({response_time}ms)", "⚠️")
-                else:
-                    self.update_connection_status(f"연결됨 ({response_time}ms)", "✅")
-                    
-                # 이벤트 구독이 비활성화된 경우에만 주기적 로그 체크
-                if not hasattr(self, 'use_event_subscription') or not self.use_event_subscription:
-                    if current_time - self.last_log_check_time >= self.log_check_interval:
-                        logger.debug("폴링 방식으로 SEL 로그 조회")
-                        self.update_log_count()
-                        self.last_log_check_time = current_time
-                
-                self.last_response_time = response_time
-                self.connection_retry_count = 0
-                self.enable_all_buttons()
+                self.process_event_service_response(service_response, base_url)
             else:
-                self.connection_retry_count += 1
-                if self.connection_retry_count > 2:
-                    self.update_connection_status("연결 끊김", "❌")
-                    self.disable_all_buttons()
-                else:
-                    self.update_connection_status(f"재연결 시도 중... ({self.connection_retry_count}/3)", "🔄")
+                self.logger.warning("이벤트 서비스 비활성화 상태 - 폴링 방식으로 전환")
+                self.use_event_subscription = False
         except Exception as e:
-            logger.error(f"연결 상태 확인 실패: {str(e)}")
-            self.update_connection_status("연결 오류", "⚠️")
-            self.disable_all_buttons()
+            self.logger.error(f"이벤트 서비스 확인 실패: {str(e)}")
+            self.use_event_subscription = False
+            self.logger.info("이벤트 서비스 확인 실패로 폴링 방식으로 전환")
 
-    def disable_all_buttons(self):
-        """모든 기능 버튼 비활성화"""
-        for name, button in self.tools_buttons.items():
-            if name not in ["⚙️ 설정", "🔌 연결", "❓ 도움말", "v" + __version__]:  # 설정, 연결, 버전, 도움말 버튼은 제외
-                button.setEnabled(False)
-        
-        # 상태 표시 업데이트
-        self.current_server_label.setStyleSheet("color: #FF6B6B;")  # 빨간색으로 변경
+    def process_event_service_response(self, service_response, base_url):
+        service_data = service_response.json()
+        if service_data.get('Status', {}).get('State') == 'Enabled':
+            self.check_subscription_status(base_url)
+        else:
+            self.logger.warning("이벤트 서비스 비활성화 상태 - 폴링 방식으로 전환")
+            self.use_event_subscription = False
 
-    def enable_all_buttons(self):
-        """모든 기능 버튼 활성화"""
-        for button in self.tools_buttons.values():
-            button.setEnabled(True)
-        
-        # 상태 표시 복구
-        self.current_server_label.setStyleSheet("")  # 기본 색상으로 복구
+    def check_subscription_status(self, base_url):
+        subscription_response = requests.get(
+            f"{base_url}/redfish/v1/EventService/Subscriptions",
+            auth=self.server_manager.auth,
+            verify=False
+        )
+        if subscription_response.status_code == 200:
+            subscriptions = subscription_response.json().get('Members', [])
+            self.use_event_subscription = len(subscriptions) > 0
+            self.logger.info(f"Redfish 이벤트 구독 상태: {'활성화' if self.use_event_subscription else '비활성화'}")
+            if not self.use_event_subscription:
+                self.logger.info("구독이 비활성화되어 있어 폴링 방식으로 전환")
+                self.last_log_check_time = time.time()
+        else:
+            self.logger.warning("구독 상태 확인 실패 - 폴링 방식으로 전환")
+            self.use_event_subscription = False
 
-    def update_connection_status(self, status, icon="🔌"):
-        """연결 상태에 따른 UI 업데이트"""
-        connect_button = self.tools_buttons["🔌 연결"]
-        connect_button.setText(f"{icon} {status}")
-        logger.debug(f"연결 상태 업데이트: {status}")
-
-    def update_log_count(self):
-        if not hasattr(self, 'server_manager'):
-            return
-            
-        try:
-            # SEL 로그 엔트리 조회
-            sel_entries = self.server_manager.fetch_sel_entries()
-            entries = sel_entries.get('Members', [])
-            count = len(entries)
-            
-            bell_button = self.tools_buttons["🔔 0"]
-            current_count = int(bell_button.text().split()[1])
-            
-            # 단순히 현재 로그 수를 반영
-            if count != current_count:
-                bell_button.setText(f"🔔 {count}")
-                logger.debug(f"SEL 로그 카운트 변경: {current_count} → {count}")
-                
-                # 툴팁 업데이트
-                current_time = QDateTime.currentDateTime().toString("yyyy-MM-dd hh:mm:ss")
-                bell_button.setToolTip(f"마지막 업데이트: {current_time}\nSEL 로그: {count}개")
-                
-                # SEL 서비스 정보도 함께 조회
-                try:
-                    sel_service = self.server_manager.fetch_sel_service()
-                    if sel_service:
-                        service_status = sel_service.get('Status', {}).get('State', 'Unknown')
-                        bell_button.setToolTip(bell_button.toolTip() + f"\n서비스 상태: {service_status}")
-                except Exception as e:
-                    logger.debug(f"SEL 서비스 정보 조회 실패: {str(e)}")
-                
-        except Exception as e:
-            logger.error(f"SEL 로그 카운트 업데이트 실패: {str(e)}")
-            
 def create_server_section():
     return ServerSection()

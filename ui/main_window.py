@@ -59,9 +59,9 @@ class DellIDRACMonitor(QMainWindow):
     def showEvent(self, event):
         """윈도우가 실제로 화면에 표시된 후 호출되는 이벤트"""
         super().showEvent(event)
-        from config.server.server_config import server_config
-        server_config.initialize()  # 서버 설정 초기화
-        self.check_server_settings()
+        if not hasattr(self, '_initialized'):
+            self._initialized = True
+            self.check_server_settings()
 
     def check_server_settings(self):
         """서버 설정 확인"""

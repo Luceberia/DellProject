@@ -190,7 +190,7 @@ class SettingsDialog(QDialog):
             return
             
         server_name = current_item.data(Qt.ItemDataRole.UserRole)
-        server_config.quick_connect_server = server_name
+        server_config.save_quick_connect_server(server_name)
         
         # 서버 목록 새로고침하여 빠른 연결 표시 업데이트
         self.load_servers()

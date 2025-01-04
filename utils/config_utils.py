@@ -2,6 +2,9 @@ import json
 import os
 from cryptography.fernet import Fernet
 from pathlib import Path
+from config.system.log_config import setup_logging
+
+logger = setup_logging()
 
 class ConfigManager:
     def __init__(self):
