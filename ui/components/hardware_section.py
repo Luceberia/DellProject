@@ -72,6 +72,7 @@ class SystemInfoGroup(QGroupBox):
 class HardwareInfoWidget(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
+        self.logger = setup_logging()  # logger 추가
         self.main_layout = QHBoxLayout(self)
         self.main_layout.setSpacing(5)
         self.server_manager = None
@@ -101,12 +102,12 @@ class HardwareInfoWidget(QWidget):
         # 편의 기능
         self.quick_action = QGroupBox("편의 기능")
         quick_layout = QVBoxLayout(self.quick_action)
-        actions = ["🔗 빠른 연결", "🔄 재시작", "💾 저장", "🔍 지원"]
+        actions = ["🔗 빠른 연결 실행", "🔄 재시작", "💾 저장", "🔍 지원"]
         
         for action in actions:
             btn = QPushButton(action)
             btn.setFixedHeight(25)
-            if action == "🔗 빠른 연결":
+            if action == "🔗 빠른 연결 실행":
                 btn.clicked.connect(self._on_quick_connect)
             elif action == "🔄 재시작":
                 btn.clicked.connect(self.restart_application)
@@ -280,18 +281,42 @@ class HardwareInfoWidget(QWidget):
             if server_section:
                 server_section.server_connection_changed.connect(self.on_server_connected)
     
-    def on_server_connected(self, server_info):
-        if not server_info:
-            return
-        
-        self.server_manager = DellServerManager(
-            ip=server_info['IP'],
-            port=server_info.get('PORT', '443'),
-            auth=(server_info['USERNAME'], server_info['PASSWORD'])
-        )
-        
-        self.system_info.set_loading_state()
-        QTimer.singleShot(0, lambda: self.update_system_info())
+    def on_server_connected(self, server_name, connected):
+        """서버 연결 상태 변경 시 호출되는 메서드"""
+        try:
+            if not connected:
+                self.logger.warning("서버가 연결되지 않았습니다.")
+                return
+                
+            if server_name not in server_config.servers:
+                self.logger.warning(f"서버 정보를 찾을 수 없습니다: {server_name}")
+                return
+                
+            server_info = server_config.servers[server_name]
+            self.server_manager = DellServerManager(
+                ip=server_info.IP,  # 대문자로 변경
+                port=server_info.PORT,  # 대문자로 변경
+                auth=(server_info.USERNAME, server_info.PASSWORD)  # 대문자로 변경
+            )
+            
+            self.system_info.set_loading_state()
+            QTimer.singleShot(0, lambda: self.update_system_info())
+            
+        except Exception as e:
+            self.logger.error(f"시스템 정보 업데이트 중 오류 발생: {str(e)}")
+            if hasattr(self, 'system_info'):
+                self.system_info.set_error_state()
+
+    def update_status_labels(self, status_dict):
+        """상태 레이블 업데이트"""
+        for key, value in status_dict.items():
+            if key in self.status_labels:
+                self.status_labels[key].setText(value)
+
+    def clear_status_info(self):
+        """상태 정보 초기화"""
+        for label in self.status_labels.values():
+            label.setText(f"{label.objectName()}: 연결 끊김")
 
     def update_system_info(self):
         """서버 연결 시 시스템 정보 업데이트"""
@@ -617,19 +642,31 @@ class HardwareInfoWidget(QWidget):
         if quick_connect_server:
             logger.debug("빠른 연결 시도 시작")
             try:
+                # 커서를 대기 상태로 변경
+                QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
+                
+                # 진행 상태 다이얼로그 생성
+                progress = QProgressDialog("빠른 연결 시도 중...", None, 0, 0, self)
+                progress.setWindowTitle("연결 중")
+                progress.setWindowModality(Qt.WindowModality.WindowModal)
+                progress.setCancelButton(None)
+                progress.show()
+                
                 # 메인 윈도우의 server_section을 통해 연결
                 main_window = self.window()
                 if hasattr(main_window, 'server_section'):
-                    main_window.server_section.connect_server(quick_connect_server)
+                    server_info = {
+                        'NAME': quick_connect_server.NAME,
+                        'IP': quick_connect_server.IP,
+                        'PORT': quick_connect_server.PORT,
+                        'USERNAME': quick_connect_server.USERNAME,
+                        'PASSWORD': quick_connect_server.PASSWORD
+                    }
+                    main_window.server_section.connect_server(server_info)
                 else:
                     logger.error("server_section을 찾을 수 없습니다.")
-                    error_dialog = ErrorDialog(
-                        "연결 오류",
-                        "서버 연결 기능을 찾을 수 없습니다.",
-                        "서버 연결을 확인하고 다시 시도해주세요.",
-                        self
-                    )
-                    error_dialog.exec()
+                    raise RuntimeError("서버 연결 기능을 찾을 수 없습니다.")
+                    
             except Exception as e:
                 logger.error(f"서버 연결 실패: {str(e)}")
                 error_dialog = ErrorDialog(
@@ -639,6 +676,10 @@ class HardwareInfoWidget(QWidget):
                     self
                 )
                 error_dialog.exec()
+            finally:
+                # 프로그레스 다이얼로그와 커서 정리
+                progress.close() if 'progress' in locals() else None
+                QApplication.restoreOverrideCursor()
         else:
             logger.warning("빠른 연결 서버가 설정되지 않았습니다.")
             error_dialog = ErrorDialog(

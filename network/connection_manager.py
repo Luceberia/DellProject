@@ -11,6 +11,7 @@ class ConnectionManager:
         self.current_server = None
         self.is_connected = False
         self.connection_status_callback = None
+        self.redfish_client = None
 
     def set_status_callback(self, callback):
         """UI 업데이트 콜백 설정"""
@@ -30,58 +31,81 @@ class ConnectionManager:
                 
                 # UI 업데이트 콜백 호출
                 if self.connection_status_callback:
-                    self.connection_status_callback("연결됨")
+                    self.connection_status_callback(True)
+                return True
+            return False
+        except Exception as e:
+            logger.error(f"서버 연결 확인 실패: {str(e)}")
+            return False
+
+    def disconnect_server(self, server_name):
+        """서버 연결 해제 메서드"""
+        from config.server.server_config import server_config
+
+        try:
+            # 서버가 존재하고 연결된 상태인지 확인
+            if server_name in server_config.servers and server_config.servers[server_name].CONNECTED:
+                logger.debug(f"서버 연결 해제 시작: {server_name}")
+                
+                # Redfish 세션 종료
+                if self.redfish_client:
+                    try:
+                        self.redfish_client.logout()
+                        logger.debug(f"Redfish 세션 로그아웃: {server_name}")
+                    except Exception as e:
+                        logger.error(f"Redfish 세션 로그아웃 실패: {str(e)}")
+                
+                # 연결 상태 업데이트
+                server_config.servers[server_name].set_connected(False)
+                
+                # 연결 관련 리소스 초기화
+                self.redfish_client = None
+                self.current_server = None
+                self.is_connected = False
+                
+                # 세션 초기화
+                self.session = requests.Session()
+                self.session.verify = False
+                
+                logger.info(f"서버 연결 해제 완료: {server_name}")
+                
+                # UI 콜백 호출
+                if self.connection_status_callback:
+                    self.connection_status_callback(False)
+                
                 return True
             else:
-                if self.connection_status_callback:
-                    self.connection_status_callback("연결 실패")
+                logger.warning(f"연결 해제할 서버를 찾을 수 없거나 이미 연결 해제됨: {server_name}")
                 return False
-                
-        except requests.RequestException as e:
-            self.is_connected = False
-            logger.error(f"서버 연결 오류: {str(e)}")
-            if self.connection_status_callback:
-                self.connection_status_callback("재시도")
+        
+        except Exception as e:
+            logger.error(f"서버 연결 해제 중 오류 발생: {str(e)}")
             return False
 
     def check_connection_with_timeout(self, server_info, timeout=5):
         """서버 연결 상태 및 응답 시간 확인"""
         try:
-            url = f"https://{server_info['IP']}:{server_info['PORT']}/redfish/v1/Systems/System.Embedded.1"
             start_time = time.time()
+            url = f"https://{server_info['IP']}:{server_info['PORT']}"
             
-            response = self.session.get(
-                url,
-                auth=(server_info['USERNAME'], server_info['PASSWORD']),
-                verify=False,
-                timeout=timeout
-            )
-            
-            end_time = time.time()
-            response_time = int((end_time - start_time) * 1000)  # ms 단위로 변환
+            response = self.session.get(url, timeout=timeout, verify=False)
             
             if response.status_code == 200:
+                response_time = int((time.time() - start_time) * 1000)  # 밀리초 단위
                 self.is_connected = True
                 self.current_server = server_info
                 
-                if self.connection_status_callback:
-                    self.connection_status_callback("연결됨")
-                    
-                return response_time
-            else:
-                if self.connection_status_callback:
-                    self.connection_status_callback("연결 실패")
-                return None
+                logger.debug(f"서버 연결 성공: {server_info['IP']}:{server_info['PORT']} (응답 시간: {response_time}ms)")
                 
-        except requests.exceptions.Timeout:
-            if self.connection_status_callback:
-                self.connection_status_callback("연결 시간 초과")
+                # UI 업데이트 콜백 호출
+                if self.connection_status_callback:
+                    self.connection_status_callback(True)
+                
+                return response_time
             return None
-        except requests.exceptions.ConnectionError:
-            logger.error("서버 연결 거부됨")
-            return None
-        except Exception as e:
-            logger.error(f"서버 연결 오류: {str(e)}")
+        
+        except requests.exceptions.RequestException as e:
+            logger.error(f"서버 연결 확인 실패: {str(e)}")
             return None
 
     async def disconnect(self):

@@ -3,6 +3,7 @@ import logging
 from logging.handlers import RotatingFileHandler
 import os
 from .app_config import ResourceManager
+import traceback
 
 # 상수 정의
 LOG_FILE_MAX_SIZE = 1 * 1024 * 1024  # 1MB
@@ -88,6 +89,15 @@ def setup_logging():
     console_handler.setLevel(logging.INFO)
     console_handler.setFormatter(formatter)
     logger.addHandler(console_handler)
+    
+    # 호출 스택 트레이스 로깅 추가
+    def log_call_stack(logger):
+        stack_trace = traceback.extract_stack()
+        logger.debug("호출 스택 트레이스:")
+        for frame in stack_trace[:-1]:  # 마지막 프레임 제외
+            logger.debug(f"  {frame.filename}:{frame.lineno} in {frame.name}")
+    
+    logger.log_call_stack = log_call_stack
     
     return logger
 

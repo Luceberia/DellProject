@@ -1,7 +1,6 @@
 from config.system.log_config import setup_logging
-from PyQt6.QtWidgets import QGroupBox, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QSizePolicy
-from PyQt6.QtCore import pyqtSignal, QTimer, QDateTime
-from ui.components.settings_dialog import SettingsDialog
+from PyQt6.QtWidgets import QGroupBox, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QSizePolicy, QMessageBox, QProgressDialog
+from PyQt6.QtCore import pyqtSignal, QTimer, QDateTime, Qt
 from network.connection_manager import ConnectionManager
 from config.server.server_config import server_config
 from managers.dell_server_manager import DellServerManager
@@ -10,6 +9,8 @@ from version import __version__
 from collections import OrderedDict
 import requests
 import time
+from datetime import datetime
+from config.server.server_config import server_config
 
 logger = setup_logging()
 
@@ -29,7 +30,6 @@ class ServerUIManager:
         tools_layout = QHBoxLayout()
         self.parent.tools_buttons = {}
         button_configs = [
-            ("⚙️ 설정", self.parent.show_settings),
             ("🔌 연결", self.parent.toggle_server_connection),
             ("🔔 0", None),
             ("❓ 도움말", self.parent.show_help),
@@ -44,6 +44,27 @@ class ServerUIManager:
             self.parent.tools_buttons[text] = button
         tools_group.setLayout(tools_layout)
         layout.addWidget(tools_group)
+
+class ServerSessionManager:
+    def __init__(self):
+        self.sessions = {}
+
+    def get_session(self, server_name):
+        return self.sessions.get(server_name)
+
+    def create_session(self, server_name, server_info):
+        session = {
+            'server_name': server_name,
+            'info': server_info,
+            'connected': True,
+            'last_connected': datetime.now()
+        }
+        self.sessions[server_name] = session
+        return session
+
+    def is_connected(self, server_name):
+        session = self.get_session(server_name)
+        return session and session['connected']
 
 class CacheManager:
     def __init__(self, max_size=100, ttl=300):  # 300초(5분) TTL
@@ -74,7 +95,7 @@ class ServerSection(QGroupBox):
     RESPONSE_TIME_THRESHOLD = 300
     RESPONSE_TIME_CRITICAL = 1000
 
-    server_connection_changed = pyqtSignal(dict)
+    server_connection_changed = pyqtSignal(str, bool)  # 서버 이름과 연결 상태만 전달
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -82,9 +103,11 @@ class ServerSection(QGroupBox):
         self.current_server_info = None
         self.connection_manager = ConnectionManager()
         self.cache_manager = CacheManager()
+        self.session_manager = ServerSessionManager()
         self.ui_manager = ServerUIManager(self)
         self.setup_timers()
         self.cached_data = {}
+        self.setup_status_checker()
 
     def setup_timers(self):
         self.connection_timer = QTimer()
@@ -101,9 +124,6 @@ class ServerSection(QGroupBox):
 
     def show_help(self):
         HelpDialog(self).exec()
-
-    def show_settings(self):
-        SettingsDialog(self).exec()
 
     def toggle_server_connection(self):
         if hasattr(self, 'server_manager'):
@@ -122,16 +142,94 @@ class ServerSection(QGroupBox):
 
     def connect_server(self, server_info):
         try:
+            server_name = server_info['NAME']
+            session = self.session_manager.get_session(server_name)
+
+            if session and session['connected']:
+                # 기존 세션 재사용 시 UI 업데이트 추가
+                self.logger.info(f"기존 세션 재사용: {server_name}")
+                self.current_server_info = server_info
+                self.update_ui_status("connected", {"response_time": "재사용"})
+                # 현재 서버 정보 업데이트
+                self.setup_successful_connection(server_info, "재사용")
+                return True
+
+            # 새로운 연결 시도
+            progress = QProgressDialog(f"{server_name} 연결 시도 중...", None, 0, 0, self)
+            progress.setWindowModality(Qt.WindowModality.WindowModal)
+            progress.setMinimumDuration(0)
+            progress.setCancelButton(None)
+            progress.show()
+
             self.update_ui_status("connecting")
-            server_dict = self.convert_server_info(server_info)
-            response_time = self.connection_manager.check_connection_with_timeout(server_dict)
-            if response_time:
-                self.setup_successful_connection(server_dict, response_time)
+            response_time = self.connection_manager.check_connection_with_timeout(server_info)
+
+            # response_time이 None이 아니면 연결 성공으로 간주
+            if response_time is not None:
+                session = self.session_manager.create_session(server_name, server_info)
+                self.setup_successful_connection(server_info, response_time)
+                progress.close()
+                return True
             else:
                 self.update_ui_status("disconnected", "연결 실패")
+                progress.close()
+                QMessageBox.warning(self, "연결 실패", f"서버 '{server_name}'에 연결할 수 없습니다. 설정을 확인해주세요.")
+                return False
+
         except Exception as e:
             self.logger.error(f"서버 연결 실패: {str(e)}")
             self.update_ui_status("disconnected", "연결 오류")
+            QMessageBox.critical(self, "심각한 오류", f"서버 연결 중 심각한 오류가 발생했습니다: {str(e)}")
+            return False
+
+    def setup_status_checker(self):
+        self.status_checker = QTimer()
+        self.status_checker.timeout.connect(self.check_all_connections)
+        self.status_checker.start(5000)  # 5초마다 확인
+
+    def check_all_connections(self):
+        try:
+            # 연결 해제된 서버를 추적하기 위한 리스트
+            disconnected_servers = []
+
+            # 세션 매니저의 세션 복사본 생성
+            current_sessions = list(self.session_manager.sessions.items())
+
+            for server_name, session in current_sessions:
+                try:
+                    is_alive = self.connection_manager.check_connection_with_timeout(session['info'])
+                    if not is_alive:
+                        # 세션 상태 업데이트
+                        session['connected'] = False
+                        self.update_ui_status("disconnected", "연결 끊김")
+                        
+                        # 상태 변경 시그널 발생
+                        self.server_connection_changed.emit(server_name, False)
+                        
+                        # 연결 해제된 서버 추적
+                        disconnected_servers.append(server_name)
+                except Exception as e:
+                    self.logger.error(f"서버 연결 확인 실패: {str(e)}")
+                    disconnected_servers.append(server_name)
+
+            # 완전히 연결 해제된 서버 세션 제거
+            for server_name in disconnected_servers:
+                if server_name in self.session_manager.sessions:
+                    del self.session_manager.sessions[server_name]
+
+        except Exception as e:
+            self.logger.error(f"서버 연결 확인 전체 프로세스 실패: {str(e)}")
+
+    def clear_system_info(self):
+        """시스템 정보 초기화"""
+        try:
+            # 시스템 정보 초기화
+            self.current_server_info = None
+            self.server_manager = None
+            # UI 상태 업데이트
+            self.update_ui_status("disconnected", "연결 끊김")
+        except Exception as e:
+            self.logger.error(f"시스템 정보 초기화 중 오류: {str(e)}")
 
     def setup_successful_connection(self, server_dict, response_time):
         self.current_server_info = server_dict
@@ -141,20 +239,75 @@ class ServerSection(QGroupBox):
             auth=(server_dict['USERNAME'], server_dict['PASSWORD'])
         )
         
-        self.update_log_count()  # SEL 로그 먼저 조회
+        self.update_log_count()
         self.check_event_subscription()
         self.setup_sel_log_button()
         self.update_ui_status("connected", {"response_time": response_time})
         self.reset_connection_state()
-        self.server_connection_changed.emit(server_dict)
+        
+        # 서버 연결 상태 업데이트 (중복 방지)
+        server = server_config.servers.get(server_dict['NAME'])
+        if server and not server.CONNECTED:
+            server.CONNECTED = True
+            server.LAST_CONNECTED = datetime.now()
+            
+            # 상태 변경 시그널 발생 (중복 방지)
+            self.server_connection_changed.emit(server_dict['NAME'], True)
+        
         self.update_ui_on_connection()
 
-    def disconnect_server(self):
-        self.connection_timer.stop()
-        self.server_manager = None
-        self.current_server_info = None
-        self.update_ui_status("disconnected")
-        self.cached_data.clear()
+    def disconnect_server(self, server_name=None):
+        """서버 연결 해제 메서드"""
+        try:
+            # 현재 서버 이름 결정
+            if server_name is None:
+                current_server = self.current_server_label.text()
+                if "서버를 선택해 주세요" in current_server:
+                    self.logger.warning("연결 해제할 서버가 선택되지 않았습니다.")
+                    return False
+                server_name = current_server.replace("현재 서버: ", "").split('(')[0].strip()
+
+            # 연결 관리자를 통해 서버 연결 해제
+            if hasattr(self, 'connection_manager'):
+                result = self.connection_manager.disconnect_server(server_name)
+                
+                if result:
+                    # UI 상태 업데이트
+                    self.update_ui_disconnected()
+                    
+                    # 세션 관리자에서 세션 제거
+                    if server_name in self.session_manager.sessions:
+                        del self.session_manager.sessions[server_name]
+                    
+                    # 현재 서버 정보 초기화
+                    self.current_server_info = None
+                    
+                    # 연결 상태 시그널 발생
+                    self.server_connection_changed.emit(server_name, False)
+                    
+                    return True
+                else:
+                    self.logger.warning(f"서버 연결 해제 실패: {server_name}")
+                    return False
+            else:
+                self.logger.error("연결 관리자가 초기화되지 않았습니다.")
+                return False
+        
+        except Exception as e:
+            self.logger.error(f"서버 연결 해제 중 오류 발생: {str(e)}")
+            QMessageBox.critical(self, "연결 해제 오류", f"서버 연결 해제 중 오류가 발생했습니다: {str(e)}")
+            return False
+
+    def update_ui_disconnected(self, message="연결 해제됨"):
+        """UI를 연결 해제 상태로 업데이트"""
+        # 현재 서버 레이블 초기화
+        self.current_server_label.setText("현재 서버: 서버를 선택해 주세요")
+        
+        # 연결 상태 관련 UI 요소 업데이트
+        if hasattr(self, 'tools_buttons') and '🔌 연결' in self.tools_buttons:
+            self.tools_buttons['🔌 연결'].setText('🔌 연결')
+        
+        # 필요한 경우 추가 UI 업데이트 로직 구현
 
     def check_connection_health(self):
         if not self.current_server_info:
@@ -247,6 +400,7 @@ class ServerSection(QGroupBox):
             return
         try:
             base_url = f"https://{self.current_server_info['IP']}:{self.current_server_info['PORT']}"
+            self.logger.debug("Redfish 이벤트 서비스 상태 확인 시작")
             service_response = requests.get(
                 f"{base_url}/redfish/v1/EventService",
                 auth=self.server_manager.auth,
@@ -255,19 +409,20 @@ class ServerSection(QGroupBox):
             if service_response.status_code == 200:
                 self.process_event_service_response(service_response, base_url)
             else:
-                self.use_event_subscription = False
                 self.logger.warning("이벤트 서비스 비활성화 상태 - 폴링 방식으로 전환")
+                self.use_event_subscription = False
         except Exception as e:
-            self.use_event_subscription = False
             self.logger.error(f"이벤트 서비스 확인 실패: {str(e)}")
+            self.use_event_subscription = False
+            self.logger.info("이벤트 서비스 확인 실패로 폴링 방식으로 전환")
 
     def process_event_service_response(self, service_response, base_url):
         service_data = service_response.json()
         if service_data.get('Status', {}).get('State') == 'Enabled':
             self.check_subscription_status(base_url)
         else:
-            self.use_event_subscription = False
             self.logger.warning("이벤트 서비스 비활성화 상태 - 폴링 방식으로 전환")
+            self.use_event_subscription = False
 
     def check_subscription_status(self, base_url):
         subscription_response = requests.get(
@@ -282,11 +437,9 @@ class ServerSection(QGroupBox):
             if not self.use_event_subscription:
                 self.logger.info("구독이 비활성화되어 있어 폴링 방식으로 전환")
                 self.last_log_check_time = time.time()
-                self.update_log_count()
         else:
-            self.use_event_subscription = False
             self.logger.warning("구독 상태 확인 실패 - 폴링 방식으로 전환")
-            self.update_log_count()
+            self.use_event_subscription = False
 
     def update_ui_status(self, status_type, data=None):
         if status_type == "connected":
@@ -343,68 +496,28 @@ class ServerSection(QGroupBox):
             }
         return server_info
 
-    def setup_successful_connection(self, server_dict, response_time):
-        self.current_server_info = server_dict
-        self.server_manager = DellServerManager(
-            ip=server_dict['IP'],
-            port=server_dict.get('PORT', '443'),
-            auth=(server_dict['USERNAME'], server_dict['PASSWORD'])
-        )
-        self.update_log_count()
-        self.check_event_subscription()
-        self.setup_sel_log_button()
-        self.update_ui_status("connected", {"response_time": response_time})
-        self.reset_connection_state()
-        self.server_connection_changed.emit(server_dict)
-        self.update_ui_on_connection()
-
-    def check_event_subscription(self):
-        if not hasattr(self, 'server_manager'):
-            self.logger.debug("서버 매니저가 초기화되지 않음")
-            self.use_event_subscription = False
-            return
+    def cleanup(self):
+        """서버 섹션 정리 작업 수행"""
         try:
-            base_url = f"https://{self.current_server_info['IP']}:{self.current_server_info['PORT']}"
-            self.logger.debug("Redfish 이벤트 서비스 상태 확인 시작")
-            service_response = requests.get(
-                f"{base_url}/redfish/v1/EventService",
-                auth=self.server_manager.auth,
-                verify=False
-            )
-            if service_response.status_code == 200:
-                self.process_event_service_response(service_response, base_url)
-            else:
-                self.logger.warning("이벤트 서비스 비활성화 상태 - 폴링 방식으로 전환")
-                self.use_event_subscription = False
+            # 타이머 정리
+            if hasattr(self, 'connection_timer'):
+                self.connection_timer.stop()
+                self.connection_timer.deleteLater()
+                
+            # 서버 매니저 정리
+            if hasattr(self, 'server_manager'):
+                self.server_manager = None
+                
+            # 캐시 데이터 정리
+            if hasattr(self, 'cached_data'):
+                self.cached_data.clear()
+                
+            # UI 상태 초기화
+            self.update_ui_status("disconnected")
+            
+            logger.debug("서버 섹션 정리 완료")
         except Exception as e:
-            self.logger.error(f"이벤트 서비스 확인 실패: {str(e)}")
-            self.use_event_subscription = False
-            self.logger.info("이벤트 서비스 확인 실패로 폴링 방식으로 전환")
-
-    def process_event_service_response(self, service_response, base_url):
-        service_data = service_response.json()
-        if service_data.get('Status', {}).get('State') == 'Enabled':
-            self.check_subscription_status(base_url)
-        else:
-            self.logger.warning("이벤트 서비스 비활성화 상태 - 폴링 방식으로 전환")
-            self.use_event_subscription = False
-
-    def check_subscription_status(self, base_url):
-        subscription_response = requests.get(
-            f"{base_url}/redfish/v1/EventService/Subscriptions",
-            auth=self.server_manager.auth,
-            verify=False
-        )
-        if subscription_response.status_code == 200:
-            subscriptions = subscription_response.json().get('Members', [])
-            self.use_event_subscription = len(subscriptions) > 0
-            self.logger.info(f"Redfish 이벤트 구독 상태: {'활성화' if self.use_event_subscription else '비활성화'}")
-            if not self.use_event_subscription:
-                self.logger.info("구독이 비활성화되어 있어 폴링 방식으로 전환")
-                self.last_log_check_time = time.time()
-        else:
-            self.logger.warning("구독 상태 확인 실패 - 폴링 방식으로 전환")
-            self.use_event_subscription = False
+            logger.error(f"서버 섹션 정리 중 오류 발생: {str(e)}")
 
 def create_server_section():
     return ServerSection()

@@ -9,11 +9,11 @@ logger = setup_logging()
 
 class ServerConfig:
     _instance = None
-    _initialized = False
     
     def __new__(cls):
         if cls._instance is None:
             cls._instance = super(ServerConfig, cls).__new__(cls)
+            cls._instance._initialized = False
         return cls._instance
     
     def __init__(self):
@@ -23,35 +23,40 @@ class ServerConfig:
             self.observers = []
             self.quick_connect_server = None
             self._initialized = True
-            self.initialize()
+            self._load_servers()
     
-    def initialize(self):
-        """서버 설정 초기화"""
-        self.quick_connect_server = self.load_quick_connect_server()
-        self.load_servers()
-
     def load_servers(self) -> Dict[str, IDRACConfig]:
-        """서버 정보 로드"""
+        """외부에서 호출 가능한 서버 정보 로드 메서드"""
+        return self._load_servers()
+    
+    def _load_servers(self) -> Dict[str, IDRACConfig]:
+        """서버 정보 로드 (내부 메서드)"""
         try:
+            # 호출 스택 트레이스 로깅
+            logger.log_call_stack(logger)
+            
             config = self.config_manager.load_config()
-            self.servers = {}
             
-            for name, server_info in config.items():
-                if name != 'quick_connect_server':  # 빠른 연결 서버 설정은 제외
-                    try:
-                        if isinstance(server_info, dict):  # 딕셔너리인지 확인
-                            required_keys = ['NAME', 'IP', 'USERNAME', 'PASSWORD']
-                            if all(key in server_info for key in required_keys):  # 필수 키가 모두 있는지 확인
-                                self.servers[name] = convert_to_idrac_config(server_info)
+            # 서버 정보 로드는 한 번만 수행
+            if not self.servers:
+                for name, server_info in config.items():
+                    if name != 'quick_connect_server':  # 빠른 연결 서버 설정은 제외
+                        try:
+                            if isinstance(server_info, dict):  # 딕셔너리인지 확인
+                                required_keys = ['NAME', 'IP', 'USERNAME', 'PASSWORD']
+                                if all(key in server_info for key in required_keys):  # 필수 키가 모두 있는지 확인
+                                    self.servers[name] = convert_to_idrac_config(server_info)
+                                else:
+                                    logger.error(f"서버 정보에 필수 키가 없습니다: {name}")
                             else:
-                                logger.error(f"서버 정보에 필수 키가 없습니다: {name}")
-                        else:
-                            logger.error(f"서버 정보가 딕셔너리가 아닙니다: {name}")
-                    except Exception as e:
-                        logger.error(f"서버 정보 변환 실패 ({name}): {str(e)}")
+                                logger.error(f"서버 정보가 딕셔너리가 아닙니다: {name}")
+                        except Exception as e:
+                            logger.error(f"서버 정보 변환 실패 ({name}): {str(e)}")
             
-            # 빠른 연결 서버 설정 로드
-            self.quick_connect_server = self.load_quick_connect_server()
+            # 빠른 연결 서버 설정 로드 (한 번만 호출)
+            if not self.quick_connect_server:
+                self.quick_connect_server = config.get('quick_connect_server')
+            
             server_names = list(self.servers.keys())
             logger.debug(f"서버 정보 로드 완료: {len(server_names)}개의 서버")
             if self.quick_connect_server:
@@ -126,11 +131,6 @@ class ServerConfig:
     def _notify_observers(self):
         for observer in self.observers:
             observer()
-
-    def load_quick_connect_server(self) -> Optional[str]:
-        """빠른 연결 서버 설정 로드"""
-        config = self.config_manager.load_config()
-        return config.get('quick_connect_server')
 
     def set_quick_connect_server(self, name: str):
         """빠른 연결 서버 설정"""

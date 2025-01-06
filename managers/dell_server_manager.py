@@ -22,6 +22,9 @@ class DellServerManager:
         self.cache = {}
         self.cache_ttl = 300  # 5분
         self.last_etag = {}
+        self._system_info_cache = None
+        self._system_info_timestamp = 0
+        self.redfish_client = None  # Redfish 클라이언트 초기화
 
     def check_connection(self):
         """서버와의 기본 연결 상태 확인"""
@@ -37,6 +40,16 @@ class DellServerManager:
         except requests.exceptions.RequestException as e:
             logger.error(f"서버 연결 확인 실패: {str(e)}")
             return False
+
+    def clear_session(self):
+        """세션 및 캐시 초기화"""
+        self.session = requests.Session()
+        self.session.verify = False
+        self.cache.clear()
+        self.last_etag.clear()
+        self._system_info_cache = None
+        self._system_info_timestamp = 0
+        self.redfish_client = None
 
     @lru_cache(maxsize=32)        
     def fetch_basic_info(self):
@@ -775,4 +788,87 @@ class DellServerManager:
             return True
         except Exception as e:
             logger.error(f"Job 큐 삭제 실패: {str(e)}")
+            raise
+
+    def get_cached_system_info(self):
+        """시스템 정보 캐시 관리"""
+        current_time = time.time()
+        if (not self._system_info_cache or 
+            current_time - self._system_info_timestamp > self.cache_ttl):
+            try:
+                self._system_info_cache = self.fetch_basic_info()
+                self._system_info_timestamp = current_time
+            except Exception as e:
+                logger.error(f"시스템 정보 캐시 갱신 실패: {str(e)}")
+                if not self._system_info_cache:
+                    raise
+        return self._system_info_cache
+
+    def fetch_all_system_info(self):
+        """모든 시스템 정보를 한 번에 캐시된 데이터로 조회"""
+        try:
+            # 기본 정보는 캐시된 데이터 사용
+            basic_info = self.get_cached_system_info()
+            
+            # 다른 정보도 캐시 사용
+            endpoints = {
+                'processors': self.endpoints.processors,
+                'memory': self.endpoints.memory,
+                'storage': self.endpoints.storage,
+                'nic': self.endpoints.chassis_network,
+                'psu': self.endpoints.chassis_power,
+                'idrac_mac': self.endpoints.idrac_mac_address,
+                'license': self.endpoints.license_info
+            }
+            
+            # 캐시된 응답 사용
+            responses = {}
+            for key, endpoint in endpoints.items():
+                cache_key = f'system_info_{key}'
+                if (cache_key not in self.cache or 
+                    time.time() - self.cache[cache_key]['timestamp'] > self.cache_ttl):
+                    try:
+                        response = self.session.get(endpoint, auth=self.auth, verify=False, timeout=self.timeout)
+                        response.raise_for_status()
+                        self.cache[cache_key] = {
+                            'data': response.json(),
+                            'timestamp': time.time()
+                        }
+                    except requests.exceptions.RequestException as e:
+                        logger.warning(f"{key} 정보 조회 실패: {str(e)}")
+                        self.cache[cache_key] = {'data': None, 'timestamp': time.time()}
+                
+                responses[key] = self.cache[cache_key]['data']
+            
+            # 라이선스 정보 처리
+            license_info = None
+            if responses['license'] and responses['license'].get('Members', []):
+                license_detail = responses['license']['Members'][0]
+                license_info = {
+                    'type': license_detail.get('LicenseDescription', ['Unknown'])[0],
+                    'status': license_detail.get('LicensePrimaryStatus'),
+                    'license_type': license_detail.get('LicenseType'),
+                    'install_date': license_detail.get('LicenseInstallDate')
+                }
+            
+            # iDRAC MAC 주소 처리
+            idrac_mac = None
+            if responses['idrac_mac'] and 'Attributes' in responses['idrac_mac']:
+                idrac_mac = responses['idrac_mac']['Attributes'].get('CurrentNIC.1.MACAddress')
+            
+            # 최종 결과 반환
+            return {
+                'system': basic_info['system'],
+                'bios': basic_info['bios'],
+                'idrac': basic_info['idrac'],
+                'processors': responses['processors'],
+                'memory': responses['memory'],
+                'storage': responses['storage'],
+                'nic': responses['nic'],
+                'psu': responses['psu'],
+                'idrac_mac': idrac_mac,
+                'license': license_info
+            }
+        except Exception as e:
+            logger.error(f"전체 시스템 정보 조회 실패: {str(e)}")
             raise

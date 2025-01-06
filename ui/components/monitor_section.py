@@ -632,16 +632,8 @@ def show_all_status(parent):
                 progress_dialog.show()
 
                 # 데이터 로드
-                data = {
-                    'processors': server_manager.fetch_processors_info(),
-                    'memory': server_manager.fetch_memory_info(),
-                    'storage': server_manager.fetch_storage_info(),
-                    'nic': server_manager.fetch_network_adapters_info(),
-                    'psu': server_manager.fetch_psu_info(),
-                    'idrac': server_manager.fetch_detailed_info(server_manager.endpoints.idrac_mac_address),
-                    'license': server_manager.check_idrac_license()
-                }
-
+                data = server_manager.fetch_all_system_info()
+                
                 # 섹션별 설정 딕셔너리 정의
                 processor_settings = {
                     "모델": "Model",
