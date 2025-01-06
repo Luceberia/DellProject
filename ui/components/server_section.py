@@ -159,6 +159,11 @@ class ServerSection(QGroupBox):
                 return True
 
             # 새로운 연결 시도
+            # 이미 프로그레스 다이얼로그가 표시 중인지 확인
+            existing_progress = self.findChild(QProgressDialog)
+            if existing_progress:
+                existing_progress.close()
+
             progress = QProgressDialog(f"{server_name} 연결 시도 중...", None, 0, 0, self)
             progress.setWindowModality(Qt.WindowModality.WindowModal)
             progress.setMinimumDuration(0)

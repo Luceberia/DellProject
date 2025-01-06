@@ -117,17 +117,20 @@ class ServerSettingsDialog(QDialog):
     def show_context_menu(self, position):
         """서버 목록에서 우클릭 시 컨텍스트 메뉴 생성"""
         menu = QMenu()
-        current_item = self.server_list.itemAt(position)
         
-        # 선택된 서버가 없을 때도 동일한 기본 액션들 추가
+        # 서버 관리 액션 정의
         connect_action = menu.addAction("서버 연결")
-        quick_connect_action = menu.addAction("빠른 연결로 설정")
-        menu.addSeparator()
-        edit_action = menu.addAction("서버 정보 수정")
+        quick_connect_action = menu.addAction("빠른 연결 서버로 설정")
+        edit_action = menu.addAction("서버 수정")
         clone_action = menu.addAction("서버 복제")
         menu.addSeparator()
-        
+        add_server_action = menu.addAction("서버 추가")
         delete_action = menu.addAction("서버 삭제")
+        
+        # 선택된 서버가 없을 때도 동일한 기본 액션들 추가
+        menu.addSeparator()
+        
+        current_item = self.server_list.itemAt(position)
         
         if current_item:
             server_name = current_item.data(Qt.ItemDataRole.UserRole)

@@ -32,8 +32,8 @@ class ServerConfig:
     def _load_servers(self) -> Dict[str, IDRACConfig]:
         """서버 정보 로드 (내부 메서드)"""
         try:
-            # 호출 스택 트레이스 로깅
-            logger.log_call_stack(logger)
+            # 호출 스택 트레이스 로깅 제거
+            # logger.log_call_stack(logger)
             
             config = self.config_manager.load_config()
             

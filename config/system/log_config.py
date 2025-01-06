@@ -30,34 +30,38 @@ class ConnectionLogFilter(logging.Filter):
         self.is_connected = False
 
     def filter(self, record):
-        if "연결 상태 업데이트" in record.msg or "서버 연결 성공" in record.msg:
-            if ("연결 끊김" in record.msg or "서버 연결 거부됨" in record.msg) and self.is_connected:
-                self.is_connected = False
-                return True
-            elif ("연결됨" in record.msg or "서버 연결 성공" in record.msg) and not self.is_connected:
-                self.is_connected = True
-                return True
-            elif "응답 없음" in record.msg or "연결 실패" in record.msg or "응답 지연" in record.msg:
-                return True
-            return False
-            
-        if "Redfish API 요청" in record.msg:
-            # SEL 및 LC 로그 엔트리 조회는 로깅하지 않음
-            if "로그 엔트리 조회" in record.msg:
+        try:
+            if "연결 상태 업데이트" in str(record.msg) or "서버 연결 성공" in str(record.msg):
+                if ("연결 끊김" in str(record.msg) or "서버 연결 거부됨" in str(record.msg)) and self.is_connected:
+                    self.is_connected = False
+                    return True
+                elif ("연결됨" in str(record.msg) or "서버 연결 성공" in str(record.msg)) and not self.is_connected:
+                    self.is_connected = True
+                    return True
+                elif "응답 없음" in str(record.msg) or "연결 실패" in str(record.msg) or "응답 지연" in str(record.msg):
+                    return True
                 return False
-            return record.levelno == logging.DEBUG
-            
-        if "시스템 상태" in record.msg or "정보 업데이트" in record.msg:
-            current_status = record.msg
-            if current_status != self.last_status:
-                self.last_status = current_status
+                
+            if "Redfish API 요청" in str(record.msg):
+                # SEL 및 LC 로그 엔트리 조회는 로깅하지 않음
+                if "로그 엔트리 조회" in str(record.msg):
+                    return False
+                return record.levelno == logging.DEBUG
+                
+            if "시스템 상태" in str(record.msg) or "정보 업데이트" in str(record.msg):
+                current_status = str(record.msg)
+                if current_status != self.last_status:
+                    self.last_status = current_status
+                    return True
+                return False
+                
+            if any(msg in str(record.msg) for msg in ["애플리케이션 시작", "애플리케이션 종료", "리소스 정리"]):
                 return True
-            return False
-            
-        if any(msg in record.msg for msg in ["애플리케이션 시작", "애플리케이션 종료", "리소스 정리"]):
+                
             return True
-            
-        return True
+        except Exception as e:
+            # 예외 발생 시 기본적으로 로그를 허용
+            return True
 
 def setup_logging():
     logger = logging.getLogger(LOGGER_NAME)
@@ -89,15 +93,6 @@ def setup_logging():
     console_handler.setLevel(logging.INFO)
     console_handler.setFormatter(formatter)
     logger.addHandler(console_handler)
-    
-    # 호출 스택 트레이스 로깅 추가
-    def log_call_stack(logger):
-        stack_trace = traceback.extract_stack()
-        logger.debug("호출 스택 트레이스:")
-        for frame in stack_trace[:-1]:  # 마지막 프레임 제외
-            logger.debug(f"  {frame.filename}:{frame.lineno} in {frame.name}")
-    
-    logger.log_call_stack = log_call_stack
     
     return logger
 

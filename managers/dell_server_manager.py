@@ -1,11 +1,13 @@
-from config.system.log_config import setup_logging
-import requests
-from endpoints.redfish_endpoints import RedfishEndpoints
-import urllib3
-import time
 import os
-from pathlib import Path
 from functools import lru_cache
+from pathlib import Path
+import time
+
+import requests
+import urllib3
+
+from config.system.log_config import setup_logging
+from endpoints.redfish_endpoints import RedfishEndpoints, URLPattern
 
 # logger 객체 생성
 logger = setup_logging()
@@ -121,8 +123,52 @@ class DellServerManager:
         return self.fetch_detailed_info(self.endpoints.bios)
 
     def fetch_idrac_info(self):
-        """iDRAC 상세 정보 조회"""
-        return self.fetch_detailed_info(self.endpoints.idrac_info)
+        try:
+            # 시스템 정보에서 MAC 주소 추출 시도
+            system_response = self.session.get(
+                f'{self.endpoints.base_url}/redfish/v1/Systems/System.Embedded.1',
+                auth=self.auth,
+                verify=False
+            )
+            system_response.raise_for_status()
+            system_data = system_response.json()
+            
+            # 이더넷 인터페이스 정보 조회
+            ethernet_response = self.session.get(
+                f'{self.endpoints.base_url}/redfish/v1/Systems/System.Embedded.1/EthernetInterfaces',
+                auth=self.auth,
+                verify=False
+            )
+            ethernet_response.raise_for_status()
+            ethernet_data = ethernet_response.json()
+            
+            # MAC 주소 추출 시도
+            mac_address = 'N/A'
+            if 'Members' in ethernet_data:
+                for interface in ethernet_data['Members']:
+                    interface_details = self.session.get(
+                        f'{self.endpoints.base_url}{interface["@odata.id"]}',
+                        auth=self.auth,
+                        verify=False
+                    ).json()
+                    
+                    logger.debug(f"이더넷 인터페이스 상세 정보: {interface_details}")
+                    
+                    if 'MACAddress' in interface_details:
+                        mac_address = interface_details['MACAddress']
+                        break
+            
+            return {
+                'idrac_version': system_data.get('BiosVersion', 'N/A'),
+                'mac_address': mac_address
+            }
+        except Exception as e:
+            logger.error(f"iDRAC 정보 가져오기 실패: {str(e)}")
+            logger.error(f"인증 정보: {self.auth}")
+            return {
+                'idrac_version': 'N/A',
+                'mac_address': 'N/A'
+            }
 
     def fetch_idrac_pwr_info(self):
         """iDRAC PWR 상세 정보 조회"""
@@ -346,6 +392,7 @@ class DellServerManager:
                         )
                         functions_response.raise_for_status()
                         functions_data = functions_response.json()
+                        
                         for function in functions_data.get('Members', []):
                             function_uri = function.get('@odata.id')
                             if function_uri:
@@ -369,7 +416,7 @@ class DellServerManager:
 
     def fetch_psu_info(self):
         """PSU 상세 정보 조회"""
-        return self.fetch_detailed_info(self.endpoints.power)
+        return self.fetch_detailed_info(self.endpoints.get_url(URLPattern.CHASSIS_POWER))
 
     def fetch_gpu_info(self):
         """GPU 정보 조회"""
@@ -410,7 +457,7 @@ class DellServerManager:
                                 'ProcessorInfo': processor_info
                             })
             except requests.exceptions.RequestException as e:
-                logger.debug(f"프로세서 정보 조회 중 오류 발생: {str(e)}")
+                logger.info(f"프로세서 정보 조회 중 오류 발생: {str(e)}")
                 processors_data = {'Members': []}
             try: 
                 # 2. PCIe 장치에서 독립 GPU 확인
@@ -473,7 +520,7 @@ class DellServerManager:
             
             except requests.exceptions.HTTPError as e:
                 if e.response.status_code == 404:
-                    logger.debug("PCIe 장치 정보를 지원하지 않는 시스템입니다.")
+                    logger.info("PCIe 장치 정보를 지원하지 않는 시스템입니다.")
                 else:
                     logger.error(f"PCIe 장치 정보 조회 중 오류 발생: {str(e)}")
             except requests.exceptions.RequestException as e:
@@ -482,7 +529,7 @@ class DellServerManager:
             return {'GPUDevices': result}
             
         except Exception as e:
-            logger.debug(f"GPU 정보 조회 중 오류 발생: {str(e)}")
+            logger.error(f"GPU 정보 조회 중 오류 발생: {str(e)}")
             return {'GPUDevices': []}
 
     def fetch_sel_entries(self, progress_callback=None, limit=300):
@@ -815,8 +862,8 @@ class DellServerManager:
                 'processors': self.endpoints.processors,
                 'memory': self.endpoints.memory,
                 'storage': self.endpoints.storage,
-                'nic': self.endpoints.chassis_network,
-                'psu': self.endpoints.chassis_power,
+                'nic': self.endpoints.get_url(URLPattern.CHASSIS_NETWORK),
+                'psu': self.endpoints.get_url(URLPattern.CHASSIS_POWER),
                 'idrac_mac': self.endpoints.idrac_mac_address,
                 'license': self.endpoints.license_info
             }

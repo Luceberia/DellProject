@@ -1,20 +1,25 @@
-import pandas as pd
-from PyQt6.QtGui import QColor, QIcon, QImage, QPixmap
-from config.system.log_config import setup_logging
-from PyQt6.QtWidgets import QDialog, QFileDialog, QGroupBox, QHBoxLayout, QMessageBox, QTreeWidget, QTreeWidgetItem, QVBoxLayout, QPushButton, QProgressDialog, QApplication, QMainWindow, QLabel, QSpinBox, QProgressBar, QCheckBox, QDialogButtonBox, QLineEdit, QComboBox, QMenu
-from PyQt6.QtCore import Qt, QTimer, QSettings
-from typing import Optional, cast
-from ui.components.popups.system_event_popup import SystemEventPopup
-from ui.components.popups.error_dialog import ErrorDialog
-from managers.dell_server_manager import DellServerManager
-from common.cache.cache_manager import SystemInfoCache
-from utils.utils import convert_capacity
-import requests
-import re
 import base64
 import os
-from pathlib import Path
 import time
+import re
+from pathlib import Path
+
+import pandas as pd
+import requests
+
+from config.system.log_config import setup_logging
+from managers.dell_server_manager import DellServerManager
+from PyQt6.QtCore import Qt, QTimer, QSettings
+from PyQt6.QtGui import QColor, QIcon, QImage, QPixmap
+from PyQt6.QtWidgets import (QApplication, QCheckBox, QComboBox, QDialog, QDialogButtonBox, 
+                             QFileDialog, QGroupBox, QHBoxLayout, QLabel, QLineEdit, 
+                             QMainWindow, QMenu, QMessageBox, QPushButton, QProgressBar, 
+                             QProgressDialog, QSpinBox, QTreeWidget, QTreeWidgetItem, QVBoxLayout)
+from typing import Optional, cast
+from ui.components.popups.error_dialog import ErrorDialog
+from ui.components.popups.system_event_popup import SystemEventPopup
+from utils.utils import convert_capacity
+from common.cache.cache_manager import SystemInfoCache
 
 logger = setup_logging()
 
@@ -632,8 +637,16 @@ def show_all_status(parent):
                 progress_dialog.show()
 
                 # 데이터 로드
-                data = server_manager.fetch_all_system_info()
-                
+                data = {
+                    'processors': server_manager.fetch_processors_info(),
+                    'memory': server_manager.fetch_memory_info(),
+                    'storage': server_manager.fetch_storage_info(),
+                    'nic': server_manager.fetch_network_adapters_info(),
+                    'psu': server_manager.fetch_psu_info(),
+                    'idrac': server_manager.fetch_detailed_info(server_manager.endpoints.idrac_mac_address),
+                    'license': server_manager.check_idrac_license()
+                }
+
                 # 섹션별 설정 딕셔너리 정의
                 processor_settings = {
                     "모델": "Model",
@@ -1331,7 +1344,7 @@ def show_system_info(parent):
                 }
 
                 idrac_settings = {
-                    'Mac Address': 'NIC.1.MACAddress',
+                    'Mac Address': 'MacAddress',
                     'Enable IPv4': 'IPv4.1.Enable',
                     'Enable DHCP': 'IPv4.1.DHCPEnable',
                     'Static IP Address': 'IPv4Static.1.Address',
@@ -1563,7 +1576,7 @@ def get_tooltip(attr_name):
         "ErrPrompt": "오류 발생 시 F1/F2 프롬프트 표시 여부",
         
         # iDRAC Settings
-        "NIC.1.MACAddress": "iDRAC 네트워크 인터페이스의 MAC 주소",
+        "MacAddress": "iDRAC 네트워크 인터페이스의 MAC 주소",
         "IPv4.1.Enable": "IPv4 프로토콜 활성화 여부",
         "IPv4.1.DHCPEnable": "DHCP 사용 여부",
         "IPv4Static.1.Address": "고정 IP 주소 설정",
@@ -1784,6 +1797,7 @@ def show_firmware_info(parent):
             error_dialog.exec()
 
 def sort_drives(drive_info):
+    import re  # 명시적 import 추가
     def sort_key(drive):
         # Disk.Bay.숫자:Enclosure... 형식에서 숫자만 추출하여 정렬
         match = re.search(r"Disk\.Bay\.(\d+)", drive.get('Id', ''))

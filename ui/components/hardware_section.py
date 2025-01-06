@@ -1,21 +1,25 @@
+import os
+import sys
+from datetime import datetime
+
+import pandas as pd
+import requests
+
+from openpyxl.styles import PatternFill, Font, Alignment
 from openpyxl.styles.borders import Border, Side
+
+from config.server.server_config import server_config
 from config.system.log_config import setup_logging
-from PyQt6.QtWidgets import QApplication, QDialog, QGroupBox, QHBoxLayout, QVBoxLayout, QLabel, QPushButton, QWidget, QMainWindow, QFileDialog, QMessageBox, QLineEdit, QProgressDialog
+from managers.dell_server_manager import DellServerManager
 from PyQt6.QtCore import QTimer, Qt, QUrl
 from PyQt6.QtGui import QDesktopServices
-from managers.dell_server_manager import DellServerManager
-from ui.components.server_section import ServerSection
-import sys
-import pandas as pd
-from openpyxl.styles import PatternFill, Font, Alignment
-from ui.components.popups.error_dialog import ErrorDialog
+from PyQt6.QtWidgets import (QApplication, QDialog, QFileDialog, QGroupBox, QHBoxLayout, QLabel, QLineEdit, 
+                             QMainWindow, QMessageBox, QPushButton, QProgressDialog, QVBoxLayout, QWidget)
 from ui.components.popups.detail_dialog import DetailDialog
-from utils.utils import convert_capacity
-import requests
-from datetime import datetime
-import os
-from config.server.server_config import server_config
+from ui.components.popups.error_dialog import ErrorDialog
+from ui.components.server_section import ServerSection
 from utils.server_utils import convert_to_dict
+from utils.utils import convert_capacity
 
 logger = setup_logging()
 
@@ -30,7 +34,7 @@ class SystemInfoGroup(QGroupBox):
             'model': QLabel("모델명: 연결 대기 중..."),
             'service_tag': QLabel("서비스태그: 연결 대기 중..."),
             'bios': QLabel("BIOS: 연결 대기 중..."),
-            'idrac': QLabel("iDRAC: 연결 대기 중...")
+            'idrac': QLabel("iDRAC: 연결 대기 중..."),
         }
         for label in self.labels.values():
             label.setTextInteractionFlags(
@@ -47,7 +51,7 @@ class SystemInfoGroup(QGroupBox):
                 'model': ('모델명', info.get('model', '알 수 없음')),
                 'service_tag': ('서비스태그', info.get('service_tag', '알 수 없음')),
                 'bios': ('BIOS', info.get('bios_version', '알 수 없음')),
-                'idrac': ('iDRAC', info.get('idrac_version', '알 수 없음'))
+                'idrac': ('iDRAC', info.get('idrac_version', '알 수 없음')),
             }
             for key, (label, value) in mappings.items():
                 self.labels[key].setText(f"{label}: {value}")
@@ -258,9 +262,6 @@ class HardwareInfoWidget(QWidget):
             logger.debug(f"지원되지 않는 모델: {model}")
             return None
 
-        logger.debug(f"Dell 지원 사이트 접근: 기본 URL - {base_url}")
-        return base_url
-
     def restart_application(self):
         logger.info("프로그램 재시작 시도")
         python = sys.executable
@@ -292,11 +293,18 @@ class HardwareInfoWidget(QWidget):
                 self.logger.warning(f"서버 정보를 찾을 수 없습니다: {server_name}")
                 return
                 
-            server_info = server_config.servers[server_name]
+            server_info = {
+                'NAME': server_name,
+                'IP': server_config.servers[server_name].IP,  # 대문자로 변경
+                'PORT': server_config.servers[server_name].PORT,  # 대문자로 변경
+                'USERNAME': server_config.servers[server_name].USERNAME,  # 대문자로 변경
+                'PASSWORD': server_config.servers[server_name].PASSWORD  # 대문자로 변경
+            }
+            
             self.server_manager = DellServerManager(
-                ip=server_info.IP,  # 대문자로 변경
-                port=server_info.PORT,  # 대문자로 변경
-                auth=(server_info.USERNAME, server_info.PASSWORD)  # 대문자로 변경
+                ip=server_info['IP'],  # 대문자로 변경
+                port=server_info['PORT'],  # 대문자로 변경
+                auth=(server_info['USERNAME'], server_info['PASSWORD'])  # 대문자로 변경
             )
             
             self.system_info.set_loading_state()
@@ -645,12 +653,12 @@ class HardwareInfoWidget(QWidget):
                 # 커서를 대기 상태로 변경
                 QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
                 
-                # 진행 상태 다이얼로그 생성
-                progress = QProgressDialog("빠른 연결 시도 중...", None, 0, 0, self)
-                progress.setWindowTitle("연결 중")
-                progress.setWindowModality(Qt.WindowModality.WindowModal)
-                progress.setCancelButton(None)
-                progress.show()
+                # 진행 상태 다이얼로그
+                # progress = QProgressDialog("빠른 연결 시도 중...", None, 0, 0, self)
+                # progress.setWindowTitle("연결 중")
+                # progress.setWindowModality(Qt.WindowModality.WindowModal)
+                # progress.setCancelButton(None)
+                # progress.show()
                 
                 # 메인 윈도우의 server_section을 통해 연결
                 main_window = self.window()
@@ -677,8 +685,8 @@ class HardwareInfoWidget(QWidget):
                 )
                 error_dialog.exec()
             finally:
-                # 프로그레스 다이얼로그와 커서 정리
-                progress.close() if 'progress' in locals() else None
+                # 프로그레스 다이얼로그와 커서 정리 제거
+                # progress.close() if 'progress' in locals() else None
                 QApplication.restoreOverrideCursor()
         else:
             logger.warning("빠른 연결 서버가 설정되지 않았습니다.")
