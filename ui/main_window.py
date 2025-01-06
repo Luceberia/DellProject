@@ -1,17 +1,16 @@
 from config.system.app_config import ResourceManager
 from config.system.log_config import setup_logging
-from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QGroupBox, QPushButton, QListWidget, QDialog, QLabel, QLineEdit, QFormLayout, QMessageBox, QListWidgetItem, QProgressDialog, QApplication, QMenu
-from PyQt6.QtGui import QGuiApplication, QCloseEvent, QDesktopServices, QIcon
-from PyQt6.QtCore import Qt, QUrl, QCoreApplication, pyqtSignal, QEvent
-from typing import Optional
-from ui.components.server_section import create_server_section, ServerSection
-from ui.components.monitor_section import create_monitor_section
-from ui.components.hardware_section import create_hardware_section
 from datetime import datetime
+from PyQt6.QtCore import Qt, QUrl, QCoreApplication, pyqtSignal, QEvent
+from PyQt6.QtGui import QGuiApplication, QCloseEvent, QDesktopServices
+from PyQt6.QtWidgets import QDialog, QFormLayout, QGroupBox, QHBoxLayout, QLabel, QLineEdit, QListWidget, QListWidgetItem, QMainWindow, QMenu, QMessageBox, QPushButton, QVBoxLayout, QWidget
+from typing import Optional
+from ui.components.hardware_section import create_hardware_section
+from ui.components.monitor_section import create_monitor_section
+from ui.components.server_section import create_server_section
 from version import __version__
 from config.server.server_config import server_config
 from utils.server_utils import convert_to_idrac_config
-import re
 
 logger = setup_logging()
 
@@ -127,7 +126,7 @@ class ServerSettingsDialog(QDialog):
         edit_action = menu.addAction("서버 정보 수정")
         clone_action = menu.addAction("서버 복제")
         menu.addSeparator()
-        add_server_action = menu.addAction("서버 추가")
+        
         delete_action = menu.addAction("서버 삭제")
         
         if current_item:

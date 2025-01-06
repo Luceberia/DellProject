@@ -1,16 +1,20 @@
-from config.system.log_config import setup_logging
-from PyQt6.QtWidgets import QGroupBox, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QSizePolicy, QMessageBox, QProgressDialog
-from PyQt6.QtCore import pyqtSignal, QTimer, QDateTime, Qt
-from network.connection_manager import ConnectionManager
-from config.server.server_config import server_config
-from managers.dell_server_manager import DellServerManager
-from ui.components.popups.help_dialog import HelpDialog
-from version import __version__
 from collections import OrderedDict
+from datetime import datetime
+
 import requests
 import time
-from datetime import datetime
+
 from config.server.server_config import server_config
+from config.system.log_config import setup_logging
+from managers.dell_server_manager import DellServerManager
+from network.connection_manager import ConnectionManager
+from PyQt6.QtCore import Qt, QDateTime, QTimer, pyqtSignal
+from PyQt6.QtWidgets import (
+    QGroupBox, QHBoxLayout, QLabel, QMessageBox, 
+    QPushButton, QProgressDialog, QSizePolicy, QVBoxLayout
+)
+from ui.components.popups.help_dialog import HelpDialog
+from version import __version__
 
 logger = setup_logging()
 
