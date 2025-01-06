@@ -254,13 +254,13 @@ class ServerSection(QGroupBox):
         self.update_ui_status("connected", {"response_time": response_time})
         self.reset_connection_state()
         
-        # 서버 연결 상태 업데이트 (중복 방지)
+        # 서버 연결 상태 업데이트
         server = server_config.servers.get(server_dict['NAME'])
         if server and not server.CONNECTED:
             server.CONNECTED = True
             server.LAST_CONNECTED = datetime.now()
             
-            # 상태 변경 시그널 발생 (중복 방지)
+            # 상태 변경 시그널 발생
             self.server_connection_changed.emit(server_dict['NAME'], True)
         
         self.update_ui_on_connection()
@@ -504,6 +504,19 @@ class ServerSection(QGroupBox):
                 'PASSWORD': server_info.PASSWORD
             }
         return server_info
+
+    def update_server_info(self, server_info=None):
+        """서버 정보 업데이트"""
+        if server_info:
+            self.current_server_info = server_info
+        
+        # 서버 정보 업데이트 로직 추가
+        if self.current_server_info:
+            try:
+                # 필요한 경우 서버 정보 새로고침 로직 구현
+                logger.debug(f"서버 정보 업데이트: {self.current_server_info['NAME']}")
+            except Exception as e:
+                logger.error(f"서버 정보 업데이트 중 오류: {e}")
 
     def cleanup(self):
         """서버 섹션 정리 작업 수행"""

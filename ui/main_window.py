@@ -3,7 +3,7 @@ from config.system.log_config import setup_logging
 from datetime import datetime
 from PyQt6.QtCore import Qt, QUrl, QCoreApplication, pyqtSignal, QEvent
 from PyQt6.QtGui import QGuiApplication, QCloseEvent, QDesktopServices
-from PyQt6.QtWidgets import QDialog, QFormLayout, QGroupBox, QHBoxLayout, QLabel, QLineEdit, QListWidget, QListWidgetItem, QMainWindow, QMenu, QMessageBox, QPushButton, QVBoxLayout, QWidget
+from PyQt6.QtWidgets import (QDialog, QFormLayout, QGroupBox, QHBoxLayout, QLabel, QLineEdit, QListWidget, QListWidgetItem, QMainWindow, QMenu, QMessageBox, QPushButton, QVBoxLayout, QWidget, QFileDialog, QTextEdit)
 from typing import Optional
 from ui.components.hardware_section import create_hardware_section
 from ui.components.monitor_section import create_monitor_section
@@ -11,15 +11,21 @@ from ui.components.server_section import create_server_section
 from version import __version__
 from config.server.server_config import server_config
 from utils.server_utils import convert_to_idrac_config
+import json
+import os
+import webbrowser
+import sys
+import requests
 
 logger = setup_logging()
 
 class ServerSettingsDialog(QDialog):
     server_status_changed = pyqtSignal(str, bool)  # 딕셔너리 대신 개별 값으로 변경
-    def __init__(self, parent=None, server_section=None):
+    def __init__(self, parent=None, server_section=None, parent_window=None):
         super().__init__(parent)
         self.original_server_name = None
         self.server_section = server_section
+        self.parent_window = parent_window
         if self.server_section:
             self.server_section.server_connection_changed.connect(self.on_connection_changed)
         
@@ -524,6 +530,114 @@ class ServerSettingsDialog(QDialog):
             # 서버 목록 새로고침
             self.load_servers()
 
+    def export_server_settings(self):
+        """서버 설정 내보내기"""
+        try:
+            # 파일 저장 대화상자 열기
+            file_path, _ = QFileDialog.getSaveFileName(
+                self, 
+                "서버 설정 내보내기", 
+                "", 
+                "JSON 파일 (*.json);;모든 파일 (*)"
+            )
+            
+            if not file_path:
+                return  # 사용자가 취소한 경우
+            
+            # 서버 설정을 딕셔너리로 변환
+            export_data = {
+                name: {
+                    'IP': server.IP,
+                    'PORT': getattr(server, 'PORT', '443'),
+                    'USERNAME': server.USERNAME,
+                    'PASSWORD': server.PASSWORD,
+                    'CONNECTED': server.CONNECTED,
+                    'LAST_CONNECTED': str(server.LAST_CONNECTED) if server.LAST_CONNECTED else None
+                } for name, server in server_config.servers.items()
+            }
+            
+            # JSON 파일로 저장
+            with open(file_path, 'w', encoding='utf-8') as f:
+                json.dump(export_data, f, indent=4, ensure_ascii=False)
+            
+            QMessageBox.information(
+                self, 
+                "내보내기 성공", 
+                f"서버 설정을 {file_path}에 성공적으로 내보냈습니다."
+            )
+            
+        except Exception as e:
+            QMessageBox.critical(
+                self, 
+                "내보내기 실패", 
+                f"서버 설정 내보내기 중 오류 발생: {str(e)}"
+            )
+            logger.error(f"서버 설정 내보내기 실패: {e}", exc_info=True)
+
+    def import_server_settings(self):
+        """서버 설정 가져오기"""
+        try:
+            # 파일 선택 대화상자 열기
+            file_path, _ = QFileDialog.getOpenFileName(
+                self, 
+                "서버 설정 가져오기", 
+                "", 
+                "JSON 파일 (*.json);;모든 파일 (*)"
+            )
+            
+            if not file_path:
+                return  # 사용자가 취소한 경우
+            
+            # JSON 파일 읽기
+            with open(file_path, 'r', encoding='utf-8') as f:
+                import_data = json.load(f)
+            
+            # 기존 서버 설정 백업
+            backup_servers = server_config.servers.copy()
+            
+            try:
+                # 새로운 서버 설정 적용
+                server_config.servers.clear()
+                for name, server_info in import_data.items():
+                    server_config.servers[name] = convert_to_idrac_config({
+                        'NAME': name,
+                        'IP': server_info['IP'],
+                        'PORT': server_info.get('PORT', '443'),
+                        'USERNAME': server_info['USERNAME'],
+                        'PASSWORD': server_info['PASSWORD']
+                    })
+                
+                # 설정 저장
+                server_config.save_servers()
+                
+                # 서버 목록 새로고침
+                if hasattr(self, 'settings_dialog'):
+                    self.settings_dialog.load_servers()
+                
+                # 메인 윈도우의 서버 목록 새로고침 (부모 윈도우를 통해)
+                if hasattr(self, 'parent_window'):
+                    self.parent_window.refresh_server_list()
+                
+                QMessageBox.information(
+                    self, 
+                    "가져오기 성공", 
+                    f"{file_path}에서 서버 설정을 성공적으로 가져왔습니다."
+                )
+                
+            except Exception as import_error:
+                # 가져오기 실패 시 백업된 설정 복원
+                server_config.servers = backup_servers
+                server_config.save_servers()
+                raise import_error
+            
+        except Exception as e:
+            QMessageBox.critical(
+                self, 
+                "가져오기 실패", 
+                f"서버 설정 가져오기 중 오류 발생: {str(e)}"
+            )
+            logger.error(f"서버 설정 가져오기 실패: {e}", exc_info=True)
+
 class DellIDRACMonitor(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -534,7 +648,7 @@ class DellIDRACMonitor(QMainWindow):
         
         self.last_update_check = datetime.now()
         self.server_section = create_server_section()  # 먼저 서버 섹션 생성
-        self.settings_dialog = ServerSettingsDialog(self, self.server_section)
+        self.settings_dialog = ServerSettingsDialog(self, self.server_section, self)
         
         self.init_ui()
         self.show()
@@ -544,34 +658,37 @@ class DellIDRACMonitor(QMainWindow):
         menubar = self.menuBar()
         
         # 파일 메뉴
-        file_menu = menubar.addMenu('파일')
+        file_menu = menubar.addMenu('파일(&F)')
         export_action = file_menu.addAction('서버 설정 내보내기')
         import_action = file_menu.addAction('서버 설정 가져오기')
         file_menu.addSeparator()
         exit_action = file_menu.addAction('종료')
         
         # 보기 메뉴
-        view_menu = menubar.addMenu('보기')
+        view_menu = menubar.addMenu('보기(&V)')
         log_view_action = view_menu.addAction('로그 보기')
         system_info_action = view_menu.addAction('시스템 정보')
         
         # 도구 메뉴
-        tools_menu = menubar.addMenu('도구')
+        tools_menu = menubar.addMenu('도구(&T)')
         quick_connect_action = tools_menu.addAction('빠른 연결로 설정')
         refresh_action = tools_menu.addAction('새로 고침')
         
         # 도움말 메뉴
-        help_menu = menubar.addMenu('도움말')
+        help_menu = menubar.addMenu('도움말(&H)')
         check_update_action = help_menu.addAction('업데이트 확인')
         open_log_action = help_menu.addAction('로그 폴더 열기')
-        about_action = help_menu.addAction('정보')
         
         # 액션 연결
         exit_action.triggered.connect(self.close)
-        check_update_action.triggered.connect(self.check_updates)
+        check_update_action.triggered.connect(self.check_for_updates)
         open_log_action.triggered.connect(self.open_log_folder)
         refresh_action.triggered.connect(self.refresh_server_list)
         quick_connect_action.triggered.connect(self.settings_dialog.set_quick_connect_server)
+        export_action.triggered.connect(self.settings_dialog.export_server_settings)
+        import_action.triggered.connect(self.settings_dialog.import_server_settings)
+        log_view_action.triggered.connect(self.view_log)
+        system_info_action.triggered.connect(self.view_system_info)
         
         self.center()
         
@@ -662,12 +779,6 @@ class DellIDRACMonitor(QMainWindow):
             self._initialized = True
             self.check_server_settings()
 
-    def check_server_settings(self):
-        """서버 설정 확인"""
-        from config.server.server_config import server_config
-        if not server_config.servers:
-            self.show_settings_dialog()
-
     def closeEvent(self, a0: Optional[QCloseEvent]) -> None:
         """창 닫기 이벤트 처리"""
         if not self._is_closing and a0 is not None:
@@ -728,9 +839,12 @@ class DellIDRACMonitor(QMainWindow):
         if self.settings_dialog.exec():
             self.load_servers()
 
-    def check_updates(self):
+    def check_for_updates(self):
+        """업데이트 확인"""
+        from version import __version__
         from updater import check_for_updates
-        check_for_updates(__version__)
+        
+        check_for_updates(__version__, self)
 
     def check_server_settings(self):
         """서버 설정 확인"""
@@ -765,3 +879,15 @@ class DellIDRACMonitor(QMainWindow):
             # 클릭된 아이템이 없다면 선택 해제
             if not self.server_list.itemAt(event.pos()):
                 self.server_list.clearSelection()
+
+    def view_log(self):
+        """로그 보기 대화상자 표시"""
+        from ui.components.log_viewer import LogViewerDialog
+        log_viewer = LogViewerDialog(self)
+        log_viewer.exec()
+
+    def view_system_info(self):
+        """시스템 정보 대화상자 표시"""
+        from ui.components.system_info import SystemInfoDialog
+        system_info_dialog = SystemInfoDialog(self)
+        system_info_dialog.exec()
