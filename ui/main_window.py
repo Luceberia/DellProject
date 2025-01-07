@@ -1,5 +1,5 @@
 from config.system.app_config import ResourceManager
-from config.system.log_config import setup_logging
+from config.system.log_config import setup_logging, set_current_server
 from datetime import datetime
 from PyQt6.QtCore import Qt, QUrl, QCoreApplication, pyqtSignal, QEvent
 from PyQt6.QtGui import QGuiApplication, QCloseEvent, QDesktopServices
@@ -361,6 +361,9 @@ class ServerSettingsDialog(QDialog):
             # 서버 이름 추출
             server_name = current_item.data(Qt.ItemDataRole.UserRole)
             logger.info(f"서버 연결 시도: {server_name}")
+
+            # 로그에 현재 서버 이름 설정
+            set_current_server(server_name)
 
             # 서버 정보 조회
             server = server_config.servers.get(server_name)

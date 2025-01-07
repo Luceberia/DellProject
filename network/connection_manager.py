@@ -1,7 +1,7 @@
 import requests
 import asyncio
 import time
-from config.system.log_config import setup_logging
+from config.system.log_config import setup_logging, set_current_server
 
 logger = setup_logging()
 
@@ -45,6 +45,9 @@ class ConnectionManager:
         try:
             # 서버가 존재하고 연결된 상태인지 확인
             if server_name in server_config.servers and server_config.servers[server_name].CONNECTED:
+                # 로그에 현재 서버 설정
+                set_current_server(server_name)
+                
                 logger.debug(f"서버 연결 해제 시작: {server_name}")
                 
                 # Redfish 세션 종료
@@ -69,16 +72,25 @@ class ConnectionManager:
                 
                 logger.info(f"서버 연결 해제 완료: {server_name}")
                 
+                # 로그에 시스템 상태 복원
+                set_current_server('SYSTEM')
+                
                 # UI 콜백 호출
                 if self.connection_status_callback:
                     self.connection_status_callback(False)
                 
                 return True
             else:
+                # 로그에 현재 서버 설정
+                set_current_server('SYSTEM')
+                
                 logger.warning(f"연결 해제할 서버를 찾을 수 없거나 이미 연결 해제됨: {server_name}")
                 return False
         
         except Exception as e:
+            # 로그에 현재 서버 설정
+            set_current_server('SYSTEM')
+            
             logger.error(f"서버 연결 해제 중 오류 발생: {str(e)}")
             return False
 

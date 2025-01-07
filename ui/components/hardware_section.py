@@ -9,7 +9,7 @@ from openpyxl.styles import PatternFill, Font, Alignment
 from openpyxl.styles.borders import Border, Side
 
 from config.server.server_config import server_config
-from config.system.log_config import setup_logging
+from config.system.log_config import setup_logging, set_current_server
 from managers.dell_server_manager import DellServerManager
 from PyQt6.QtCore import QTimer, Qt, QUrl
 from PyQt6.QtGui import QDesktopServices
@@ -640,8 +640,17 @@ class HardwareInfoWidget(QWidget):
 
     def _on_quick_connect(self):
         """빠른 연결 버튼 클릭 핸들러"""
+        from config.system.log_config import set_current_server
         logger.debug("빠른 연결 버튼 클릭")
-        self.quick_connect()
+        quick_connect_server = server_config.get_quick_connect_server()
+        if quick_connect_server:
+            # 로그에 현재 서버 설정
+            set_current_server(quick_connect_server.NAME)
+            try:
+                self.quick_connect()
+            finally:
+                # 연결 시도 후 항상 시스템 상태로 복원 (성공/실패 여부와 무관)
+                set_current_server('SYSTEM')
 
     def quick_connect(self):
         """빠른 연결 기능 - 설정된 빠른 연결 서버에 즉시 연결"""
@@ -707,109 +716,75 @@ def get_all_system_settings(parent, server_manager):
         nic_data = server_manager.fetch_network_adapters_info()
         
         # CPU 종류 확인 (bios_info에서 가져오기)
-        cpu_brand = bios_info.get('Attributes', {}).get('Proc1Brand', '')
+        # 안전한 방식으로 CPU 브랜드 확인
+        attributes = bios_info.get('Attributes', {})
+        cpu_brand = attributes.get('Proc1Brand', '')
         is_amd_cpu = 'AMD' in cpu_brand
         
         all_settings = {}
         
         # System Information
         all_settings['System Information'] = {
-            'System Model Name': {'attr_name': 'SystemModelName', 'value': bios_info['Attributes'].get('SystemModelName', 'N/A')},
-            '제조사': {'attr_name': 'SystemManufacturer', 'value': bios_info['Attributes'].get('SystemManufacturer', 'N/A')},
-            'BIOS 버전': {'attr_name': 'SystemBiosVersion', 'value': bios_info['Attributes'].get('SystemBiosVersion', 'N/A')},
-            'System Service Tag': {'attr_name': 'SystemServiceTag', 'value': bios_info['Attributes'].get('SystemServiceTag', 'N/A')}
+            'System Model Name': {'attr_name': 'SystemModelName', 'value': attributes.get('SystemModelName', 'N/A')},
+            '제조사': {'attr_name': 'SystemManufacturer', 'value': attributes.get('SystemManufacturer', 'N/A')},
+            'BIOS 버전': {'attr_name': 'SystemBiosVersion', 'value': attributes.get('SystemBiosVersion', 'N/A')},
+            'System Service Tag': {'attr_name': 'SystemServiceTag', 'value': attributes.get('SystemServiceTag', 'N/A')}
         }
         
         # Processor Settings
         all_settings['Processor Settings'] = {
-            'Logical Processor': {'attr_name': 'LogicalProc', 'value': bios_info['Attributes'].get('LogicalProc', 'N/A')},
-            'Virtualization Technology': {'attr_name': 'ProcVirtualization', 'value': bios_info['Attributes'].get('ProcVirtualization', 'N/A')},
-            'Sub NUMA Cluster': {'attr_name': 'SubNumaCluster', 'value': bios_info['Attributes'].get('SubNumaCluster', 'N/A')},
-            'x2APIC Mode': {'attr_name': 'ProcX2Apic', 'value': bios_info['Attributes'].get('ProcX2Apic', 'N/A')}
+            'Logical Processor': {'attr_name': 'LogicalProc', 'value': attributes.get('LogicalProc', 'N/A')},
+            'Virtualization Technology': {'attr_name': 'ProcVirtualization', 'value': attributes.get('ProcVirtualization', 'N/A')},
+            'Sub NUMA Cluster': {'attr_name': 'SubNumaCluster', 'value': attributes.get('SubNumaCluster', 'N/A')},
+            'x2APIC Mode': {'attr_name': 'ProcX2Apic', 'value': attributes.get('ProcX2Apic', 'N/A')}
         }
         # Boot Settings
         all_settings['Boot Settings'] = {
-            'Boot mode': {'attr_name': 'BootMode', 'value': bios_info['Attributes'].get('BootMode', 'N/A')}
+            'Boot mode': {'attr_name': 'BootMode', 'value': attributes.get('BootMode', 'N/A')}
         }
         # Network Settings
         all_settings['Network Settings'] = {
-            'PXE Device1': {'attr_name': 'PxeDev1EnDis', 'value': bios_info['Attributes'].get('PxeDev1EnDis', 'N/A'),},
-            'PXE Device1 NIC': {'attr_name': 'PxeDev1Interface', 'value': bios_info['Attributes'].get('PxeDev1Interface', 'N/A'),},
-            'PXE Device2': {'attr_name': 'PxeDev2EnDis', 'value': bios_info['Attributes'].get('PxeDev2EnDis', 'N/A'),},
-            'PXE Device2 NIC': {'attr_name': 'PxeDev2Interface', 'value': bios_info['Attributes'].get('PxeDev2Interface', 'N/A'),},
-            'PXE Device3': {'attr_name': 'PxeDev3EnDis', 'value': bios_info['Attributes'].get('PxeDev3EnDis', 'N/A'),},
-            'PXE Device3 NIC': {'attr_name': 'PxeDev3Interface', 'value': bios_info['Attributes'].get('PxeDev3Interface', 'N/A'),},
-            'PXE Device4': {'attr_name': 'PxeDev4EnDis', 'value': bios_info['Attributes'].get('PxeDev4EnDis', 'N/A'),},
-            'PXE Device4 NIC': {'attr_name': 'PxeDev4Interface', 'value': bios_info['Attributes'].get('PxeDev4Interface', 'N/A'),},
+            'PXE Device1': {'attr_name': 'PxeDev1EnDis', 'value': attributes.get('PxeDev1EnDis', 'N/A'),},
+            'PXE Device1 NIC': {'attr_name': 'PxeDev1Interface', 'value': attributes.get('PxeDev1Interface', 'N/A'),},
+            'PXE Device2': {'attr_name': 'PxeDev2EnDis', 'value': attributes.get('PxeDev2EnDis', 'N/A'),},
+            'PXE Device2 NIC': {'attr_name': 'PxeDev2Interface', 'value': attributes.get('PxeDev2Interface', 'N/A'),},
+            'PXE Device3': {'attr_name': 'PxeDev3EnDis', 'value': attributes.get('PxeDev3EnDis', 'N/A'),},
+            'PXE Device3 NIC': {'attr_name': 'PxeDev3Interface', 'value': attributes.get('PxeDev3Interface', 'N/A'),},
+            'PXE Device4': {'attr_name': 'PxeDev4EnDis', 'value': attributes.get('PxeDev4EnDis', 'N/A'),},
+            'PXE Device4 NIC': {'attr_name': 'PxeDev4Interface', 'value': attributes.get('PxeDev4Interface', 'N/A'),},
         }
         # Integrated Devices
         all_settings['Integrated Devices'] = {
-            'SR-IOV Global Enable': {'attr_name': 'SriovGlobalEnable', 'value': bios_info['Attributes'].get('SriovGlobalEnable', 'N/A'),},
-            'OS Watchdog Timer': {'attr_name': 'OsWatchdogTimer', 'value': bios_info['Attributes'].get('OsWatchdogTimer', 'N/A'),},
+            'SR-IOV Global Enable': {'attr_name': 'SriovGlobalEnable', 'value': attributes.get('SriovGlobalEnable', 'N/A'),},
+            'OS Watchdog Timer': {'attr_name': 'OsWatchdogTimer', 'value': attributes.get('OsWatchdogTimer', 'N/A'),},
         }
         # 기본 System Profile Settings
         system_profile_settings = {
-            'System Profile': {'attr_name': 'SysProfile', 'value': bios_info['Attributes'].get('SysProfile', 'N/A')},
-            'CPU Power Management': {'attr_name': 'ProcPwrPerf', 'value': bios_info['Attributes'].get('ProcPwrPerf', 'N/A')},
-            'Memory Frequency': {'attr_name': 'ProcCStates', 'value': bios_info['Attributes'].get('ProcCStates', 'N/A')},
-            'C1E': {'attr_name': 'ProcC1E', 'value': bios_info['Attributes'].get('ProcC1E', 'N/A')},
-            'Turbo Boost': {'attr_name': 'ProcTurboMode', 'value': bios_info['Attributes'].get('ProcTurboMode', 'N/A')},
-            'Energy Efficiency Policy': {'attr_name': 'EnergyPerformanceBias', 'value': bios_info['Attributes'].get('EnergyPerformanceBias', 'N/A')},
-            'Memory Patrol Scrub': {'attr_name': 'MemPatrolScrub', 'value': bios_info['Attributes'].get('MemPatrolScrub', 'N/A')}
+            'System Profile': {'attr_name': 'SysProfile', 'value': attributes.get('SysProfile', 'N/A')},
+            'CPU Power Management': {'attr_name': 'ProcPwrPerf', 'value': attributes.get('ProcPwrPerf', 'N/A')},
+            'Memory Frequency': {'attr_name': 'ProcCStates', 'value': attributes.get('ProcCStates', 'N/A')},
+            'C1E': {'attr_name': 'ProcC1E', 'value': attributes.get('ProcC1E', 'N/A')},
+            'Turbo Boost': {'attr_name': 'ProcTurboMode', 'value': attributes.get('ProcTurboMode', 'N/A')},
+            'Energy Efficiency Policy': {'attr_name': 'EnergyPerformanceBias', 'value': attributes.get('EnergyPerformanceBias', 'N/A')},
+            'Memory Patrol Scrub': {'attr_name': 'MemPatrolScrub', 'value': attributes.get('MemPatrolScrub', 'N/A')}
         }
 
         # AMD CPU 전용 설정
         if is_amd_cpu:
             amd_settings = {
-                'Determinism Slider': {'attr_name': 'DeterminismSlider', 'value': bios_info['Attributes'].get('DeterminismSlider', 'N/A')},
-                'Power Profile Select': {'attr_name': 'PowerProfileSelect', 'value': bios_info['Attributes'].get('PowerProfileSelect', 'N/A')},
-                'PCIE Speed PMM Control': {'attr_name': 'PCIESpeedPMMControl', 'value': bios_info['Attributes'].get('PCIESpeedPMMControl', 'N/A')},
-                'EQ Bypass To Highest Rate': {'attr_name': 'EQBypassToHighestRate', 'value': bios_info['Attributes'].get('EQBypassToHighestRate', 'N/A')},
-                'DF PState Frequency Optimizer': {'attr_name': 'DFPstateFrequencyOptimizer', 'value': bios_info['Attributes'].get('DFPstateFrequencyOptimizer', 'N/A')},
-                'DF PState Latency Optimizer': {'attr_name': 'DFPstateLatencyOptimizer', 'value': bios_info['Attributes'].get('DFPstateLatencyOptimizer', 'N/A')},
-                'DF CState': {'attr_name': 'DfCState', 'value': bios_info['Attributes'].get('DfCState', 'N/A')},
-                'Host System Management Port': {'attr_name': 'HSMPSupport', 'value': bios_info['Attributes'].get('HSMPSupport', 'N/A')},
-                'Boost FMax': {'attr_name': 'BoostFMax', 'value': bios_info['Attributes'].get('BoostFMax', 'N/A')},
-                'Algorithm Performance Boost Disable': {'attr_name': 'ApbDis', 'value': bios_info['Attributes'].get('ApbDis', 'N/A')}
+                'Determinism Slider': {'attr_name': 'DeterminismSlider', 'value': attributes.get('DeterminismSlider', 'N/A')},
+                'Power Profile Select': {'attr_name': 'PowerProfileSelect', 'value': attributes.get('PowerProfileSelect', 'N/A')},
+                'PCIE Speed PMM Control': {'attr_name': 'PCIESpeedPMMControl', 'value': attributes.get('PCIESpeedPMMControl', 'N/A')},
+                'EQ Bypass To Highest Rate': {'attr_name': 'EQBypassToHighestRate', 'value': attributes.get('EQBypassToHighestRate', 'N/A')},
+                'DF PState Frequency Optimizer': {'attr_name': 'DFPstateFrequencyOptimizer', 'value': attributes.get('DFPstateFrequencyOptimizer', 'N/A')},
+                'DF PState Latency Optimizer': {'attr_name': 'DFPstateLatencyOptimizer', 'value': attributes.get('DFPstateLatencyOptimizer', 'N/A')},
+                'DF CState': {'attr_name': 'DfCState', 'value': attributes.get('DfCState', 'N/A')},
+                'Host System Management Port': {'attr_name': 'HSMPSupport', 'value': attributes.get('HSMPSupport', 'N/A')},
+                'Boost FMax': {'attr_name': 'BoostFMax', 'value': attributes.get('BoostFMax', 'N/A')},
+                'Algorithm Performance Boost Disable': {'attr_name': 'ApbDis', 'value': attributes.get('ApbDis', 'N/A')}
             }
-            system_profile_settings.update(amd_settings)
-
-        # System Profile Settings에 업데이트된 설정 할당
-        all_settings['System Profile Settings'] = system_profile_settings
-
-        # Miscellaneous Settings
-        all_settings['Miscellaneous Settings'] = {
-            'F1/F2 Prompt On Error': {'attr_name': 'ErrPrompt', 'value': bios_info['Attributes'].get('ErrPrompt', 'N/A'),},
-        }
-        # iDRAC Settings
-        all_settings['iDRAC Settings'] = {
-            'Mac Address': { 'attr_name': 'NIC.1.MACAddress', 'value': idrac_info['Attributes'].get('NIC.1.MACAddress', 'N/A')},
-            'Enable IPv4': { 'attr_name': 'IPv4.1.Enable', 'value': idrac_info['Attributes'].get('IPv4.1.Enable', 'N/A')},
-            'Enable DHCP': { 'attr_name': 'IPv4.1.DHCPEnable', 'value': idrac_info['Attributes'].get('IPv4.1.DHCPEnable', 'N/A')},
-            'Static IP Address': { 'attr_name': 'IPv4Static.1.Address', 'value': idrac_info['Attributes'].get('IPv4Static.1.Address', 'N/A')},
-            'Static Gateway': { 'attr_name': 'IPv4Static.1.Gateway', 'value': idrac_info['Attributes'].get('IPv4Static.1.Gateway', 'N/A')},
-            'Static Subnet Mask': { 'attr_name': 'IPv4Static.1.Netmask', 'value': idrac_info['Attributes'].get('IPv4Static.1.Netmask', 'N/A')},
-            'Enable IPMI Over LAN': { 'attr_name': 'IPMILan.1.Enable', 'value': idrac_info['Attributes'].get('IPMILan.1.Enable', 'N/A')},
-            'Enable VLAN ID': { 'attr_name': 'NIC.1.VLanEnable', 'value': idrac_info['Attributes'].get('NIC.1.VLanEnable', 'N/A')},
-        }
-
-        # Power Configuration
-        all_settings['Power Configuration'] = {
-            'Redundancy Policy': { 'attr_name': 'ServerPwr.1.PSRedPolicy', 'value': idrac_pwr_info['Attributes'].get('ServerPwr.1.PSRedPolicy', 'N/A')},
-            'Enable Hot Spare': { 'attr_name': 'ServerPwr.1.PSRapidOn', 'value': idrac_pwr_info['Attributes'].get('ServerPwr.1.PSRapidOn', 'N/A')}
-        }
-        # NIC Configuration
-        all_settings['NIC Configuration'] = {}
-        if nic_data and 'NetworkAdapters' in nic_data:
-            for adapter in nic_data['NetworkAdapters']:
-                for func in adapter.get('NetworkDeviceFunctions', []):
-                    if func_id := func.get('Id'):
-                        virt_info = server_manager.fetch_network_virtualization_info(
-                            adapter.get('Id'), func_id)
-                        if virt_info and 'Attributes' in virt_info:
-                            all_settings['NIC Configuration'][f'가상화 ({func_id})'] = {
-                                'attr_name': 'VirtualizationMode','value': virt_info['Attributes'].get('VirtualizationMode', 'N/A')
-                            }
+            # 필요하다면 all_settings에 AMD 설정 추가
+            all_settings['AMD CPU Settings'] = amd_settings
 
         return all_settings
 
