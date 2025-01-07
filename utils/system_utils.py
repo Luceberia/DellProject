@@ -1,5 +1,6 @@
 import platform
 from PyQt6.QtGui import QFont
+import matplotlib.pyplot as plt
 
 def get_system_monospace_font(size=10):
     """
@@ -25,3 +26,28 @@ def get_system_monospace_font(size=10):
     font_size = size if size else default_size
     
     return QFont(font_name, font_size)
+
+def get_system_matplotlib_font():
+    """
+    운영 체제에 맞는 matplotlib 한글 폰트를 설정합니다.
+    
+    Returns:
+        str: 시스템에 맞는 한글 폰트 이름
+    """
+    os_name = platform.system().lower()
+    
+    # 한글 폰트 맵핑
+    hangul_font_map = {
+        'darwin': 'AppleGothic',   # macOS
+        'windows': 'Malgun Gothic',  # Windows
+        'linux': 'NanumGothic'  # Linux
+    }
+    
+    # 선택된 폰트 이름
+    font_name = hangul_font_map.get(os_name, 'sans-serif')
+    
+    # matplotlib 한글 폰트 설정
+    plt.rcParams['font.family'] = font_name
+    plt.rcParams['axes.unicode_minus'] = False
+    
+    return font_name

@@ -1,7 +1,5 @@
 from PyQt6.QtWidgets import (QDialog, QVBoxLayout, QTabWidget, 
-                           QWidget, QTextEdit, QPushButton, QHBoxLayout)
-from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QFont
+                           QWidget, QTextBrowser, QPushButton, QHBoxLayout)
 
 class HelpDialog(QDialog):
     def __init__(self, parent=None):
@@ -18,8 +16,8 @@ class HelpDialog(QDialog):
         # 기본 사용법 탭
         basic_tab = QWidget()
         basic_layout = QVBoxLayout()
-        basic_text = QTextEdit()
-        basic_text.setReadOnly(True)
+        basic_text = QTextBrowser()
+        basic_text.setOpenExternalLinks(True)
         basic_text.setHtml(self._get_basic_usage_text())
         basic_layout.addWidget(basic_text)
         basic_tab.setLayout(basic_layout)
@@ -27,8 +25,8 @@ class HelpDialog(QDialog):
         # 상세 기능 탭
         features_tab = QWidget()
         features_layout = QVBoxLayout()
-        features_text = QTextEdit()
-        features_text.setReadOnly(True)
+        features_text = QTextBrowser()
+        features_text.setOpenExternalLinks(True)
         features_text.setHtml(self._get_features_text())
         features_layout.addWidget(features_text)
         features_tab.setLayout(features_layout)
@@ -36,8 +34,8 @@ class HelpDialog(QDialog):
         # 문제 해결 탭
         troubleshoot_tab = QWidget()
         troubleshoot_layout = QVBoxLayout()
-        troubleshoot_text = QTextEdit()
-        troubleshoot_text.setReadOnly(True)
+        troubleshoot_text = QTextBrowser()
+        troubleshoot_text.setOpenExternalLinks(True)
         troubleshoot_text.setHtml(self._get_troubleshooting_text())
         troubleshoot_layout.addWidget(troubleshoot_text)
         troubleshoot_tab.setLayout(troubleshoot_layout)
@@ -47,76 +45,134 @@ class HelpDialog(QDialog):
         tab_widget.addTab(features_tab, "상세 기능")
         tab_widget.addTab(troubleshoot_tab, "문제 해결")
         
+        # 레이아웃에 탭 위젯 추가
+        layout.addWidget(tab_widget)
+        
         # 닫기 버튼
         button_layout = QHBoxLayout()
         close_button = QPushButton("닫기")
-        close_button.clicked.connect(self.accept)
+        close_button.clicked.connect(self.close)
         button_layout.addStretch()
         button_layout.addWidget(close_button)
-        
-        # 레이아웃에 위젯 추가
-        layout.addWidget(tab_widget)
         layout.addLayout(button_layout)
         
         self.setLayout(layout)
 
     def _get_basic_usage_text(self):
         return """
-        <h2>Dell Server Management 기본 사용법</h2>
-        <p><b>1. 서버 연결</b></p>
+        <h2>Dell iDRAC Monitor 기본 사용법</h2>
+        <p>Dell iDRAC Monitor는 Dell 서버의 원격 관리 및 모니터링을 위한 애플리케이션입니다.</p>
+        
+        <h3>🖥️ 서버 연결</h3>
         <ul>
-            <li>설정 버튼을 클릭하여 서버 정보를 입력합니다.</li>
-            <li>서버 IP, 사용자 이름, 비밀번호를 입력합니다.</li>
-            <li>연결 버튼을 클릭하여 서버에 연결합니다.</li>
-            <li>연결 서버를 유지하려면 서버 저장을 클릭하여 설정 파일에 저장합니다.</li>
+            <li>메인 화면에서 서버 목록 선택</li>
+            <li>'연결' 버튼을 클릭하여 서버에 연결</li>
+            <li>연결된 서버의 상태, 로그, 시스템 정보 실시간 모니터링</li>
         </ul>
         
-        <p><b>2. 기본 기능</b></p>
+        <h3>⚙️ 주요 기능</h3>
         <ul>
-            <li>서버 상태 모니터링</li>
-            <li>하드웨어 정보 확인</li>
-            <li>시스템 이벤트 로그 확인</li>
-            <li>LifeCycle 로그 확인</li>
+            <li>Redfish API를 통한 서버 상태 실시간 모니터링</li>
+            <li>서버 연결 상태 및 성능 추적</li>
+            <li>SEL(시스템 이벤트 로그) 확인</li>
+            <li>서버 연결 상태에 따른 자동 폴링 간격 조정</li>
+        </ul>
+        
+        <h3>🔒 보안 및 연결</h3>
+        <ul>
+            <li>SSL 인증서 검증 비활성화 (개발/테스트 환경)</li>
+            <li>3초 타임아웃 설정</li>
+            <li>캐시 메커니즘을 통한 성능 최적화</li>
         </ul>
         """
 
     def _get_features_text(self):
         return """
-        <h2>상세 기능 설명</h2>
-        <p><b>하드웨어 모니터링</b></p>
+        <h2>Dell iDRAC Monitor 상세 기능</h2>
+        
+        <h3>🔍 서버 연결 관리</h3>
         <ul>
-            <li>CPU 상태 및 사용률 모니터링</li>
-            <li>메모리 상태 확인</li>
-            <li>스토리지 디바이스 정보</li>
-            <li>네트워크 인터페이스 상태</li>
-            <li>iDRAC MAC 주소 정보</li>
-            <li>각 장치별 펌웨어 정보</li>
+            <li><strong>연결 상태 모니터링</strong>: 실시간 서버 연결 상태 추적</li>
+            <li><strong>자동 재연결</strong>: 연결 실패 시 최대 3회 재시도</li>
+            <li><strong>동적 폴링 간격</strong>: 서버 응답 시간에 따라 폴링 간격 자동 조정 (5-60초)</li>
         </ul>
         
-        <p><b>시스템 관리</b></p>
+        <h3>📊 시스템 정보 모니터링</h3>
         <ul>
-            <li>전원 관리 (켜기/끄기/재시작)</li>
-            <li>시스템 이벤트 로그 관리</li>
-            <li>하드웨어 인벤토리 관리</li>
+            <li><strong>시스템 상태</strong>: 서버 하드웨어, 온도, 전원 상태 확인</li>
+            <li><strong>이벤트 로그</strong>: SEL(시스템 이벤트 로그) 실시간 모니터링</li>
+            <li><strong>성능 메트릭</strong>: 응답 시간, 연결 상태 추적</li>
         </ul>
         
+        <h3>🔔 알림 및 이벤트</h3>
+        <ul>
+            <li><strong>이벤트 구독</strong>: Redfish API 이벤트 서비스 지원</li>
+            <li><strong>로그 알림</strong>: 새로운 시스템 이벤트 로그 발생 시 알림</li>
+            <li><strong>연결 상태 변경 알림</strong>: 서버 연결/해제 시 UI 상태 자동 업데이트</li>
+        </ul>
+        
+        <h3>🗃️ 데이터 관리</h3>
+        <ul>
+            <li><strong>캐시 메커니즘</strong>: 최대 100개 항목, 5분 TTL</li>
+            <li><strong>세션 관리</strong>: 서버별 개별 세션 추적</li>
+            <li><strong>로깅</strong>: 애플리케이션 및 서버 활동 로그 기록</li>
+        </ul>
         """
 
     def _get_troubleshooting_text(self):
         return """
         <h2>문제 해결 가이드</h2>
-        <p><b>연결 문제</b></p>
+        
+        <h3>🚨 일반적인 문제</h3>
         <ul>
-            <li>서버 IP 주소가 올바른지 확인</li>
-            <li>사용자 이름과 비밀번호가 정확한지 확인</li>
-            <li>네트워크 연결 상태 확인</li>
-            <li>방화벽 설정 확인</li>
+            <li><strong>서버 연결 실패</strong>
+                <ul>
+                    <li>네트워크 연결 확인</li>
+                    <li>서버 IP, 포트, 인증 정보 재확인</li>
+                    <li>방화벽 설정 점검</li>
+                </ul>
+            </li>
+            <li><strong>SSL/인증서 문제</strong>
+                <ul>
+                    <li>현재 SSL 인증서 검증 비활성화됨</li>
+                    <li>프로덕션 환경에서는 인증서 검증 권장</li>
+                </ul>
+            </li>
         </ul>
         
-        <p><b>일반적인 문제</b></p>
+        <h3>🔍 로그 확인</h3>
         <ul>
-            <li>데이터 업데이트가 되지 않을 경우 새로고침 버튼 클릭</li>
-            <li>응답이 없을 경우 서버 연결 상태 확인</li>
-            <li>오류 메시지 발생 시 로그 확인</li>
+            <li><strong>애플리케이션 로그</strong>: `resources/logs/app.log`</li>
+            <li><strong>로그 레벨</strong>: WARNING, ERROR, INFO 등 다양한 로그 레벨 지원</li>
+        </ul>
+        
+        <h3>🛠️ 성능 문제</h3>
+        <ul>
+            <li><strong>느린 응답</strong>
+                <ul>
+                    <li>네트워크 대역폭 확인</li>
+                    <li>서버 부하 모니터링</li>
+                    <li>폴링 간격 조정 (5-60초)</li>
+                </ul>
+            </li>
+            <li><strong>메모리 사용량</strong>
+                <ul>
+                    <li>캐시 크기 제한 (최대 100개 항목)</li>
+                    <li>불필요한 세션 정리</li>
+                </ul>
+            </li>
+        </ul>
+        
+        <h3>📞 추가 지원</h3>
+        <ul>
+            <li>GitHub 이슈 트래커에 버그 및 기능 요청 가능
+                <ul>
+                    <li><a href="https://github.com/Luceberia/DellProject/issues">GitHub 이슈 트래커 바로가기</a></li>
+                </ul>
+            </li>
+            <li>프로젝트 GitHub 저장소
+                <ul>
+                    <li><a href="https://github.com/Luceberia/DellProject/releases/latest">DellProject GitHub 저장소</a></li>
+                </ul>
         </ul>
         """

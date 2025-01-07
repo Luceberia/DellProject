@@ -3,7 +3,6 @@ import logging
 from logging.handlers import RotatingFileHandler
 import os
 from .app_config import ResourceManager
-import traceback
 
 # 상수 정의
 LOG_FILE_MAX_SIZE = 1 * 1024 * 1024  # 1MB

@@ -1,5 +1,5 @@
 import os
-from PyQt6.QtWidgets import QMessageBox, QDialog
+from PyQt6.QtWidgets import QDialog
 from config.system.log_config import setup_logging
 from ui.components.update_dialog import UpdateDialog
 from version import __version__

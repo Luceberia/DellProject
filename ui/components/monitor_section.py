@@ -1,11 +1,15 @@
 import base64
 import os
 import time
-import re
 from pathlib import Path
-
-import pandas as pd
 import requests
+import openpyxl
+from openpyxl.styles import Font
+from collections import Counter
+from datetime import datetime
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from utils.system_utils import get_system_matplotlib_font
 
 from config.system.log_config import setup_logging
 from managers.dell_server_manager import DellServerManager
@@ -14,12 +18,10 @@ from PyQt6.QtGui import QColor, QIcon, QImage, QPixmap
 from PyQt6.QtWidgets import (QApplication, QCheckBox, QComboBox, QDialog, QDialogButtonBox, 
                              QFileDialog, QGroupBox, QHBoxLayout, QLabel, QLineEdit, 
                              QMainWindow, QMenu, QMessageBox, QPushButton, QProgressBar, 
-                             QProgressDialog, QSpinBox, QTreeWidget, QTreeWidgetItem, QVBoxLayout)
+                             QProgressDialog, QSpinBox, QTreeWidget, QTreeWidgetItem, QVBoxLayout, QTabWidget, QFileDialog, QWidget, QScrollArea)
 from typing import Optional, cast
 from ui.components.popups.error_dialog import ErrorDialog
-from ui.components.popups.system_event_popup import SystemEventPopup
 from utils.utils import convert_capacity
-from common.cache.cache_manager import SystemInfoCache
 
 logger = setup_logging()
 
@@ -1843,9 +1845,17 @@ def show_log_popup(parent, log_type):
 
         dialog = QDialog(parent)
         dialog.setWindowTitle(f"{log_type.upper()} 로그")
-        dialog.resize(1000, 600)
-        layout = QVBoxLayout(dialog)
+        dialog.resize(1200, 800)
+        main_layout = QVBoxLayout(dialog)
 
+        # 탭 위젯 추가
+        tab_widget = QTabWidget()
+        main_layout.addWidget(tab_widget)
+
+        # 로그 뷰어 탭
+        log_viewer_tab = QWidget()
+        log_viewer_layout = QVBoxLayout(log_viewer_tab)
+        
         # 필터 컨트롤 추가
         filter_layout = QHBoxLayout()
         
@@ -1859,8 +1869,9 @@ def show_log_popup(parent, log_type):
         
         filter_layout.addWidget(QLabel("심각도:"))
         filter_layout.addWidget(severity_combo)
+        filter_layout.addWidget(QLabel("검색:"))
         filter_layout.addWidget(search_input)
-        layout.addLayout(filter_layout)
+        log_viewer_layout.addLayout(filter_layout)
 
         # 로그 목록 트리 위젯
         tree_widget = QTreeWidget(dialog)
@@ -1871,11 +1882,13 @@ def show_log_popup(parent, log_type):
         tree_widget.setColumnWidth(1, 100)   # 심각도
         tree_widget.setColumnWidth(2, 150)   # 생성 시간
         tree_widget.setColumnWidth(3, 600)   # 메시지
-        layout.addWidget(tree_widget)
+        log_viewer_layout.addWidget(tree_widget)
 
         # 버튼 레이아웃
         button_layout = QHBoxLayout()
         refresh_button = QPushButton("새로고침")
+        copy_button = QPushButton("로그 복사")
+        excel_button = QPushButton("Excel 내보내기")
         
         # SEL 로그일 경우에만 클리어 버튼 추가
         if log_type == 'sel':
@@ -1883,12 +1896,48 @@ def show_log_popup(parent, log_type):
             clear_button.setIcon(QIcon("clear_icon.png"))
         
         button_layout.addWidget(refresh_button)
+        button_layout.addWidget(copy_button)
+        button_layout.addWidget(excel_button)
         if log_type == 'sel':
             button_layout.addWidget(clear_button)
         button_layout.addStretch()
-        layout.addLayout(button_layout)
+        log_viewer_layout.addLayout(button_layout)
+
+        # 로그 분석 탭
+        log_analysis_tab = QWidget()
+        log_analysis_layout = QVBoxLayout(log_analysis_tab)
+        
+        # 로그 레벨 통계 섹션
+        log_level_stats_label = QLabel("로그 레벨 통계")
+        log_level_stats_label.setStyleSheet("font-weight: bold; font-size: 16px;")
+        log_analysis_layout.addWidget(log_level_stats_label)
+        
+        # 로그 레벨 차트를 위한 스크롤 영역
+        log_level_scroll_area = QScrollArea()
+        log_level_scroll_area.setWidgetResizable(True)
+        log_level_chart_widget = QWidget()
+        log_level_chart_layout = QVBoxLayout(log_level_chart_widget)
+        log_level_scroll_area.setWidget(log_level_chart_widget)
+        log_analysis_layout.addWidget(log_level_scroll_area)
+        
+        # 타임라인 통계 섹션
+        timeline_stats_label = QLabel("시간대별 로그 통계")
+        timeline_stats_label.setStyleSheet("font-weight: bold; font-size: 16px;")
+        log_analysis_layout.addWidget(timeline_stats_label)
+        
+        # 타임라인 차트를 위한 스크롤 영역
+        timeline_scroll_area = QScrollArea()
+        timeline_scroll_area.setWidgetResizable(True)
+        timeline_chart_widget = QWidget()
+        timeline_chart_layout = QVBoxLayout(timeline_chart_widget)
+        timeline_scroll_area.setWidget(timeline_chart_widget)
+        log_analysis_layout.addWidget(timeline_scroll_area)
+
+        # 로그 엔트리 저장 리스트
+        log_entries = []
 
         def add_log_to_tree(log_entry):
+            nonlocal log_entries
             item = QTreeWidgetItem(tree_widget)
             
             # ID 설정
@@ -1910,23 +1959,158 @@ def show_log_popup(parent, log_type):
             
             # 메시지
             item.setText(3, log_entry.get('Message', 'N/A'))
+            
+            log_entries.append(log_entry)
+
+        def calculate_log_statistics(entries):
+            # 로그 엔트리가 없으면 빈 그래프 생성
+            if not entries:
+                # 로그 레벨 통계 그래프
+                plt.close('all')
+                fig, ax = plt.subplots(figsize=(8, 3))
+                ax.text(0.5, 0.5, '로그 데이터 없음', 
+                        horizontalalignment='center', 
+                        verticalalignment='center')
+                plt.title('로그 레벨 분포', fontsize=10)
+                canvas = FigureCanvas(fig)
+                
+                # 기존 위젯 제거 및 새 캔버스 추가
+                for i in reversed(range(log_level_chart_layout.count())): 
+                    log_level_chart_layout.itemAt(i).widget().setParent(None)
+                log_level_chart_layout.addWidget(canvas)
+                
+                # 타임라인 통계 그래프
+                plt.close('all')
+                fig, ax = plt.subplots(figsize=(8, 3))
+                ax.text(0.5, 0.5, '로그 데이터 없음', 
+                        horizontalalignment='center', 
+                        verticalalignment='center')
+                plt.title('시간대별 로그 분포', fontsize=10)
+                canvas = FigureCanvas(fig)
+                
+                # 기존 위젯 제거 및 새 캔버스 추가
+                for i in reversed(range(timeline_chart_layout.count())): 
+                    timeline_chart_layout.itemAt(i).widget().setParent(None)
+                timeline_chart_layout.addWidget(canvas)
+                return
+            
+            # matplotlib 한글 폰트 설정
+            get_system_matplotlib_font()
+            
+            # 로그 레벨 통계
+            severity_counts = Counter(entry.get('Severity', 'N/A') for entry in entries)
+            total_entries = len(entries)
+            
+            # 색상 매핑
+            color_map = {
+                'Critical': '#FF6384',   # 진한 빨간색
+                'Warning': '#FFCE56',    # 노란색
+                'OK': '#4BC0C0'          # 청록색
+            }
+            
+            # 새 수평 막대 그래프 생성
+            plt.close('all')  # 기존 플롯 닫기
+            
+            # 데이터 개수에 따라 동적으로 그래프 높이 조정
+            graph_height = max(3, min(len(severity_counts) * 0.5, 6))
+            if len(severity_counts) <= 2:
+                graph_height = 2.5  # 로그 개수가 적을 때 더 작은 높이
+            fig, ax = plt.subplots(figsize=(8, graph_height))
+            
+            # 데이터 준비
+            levels = list(severity_counts.keys())
+            counts = list(severity_counts.values())
+            percentages = [(count / total_entries * 100) for count in counts]
+            
+            colors = [color_map.get(level, '#000000') for level in levels]
+            
+            # 수평 막대 그래프 생성
+            bars = ax.barh(levels, percentages, color=colors, height=0.5)  # 막대 높이 더 작게
+            
+            # 각 막대에 로그 개수 표시
+            for bar, count in zip(bars, counts):
+                width = bar.get_width()
+                ax.text(width, bar.get_y() + bar.get_height()/2, 
+                        f'{count}', 
+                        va='center', fontsize=8)
+            
+            plt.title('로그 레벨 분포', fontsize=10)
+            plt.xlabel('비율 (%)', fontsize=9)
+            plt.xticks(fontsize=8)
+            plt.yticks(fontsize=8)
+            plt.tight_layout()
+            
+            # 기존 위젯 제거 및 새 캔버스 추가
+            for i in reversed(range(log_level_chart_layout.count())): 
+                log_level_chart_layout.itemAt(i).widget().setParent(None)
+            canvas = FigureCanvas(fig)
+            log_level_chart_layout.addWidget(canvas)
+
+            # 타임라인 통계
+            # 시간대별 로그 분포
+            timeline_counts = {}
+            for entry in entries:
+                try:
+                    entry_time = datetime.fromisoformat(entry.get('Created', '').replace('Z', '+00:00'))
+                    hour_key = entry_time.strftime("%Y/%m/%d %H시")
+                    timeline_counts[hour_key] = timeline_counts.get(hour_key, 0) + 1
+                except:
+                    pass
+            
+            # 시간대 순서대로 정렬
+            sorted_timeline = dict(sorted(timeline_counts.items(), key=lambda x: x[0]))
+            
+            # 새 막대 그래프 생성
+            plt.close('all')  # 기존 플롯 닫기
+            
+            # 데이터 개수에 따라 동적으로 그래프 높이 조정
+            graph_height = max(3, min(len(sorted_timeline) * 0.5, 6))
+            if len(sorted_timeline) <= 2:
+                graph_height = 2.5  # 로그 개수가 적을 때 더 작은 높이
+            fig, ax = plt.subplots(figsize=(8, graph_height))
+            
+            # 데이터 준비
+            time_periods = list(sorted_timeline.keys())
+            counts = list(sorted_timeline.values())
+            percentages = [(count / total_entries * 100) for count in counts]
+            
+            # 막대 그래프 생성
+            bars = ax.barh(time_periods, counts, color='#4BC0C0', height=0.5)  # 막대 높이 더 작게
+            
+            # 각 막대에 로그 개수 표시
+            for bar, count in zip(bars, counts):
+                width = bar.get_width()
+                ax.text(width, bar.get_y() + bar.get_height()/2, 
+                        f'{count}', 
+                        va='center', fontsize=8)
+            
+            plt.title('시간대별 로그 분포', fontsize=10)
+            plt.xlabel('로그 수', fontsize=9)
+            plt.xticks(fontsize=8)
+            plt.yticks(fontsize=8)
+            plt.tight_layout()
+            
+            # 기존 위젯 제거 및 새 캔버스 추가
+            for i in reversed(range(timeline_chart_layout.count())): 
+                timeline_chart_layout.itemAt(i).widget().setParent(None)
+            canvas = FigureCanvas(fig)
+            timeline_chart_layout.addWidget(canvas)
 
         def refresh_logs():
+            # log_entries 초기화
+            nonlocal log_entries
+            log_entries = []
+            
             tree_widget.clear()
-            progress_dialog = QProgressDialog(f"{log_type.upper()} 로그 로드 중...", None, 0, 100, dialog)
-            progress_dialog.setWindowModality(Qt.WindowModality.WindowModal)
-            
-            def update_progress(progress):
-                progress_dialog.setValue(int(progress))
-            
             try:
                 # 로그 타입에 따라 적절한 메서드 호출
                 if log_type == 'sel':
-                    log_entries = server_manager.fetch_sel_entries(progress_callback=update_progress)
+                    log_data = server_manager.fetch_sel_entries()
                 else:  # log_type == 'lc'
-                    log_entries = server_manager.fetch_lc_entries(progress_callback=update_progress)
+                    log_data = server_manager.fetch_lc_entries()
                 
-                entries = log_entries.get('Members', [])
+                # log_data가 None이면 빈 리스트로 처리
+                entries = log_data.get('Members', []) if log_data else []
                 
                 # 필터링 적용
                 filtered_entries = []
@@ -1943,18 +2127,68 @@ def show_log_popup(parent, log_type):
                         continue
                     
                     filtered_entries.append(entry)
-                
-                # 시간 기준 내림차순 정렬
-                filtered_entries.sort(key=lambda x: x.get('Created', ''), reverse=True)
-                
-                for entry in filtered_entries:
                     add_log_to_tree(entry)
                 
-                progress_dialog.close()
+                # 로그 통계 계산 및 표시
+                calculate_log_statistics(filtered_entries)
                 
             except Exception as e:
-                progress_dialog.close()
                 QMessageBox.critical(dialog, "오류", f"로그 조회 실패: {str(e)}")
+                # 빈 리스트로 통계 그래프 생성
+                calculate_log_statistics([])
+        
+        def copy_logs_to_clipboard():
+            if not log_entries:
+                QMessageBox.warning(dialog, "경고", "복사할 로그가 없습니다.")
+                return
+            
+            clipboard_text = "\n".join([
+                f"ID: {entry.get('Id', 'N/A')} | "
+                f"심각도: {entry.get('Severity', 'N/A')} | "
+                f"시간: {format_time(entry.get('Created', 'N/A'))} | "
+                f"메시지: {entry.get('Message', 'N/A')}"
+                for entry in log_entries
+            ])
+            
+            clipboard = QApplication.clipboard()
+            clipboard.setText(clipboard_text)
+            QMessageBox.information(dialog, "완료", "로그가 클립보드에 복사되었습니다.")
+
+        def export_logs_to_xlsx():
+            if not log_entries:
+                QMessageBox.warning(dialog, "경고", "내보낼 로그가 없습니다.")
+                return
+            
+            file_path, _ = QFileDialog.getSaveFileName(
+                dialog, 
+                "Excel 파일로 저장", 
+                f"{log_type}_logs.xlsx", 
+                "Excel 파일 (*.xlsx)"
+            )
+            
+            if file_path:
+                try:
+                    wb = openpyxl.Workbook()
+                    ws = wb.active
+                    ws.title = f"{log_type.upper()} 로그"
+                    
+                    # 헤더
+                    headers = ["ID", "심각도", "생성 시간", "메시지"]
+                    for col, header in enumerate(headers, 1):
+                        ws.cell(row=1, column=col, value=header)
+                        ws.cell(row=1, column=col).font = Font(bold=True)
+                    
+                    # 로그 데이터
+                    for row, entry in enumerate(log_entries, 2):
+                        ws.cell(row=row, column=1, value=entry.get('Id', 'N/A'))
+                        ws.cell(row=row, column=2, value=entry.get('Severity', 'N/A'))
+                        ws.cell(row=row, column=3, value=format_time(entry.get('Created', 'N/A')))
+                        ws.cell(row=row, column=4, value=entry.get('Message', 'N/A'))
+                    
+                    wb.save(file_path)
+                    QMessageBox.information(dialog, "완료", f"로그가 {file_path}에 저장되었습니다.")
+                except Exception as e:
+                    QMessageBox.critical(dialog, "오류", f"Excel 저장 실패: {str(e)}")
 
         def clear_logs():
             confirm = QMessageBox.question(
@@ -1974,14 +2208,22 @@ def show_log_popup(parent, log_type):
 
         # 이벤트 연결
         refresh_button.clicked.connect(refresh_logs)
+        copy_button.clicked.connect(copy_logs_to_clipboard)
+        excel_button.clicked.connect(export_logs_to_xlsx)
+        
         if log_type == 'sel':
             clear_button.clicked.connect(clear_logs)
+        
         severity_combo.currentTextChanged.connect(refresh_logs)
         search_input.textChanged.connect(refresh_logs)
         
         # 초기 로그 목록 로드
         refresh_logs()
         
+        # 탭에 추가
+        tab_widget.addTab(log_viewer_tab, "로그 뷰어")
+        tab_widget.addTab(log_analysis_tab, "로그 분석")
+
         dialog.exec()
 
     except Exception as e:

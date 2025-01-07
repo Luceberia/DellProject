@@ -18,7 +18,6 @@ from PyQt6.QtWidgets import (QApplication, QDialog, QFileDialog, QGroupBox, QHBo
 from ui.components.popups.detail_dialog import DetailDialog
 from ui.components.popups.error_dialog import ErrorDialog
 from ui.components.server_section import ServerSection
-from utils.server_utils import convert_to_dict
 from utils.utils import convert_capacity
 
 logger = setup_logging()

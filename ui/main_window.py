@@ -3,7 +3,7 @@ from config.system.log_config import setup_logging
 from datetime import datetime
 from PyQt6.QtCore import Qt, QUrl, QCoreApplication, pyqtSignal, QEvent
 from PyQt6.QtGui import QGuiApplication, QCloseEvent, QDesktopServices
-from PyQt6.QtWidgets import (QDialog, QFormLayout, QGroupBox, QHBoxLayout, QLabel, QLineEdit, QListWidget, QListWidgetItem, QMainWindow, QMenu, QMessageBox, QPushButton, QVBoxLayout, QWidget, QFileDialog, QTextEdit)
+from PyQt6.QtWidgets import (QDialog, QFormLayout, QGroupBox, QHBoxLayout, QLabel, QLineEdit, QListWidget, QListWidgetItem, QMainWindow, QMenu, QMessageBox, QPushButton, QVBoxLayout, QWidget, QFileDialog)
 from typing import Optional
 from ui.components.hardware_section import create_hardware_section
 from ui.components.monitor_section import create_monitor_section
@@ -12,10 +12,6 @@ from version import __version__
 from config.server.server_config import server_config
 from utils.server_utils import convert_to_idrac_config
 import json
-import os
-import webbrowser
-import sys
-import requests
 
 logger = setup_logging()
 
@@ -884,7 +880,7 @@ class DellIDRACMonitor(QMainWindow):
         """로그 보기 대화상자 표시"""
         from ui.components.log_viewer import LogViewerDialog
         log_viewer = LogViewerDialog(self)
-        log_viewer.exec()
+        log_viewer.show()
 
     def view_system_info(self):
         """시스템 정보 대화상자 표시"""
