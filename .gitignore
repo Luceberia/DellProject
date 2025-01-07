@@ -20,8 +20,8 @@ build/
 *.app/
 
 # 리소스 파일
-# resources/logs/
-# *.log
+resources/logs/
+*.log
 
 # 컴파일된 바이너리
 *.dylib
