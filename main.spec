@@ -4,6 +4,11 @@ import os
 import re
 import certifi
 from subprocess import call
+import matplotlib
+matplotlib.use('qtagg')
+
+# matplotlib 데이터 경로 동적으로 가져오기
+mpl_data_path = matplotlib.get_data_path()
 
 def get_version():
     with open('version.py', 'r', encoding='utf-8') as f:
@@ -36,10 +41,14 @@ a = Analysis(
         ('updater.py', '.'),
         ('main.py', '.'),
         ('resources', 'resources'),
+        (mpl_data_path, 'mpl-data'),  # 동적으로 경로 지정
     ],
     hiddenimports=[
         'requests', 
-        'PyQt6', 
+        'PyQt6.QtGui',
+        'matplotlib.backends.backend_qtagg',
+        'matplotlib.backends.backend_qt6',
+        'matplotlib.backends.qt_compat',
         'python-dotenv', 
         'pandas', 
         'cryptography',
@@ -49,7 +58,6 @@ a = Analysis(
         'jinja2', 
         'PyQt6.QtCore', 
         'PyQt6.QtWidgets',
-        'PyQt6.QtGui', 
         'cryptography.fernet',
         'logging.handlers',
         'common.cache.cache_manager',
@@ -136,7 +144,7 @@ app = BUNDLE(
         'CFBundleName': 'DellIDRACMonitor',
         'CFBundlePackageType': 'APPL',
         'CFBundleSignature': '????',
-        'NSHumanReadableCopyright': f'© 2024 DellIDRACMonitor {VERSION}',
+        'NSHumanReadableCopyright': f' 2024 DellIDRACMonitor {VERSION}',
         'LSMultipleInstancesProhibited': True,
         'CFBundleExecutable': 'DellIDRACMonitor',
         'CFBundleInfoDictionaryVersion': '6.0',

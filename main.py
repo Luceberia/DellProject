@@ -14,15 +14,16 @@ from config.system.log_config import setup_logging
 from ui.main_window import DellIDRACMonitor
 
 def main():
+    # PyQt 애플리케이션 초기화
+    app = QApplication(sys.argv)
+    app.setQuitOnLastWindowClosed(False)
+
     # 리소스 디렉토리 초기화
     ResourceManager.setup_directories()
     
     # 로깅 설정
     logger = setup_logging()
     
-    app = QApplication(sys.argv)
-    app.setQuitOnLastWindowClosed(False)
-
     progress = QProgressDialog()
     progress.setWindowTitle("DellIDRACMonitor")
     progress.setLabelText("데이터베이스 연결 중...")

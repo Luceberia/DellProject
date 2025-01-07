@@ -7,8 +7,10 @@ import openpyxl
 from openpyxl.styles import Font
 from collections import Counter
 from datetime import datetime
+import matplotlib
+matplotlib.use('qtagg')
 import matplotlib.pyplot as plt
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 from utils.system_utils import get_system_matplotlib_font
 
 from config.system.log_config import setup_logging

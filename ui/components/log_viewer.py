@@ -5,6 +5,9 @@ from collections import Counter
 import openpyxl
 from openpyxl.styles import Font, Alignment, Border, Side
 
+import matplotlib
+matplotlib.use('qtagg')
+
 from PyQt6.QtWidgets import (QDialog, QVBoxLayout, QHBoxLayout, QTextEdit, 
                              QPushButton, QFileDialog, QLabel, QComboBox, 
                              QLineEdit, QCheckBox, QTabWidget, QWidget, 
@@ -17,7 +20,7 @@ from config.system.log_config import setup_logging
 from utils.system_utils import get_system_monospace_font, get_system_matplotlib_font
 from ui.components.popups.error_dialog import ErrorDialog
 import matplotlib.pyplot as plt
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 
 logger = setup_logging()
 
