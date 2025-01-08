@@ -966,8 +966,16 @@ def show_all_status(parent):
                                                                     # 프로그레스바와 취소 버튼이 있는 영역
                                                                     progress_layout = QVBoxLayout()
                                                                     progress_bar = QProgressBar()
-                                                                    progress_bar.setMinimum(0)
-                                                                    progress_bar.setMaximum(100)
+                                                                    progress_bar.setValue(progress)
+                                                                    progress_bar.setStyleSheet("""
+                                                                        QProgressBar {
+                                                                            border: 2px solid grey;
+                                                                            text-align: center;
+                                                                        }
+                                                                        QProgressBar::chunk {
+                                                                            background-color: #FFA500;
+                                                                        }
+                                                                    """)
                                                                     cancel_button = QPushButton("모니터링 중지")
                                                                     progress_layout.addWidget(progress_bar)
                                                                     progress_layout.addWidget(cancel_button)
@@ -980,7 +988,7 @@ def show_all_status(parent):
                                                                     
                                                                     # 타이머 설정
                                                                     start_time = time.time()
-                                                                    last_progress = 0
+                                                                    last_progress = progress
                                                                     timer = QTimer(parent)
                                                                     
                                                                     def update_progress():
@@ -1348,7 +1356,7 @@ def show_system_info(parent):
                 }
 
                 idrac_settings = {
-                    'Mac Address': 'MacAddress',
+                    'Mac Address': 'NIC.1.MACAddress',
                     'Enable IPv4': 'IPv4.1.Enable',
                     'Enable DHCP': 'IPv4.1.DHCPEnable',
                     'Static IP Address': 'IPv4Static.1.Address',
@@ -1580,7 +1588,7 @@ def get_tooltip(attr_name):
         "ErrPrompt": "오류 발생 시 F1/F2 프롬프트 표시 여부",
         
         # iDRAC Settings
-        "MacAddress": "iDRAC 네트워크 인터페이스의 MAC 주소",
+        "NIC.1.MACAddress": "iDRAC 네트워크 인터페이스의 MAC 주소",
         "IPv4.1.Enable": "IPv4 프로토콜 활성화 여부",
         "IPv4.1.DHCPEnable": "DHCP 사용 여부",
         "IPv4Static.1.Address": "고정 IP 주소 설정",

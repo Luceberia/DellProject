@@ -118,52 +118,8 @@ class DellServerManager:
         return self.fetch_detailed_info(self.endpoints.bios)
 
     def fetch_idrac_info(self):
-        try:
-            # 시스템 정보에서 MAC 주소 추출 시도
-            system_response = self.session.get(
-                f'{self.endpoints.base_url}/redfish/v1/Systems/System.Embedded.1',
-                auth=self.auth,
-                verify=False
-            )
-            system_response.raise_for_status()
-            system_data = system_response.json()
-            
-            # 이더넷 인터페이스 정보 조회
-            ethernet_response = self.session.get(
-                f'{self.endpoints.base_url}/redfish/v1/Systems/System.Embedded.1/EthernetInterfaces',
-                auth=self.auth,
-                verify=False
-            )
-            ethernet_response.raise_for_status()
-            ethernet_data = ethernet_response.json()
-            
-            # MAC 주소 추출 시도
-            mac_address = 'N/A'
-            if 'Members' in ethernet_data:
-                for interface in ethernet_data['Members']:
-                    interface_details = self.session.get(
-                        f"{self.endpoints.base_url}{interface["@odata.id"]}",
-                        auth=self.auth,
-                        verify=False
-                    ).json()
-                    
-                    logger.debug(f"이더넷 인터페이스 상세 정보: {interface_details}")
-                    
-                    if 'MACAddress' in interface_details:
-                        mac_address = interface_details['MACAddress']
-                        break
-            
-            return {
-                'idrac_version': system_data.get('BiosVersion', 'N/A'),
-                'mac_address': mac_address
-            }
-        except Exception as e:
-            logger.error(f"iDRAC 정보 가져오기 실패: {str(e)}")
-            logger.error(f"인증 정보: {self.auth}")
-            return {
-                'idrac_version': 'N/A',
-                'mac_address': 'N/A'
-            }
+        """iDRAC 상세 정보 조회"""
+        return self.fetch_detailed_info(self.endpoints.idrac_info)
 
     def fetch_idrac_pwr_info(self):
         """iDRAC PWR 상세 정보 조회"""

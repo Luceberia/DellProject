@@ -111,3 +111,767 @@
 2025-01-08 01:41:39 - [14351] - dell_idrac_monitor - DEBUG - [서버: iDRAC] - 서버 섹션 정리 완료
 2025-01-08 01:41:39 - [14351] - dell_idrac_monitor - DEBUG - [서버: iDRAC] - 모든 리소스 정리 완료
 2025-01-08 01:41:39 - [14351] - dell_idrac_monitor - INFO - [서버: iDRAC] - 애플리케이션 종료 완료
+2025-01-08 01:55:49 - [17634] - dell_idrac_monitor - DEBUG - [서버: SYSTEM] - 서버 정보 로드 완료: 3개의 서버
+2025-01-08 01:55:49 - [17634] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 빠른 연결 서버 설정: web1
+2025-01-08 01:55:58 - [17634] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 애플리케이션 종료 프로세스 시작
+2025-01-08 01:55:58 - [17634] - dell_idrac_monitor - DEBUG - [서버: SYSTEM] - 서버 연결 해제 중...
+2025-01-08 01:55:58 - [17634] - dell_idrac_monitor - DEBUG - [서버: SYSTEM] - 서버 섹션 정리 완료
+2025-01-08 01:55:58 - [17634] - dell_idrac_monitor - DEBUG - [서버: SYSTEM] - 모든 리소스 정리 완료
+2025-01-08 01:55:58 - [17634] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 애플리케이션 종료 완료
+2025-01-08 14:35:25 - [35738] - dell_idrac_monitor - DEBUG - [서버: SYSTEM] - 서버 정보 로드 완료: 3개의 서버
+2025-01-08 14:35:25 - [35738] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 빠른 연결 서버 설정: web1
+2025-01-08 14:35:38 - [35738] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 애플리케이션 종료 프로세스 시작
+2025-01-08 14:35:38 - [35738] - dell_idrac_monitor - DEBUG - [서버: SYSTEM] - 서버 연결 해제 중...
+2025-01-08 14:35:38 - [35738] - dell_idrac_monitor - DEBUG - [서버: SYSTEM] - 서버 섹션 정리 완료
+2025-01-08 14:35:38 - [35738] - dell_idrac_monitor - DEBUG - [서버: SYSTEM] - 모든 리소스 정리 완료
+2025-01-08 14:35:38 - [35738] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 애플리케이션 종료 완료
+2025-01-08 14:47:46 - [40049] - dell_idrac_monitor - DEBUG - [서버: SYSTEM] - 서버 정보 로드 완료: 3개의 서버
+2025-01-08 14:47:46 - [40049] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 빠른 연결 서버 설정: web1
+2025-01-08 14:47:57 - [40049] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 서버 연결 시도: web1
+2025-01-08 14:47:58 - [40049] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: SEL 로그 서비스 조회 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel
+2025-01-08 14:47:58 - [40049] - dell_idrac_monitor - DEBUG - [서버: web1] - SEL 로그 카운트 업데이트: 18
+2025-01-08 14:47:58 - [40049] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish 이벤트 서비스 상태 확인 시작
+2025-01-08 14:47:58 - [40049] - dell_idrac_monitor - INFO - [서버: web1] - Redfish 이벤트 구독 상태: 비활성화
+2025-01-08 14:47:58 - [40049] - dell_idrac_monitor - INFO - [서버: web1] - 구독이 비활성화되어 있어 폴링 방식으로 전환
+2025-01-08 14:47:58 - [40049] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 시스템 기본 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1
+2025-01-08 14:47:58 - [40049] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: BIOS 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Bios
+2025-01-08 14:47:58 - [40049] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: iDRAC 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1
+2025-01-08 14:47:58 - [40049] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Processors
+2025-01-08 14:47:58 - [40049] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 메모리 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Memory
+2025-01-08 14:47:58 - [40049] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 스토리지 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Storage
+2025-01-08 14:47:58 - [40049] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 전원 상태 조회 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/Power
+2025-01-08 14:47:58 - [40049] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Processors
+2025-01-08 14:47:59 - [40049] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 메모리 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Memory
+2025-01-08 14:47:59 - [40049] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 스토리지 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Storage
+2025-01-08 14:47:59 - [40049] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 전원 상태 조회 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/Power
+2025-01-08 14:48:02 - [40049] - dell_idrac_monitor - DEBUG - [서버: web1] - SEL 로그 팝업창 열기 시도
+2025-01-08 14:48:09 - [40049] - dell_idrac_monitor - DEBUG - [서버: web1] - LC 로그 팝업창 열기 시도
+2025-01-08 14:48:22 - [40049] - dell_idrac_monitor - DEBUG - [서버: web1] - LC 로그 팝업창 열기 시도
+2025-01-08 14:49:15 - [40049] - dell_idrac_monitor - INFO - [서버: web1] - 애플리케이션 종료 프로세스 시작
+2025-01-08 14:49:15 - [40049] - dell_idrac_monitor - DEBUG - [서버: web1] - 서버 연결 해제 중...
+2025-01-08 14:49:15 - [40049] - dell_idrac_monitor - DEBUG - [서버: web1] - 서버 섹션 정리 완료
+2025-01-08 14:49:15 - [40049] - dell_idrac_monitor - DEBUG - [서버: web1] - 모든 리소스 정리 완료
+2025-01-08 14:49:15 - [40049] - dell_idrac_monitor - INFO - [서버: web1] - 애플리케이션 종료 완료
+2025-01-08 14:49:21 - [40249] - dell_idrac_monitor - DEBUG - [서버: SYSTEM] - 서버 정보 로드 완료: 3개의 서버
+2025-01-08 14:49:21 - [40249] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 빠른 연결 서버 설정: web1
+2025-01-08 14:49:49 - [40249] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 서버 연결 시도: web1
+2025-01-08 14:49:50 - [40249] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: SEL 로그 서비스 조회 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel
+2025-01-08 14:49:50 - [40249] - dell_idrac_monitor - DEBUG - [서버: web1] - SEL 로그 카운트 업데이트: 18
+2025-01-08 14:49:50 - [40249] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish 이벤트 서비스 상태 확인 시작
+2025-01-08 14:49:50 - [40249] - dell_idrac_monitor - INFO - [서버: web1] - Redfish 이벤트 구독 상태: 비활성화
+2025-01-08 14:49:50 - [40249] - dell_idrac_monitor - INFO - [서버: web1] - 구독이 비활성화되어 있어 폴링 방식으로 전환
+2025-01-08 14:49:50 - [40249] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 시스템 기본 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1
+2025-01-08 14:49:50 - [40249] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: BIOS 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Bios
+2025-01-08 14:49:50 - [40249] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: iDRAC 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1
+2025-01-08 14:49:50 - [40249] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Processors
+2025-01-08 14:49:50 - [40249] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 메모리 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Memory
+2025-01-08 14:49:50 - [40249] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 스토리지 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Storage
+2025-01-08 14:49:50 - [40249] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 전원 상태 조회 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/Power
+2025-01-08 14:49:50 - [40249] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Processors
+2025-01-08 14:49:50 - [40249] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 메모리 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Memory
+2025-01-08 14:49:50 - [40249] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 스토리지 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Storage
+2025-01-08 14:49:51 - [40249] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 전원 상태 조회 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/Power
+2025-01-08 14:49:53 - [40249] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Processors
+2025-01-08 14:49:53 - [40249] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 메모리 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Memory
+2025-01-08 14:49:53 - [40249] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 스토리지 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Storage
+2025-01-08 14:49:53 - [40249] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 네트워크 어댑터 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters
+2025-01-08 14:49:53 - [40249] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 전원 상태 조회 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/Power
+2025-01-08 14:49:53 - [40249] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: iDRAC 상세 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellAttributes/iDRAC.Embedded.1
+2025-01-08 14:49:53 - [40249] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: License 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellLicenses
+2025-01-08 14:49:55 - [40249] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 스토리지 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Storage
+2025-01-08 14:50:25 - [40249] - dell_idrac_monitor - INFO - [서버: web1] - 애플리케이션 종료 프로세스 시작
+2025-01-08 14:50:25 - [40249] - dell_idrac_monitor - DEBUG - [서버: web1] - 서버 연결 해제 중...
+2025-01-08 14:50:25 - [40249] - dell_idrac_monitor - DEBUG - [서버: web1] - 서버 섹션 정리 완료
+2025-01-08 14:50:25 - [40249] - dell_idrac_monitor - DEBUG - [서버: web1] - 모든 리소스 정리 완료
+2025-01-08 14:50:25 - [40249] - dell_idrac_monitor - INFO - [서버: web1] - 애플리케이션 종료 완료
+2025-01-08 14:54:26 - [41374] - dell_idrac_monitor - DEBUG - [서버: SYSTEM] - 서버 정보 로드 완료: 3개의 서버
+2025-01-08 14:54:26 - [41374] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 빠른 연결 서버 설정: web1
+2025-01-08 14:54:30 - [41374] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 애플리케이션 종료 프로세스 시작
+2025-01-08 14:54:30 - [41374] - dell_idrac_monitor - DEBUG - [서버: SYSTEM] - 서버 연결 해제 중...
+2025-01-08 14:54:30 - [41374] - dell_idrac_monitor - DEBUG - [서버: SYSTEM] - 서버 섹션 정리 완료
+2025-01-08 14:54:30 - [41374] - dell_idrac_monitor - DEBUG - [서버: SYSTEM] - 모든 리소스 정리 완료
+2025-01-08 14:54:30 - [41374] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 애플리케이션 종료 완료
+2025-01-08 14:57:11 - [42110] - dell_idrac_monitor - DEBUG - [서버: SYSTEM] - 서버 정보 로드 완료: 3개의 서버
+2025-01-08 14:57:11 - [42110] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 빠른 연결 서버 설정: web1
+2025-01-08 14:57:12 - [42110] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 로깅 시스템 초기화 완료
+2025-01-08 14:57:44 - [42110] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 애플리케이션 종료 프로세스 시작
+2025-01-08 14:57:44 - [42110] - dell_idrac_monitor - DEBUG - [서버: SYSTEM] - 서버 연결 해제 중...
+2025-01-08 14:57:44 - [42110] - dell_idrac_monitor - DEBUG - [서버: SYSTEM] - 서버 섹션 정리 완료
+2025-01-08 14:57:44 - [42110] - dell_idrac_monitor - DEBUG - [서버: SYSTEM] - 모든 리소스 정리 완료
+2025-01-08 14:57:44 - [42110] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 애플리케이션 종료 완료
+2025-01-08 15:00:44 - [43555] - dell_idrac_monitor - DEBUG - [서버: SYSTEM] - 서버 정보 로드 완료: 3개의 서버
+2025-01-08 15:00:44 - [43555] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 빠른 연결 서버 설정: web1
+2025-01-08 15:00:44 - [43555] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 로깅 시스템 초기화 완료
+2025-01-08 15:00:44 - [43555] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 메인 윈도우 초기화 완료
+2025-01-08 15:00:57 - [43555] - dell_idrac_monitor - ERROR - [서버: SYSTEM] - 리소스 정리 중 오류 발생: 'ServerSection' object has no attribute 'disconnect_all_servers'
+Traceback (most recent call last):
+  File "/Users/kimnamjun/Documents/python/dell/app/ui/main_window.py", line 697, in cleanup
+    self.server_section.disconnect_all_servers()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'ServerSection' object has no attribute 'disconnect_all_servers'. Did you mean: 'disconnect_server'?
+2025-01-08 15:00:58 - [43555] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 애플리케이션 종료 프로세스 시작
+2025-01-08 15:00:58 - [43555] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 마지막 윈도우 닫힘. 애플리케이션 종료 준비
+2025-01-08 15:04:59 - [44340] - dell_idrac_monitor - DEBUG - [서버: SYSTEM] - 서버 정보 로드 완료: 3개의 서버
+2025-01-08 15:04:59 - [44340] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 빠른 연결 서버 설정: web1
+2025-01-08 15:05:00 - [44340] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 로깅 시스템 초기화 완료
+2025-01-08 15:05:00 - [44340] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 메인 윈도우 초기화 완료
+2025-01-08 15:05:02 - [44340] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 서버 연결 시도: web1
+2025-01-08 15:05:03 - [44340] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: SEL 로그 서비스 조회 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel
+2025-01-08 15:05:03 - [44340] - dell_idrac_monitor - DEBUG - [서버: web1] - SEL 로그 카운트 업데이트: 18
+2025-01-08 15:05:03 - [44340] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish 이벤트 서비스 상태 확인 시작
+2025-01-08 15:05:03 - [44340] - dell_idrac_monitor - INFO - [서버: web1] - Redfish 이벤트 구독 상태: 비활성화
+2025-01-08 15:05:03 - [44340] - dell_idrac_monitor - INFO - [서버: web1] - 구독이 비활성화되어 있어 폴링 방식으로 전환
+2025-01-08 15:05:03 - [44340] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 시스템 기본 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1
+2025-01-08 15:05:03 - [44340] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: BIOS 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Bios
+2025-01-08 15:05:03 - [44340] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: iDRAC 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1
+2025-01-08 15:05:03 - [44340] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Processors
+2025-01-08 15:05:03 - [44340] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 메모리 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Memory
+2025-01-08 15:05:03 - [44340] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 스토리지 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Storage
+2025-01-08 15:05:03 - [44340] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 전원 상태 조회 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/Power
+2025-01-08 15:05:03 - [44340] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Processors
+2025-01-08 15:05:03 - [44340] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 메모리 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Memory
+2025-01-08 15:05:04 - [44340] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 스토리지 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Storage
+2025-01-08 15:05:04 - [44340] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 전원 상태 조회 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/Power
+2025-01-08 15:05:36 - [44340] - dell_idrac_monitor - ERROR - [서버: web1] - 서버 'web1' 연결 해제 중 오류 발생: 'DellServerManager' object has no attribute 'disconnect'
+Traceback (most recent call last):
+  File "/Users/kimnamjun/Documents/python/dell/app/ui/components/server_section.py", line 317, in disconnect_server
+    self.server_manager.disconnect()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'DellServerManager' object has no attribute 'disconnect'
+2025-01-08 15:05:36 - [44340] - dell_idrac_monitor - INFO - [서버: web1] - 모든 서버 연결 해제 완료
+2025-01-08 15:05:36 - [44340] - dell_idrac_monitor - DEBUG - [서버: web1] - 서버 섹션 정리 완료
+2025-01-08 15:05:36 - [44340] - dell_idrac_monitor - DEBUG - [서버: web1] - 모든 리소스 정리 완료
+2025-01-08 15:05:36 - [44340] - dell_idrac_monitor - INFO - [서버: web1] - 애플리케이션 종료 완료
+2025-01-08 15:05:36 - [44340] - dell_idrac_monitor - INFO - [서버: web1] - 애플리케이션 종료 프로세스 시작
+2025-01-08 15:05:36 - [44340] - dell_idrac_monitor - INFO - [서버: web1] - 마지막 윈도우 닫힘. 애플리케이션 종료 준비
+2025-01-08 15:08:26 - [45218] - dell_idrac_monitor - DEBUG - [서버: SYSTEM] - 서버 정보 로드 완료: 3개의 서버
+2025-01-08 15:08:26 - [45218] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 빠른 연결 서버 설정: web1
+2025-01-08 15:09:48 - [45766] - dell_idrac_monitor - DEBUG - [서버: SYSTEM] - 서버 정보 로드 완료: 3개의 서버
+2025-01-08 15:09:48 - [45766] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 빠른 연결 서버 설정: web1
+2025-01-08 15:10:24 - [45959] - dell_idrac_monitor - DEBUG - [서버: SYSTEM] - 서버 정보 로드 완료: 3개의 서버
+2025-01-08 15:10:24 - [45959] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 빠른 연결 서버 설정: web1
+2025-01-08 15:10:24 - [45959] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 로깅 시스템 초기화 완료
+2025-01-08 15:10:24 - [45959] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 메인 윈도우 초기화 완료
+2025-01-08 15:10:43 - [45959] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 서버 연결 시도: web1
+2025-01-08 15:10:43 - [45959] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: SEL 로그 서비스 조회 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel
+2025-01-08 15:10:43 - [45959] - dell_idrac_monitor - DEBUG - [서버: web1] - SEL 로그 카운트 업데이트: 18
+2025-01-08 15:10:43 - [45959] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish 이벤트 서비스 상태 확인 시작
+2025-01-08 15:10:43 - [45959] - dell_idrac_monitor - INFO - [서버: web1] - Redfish 이벤트 구독 상태: 비활성화
+2025-01-08 15:10:43 - [45959] - dell_idrac_monitor - INFO - [서버: web1] - 구독이 비활성화되어 있어 폴링 방식으로 전환
+2025-01-08 15:10:43 - [45959] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 시스템 기본 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1
+2025-01-08 15:10:43 - [45959] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: BIOS 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Bios
+2025-01-08 15:10:43 - [45959] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: iDRAC 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1
+2025-01-08 15:10:43 - [45959] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Processors
+2025-01-08 15:10:44 - [45959] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 메모리 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Memory
+2025-01-08 15:10:44 - [45959] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 스토리지 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Storage
+2025-01-08 15:10:44 - [45959] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 전원 상태 조회 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/Power
+2025-01-08 15:10:44 - [45959] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Processors
+2025-01-08 15:10:44 - [45959] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 메모리 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Memory
+2025-01-08 15:10:44 - [45959] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 스토리지 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Storage
+2025-01-08 15:10:44 - [45959] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 전원 상태 조회 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/Power
+2025-01-08 15:10:50 - [45959] - dell_idrac_monitor - DEBUG - [서버: web1] - 시스템 정보 조회 시도
+2025-01-08 15:10:50 - [45959] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: BIOS 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Bios
+2025-01-08 15:10:50 - [45959] - dell_idrac_monitor - DEBUG - [서버: web1] - 이더넷 인터페이스 상세 정보: {'@odata.context': '/redfish/v1/$metadata#EthernetInterface.EthernetInterface', '@odata.id': '/redfish/v1/Systems/System.Embedded.1/EthernetInterfaces/NIC.Slot.1-2-1', '@odata.type': '#EthernetInterface.v1_10_0.EthernetInterface', 'AutoNeg': False, 'Description': 'NIC in Slot 1 Port 2 Partition 1', 'EthernetInterfaceType': 'Physical', 'FQDN': None, 'FullDuplex': False, 'HostName': None, 'IPv4Addresses': [], 'IPv4Addresses@odata.count': 0, 'IPv6AddressPolicyTable': [], 'IPv6AddressPolicyTable@odata.count': 0, 'IPv6Addresses': [], 'IPv6Addresses@odata.count': 0, 'IPv6DefaultGateway': None, 'IPv6StaticAddresses': [], 'IPv6StaticAddresses@odata.count': 0, 'Id': 'NIC.Slot.1-2-1', 'InterfaceEnabled': True, 'LinkStatus': 'LinkDown', 'Links': {'Chassis': {'@odata.id': '/redfish/v1/Chassis/System.Embedded.1'}}, 'MACAddress': 'B4:83:51:10:4E:C9', 'MTUSize': None, 'MaxIPv6StaticAddresses': None, 'Name': 'System Ethernet Interface', 'NameServers': [], 'NameServers@odata.count': 0, 'PermanentMACAddress': 'B4:83:51:10:4E:C9', 'SpeedMbps': 0, 'Status': {'Health': 'OK', 'State': 'Enabled'}, 'UefiDevicePath': 'PciRoot(0x4)/Pci(0x2,0x0)/Pci(0x0,0x1)/MAC(B48351104EC9,0x1)', 'VLAN': {}}
+2025-01-08 15:10:50 - [45959] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellAttributes/System.Embedded.1
+2025-01-08 15:10:50 - [45959] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 네트워크 어댑터 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters
+2025-01-08 15:10:50 - [45959] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Embedded.1/NetworkDeviceFunctions/NIC.Embedded.1-1-1/Oem/Dell/DellNetworkAttributes/NIC.Embedded.1-1-1
+2025-01-08 15:10:50 - [45959] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Embedded.1/NetworkDeviceFunctions/NIC.Embedded.2-1-1/Oem/Dell/DellNetworkAttributes/NIC.Embedded.2-1-1
+2025-01-08 15:10:50 - [45959] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Integrated.1/NetworkDeviceFunctions/NIC.Integrated.1-1-1/Oem/Dell/DellNetworkAttributes/NIC.Integrated.1-1-1
+2025-01-08 15:10:50 - [45959] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Integrated.1/NetworkDeviceFunctions/NIC.Integrated.1-2-1/Oem/Dell/DellNetworkAttributes/NIC.Integrated.1-2-1
+2025-01-08 15:10:50 - [45959] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.1/NetworkDeviceFunctions/NIC.Slot.1-1-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.1-1-1
+2025-01-08 15:10:50 - [45959] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.1/NetworkDeviceFunctions/NIC.Slot.1-2-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.1-2-1
+2025-01-08 15:10:50 - [45959] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.2/NetworkDeviceFunctions/NIC.Slot.2-1-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.2-1-1
+2025-01-08 15:10:51 - [45959] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.2/NetworkDeviceFunctions/NIC.Slot.2-2-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.2-2-1
+2025-01-08 15:10:51 - [45959] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.3/NetworkDeviceFunctions/NIC.Slot.3-1-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.3-1-1
+2025-01-08 15:10:51 - [45959] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.3/NetworkDeviceFunctions/NIC.Slot.3-2-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.3-2-1
+2025-01-08 15:13:14 - [45959] - dell_idrac_monitor - DEBUG - [서버: web1] - 서버 'web1' 연결 해제
+2025-01-08 15:13:14 - [45959] - dell_idrac_monitor - WARNING - [서버: web1] - 서버가 연결되지 않았습니다.
+2025-01-08 15:13:14 - [45959] - dell_idrac_monitor - INFO - [서버: web1] - 모든 서버 연결 해제 완료
+2025-01-08 15:13:14 - [45959] - dell_idrac_monitor - DEBUG - [서버: web1] - 서버 섹션 정리 완료
+2025-01-08 15:13:14 - [45959] - dell_idrac_monitor - DEBUG - [서버: web1] - 모든 리소스 정리 완료
+2025-01-08 15:13:14 - [45959] - dell_idrac_monitor - INFO - [서버: web1] - 애플리케이션 종료 완료
+2025-01-08 15:13:14 - [45959] - dell_idrac_monitor - INFO - [서버: web1] - 애플리케이션 종료 프로세스 시작
+2025-01-08 15:13:14 - [45959] - dell_idrac_monitor - INFO - [서버: web1] - 마지막 윈도우 닫힘. 애플리케이션 종료 준비
+2025-01-08 15:15:35 - [47843] - dell_idrac_monitor - DEBUG - [서버: SYSTEM] - 서버 정보 로드 완료: 3개의 서버
+2025-01-08 15:15:35 - [47843] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 빠른 연결 서버 설정: web1
+2025-01-08 15:15:36 - [47843] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 로깅 시스템 초기화 완료
+2025-01-08 15:15:36 - [47843] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 메인 윈도우 초기화 완료
+2025-01-08 15:15:44 - [47843] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 서버 연결 시도: web1
+2025-01-08 15:15:44 - [47843] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: SEL 로그 서비스 조회 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel
+2025-01-08 15:15:44 - [47843] - dell_idrac_monitor - DEBUG - [서버: web1] - SEL 로그 카운트 업데이트: 18
+2025-01-08 15:15:44 - [47843] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish 이벤트 서비스 상태 확인 시작
+2025-01-08 15:15:44 - [47843] - dell_idrac_monitor - INFO - [서버: web1] - Redfish 이벤트 구독 상태: 비활성화
+2025-01-08 15:15:44 - [47843] - dell_idrac_monitor - INFO - [서버: web1] - 구독이 비활성화되어 있어 폴링 방식으로 전환
+2025-01-08 15:15:44 - [47843] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 시스템 기본 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1
+2025-01-08 15:15:44 - [47843] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: BIOS 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Bios
+2025-01-08 15:15:44 - [47843] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: iDRAC 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1
+2025-01-08 15:15:44 - [47843] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Processors
+2025-01-08 15:15:44 - [47843] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 메모리 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Memory
+2025-01-08 15:15:44 - [47843] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 스토리지 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Storage
+2025-01-08 15:15:44 - [47843] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 전원 상태 조회 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/Power
+2025-01-08 15:15:45 - [47843] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Processors
+2025-01-08 15:15:45 - [47843] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 메모리 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Memory
+2025-01-08 15:15:45 - [47843] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 스토리지 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Storage
+2025-01-08 15:15:45 - [47843] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 전원 상태 조회 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/Power
+2025-01-08 15:15:47 - [47843] - dell_idrac_monitor - DEBUG - [서버: web1] - 시스템 정보 조회 시도
+2025-01-08 15:15:47 - [47843] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: BIOS 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Bios
+2025-01-08 15:15:48 - [47843] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellAttributes/System.Embedded.1
+2025-01-08 15:15:48 - [47843] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 네트워크 어댑터 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters
+2025-01-08 15:15:48 - [47843] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Embedded.1/NetworkDeviceFunctions/NIC.Embedded.1-1-1/Oem/Dell/DellNetworkAttributes/NIC.Embedded.1-1-1
+2025-01-08 15:15:48 - [47843] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Embedded.1/NetworkDeviceFunctions/NIC.Embedded.2-1-1/Oem/Dell/DellNetworkAttributes/NIC.Embedded.2-1-1
+2025-01-08 15:15:48 - [47843] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Integrated.1/NetworkDeviceFunctions/NIC.Integrated.1-1-1/Oem/Dell/DellNetworkAttributes/NIC.Integrated.1-1-1
+2025-01-08 15:15:48 - [47843] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Integrated.1/NetworkDeviceFunctions/NIC.Integrated.1-2-1/Oem/Dell/DellNetworkAttributes/NIC.Integrated.1-2-1
+2025-01-08 15:15:48 - [47843] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.1/NetworkDeviceFunctions/NIC.Slot.1-1-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.1-1-1
+2025-01-08 15:15:48 - [47843] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.1/NetworkDeviceFunctions/NIC.Slot.1-2-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.1-2-1
+2025-01-08 15:15:48 - [47843] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.2/NetworkDeviceFunctions/NIC.Slot.2-1-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.2-1-1
+2025-01-08 15:15:48 - [47843] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.2/NetworkDeviceFunctions/NIC.Slot.2-2-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.2-2-1
+2025-01-08 15:15:48 - [47843] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.3/NetworkDeviceFunctions/NIC.Slot.3-1-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.3-1-1
+2025-01-08 15:15:48 - [47843] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.3/NetworkDeviceFunctions/NIC.Slot.3-2-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.3-2-1
+2025-01-08 15:16:58 - [47843] - dell_idrac_monitor - DEBUG - [서버: web1] - 서버 'web1' 연결 해제
+2025-01-08 15:16:58 - [47843] - dell_idrac_monitor - WARNING - [서버: web1] - 서버가 연결되지 않았습니다.
+2025-01-08 15:16:58 - [47843] - dell_idrac_monitor - INFO - [서버: web1] - 모든 서버 연결 해제 완료
+2025-01-08 15:16:58 - [47843] - dell_idrac_monitor - DEBUG - [서버: web1] - 서버 섹션 정리 완료
+2025-01-08 15:16:58 - [47843] - dell_idrac_monitor - DEBUG - [서버: web1] - 모든 리소스 정리 완료
+2025-01-08 15:16:58 - [47843] - dell_idrac_monitor - INFO - [서버: web1] - 애플리케이션 종료 완료
+2025-01-08 15:28:29 - [49624] - dell_idrac_monitor - DEBUG - [서버: SYSTEM] - 서버 정보 로드 완료: 3개의 서버
+2025-01-08 15:28:29 - [49624] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 빠른 연결 서버 설정: web1
+2025-01-08 15:28:30 - [49624] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 로깅 시스템 초기화 완료
+2025-01-08 15:28:30 - [49624] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 메인 윈도우 초기화 완료
+2025-01-08 15:29:32 - [49624] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 서버 연결 시도: web1
+2025-01-08 15:29:33 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: SEL 로그 서비스 조회 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel
+2025-01-08 15:29:33 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - SEL 로그 카운트 업데이트: 18
+2025-01-08 15:29:33 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish 이벤트 서비스 상태 확인 시작
+2025-01-08 15:29:33 - [49624] - dell_idrac_monitor - INFO - [서버: web1] - Redfish 이벤트 구독 상태: 비활성화
+2025-01-08 15:29:33 - [49624] - dell_idrac_monitor - INFO - [서버: web1] - 구독이 비활성화되어 있어 폴링 방식으로 전환
+2025-01-08 15:29:33 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 시스템 기본 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1
+2025-01-08 15:29:33 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: BIOS 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Bios
+2025-01-08 15:29:33 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: iDRAC 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1
+2025-01-08 15:29:33 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Processors
+2025-01-08 15:29:33 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Processors
+2025-01-08 15:29:33 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:29:33 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Description', 'Members', 'Members@odata.count', 'Name']
+2025-01-08 15:29:33 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 메모리 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Memory
+2025-01-08 15:29:33 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Memory
+2025-01-08 15:29:33 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:29:33 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Description', 'Members', 'Members@odata.count', 'Name']
+2025-01-08 15:29:33 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 스토리지 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Storage
+2025-01-08 15:29:33 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 전원 상태 조회 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/Power
+2025-01-08 15:29:33 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/Power
+2025-01-08 15:29:33 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:29:33 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Name', 'Id', 'Description', 'PowerControl', 'PowerControl@odata.count', 'PowerSupplies', 'PowerSupplies@odata.count', 'Redundancy', 'Redundancy@odata.count', 'Voltages', 'Voltages@odata.count']
+2025-01-08 15:29:33 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Processors
+2025-01-08 15:29:33 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Processors
+2025-01-08 15:29:33 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:29:33 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Description', 'Members', 'Members@odata.count', 'Name']
+2025-01-08 15:29:33 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 메모리 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Memory
+2025-01-08 15:29:33 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Memory
+2025-01-08 15:29:33 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:29:33 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Description', 'Members', 'Members@odata.count', 'Name']
+2025-01-08 15:29:33 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 스토리지 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Storage
+2025-01-08 15:29:34 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 전원 상태 조회 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/Power
+2025-01-08 15:29:34 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/Power
+2025-01-08 15:29:34 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:29:34 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Name', 'Id', 'Description', 'PowerControl', 'PowerControl@odata.count', 'PowerSupplies', 'PowerSupplies@odata.count', 'Redundancy', 'Redundancy@odata.count', 'Voltages', 'Voltages@odata.count']
+2025-01-08 15:29:42 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - 시스템 정보 조회 시도
+2025-01-08 15:29:42 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: BIOS 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Bios
+2025-01-08 15:29:42 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Bios
+2025-01-08 15:29:42 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:29:42 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Id', 'Name', 'Description', 'AttributeRegistry', 'Attributes', 'Actions', '@Redfish.Settings', 'Links', 'ResetBiosToDefaultsPending']
+2025-01-08 15:29:42 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellAttributes/System.Embedded.1
+2025-01-08 15:29:42 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellAttributes/System.Embedded.1
+2025-01-08 15:29:42 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:29:42 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@Redfish.Settings', '@odata.context', '@odata.id', '@odata.type', 'AttributeRegistry', 'Attributes', 'Description', 'Id', 'Name']
+2025-01-08 15:29:42 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 네트워크 어댑터 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters
+2025-01-08 15:29:42 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Embedded.1/NetworkDeviceFunctions/NIC.Embedded.1-1-1/Oem/Dell/DellNetworkAttributes/NIC.Embedded.1-1-1
+2025-01-08 15:29:42 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Embedded.1/NetworkDeviceFunctions/NIC.Embedded.2-1-1/Oem/Dell/DellNetworkAttributes/NIC.Embedded.2-1-1
+2025-01-08 15:29:42 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Integrated.1/NetworkDeviceFunctions/NIC.Integrated.1-1-1/Oem/Dell/DellNetworkAttributes/NIC.Integrated.1-1-1
+2025-01-08 15:29:42 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Integrated.1/NetworkDeviceFunctions/NIC.Integrated.1-2-1/Oem/Dell/DellNetworkAttributes/NIC.Integrated.1-2-1
+2025-01-08 15:29:42 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.1/NetworkDeviceFunctions/NIC.Slot.1-1-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.1-1-1
+2025-01-08 15:29:42 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.1/NetworkDeviceFunctions/NIC.Slot.1-2-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.1-2-1
+2025-01-08 15:29:42 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.2/NetworkDeviceFunctions/NIC.Slot.2-1-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.2-1-1
+2025-01-08 15:29:42 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.2/NetworkDeviceFunctions/NIC.Slot.2-2-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.2-2-1
+2025-01-08 15:29:42 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.3/NetworkDeviceFunctions/NIC.Slot.3-1-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.3-1-1
+2025-01-08 15:29:42 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.3/NetworkDeviceFunctions/NIC.Slot.3-2-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.3-2-1
+2025-01-08 15:29:53 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - 서버 'web1' 연결 해제
+2025-01-08 15:29:53 - [49624] - dell_idrac_monitor - WARNING - [서버: web1] - 서버가 연결되지 않았습니다.
+2025-01-08 15:29:53 - [49624] - dell_idrac_monitor - INFO - [서버: web1] - 모든 서버 연결 해제 완료
+2025-01-08 15:29:53 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - 서버 섹션 정리 완료
+2025-01-08 15:29:53 - [49624] - dell_idrac_monitor - DEBUG - [서버: web1] - 모든 리소스 정리 완료
+2025-01-08 15:29:53 - [49624] - dell_idrac_monitor - INFO - [서버: web1] - 애플리케이션 종료 완료
+2025-01-08 15:32:02 - [50173] - dell_idrac_monitor - DEBUG - [서버: SYSTEM] - 서버 정보 로드 완료: 3개의 서버
+2025-01-08 15:32:02 - [50173] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 빠른 연결 서버 설정: web1
+2025-01-08 15:32:03 - [50173] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 로깅 시스템 초기화 완료
+2025-01-08 15:32:03 - [50173] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 메인 윈도우 초기화 완료
+2025-01-08 15:32:05 - [50173] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 서버 연결 시도: web1
+2025-01-08 15:32:05 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: SEL 로그 서비스 조회 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel
+2025-01-08 15:32:05 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - SEL 로그 카운트 업데이트: 18
+2025-01-08 15:32:05 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish 이벤트 서비스 상태 확인 시작
+2025-01-08 15:32:05 - [50173] - dell_idrac_monitor - INFO - [서버: web1] - Redfish 이벤트 구독 상태: 비활성화
+2025-01-08 15:32:05 - [50173] - dell_idrac_monitor - INFO - [서버: web1] - 구독이 비활성화되어 있어 폴링 방식으로 전환
+2025-01-08 15:32:05 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 시스템 기본 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1
+2025-01-08 15:32:05 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: BIOS 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Bios
+2025-01-08 15:32:05 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: iDRAC 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1
+2025-01-08 15:32:05 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Processors
+2025-01-08 15:32:05 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Processors
+2025-01-08 15:32:05 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:32:05 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Description', 'Members', 'Members@odata.count', 'Name']
+2025-01-08 15:32:05 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 메모리 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Memory
+2025-01-08 15:32:05 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Memory
+2025-01-08 15:32:05 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:32:05 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Description', 'Members', 'Members@odata.count', 'Name']
+2025-01-08 15:32:05 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 스토리지 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Storage
+2025-01-08 15:32:05 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 전원 상태 조회 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/Power
+2025-01-08 15:32:05 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/Power
+2025-01-08 15:32:05 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:32:05 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Name', 'Id', 'Description', 'PowerControl', 'PowerControl@odata.count', 'PowerSupplies', 'PowerSupplies@odata.count', 'Redundancy', 'Redundancy@odata.count', 'Voltages', 'Voltages@odata.count']
+2025-01-08 15:32:06 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Processors
+2025-01-08 15:32:06 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Processors
+2025-01-08 15:32:06 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:32:06 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Description', 'Members', 'Members@odata.count', 'Name']
+2025-01-08 15:32:06 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 메모리 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Memory
+2025-01-08 15:32:06 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Memory
+2025-01-08 15:32:06 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:32:06 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Description', 'Members', 'Members@odata.count', 'Name']
+2025-01-08 15:32:06 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 스토리지 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Storage
+2025-01-08 15:32:06 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 전원 상태 조회 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/Power
+2025-01-08 15:32:06 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/Power
+2025-01-08 15:32:06 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:32:06 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Name', 'Id', 'Description', 'PowerControl', 'PowerControl@odata.count', 'PowerSupplies', 'PowerSupplies@odata.count', 'Redundancy', 'Redundancy@odata.count', 'Voltages', 'Voltages@odata.count']
+2025-01-08 15:32:08 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - 시스템 정보 조회 시도
+2025-01-08 15:32:08 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: BIOS 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Bios
+2025-01-08 15:32:08 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Bios
+2025-01-08 15:32:08 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:32:08 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Id', 'Name', 'Description', 'AttributeRegistry', 'Attributes', 'Actions', '@Redfish.Settings', 'Links', 'ResetBiosToDefaultsPending']
+2025-01-08 15:32:08 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellAttributes/System.Embedded.1
+2025-01-08 15:32:08 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellAttributes/System.Embedded.1
+2025-01-08 15:32:08 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:32:08 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@Redfish.Settings', '@odata.context', '@odata.id', '@odata.type', 'AttributeRegistry', 'Attributes', 'Description', 'Id', 'Name']
+2025-01-08 15:32:08 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 네트워크 어댑터 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters
+2025-01-08 15:32:09 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Embedded.1/NetworkDeviceFunctions/NIC.Embedded.1-1-1/Oem/Dell/DellNetworkAttributes/NIC.Embedded.1-1-1
+2025-01-08 15:32:09 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Embedded.1/NetworkDeviceFunctions/NIC.Embedded.2-1-1/Oem/Dell/DellNetworkAttributes/NIC.Embedded.2-1-1
+2025-01-08 15:32:09 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Integrated.1/NetworkDeviceFunctions/NIC.Integrated.1-1-1/Oem/Dell/DellNetworkAttributes/NIC.Integrated.1-1-1
+2025-01-08 15:32:09 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Integrated.1/NetworkDeviceFunctions/NIC.Integrated.1-2-1/Oem/Dell/DellNetworkAttributes/NIC.Integrated.1-2-1
+2025-01-08 15:32:09 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.1/NetworkDeviceFunctions/NIC.Slot.1-1-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.1-1-1
+2025-01-08 15:32:09 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.1/NetworkDeviceFunctions/NIC.Slot.1-2-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.1-2-1
+2025-01-08 15:32:09 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.2/NetworkDeviceFunctions/NIC.Slot.2-1-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.2-1-1
+2025-01-08 15:32:09 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.2/NetworkDeviceFunctions/NIC.Slot.2-2-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.2-2-1
+2025-01-08 15:32:09 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.3/NetworkDeviceFunctions/NIC.Slot.3-1-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.3-1-1
+2025-01-08 15:32:09 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.3/NetworkDeviceFunctions/NIC.Slot.3-2-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.3-2-1
+2025-01-08 15:33:33 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - 서버 'web1' 연결 해제
+2025-01-08 15:33:33 - [50173] - dell_idrac_monitor - WARNING - [서버: web1] - 서버가 연결되지 않았습니다.
+2025-01-08 15:33:33 - [50173] - dell_idrac_monitor - INFO - [서버: web1] - 모든 서버 연결 해제 완료
+2025-01-08 15:33:33 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - 서버 섹션 정리 완료
+2025-01-08 15:33:33 - [50173] - dell_idrac_monitor - DEBUG - [서버: web1] - 모든 리소스 정리 완료
+2025-01-08 15:33:33 - [50173] - dell_idrac_monitor - INFO - [서버: web1] - 애플리케이션 종료 완료
+2025-01-08 15:40:54 - [51304] - dell_idrac_monitor - DEBUG - [서버: SYSTEM] - 서버 정보 로드 완료: 3개의 서버
+2025-01-08 15:40:54 - [51304] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 빠른 연결 서버 설정: web1
+2025-01-08 15:40:55 - [51304] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 로깅 시스템 초기화 완료
+2025-01-08 15:40:55 - [51304] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 메인 윈도우 초기화 완료
+2025-01-08 15:40:57 - [51304] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 서버 연결 시도: web1
+2025-01-08 15:40:57 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: SEL 로그 서비스 조회 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel
+2025-01-08 15:40:57 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - SEL 로그 카운트 업데이트: 18
+2025-01-08 15:40:57 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish 이벤트 서비스 상태 확인 시작
+2025-01-08 15:40:57 - [51304] - dell_idrac_monitor - INFO - [서버: web1] - Redfish 이벤트 구독 상태: 비활성화
+2025-01-08 15:40:57 - [51304] - dell_idrac_monitor - INFO - [서버: web1] - 구독이 비활성화되어 있어 폴링 방식으로 전환
+2025-01-08 15:40:57 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 시스템 기본 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1
+2025-01-08 15:40:57 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: BIOS 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Bios
+2025-01-08 15:40:57 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: iDRAC 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1
+2025-01-08 15:40:57 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Processors
+2025-01-08 15:40:57 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Processors
+2025-01-08 15:40:57 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:40:57 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Description', 'Members', 'Members@odata.count', 'Name']
+2025-01-08 15:40:57 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 메모리 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Memory
+2025-01-08 15:40:57 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Memory
+2025-01-08 15:40:57 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:40:57 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Description', 'Members', 'Members@odata.count', 'Name']
+2025-01-08 15:40:57 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 스토리지 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Storage
+2025-01-08 15:40:57 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 전원 상태 조회 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/Power
+2025-01-08 15:40:57 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/Power
+2025-01-08 15:40:57 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:40:57 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Name', 'Id', 'Description', 'PowerControl', 'PowerControl@odata.count', 'PowerSupplies', 'PowerSupplies@odata.count', 'Redundancy', 'Redundancy@odata.count', 'Voltages', 'Voltages@odata.count']
+2025-01-08 15:40:58 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Processors
+2025-01-08 15:40:58 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Processors
+2025-01-08 15:40:58 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:40:58 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Description', 'Members', 'Members@odata.count', 'Name']
+2025-01-08 15:40:58 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 메모리 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Memory
+2025-01-08 15:40:58 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Memory
+2025-01-08 15:40:58 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:40:58 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Description', 'Members', 'Members@odata.count', 'Name']
+2025-01-08 15:40:58 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 스토리지 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Storage
+2025-01-08 15:40:58 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 전원 상태 조회 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/Power
+2025-01-08 15:40:58 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/Power
+2025-01-08 15:40:58 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:40:58 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Name', 'Id', 'Description', 'PowerControl', 'PowerControl@odata.count', 'PowerSupplies', 'PowerSupplies@odata.count', 'Redundancy', 'Redundancy@odata.count', 'Voltages', 'Voltages@odata.count']
+2025-01-08 15:40:59 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - 시스템 정보 조회 시도
+2025-01-08 15:41:00 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: BIOS 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Bios
+2025-01-08 15:41:00 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Bios
+2025-01-08 15:41:00 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:41:00 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Id', 'Name', 'Description', 'AttributeRegistry', 'Attributes', 'Actions', '@Redfish.Settings', 'Links', 'ResetBiosToDefaultsPending']
+2025-01-08 15:41:00 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellAttributes/System.Embedded.1
+2025-01-08 15:41:00 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellAttributes/System.Embedded.1
+2025-01-08 15:41:00 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:41:00 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@Redfish.Settings', '@odata.context', '@odata.id', '@odata.type', 'AttributeRegistry', 'Attributes', 'Description', 'Id', 'Name']
+2025-01-08 15:41:00 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 네트워크 어댑터 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters
+2025-01-08 15:41:00 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Embedded.1/NetworkDeviceFunctions/NIC.Embedded.1-1-1/Oem/Dell/DellNetworkAttributes/NIC.Embedded.1-1-1
+2025-01-08 15:41:00 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Embedded.1/NetworkDeviceFunctions/NIC.Embedded.2-1-1/Oem/Dell/DellNetworkAttributes/NIC.Embedded.2-1-1
+2025-01-08 15:41:00 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Integrated.1/NetworkDeviceFunctions/NIC.Integrated.1-1-1/Oem/Dell/DellNetworkAttributes/NIC.Integrated.1-1-1
+2025-01-08 15:41:00 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Integrated.1/NetworkDeviceFunctions/NIC.Integrated.1-2-1/Oem/Dell/DellNetworkAttributes/NIC.Integrated.1-2-1
+2025-01-08 15:41:00 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.1/NetworkDeviceFunctions/NIC.Slot.1-1-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.1-1-1
+2025-01-08 15:41:00 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.1/NetworkDeviceFunctions/NIC.Slot.1-2-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.1-2-1
+2025-01-08 15:41:00 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.2/NetworkDeviceFunctions/NIC.Slot.2-1-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.2-1-1
+2025-01-08 15:41:00 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.2/NetworkDeviceFunctions/NIC.Slot.2-2-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.2-2-1
+2025-01-08 15:41:00 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.3/NetworkDeviceFunctions/NIC.Slot.3-1-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.3-1-1
+2025-01-08 15:41:00 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.3/NetworkDeviceFunctions/NIC.Slot.3-2-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.3-2-1
+2025-01-08 15:42:34 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - 서버 'web1' 연결 해제
+2025-01-08 15:42:34 - [51304] - dell_idrac_monitor - WARNING - [서버: web1] - 서버가 연결되지 않았습니다.
+2025-01-08 15:42:34 - [51304] - dell_idrac_monitor - INFO - [서버: web1] - 모든 서버 연결 해제 완료
+2025-01-08 15:42:34 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - 서버 섹션 정리 완료
+2025-01-08 15:42:34 - [51304] - dell_idrac_monitor - DEBUG - [서버: web1] - 모든 리소스 정리 완료
+2025-01-08 15:42:34 - [51304] - dell_idrac_monitor - INFO - [서버: web1] - 애플리케이션 종료 완료
+2025-01-08 15:48:16 - [52659] - dell_idrac_monitor - DEBUG - [서버: SYSTEM] - 서버 정보 로드 완료: 3개의 서버
+2025-01-08 15:48:16 - [52659] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 빠른 연결 서버 설정: web1
+2025-01-08 15:48:16 - [52659] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 로깅 시스템 초기화 완료
+2025-01-08 15:48:16 - [52659] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 메인 윈도우 초기화 완료
+2025-01-08 15:48:19 - [52659] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 서버 연결 시도: web1
+2025-01-08 15:48:19 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: SEL 로그 서비스 조회 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel
+2025-01-08 15:48:19 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - SEL 로그 카운트 업데이트: 18
+2025-01-08 15:48:19 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish 이벤트 서비스 상태 확인 시작
+2025-01-08 15:48:19 - [52659] - dell_idrac_monitor - INFO - [서버: web1] - Redfish 이벤트 구독 상태: 비활성화
+2025-01-08 15:48:19 - [52659] - dell_idrac_monitor - INFO - [서버: web1] - 구독이 비활성화되어 있어 폴링 방식으로 전환
+2025-01-08 15:48:19 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 시스템 기본 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1
+2025-01-08 15:48:19 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: BIOS 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Bios
+2025-01-08 15:48:19 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: iDRAC 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1
+2025-01-08 15:48:19 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Processors
+2025-01-08 15:48:19 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Processors
+2025-01-08 15:48:19 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:48:19 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Description', 'Members', 'Members@odata.count', 'Name']
+2025-01-08 15:48:19 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 메모리 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Memory
+2025-01-08 15:48:19 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Memory
+2025-01-08 15:48:19 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:48:19 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Description', 'Members', 'Members@odata.count', 'Name']
+2025-01-08 15:48:19 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 스토리지 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Storage
+2025-01-08 15:48:20 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 전원 상태 조회 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/Power
+2025-01-08 15:48:20 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/Power
+2025-01-08 15:48:20 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:48:20 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Name', 'Id', 'Description', 'PowerControl', 'PowerControl@odata.count', 'PowerSupplies', 'PowerSupplies@odata.count', 'Redundancy', 'Redundancy@odata.count', 'Voltages', 'Voltages@odata.count']
+2025-01-08 15:48:20 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Processors
+2025-01-08 15:48:20 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Processors
+2025-01-08 15:48:20 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:48:20 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Description', 'Members', 'Members@odata.count', 'Name']
+2025-01-08 15:48:20 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 메모리 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Memory
+2025-01-08 15:48:20 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Memory
+2025-01-08 15:48:20 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:48:20 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Description', 'Members', 'Members@odata.count', 'Name']
+2025-01-08 15:48:20 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 스토리지 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Storage
+2025-01-08 15:48:20 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 전원 상태 조회 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/Power
+2025-01-08 15:48:20 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/Power
+2025-01-08 15:48:20 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:48:20 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Name', 'Id', 'Description', 'PowerControl', 'PowerControl@odata.count', 'PowerSupplies', 'PowerSupplies@odata.count', 'Redundancy', 'Redundancy@odata.count', 'Voltages', 'Voltages@odata.count']
+2025-01-08 15:48:35 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Processors
+2025-01-08 15:48:35 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Processors
+2025-01-08 15:48:35 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:48:35 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Description', 'Members', 'Members@odata.count', 'Name']
+2025-01-08 15:48:35 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 메모리 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Memory
+2025-01-08 15:48:35 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Memory
+2025-01-08 15:48:35 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:48:35 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Description', 'Members', 'Members@odata.count', 'Name']
+2025-01-08 15:48:35 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 스토리지 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Storage
+2025-01-08 15:48:36 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 네트워크 어댑터 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters
+2025-01-08 15:48:36 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 전원 상태 조회 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/Power
+2025-01-08 15:48:36 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/Power
+2025-01-08 15:48:36 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:48:36 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Name', 'Id', 'Description', 'PowerControl', 'PowerControl@odata.count', 'PowerSupplies', 'PowerSupplies@odata.count', 'Redundancy', 'Redundancy@odata.count', 'Voltages', 'Voltages@odata.count']
+2025-01-08 15:48:36 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: iDRAC 상세 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellAttributes/iDRAC.Embedded.1
+2025-01-08 15:48:36 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellAttributes/iDRAC.Embedded.1
+2025-01-08 15:48:36 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:48:36 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@Redfish.Settings', '@odata.context', '@odata.id', '@odata.type', 'AttributeRegistry', 'Attributes', 'Description', 'Id', 'Name']
+2025-01-08 15:48:36 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: License 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellLicenses
+2025-01-08 15:48:36 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 라이선스 정보 조회 엔드포인트: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellLicenses
+2025-01-08 15:48:36 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: License 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellLicenses
+2025-01-08 15:48:36 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellLicenses
+2025-01-08 15:48:36 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:48:36 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Description', 'Members', 'Members@odata.count', 'Name']
+2025-01-08 15:48:44 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - 시스템 정보 조회 시도
+2025-01-08 15:48:44 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: BIOS 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Bios
+2025-01-08 15:48:44 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Bios
+2025-01-08 15:48:44 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:48:44 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Id', 'Name', 'Description', 'AttributeRegistry', 'Attributes', 'Actions', '@Redfish.Settings', 'Links', 'ResetBiosToDefaultsPending']
+2025-01-08 15:48:44 - [52659] - dell_idrac_monitor - ERROR - [서버: web1] - iDRAC 정보 가져오기 실패: type object 'URLPattern' has no attribute 'IDRAC_NETWORK_SETTINGS'
+2025-01-08 15:48:44 - [52659] - dell_idrac_monitor - ERROR - [서버: web1] - 인증 정보: ('root', 'calvin')
+2025-01-08 15:48:44 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellAttributes/System.Embedded.1
+2025-01-08 15:48:44 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellAttributes/System.Embedded.1
+2025-01-08 15:48:44 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:48:44 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@Redfish.Settings', '@odata.context', '@odata.id', '@odata.type', 'AttributeRegistry', 'Attributes', 'Description', 'Id', 'Name']
+2025-01-08 15:48:44 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 네트워크 어댑터 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters
+2025-01-08 15:48:45 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Embedded.1/NetworkDeviceFunctions/NIC.Embedded.1-1-1/Oem/Dell/DellNetworkAttributes/NIC.Embedded.1-1-1
+2025-01-08 15:48:45 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Embedded.1/NetworkDeviceFunctions/NIC.Embedded.2-1-1/Oem/Dell/DellNetworkAttributes/NIC.Embedded.2-1-1
+2025-01-08 15:48:45 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Integrated.1/NetworkDeviceFunctions/NIC.Integrated.1-1-1/Oem/Dell/DellNetworkAttributes/NIC.Integrated.1-1-1
+2025-01-08 15:48:45 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Integrated.1/NetworkDeviceFunctions/NIC.Integrated.1-2-1/Oem/Dell/DellNetworkAttributes/NIC.Integrated.1-2-1
+2025-01-08 15:48:45 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.1/NetworkDeviceFunctions/NIC.Slot.1-1-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.1-1-1
+2025-01-08 15:48:45 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.1/NetworkDeviceFunctions/NIC.Slot.1-2-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.1-2-1
+2025-01-08 15:48:45 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.2/NetworkDeviceFunctions/NIC.Slot.2-1-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.2-1-1
+2025-01-08 15:48:45 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.2/NetworkDeviceFunctions/NIC.Slot.2-2-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.2-2-1
+2025-01-08 15:48:45 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.3/NetworkDeviceFunctions/NIC.Slot.3-1-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.3-1-1
+2025-01-08 15:48:45 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.3/NetworkDeviceFunctions/NIC.Slot.3-2-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.3-2-1
+2025-01-08 15:49:17 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - 서버 'web1' 연결 해제
+2025-01-08 15:49:17 - [52659] - dell_idrac_monitor - WARNING - [서버: web1] - 서버가 연결되지 않았습니다.
+2025-01-08 15:49:17 - [52659] - dell_idrac_monitor - INFO - [서버: web1] - 모든 서버 연결 해제 완료
+2025-01-08 15:49:17 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - 서버 섹션 정리 완료
+2025-01-08 15:49:17 - [52659] - dell_idrac_monitor - DEBUG - [서버: web1] - 모든 리소스 정리 완료
+2025-01-08 15:49:17 - [52659] - dell_idrac_monitor - INFO - [서버: web1] - 애플리케이션 종료 완료
+2025-01-08 15:54:18 - [53518] - dell_idrac_monitor - DEBUG - [서버: SYSTEM] - 서버 정보 로드 완료: 3개의 서버
+2025-01-08 15:54:18 - [53518] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 빠른 연결 서버 설정: web1
+2025-01-08 15:54:19 - [53518] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 로깅 시스템 초기화 완료
+2025-01-08 15:54:19 - [53518] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 메인 윈도우 초기화 완료
+2025-01-08 15:54:21 - [53518] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 서버 연결 시도: web1
+2025-01-08 15:54:21 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: SEL 로그 서비스 조회 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel
+2025-01-08 15:54:21 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - SEL 로그 카운트 업데이트: 18
+2025-01-08 15:54:21 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish 이벤트 서비스 상태 확인 시작
+2025-01-08 15:54:21 - [53518] - dell_idrac_monitor - INFO - [서버: web1] - Redfish 이벤트 구독 상태: 비활성화
+2025-01-08 15:54:21 - [53518] - dell_idrac_monitor - INFO - [서버: web1] - 구독이 비활성화되어 있어 폴링 방식으로 전환
+2025-01-08 15:54:21 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 시스템 기본 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1
+2025-01-08 15:54:21 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: BIOS 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Bios
+2025-01-08 15:54:22 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: iDRAC 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1
+2025-01-08 15:54:22 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Processors
+2025-01-08 15:54:22 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Processors
+2025-01-08 15:54:22 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:54:22 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Description', 'Members', 'Members@odata.count', 'Name']
+2025-01-08 15:54:22 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 메모리 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Memory
+2025-01-08 15:54:22 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Memory
+2025-01-08 15:54:22 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:54:22 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Description', 'Members', 'Members@odata.count', 'Name']
+2025-01-08 15:54:22 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 스토리지 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Storage
+2025-01-08 15:54:22 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 전원 상태 조회 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/Power
+2025-01-08 15:54:22 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/Power
+2025-01-08 15:54:22 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:54:22 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Name', 'Id', 'Description', 'PowerControl', 'PowerControl@odata.count', 'PowerSupplies', 'PowerSupplies@odata.count', 'Redundancy', 'Redundancy@odata.count', 'Voltages', 'Voltages@odata.count']
+2025-01-08 15:54:22 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Processors
+2025-01-08 15:54:22 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Processors
+2025-01-08 15:54:22 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:54:22 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Description', 'Members', 'Members@odata.count', 'Name']
+2025-01-08 15:54:22 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 메모리 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Memory
+2025-01-08 15:54:22 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Memory
+2025-01-08 15:54:22 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:54:22 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Description', 'Members', 'Members@odata.count', 'Name']
+2025-01-08 15:54:22 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 스토리지 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Storage
+2025-01-08 15:54:22 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 전원 상태 조회 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/Power
+2025-01-08 15:54:22 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/Power
+2025-01-08 15:54:22 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:54:22 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Name', 'Id', 'Description', 'PowerControl', 'PowerControl@odata.count', 'PowerSupplies', 'PowerSupplies@odata.count', 'Redundancy', 'Redundancy@odata.count', 'Voltages', 'Voltages@odata.count']
+2025-01-08 15:54:23 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - 시스템 정보 조회 시도
+2025-01-08 15:54:24 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: BIOS 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Bios
+2025-01-08 15:54:24 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Bios
+2025-01-08 15:54:24 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:54:24 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Id', 'Name', 'Description', 'AttributeRegistry', 'Attributes', 'Actions', '@Redfish.Settings', 'Links', 'ResetBiosToDefaultsPending']
+2025-01-08 15:54:24 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellAttributes/iDRAC.Embedded.1/NetworkSettings
+2025-01-08 15:54:24 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellAttributes/iDRAC.Embedded.1/NetworkSettings
+2025-01-08 15:54:24 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 404
+2025-01-08 15:54:24 - [53518] - dell_idrac_monitor - ERROR - [서버: web1] - 엔드포인트 https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellAttributes/iDRAC.Embedded.1/NetworkSettings 조회 실패: 404 Client Error: Not Found for url: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellAttributes/iDRAC.Embedded.1/NetworkSettings
+2025-01-08 15:54:24 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: iDRAC 상세 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellAttributes/iDRAC.Embedded.1
+2025-01-08 15:54:24 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellAttributes/iDRAC.Embedded.1
+2025-01-08 15:54:24 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:54:24 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@Redfish.Settings', '@odata.context', '@odata.id', '@odata.type', 'AttributeRegistry', 'Attributes', 'Description', 'Id', 'Name']
+2025-01-08 15:54:24 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: iDRAC 상세 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellAttributes/iDRAC.Embedded.1
+2025-01-08 15:54:24 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellAttributes/iDRAC.Embedded.1
+2025-01-08 15:54:24 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:54:24 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@Redfish.Settings', '@odata.context', '@odata.id', '@odata.type', 'AttributeRegistry', 'Attributes', 'Description', 'Id', 'Name']
+2025-01-08 15:54:24 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellAttributes/System.Embedded.1
+2025-01-08 15:54:24 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellAttributes/System.Embedded.1
+2025-01-08 15:54:24 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 15:54:24 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@Redfish.Settings', '@odata.context', '@odata.id', '@odata.type', 'AttributeRegistry', 'Attributes', 'Description', 'Id', 'Name']
+2025-01-08 15:54:24 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 네트워크 어댑터 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters
+2025-01-08 15:54:24 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Embedded.1/NetworkDeviceFunctions/NIC.Embedded.1-1-1/Oem/Dell/DellNetworkAttributes/NIC.Embedded.1-1-1
+2025-01-08 15:54:24 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Embedded.1/NetworkDeviceFunctions/NIC.Embedded.2-1-1/Oem/Dell/DellNetworkAttributes/NIC.Embedded.2-1-1
+2025-01-08 15:54:24 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Integrated.1/NetworkDeviceFunctions/NIC.Integrated.1-1-1/Oem/Dell/DellNetworkAttributes/NIC.Integrated.1-1-1
+2025-01-08 15:54:24 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Integrated.1/NetworkDeviceFunctions/NIC.Integrated.1-2-1/Oem/Dell/DellNetworkAttributes/NIC.Integrated.1-2-1
+2025-01-08 15:54:24 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.1/NetworkDeviceFunctions/NIC.Slot.1-1-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.1-1-1
+2025-01-08 15:54:24 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.1/NetworkDeviceFunctions/NIC.Slot.1-2-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.1-2-1
+2025-01-08 15:54:24 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.2/NetworkDeviceFunctions/NIC.Slot.2-1-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.2-1-1
+2025-01-08 15:54:24 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.2/NetworkDeviceFunctions/NIC.Slot.2-2-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.2-2-1
+2025-01-08 15:54:24 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.3/NetworkDeviceFunctions/NIC.Slot.3-1-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.3-1-1
+2025-01-08 15:54:24 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.3/NetworkDeviceFunctions/NIC.Slot.3-2-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.3-2-1
+2025-01-08 15:54:39 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - 서버 'web1' 연결 해제
+2025-01-08 15:54:39 - [53518] - dell_idrac_monitor - WARNING - [서버: web1] - 서버가 연결되지 않았습니다.
+2025-01-08 15:54:39 - [53518] - dell_idrac_monitor - INFO - [서버: web1] - 모든 서버 연결 해제 완료
+2025-01-08 15:54:39 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - 서버 섹션 정리 완료
+2025-01-08 15:54:39 - [53518] - dell_idrac_monitor - DEBUG - [서버: web1] - 모든 리소스 정리 완료
+2025-01-08 15:54:39 - [53518] - dell_idrac_monitor - INFO - [서버: web1] - 애플리케이션 종료 완료
+2025-01-08 16:10:22 - [58650] - dell_idrac_monitor - DEBUG - [서버: SYSTEM] - 서버 정보 로드 완료: 3개의 서버
+2025-01-08 16:10:22 - [58650] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 빠른 연결 서버 설정: web1
+2025-01-08 16:10:22 - [58650] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 로깅 시스템 초기화 완료
+2025-01-08 16:10:22 - [58650] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 메인 윈도우 초기화 완료
+2025-01-08 16:10:24 - [58650] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 서버 연결 시도: web1
+2025-01-08 16:10:24 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: SEL 로그 서비스 조회 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel
+2025-01-08 16:10:24 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - SEL 로그 카운트 업데이트: 18
+2025-01-08 16:10:24 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish 이벤트 서비스 상태 확인 시작
+2025-01-08 16:10:24 - [58650] - dell_idrac_monitor - INFO - [서버: web1] - Redfish 이벤트 구독 상태: 비활성화
+2025-01-08 16:10:24 - [58650] - dell_idrac_monitor - INFO - [서버: web1] - 구독이 비활성화되어 있어 폴링 방식으로 전환
+2025-01-08 16:10:24 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 시스템 기본 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1
+2025-01-08 16:10:24 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: BIOS 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Bios
+2025-01-08 16:10:24 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: iDRAC 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1
+2025-01-08 16:10:24 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Processors
+2025-01-08 16:10:24 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Processors
+2025-01-08 16:10:24 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 16:10:24 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Description', 'Members', 'Members@odata.count', 'Name']
+2025-01-08 16:10:24 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 메모리 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Memory
+2025-01-08 16:10:24 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Memory
+2025-01-08 16:10:24 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 16:10:24 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Description', 'Members', 'Members@odata.count', 'Name']
+2025-01-08 16:10:24 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 스토리지 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Storage
+2025-01-08 16:10:24 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 전원 상태 조회 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/Power
+2025-01-08 16:10:24 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/Power
+2025-01-08 16:10:24 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 16:10:24 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Name', 'Id', 'Description', 'PowerControl', 'PowerControl@odata.count', 'PowerSupplies', 'PowerSupplies@odata.count', 'Redundancy', 'Redundancy@odata.count', 'Voltages', 'Voltages@odata.count']
+2025-01-08 16:10:25 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Processors
+2025-01-08 16:10:25 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Processors
+2025-01-08 16:10:25 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 16:10:25 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Description', 'Members', 'Members@odata.count', 'Name']
+2025-01-08 16:10:25 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 메모리 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Memory
+2025-01-08 16:10:25 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Memory
+2025-01-08 16:10:25 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 16:10:25 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Description', 'Members', 'Members@odata.count', 'Name']
+2025-01-08 16:10:25 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 스토리지 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Storage
+2025-01-08 16:10:25 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 전원 상태 조회 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/Power
+2025-01-08 16:10:25 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/Power
+2025-01-08 16:10:25 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 16:10:25 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Name', 'Id', 'Description', 'PowerControl', 'PowerControl@odata.count', 'PowerSupplies', 'PowerSupplies@odata.count', 'Redundancy', 'Redundancy@odata.count', 'Voltages', 'Voltages@odata.count']
+2025-01-08 16:10:27 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - 시스템 정보 조회 시도
+2025-01-08 16:10:27 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: BIOS 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Bios
+2025-01-08 16:10:27 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Bios
+2025-01-08 16:10:27 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 16:10:27 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Id', 'Name', 'Description', 'AttributeRegistry', 'Attributes', 'Actions', '@Redfish.Settings', 'Links', 'ResetBiosToDefaultsPending']
+2025-01-08 16:10:27 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellAttributes/System.Embedded.1
+2025-01-08 16:10:27 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellAttributes/System.Embedded.1
+2025-01-08 16:10:27 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 16:10:27 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@Redfish.Settings', '@odata.context', '@odata.id', '@odata.type', 'AttributeRegistry', 'Attributes', 'Description', 'Id', 'Name']
+2025-01-08 16:10:27 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 네트워크 어댑터 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters
+2025-01-08 16:10:27 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Embedded.1/NetworkDeviceFunctions/NIC.Embedded.1-1-1/Oem/Dell/DellNetworkAttributes/NIC.Embedded.1-1-1
+2025-01-08 16:10:27 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Embedded.1/NetworkDeviceFunctions/NIC.Embedded.2-1-1/Oem/Dell/DellNetworkAttributes/NIC.Embedded.2-1-1
+2025-01-08 16:10:27 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Integrated.1/NetworkDeviceFunctions/NIC.Integrated.1-1-1/Oem/Dell/DellNetworkAttributes/NIC.Integrated.1-1-1
+2025-01-08 16:10:27 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Integrated.1/NetworkDeviceFunctions/NIC.Integrated.1-2-1/Oem/Dell/DellNetworkAttributes/NIC.Integrated.1-2-1
+2025-01-08 16:10:27 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.1/NetworkDeviceFunctions/NIC.Slot.1-1-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.1-1-1
+2025-01-08 16:10:27 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.1/NetworkDeviceFunctions/NIC.Slot.1-2-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.1-2-1
+2025-01-08 16:10:27 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.2/NetworkDeviceFunctions/NIC.Slot.2-1-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.2-1-1
+2025-01-08 16:10:27 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.2/NetworkDeviceFunctions/NIC.Slot.2-2-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.2-2-1
+2025-01-08 16:10:27 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.3/NetworkDeviceFunctions/NIC.Slot.3-1-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.3-1-1
+2025-01-08 16:10:27 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.3/NetworkDeviceFunctions/NIC.Slot.3-2-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.3-2-1
+2025-01-08 16:13:33 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - 서버 'web1' 연결 해제
+2025-01-08 16:13:33 - [58650] - dell_idrac_monitor - WARNING - [서버: web1] - 서버가 연결되지 않았습니다.
+2025-01-08 16:13:33 - [58650] - dell_idrac_monitor - INFO - [서버: web1] - 모든 서버 연결 해제 완료
+2025-01-08 16:13:33 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - 서버 섹션 정리 완료
+2025-01-08 16:13:33 - [58650] - dell_idrac_monitor - DEBUG - [서버: web1] - 모든 리소스 정리 완료
+2025-01-08 16:13:33 - [58650] - dell_idrac_monitor - INFO - [서버: web1] - 애플리케이션 종료 완료
+2025-01-08 16:14:12 - [60704] - dell_idrac_monitor - DEBUG - [서버: SYSTEM] - 서버 정보 로드 완료: 3개의 서버
+2025-01-08 16:14:12 - [60704] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 빠른 연결 서버 설정: web1
+2025-01-08 16:14:12 - [60704] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 로깅 시스템 초기화 완료
+2025-01-08 16:14:12 - [60704] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 메인 윈도우 초기화 완료
+2025-01-08 16:14:14 - [60704] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 서버 연결 시도: web1
+2025-01-08 16:14:14 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: SEL 로그 서비스 조회 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel
+2025-01-08 16:14:14 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - SEL 로그 카운트 업데이트: 18
+2025-01-08 16:14:14 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish 이벤트 서비스 상태 확인 시작
+2025-01-08 16:14:14 - [60704] - dell_idrac_monitor - INFO - [서버: web1] - Redfish 이벤트 구독 상태: 비활성화
+2025-01-08 16:14:14 - [60704] - dell_idrac_monitor - INFO - [서버: web1] - 구독이 비활성화되어 있어 폴링 방식으로 전환
+2025-01-08 16:14:14 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 시스템 기본 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1
+2025-01-08 16:14:14 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: BIOS 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Bios
+2025-01-08 16:14:14 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: iDRAC 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1
+2025-01-08 16:14:14 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Processors
+2025-01-08 16:14:14 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Processors
+2025-01-08 16:14:14 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 16:14:14 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Description', 'Members', 'Members@odata.count', 'Name']
+2025-01-08 16:14:14 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 메모리 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Memory
+2025-01-08 16:14:14 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Memory
+2025-01-08 16:14:14 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 16:14:14 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Description', 'Members', 'Members@odata.count', 'Name']
+2025-01-08 16:14:14 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 스토리지 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Storage
+2025-01-08 16:14:15 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 전원 상태 조회 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/Power
+2025-01-08 16:14:15 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/Power
+2025-01-08 16:14:15 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 16:14:15 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Name', 'Id', 'Description', 'PowerControl', 'PowerControl@odata.count', 'PowerSupplies', 'PowerSupplies@odata.count', 'Redundancy', 'Redundancy@odata.count', 'Voltages', 'Voltages@odata.count']
+2025-01-08 16:14:15 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Processors
+2025-01-08 16:14:15 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Processors
+2025-01-08 16:14:15 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 16:14:15 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Description', 'Members', 'Members@odata.count', 'Name']
+2025-01-08 16:14:15 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 메모리 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Memory
+2025-01-08 16:14:15 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Memory
+2025-01-08 16:14:15 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 16:14:15 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Description', 'Members', 'Members@odata.count', 'Name']
+2025-01-08 16:14:15 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 스토리지 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Storage
+2025-01-08 16:14:15 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 전원 상태 조회 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/Power
+2025-01-08 16:14:15 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/Power
+2025-01-08 16:14:15 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 16:14:15 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Name', 'Id', 'Description', 'PowerControl', 'PowerControl@odata.count', 'PowerSupplies', 'PowerSupplies@odata.count', 'Redundancy', 'Redundancy@odata.count', 'Voltages', 'Voltages@odata.count']
+2025-01-08 16:14:17 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - 시스템 정보 조회 시도
+2025-01-08 16:14:17 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: BIOS 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Bios
+2025-01-08 16:14:17 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Bios
+2025-01-08 16:14:17 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 16:14:17 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@odata.context', '@odata.id', '@odata.type', 'Id', 'Name', 'Description', 'AttributeRegistry', 'Attributes', 'Actions', '@Redfish.Settings', 'Links', 'ResetBiosToDefaultsPending']
+2025-01-08 16:14:17 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: iDRAC 상세 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellAttributes/iDRAC.Embedded.1
+2025-01-08 16:14:17 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellAttributes/iDRAC.Embedded.1
+2025-01-08 16:14:17 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 16:14:17 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@Redfish.Settings', '@odata.context', '@odata.id', '@odata.type', 'AttributeRegistry', 'Attributes', 'Description', 'Id', 'Name']
+2025-01-08 16:14:17 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellAttributes/System.Embedded.1
+2025-01-08 16:14:17 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - iDRAC 설정값 조회 시도: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellAttributes/System.Embedded.1
+2025-01-08 16:14:17 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 상태 코드: 200
+2025-01-08 16:14:17 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - 응답 데이터 키: ['@Redfish.Settings', '@odata.context', '@odata.id', '@odata.type', 'AttributeRegistry', 'Attributes', 'Description', 'Id', 'Name']
+2025-01-08 16:14:17 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 네트워크 어댑터 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters
+2025-01-08 16:14:17 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Embedded.1/NetworkDeviceFunctions/NIC.Embedded.1-1-1/Oem/Dell/DellNetworkAttributes/NIC.Embedded.1-1-1
+2025-01-08 16:14:17 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Embedded.1/NetworkDeviceFunctions/NIC.Embedded.2-1-1/Oem/Dell/DellNetworkAttributes/NIC.Embedded.2-1-1
+2025-01-08 16:14:17 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Integrated.1/NetworkDeviceFunctions/NIC.Integrated.1-1-1/Oem/Dell/DellNetworkAttributes/NIC.Integrated.1-1-1
+2025-01-08 16:14:17 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Integrated.1/NetworkDeviceFunctions/NIC.Integrated.1-2-1/Oem/Dell/DellNetworkAttributes/NIC.Integrated.1-2-1
+2025-01-08 16:14:17 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.1/NetworkDeviceFunctions/NIC.Slot.1-1-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.1-1-1
+2025-01-08 16:14:17 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.1/NetworkDeviceFunctions/NIC.Slot.1-2-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.1-2-1
+2025-01-08 16:14:17 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.2/NetworkDeviceFunctions/NIC.Slot.2-1-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.2-1-1
+2025-01-08 16:14:17 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.2/NetworkDeviceFunctions/NIC.Slot.2-2-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.2-2-1
+2025-01-08 16:14:17 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.3/NetworkDeviceFunctions/NIC.Slot.3-1-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.3-1-1
+2025-01-08 16:14:18 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.3/NetworkDeviceFunctions/NIC.Slot.3-2-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.3-2-1
+2025-01-08 16:15:15 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - 현재 버전: 0.0.10, 최신 버전: 0.0.9
+2025-01-08 16:15:26 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - 서버 'web1' 연결 해제
+2025-01-08 16:15:26 - [60704] - dell_idrac_monitor - WARNING - [서버: web1] - 서버가 연결되지 않았습니다.
+2025-01-08 16:15:26 - [60704] - dell_idrac_monitor - INFO - [서버: web1] - 모든 서버 연결 해제 완료
+2025-01-08 16:15:26 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - 서버 섹션 정리 완료
+2025-01-08 16:15:26 - [60704] - dell_idrac_monitor - DEBUG - [서버: web1] - 모든 리소스 정리 완료
+2025-01-08 16:15:26 - [60704] - dell_idrac_monitor - INFO - [서버: web1] - 애플리케이션 종료 완료
+2025-01-08 16:15:26 - [60704] - dell_idrac_monitor - INFO - [서버: web1] - 애플리케이션 종료 프로세스 시작
+2025-01-08 16:15:26 - [60704] - dell_idrac_monitor - INFO - [서버: web1] - 마지막 윈도우 닫힘. 애플리케이션 종료 준비
+2025-01-08 16:24:24 - [64982] - dell_idrac_monitor - DEBUG - [서버: SYSTEM] - 서버 정보 로드 완료: 3개의 서버
+2025-01-08 16:24:24 - [64982] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 빠른 연결 서버 설정: web1
+2025-01-08 16:24:25 - [64982] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 로깅 시스템 초기화 완료
+2025-01-08 16:24:25 - [64982] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 메인 윈도우 초기화 완료
+2025-01-08 16:24:27 - [64982] - dell_idrac_monitor - INFO - [서버: SYSTEM] - 서버 연결 시도: web1
+2025-01-08 16:24:27 - [64982] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: SEL 로그 서비스 조회 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Sel
+2025-01-08 16:24:27 - [64982] - dell_idrac_monitor - DEBUG - [서버: web1] - SEL 로그 카운트 업데이트: 18
+2025-01-08 16:24:27 - [64982] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish 이벤트 서비스 상태 확인 시작
+2025-01-08 16:24:27 - [64982] - dell_idrac_monitor - INFO - [서버: web1] - Redfish 이벤트 구독 상태: 비활성화
+2025-01-08 16:24:27 - [64982] - dell_idrac_monitor - INFO - [서버: web1] - 구독이 비활성화되어 있어 폴링 방식으로 전환
+2025-01-08 16:24:27 - [64982] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 시스템 기본 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1
+2025-01-08 16:24:27 - [64982] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: BIOS 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Bios
+2025-01-08 16:24:27 - [64982] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: iDRAC 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1
+2025-01-08 16:24:27 - [64982] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Processors
+2025-01-08 16:24:27 - [64982] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 메모리 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Memory
+2025-01-08 16:24:28 - [64982] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 스토리지 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Storage
+2025-01-08 16:24:28 - [64982] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 전원 상태 조회 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/Power
+2025-01-08 16:24:28 - [64982] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: CPU/GPU 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Processors
+2025-01-08 16:24:28 - [64982] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 메모리 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Memory
+2025-01-08 16:24:28 - [64982] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 스토리지 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Storage
+2025-01-08 16:24:28 - [64982] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 전원 상태 조회 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/Power
+2025-01-08 16:24:33 - [64982] - dell_idrac_monitor - DEBUG - [서버: web1] - 시스템 정보 조회 시도
+2025-01-08 16:24:33 - [64982] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: BIOS 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Systems/System.Embedded.1/Bios
+2025-01-08 16:24:33 - [64982] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: iDRAC 상세 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellAttributes/iDRAC.Embedded.1
+2025-01-08 16:24:33 - [64982] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellAttributes/System.Embedded.1
+2025-01-08 16:24:33 - [64982] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 네트워크 어댑터 정보 조회 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters
+2025-01-08 16:24:34 - [64982] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Embedded.1/NetworkDeviceFunctions/NIC.Embedded.1-1-1/Oem/Dell/DellNetworkAttributes/NIC.Embedded.1-1-1
+2025-01-08 16:24:34 - [64982] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Embedded.1/NetworkDeviceFunctions/NIC.Embedded.2-1-1/Oem/Dell/DellNetworkAttributes/NIC.Embedded.2-1-1
+2025-01-08 16:24:34 - [64982] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Integrated.1/NetworkDeviceFunctions/NIC.Integrated.1-1-1/Oem/Dell/DellNetworkAttributes/NIC.Integrated.1-1-1
+2025-01-08 16:24:34 - [64982] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Integrated.1/NetworkDeviceFunctions/NIC.Integrated.1-2-1/Oem/Dell/DellNetworkAttributes/NIC.Integrated.1-2-1
+2025-01-08 16:24:34 - [64982] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.1/NetworkDeviceFunctions/NIC.Slot.1-1-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.1-1-1
+2025-01-08 16:24:34 - [64982] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.1/NetworkDeviceFunctions/NIC.Slot.1-2-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.1-2-1
+2025-01-08 16:24:34 - [64982] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.2/NetworkDeviceFunctions/NIC.Slot.2-1-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.2-1-1
+2025-01-08 16:24:34 - [64982] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.2/NetworkDeviceFunctions/NIC.Slot.2-2-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.2-2-1
+2025-01-08 16:24:34 - [64982] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.3/NetworkDeviceFunctions/NIC.Slot.3-1-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.3-1-1
+2025-01-08 16:24:34 - [64982] - dell_idrac_monitor - DEBUG - [서버: web1] - Redfish API 요청: 알 수 없는 요청 - URL: https://127.0.0.1:443/redfish/v1/Chassis/System.Embedded.1/NetworkAdapters/NIC.Slot.3/NetworkDeviceFunctions/NIC.Slot.3-2-1/Oem/Dell/DellNetworkAttributes/NIC.Slot.3-2-1
+2025-01-08 16:25:13 - [64982] - dell_idrac_monitor - DEBUG - [서버: web1] - 서버 'web1' 연결 해제
+2025-01-08 16:25:13 - [64982] - dell_idrac_monitor - WARNING - [서버: web1] - 서버가 연결되지 않았습니다.
+2025-01-08 16:25:13 - [64982] - dell_idrac_monitor - INFO - [서버: web1] - 모든 서버 연결 해제 완료
+2025-01-08 16:25:13 - [64982] - dell_idrac_monitor - DEBUG - [서버: web1] - 서버 섹션 정리 완료
+2025-01-08 16:25:13 - [64982] - dell_idrac_monitor - DEBUG - [서버: web1] - 모든 리소스 정리 완료
+2025-01-08 16:25:13 - [64982] - dell_idrac_monitor - INFO - [서버: web1] - 애플리케이션 종료 완료

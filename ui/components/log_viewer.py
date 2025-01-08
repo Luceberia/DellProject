@@ -3,6 +3,8 @@ from datetime import datetime
 from collections import Counter
 import re
 import html
+from pathlib import Path
+import sys
 
 import openpyxl
 from openpyxl.styles import Font, Alignment, Border, Side
@@ -209,9 +211,27 @@ class LogViewerDialog(QDialog):
     def populate_log_files(self):
         """로그 파일 목록 채우기"""
         try:
-            log_dir = str(ResourceManager.get_log_dir())
-            # 모든 로그 파일 패턴 포함 (app.log와 20*-app.log.*)
-            log_files = [f for f in os.listdir(log_dir) if f.startswith('app.log') or f.startswith('20')]
+            # 개발 모드와 배포 모드 로그 디렉토리 확인
+            log_dirs = [
+                ResourceManager.get_log_dir(),  # 현재 설정된 로그 디렉토리 (배포 모드)
+                Path(os.path.join(os.path.dirname(__file__), '..', '..', 'resources', 'logs')).resolve(),  # 개발 모드 로그 디렉토리
+            ]
+            
+            # 현재 앱의 실행 모드 확인 (개발 모드인지 배포 모드인지)
+            is_development_mode = not getattr(sys, 'frozen', False)
+            
+            # 실행 모드에 따라 로그 디렉토리 선택
+            log_dir = log_dirs[1] if is_development_mode else log_dirs[0]
+            
+            log_files = []
+            if log_dir.exists():
+                log_files = [
+                    f for f in os.listdir(log_dir) 
+                    if (f.startswith('app.log') or f.startswith('20')) 
+                    and os.path.isfile(os.path.join(log_dir, f))
+                ]
+            
+            # 파일 생성 시간 기준으로 정렬
             log_files.sort(key=lambda f: os.path.getctime(os.path.join(log_dir, f)), reverse=True)
             
             self.log_file_combo.clear()
@@ -251,80 +271,77 @@ class LogViewerDialog(QDialog):
     def load_log_file(self, file_name=None):
         """로그 파일 로드"""
         try:
-            # 파일명이 지정되지 않은 경우 콤보박스에서 선택
-            if file_name is None:
-                file_name = self.log_file_combo.currentText()
+            # 현재 앱의 실행 모드 확인 (개발 모드인지 배포 모드인지)
+            is_development_mode = not getattr(sys, 'frozen', False)
             
-            # 로그 파일 경로 설정 (개발 모드와 배포 모드 모두 고려)
-            base_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-            possible_log_dirs = [
-                os.path.join(base_dir, 'resources', 'logs'),  # 개발 모드
-                os.path.join(base_dir, 'logs'),  # 배포 모드
-                str(ResourceManager.get_log_dir())  # 기존 리소스 매니저 로직
+            # 개발 모드와 배포 모드의 로그 디렉토리 확인
+            log_dirs = [
+                ResourceManager.get_log_dir(),  # 현재 설정된 로그 디렉토리 (배포 모드)
+                Path(os.path.join(os.path.dirname(__file__), '..', '..', 'resources', 'logs')).resolve(),  # 개발 모드 로그 디렉토리
             ]
             
-            # 실제 존재하는 로그 디렉토리 찾기
-            log_dir = None
-            for dir_path in possible_log_dirs:
-                if os.path.exists(dir_path):
-                    log_dir = dir_path
-                    break
+            # 실행 모드에 따라 로그 디렉토리 선택
+            log_dir = log_dirs[1] if is_development_mode else log_dirs[0]
             
-            if not log_dir:
-                raise FileNotFoundError("로그 디렉토리를 찾을 수 없습니다.")
+            # 파일 경로 찾기
+            log_file_path = os.path.join(log_dir, file_name)
             
-            full_path = os.path.join(log_dir, file_name)
+            if not os.path.isfile(log_file_path):
+                logger.error(f"로그 파일을 찾을 수 없음: {log_file_path}")
+                return
+            
+            # 로그 파일 경로 업데이트
+            self.current_log_file = log_file_path
+            self.log_file_path_label.setText(f"현재 로그 파일: {log_file_path}")
             
             # 로그 파일 읽기
-            with open(full_path, 'r', encoding='utf-8') as f:
-                self.all_log_entries = f.readlines()
+            with open(log_file_path, 'r', encoding='utf-8') as f:
+                log_entries = f.readlines()
             
-            # 서버 필터 콤보박스 초기화
+            # 로그 엔트리 제한 (최대 1000개)
+            log_entries = log_entries[-1000:]
+            
+            # 로그 텍스트 채우기
+            self.all_log_entries = log_entries
+            
+            # 서버 필터 업데이트
+            self.update_server_filter(log_entries)
+            
+            # 로그 필터링 및 표시
+            self.filter_logs()
+            
+            # 로그 통계 업데이트
+            self.update_log_stats()
+            
+        except Exception as e:
+            logger.error(f"로그 파일 로드 중 오류: {e}")
+            self.log_text.setPlainText(f"로그 파일 로드 실패: {e}")
+
+    def update_server_filter(self, log_entries):
+        """서버 필터 업데이트"""
+        try:
+            # 기존 서버 필터 초기화
             self.server_filter_combo.clear()
             self.server_filter_combo.addItem("모든 서버")
             
-            # 서버 필터 분석 탭 콤보박스 초기화
-            if hasattr(self, 'analysis_server_filter'):
-                self.analysis_server_filter.clear()
-                self.analysis_server_filter.addItem("모든 서버")
-
             # 서버 목록 추출
-            server_list = set()
-            for log_entry in self.all_log_entries:
+            servers = set()
+            for log_entry in log_entries:
                 try:
-                    # 서버 이름 추출 (대괄호 안의 서버 이름)
-                    server_match = log_entry.split('[서버: ')
-                    if len(server_match) > 1:
-                        server_name = server_match[1].split(']')[0].strip()
-                        server_list.add(server_name)
+                    server_parts = log_entry.split('[서버: ')
+                    if len(server_parts) > 1:
+                        server_name = server_parts[1].split(']')[0].strip()
+                        servers.add(server_name)
                 except Exception:
                     pass
             
             # 서버 목록 추가
-            for server in sorted(server_list):
-                self.server_filter_combo.addItem(server)
-                
-                # 분석 탭 콤보박스에도 추가
-                if hasattr(self, 'analysis_server_filter'):
-                    self.analysis_server_filter.addItem(server)
+            for server in sorted(servers):
+                if server and server != 'SYSTEM':
+                    self.server_filter_combo.addItem(server)
             
-            # 로그 텍스트 업데이트
-            self.populate_log_text(self.all_log_entries)
-            
-            # 로그 파일 경로 라벨 업데이트
-            self.log_file_path_label.setText(f"현재 로그 파일: {full_path}")
-            
-            # 로그 통계 업데이트
-            self.update_log_stats()
-        
-            # 로그 파일 경로 저장
-            self.current_log_file = full_path
-            self.last_log_file_position = 0  # 마지막으로 읽은 로그 파일 위치 초기화
-        
         except Exception as e:
-            # 오류 다이얼로그 대신 로그 파일 경로 라벨에 오류 메시지 표시
-            self.log_file_path_label.setText(f"로그 파일 로드 오류: {str(e)}")
-            logger.error(f"로그 파일 로드 중 오류: {e}")
+            logger.error(f"서버 필터 업데이트 중 오류: {e}")
 
     def populate_log_text(self, log_entries):
         """로그 텍스트 채우기"""
@@ -610,15 +627,23 @@ class LogViewerDialog(QDialog):
             parsed_logs = []
             for log_entry in log_entries:
                 try:
-                    # 로그 형식: 2025-01-06 13:49:40 - [90528] - dell_idrac_monitor - DEBUG - 메시지
-                    parts = log_entry.split(' - ', 4)
-                    if len(parts) >= 4:
-                        timestamp, pid, module, level, message = parts
-                        parsed_logs.append({
-                            'timestamp': timestamp,
-                            'level': level.strip(),  # 공백 제거
-                            'message': message
-                        })
+                    # 로그 항목에서 타임스탬프 추출
+                    timestamp = log_entry.split(' - ')[0].strip()
+                    log_time = datetime.strptime(timestamp, "%Y-%m-%d %H:%M:%S")
+                    
+                    # 로그 레벨 추출
+                    log_level_parts = log_entry.split(' - ')
+                    if len(log_level_parts) >= 4:
+                        log_level = log_level_parts[3].strip()
+                    
+                    # 로그 메시지 추출
+                    message = ' - '.join(log_level_parts[4:])
+                    
+                    parsed_logs.append({
+                        'timestamp': timestamp,
+                        'level': log_level,
+                        'message': message
+                    })
                 except Exception:
                     pass
             

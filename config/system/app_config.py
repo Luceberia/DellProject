@@ -193,25 +193,35 @@ class ResourceManager:
 
     @classmethod
     def setup_directories(cls):
-        """디렉토리 구조 생성 및 리소스 추출"""
-        resource_dir = cls.get_resource_dir()
-        directories = {
-            'config': ['server', 'data'],
-            'logs': [],
-            'cache': [],
-            'translations': ['PyQt6/Qt6/translations'],
-            'temp': [],
-            'icon': [],
-            'lib': []  # 핵심 라이브러리를 위한 디렉토리 추가
-        }
+        """
+        모든 필요한 디렉토리를 초기화하고 생성합니다.
+        애플리케이션에 필요한 기본 디렉토리 구조를 설정합니다.
+        """
+        try:
+            # 주요 디렉토리 생성
+            resource_dir = cls.get_resource_dir()
+            log_dir = cls.get_log_dir()
+            cache_dir = cls.get_cache_dir()
+            lib_dir = cls.get_lib_dir()
 
-        # 디렉토리 구조 생성
-        for dir_name, subdirs in directories.items():
-            dir_path = resource_dir / dir_name
-            dir_path.mkdir(parents=True, exist_ok=True)
-            for subdir in subdirs:
-                (dir_path / subdir).mkdir(parents=True, exist_ok=True)
-        
-        # 리소스 파일 추출 및 프리로드
-        cls.extract_package_resources()
-        cls.preload_resources()
+            # 추가 디렉토리 생성
+            icon_dir = resource_dir / 'icon'
+            config_dir = resource_dir / 'config'
+            temp_dir = resource_dir / 'temp'
+
+            # 모든 디렉토리 생성
+            for directory in [
+                resource_dir, log_dir, cache_dir, lib_dir, 
+                icon_dir, config_dir, temp_dir
+            ]:
+                directory.mkdir(parents=True, exist_ok=True)
+
+            # 리소스 사전 로드
+            cls.preload_resources()
+
+            logging.info("애플리케이션 디렉토리 초기화 완료")
+            return True
+
+        except Exception as e:
+            logging.error(f"디렉토리 초기화 중 오류 발생: {e}", exc_info=True)
+            return False

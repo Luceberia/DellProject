@@ -265,58 +265,77 @@ class ServerSection(QGroupBox):
         
         self.update_ui_on_connection()
 
-    def disconnect_server(self, server_name=None):
-        """서버 연결 해제 메서드"""
+    def disconnect_all_servers(self):
+        """
+        모든 활성 서버 연결을 해제합니다.
+        """
         try:
-            # 현재 서버 이름 결정
-            if server_name is None:
-                current_server = self.current_server_label.text()
-                if "서버를 선택해 주세요" in current_server:
-                    self.logger.warning("연결 해제할 서버가 선택되지 않았습니다.")
-                    return False
-                server_name = current_server.replace("현재 서버: ", "").split('(')[0].strip()
+            # 현재 연결된 서버들 추적
+            connected_servers = [
+                server_name for server_name, session in self.session_manager.sessions.items() 
+                if session and session.get('connected', False)
+            ]
 
-            # 연결 관리자를 통해 서버 연결 해제
-            if hasattr(self, 'connection_manager'):
-                result = self.connection_manager.disconnect_server(server_name)
-                
-                if result:
-                    # UI 상태 업데이트
-                    self.update_ui_disconnected()
-                    
-                    # 세션 관리자에서 세션 제거
-                    if server_name in self.session_manager.sessions:
-                        del self.session_manager.sessions[server_name]
-                    
-                    # 현재 서버 정보 초기화
-                    self.current_server_info = None
-                    
-                    # 연결 상태 시그널 발생
-                    self.server_connection_changed.emit(server_name, False)
-                    
-                    return True
-                else:
-                    self.logger.warning(f"서버 연결 해제 실패: {server_name}")
-                    return False
-            else:
-                self.logger.error("연결 관리자가 초기화되지 않았습니다.")
-                return False
-        
+            # 각 서버에 대해 연결 해제 시도
+            for server_name in connected_servers:
+                self.disconnect_server(server_name)
+
+            # 세션 관리자 초기화
+            self.session_manager.sessions.clear()
+
+            # UI 상태 업데이트
+            self.update_ui_status("disconnected", "모든 서버 연결 해제")
+            
+            logger.info("모든 서버 연결 해제 완료")
+
         except Exception as e:
-            self.logger.error(f"서버 연결 해제 중 오류 발생: {str(e)}")
-            QMessageBox.critical(self, "연결 해제 오류", f"서버 연결 해제 중 오류가 발생했습니다: {str(e)}")
-            return False
+            logger.error(f"서버 연결 해제 중 오류 발생: {e}", exc_info=True)
 
-    def update_ui_disconnected(self, message="연결 해제됨"):
-        """UI를 연결 해제 상태로 업데이트"""
-        # 현재 서버 레이블 초기화
-        self.current_server_label.setText("현재 서버: 서버를 선택해 주세요")
+    def disconnect_server(self, server_name=None):
+        """
+        특정 서버 또는 현재 서버의 연결을 해제합니다.
         
-        # 연결 상태 관련 UI 요소 업데이트
-        if hasattr(self, 'tools_buttons') and '🔌 연결' in self.tools_buttons:
-            self.tools_buttons['🔌 연결'].setText('🔌 연결')
-        
-        # 필요한 경우 추가 UI 업데이트 로직 구현
+        :param server_name: 연결 해제할 서버 이름. None일 경우 현재 서버 연결 해제
+        """
+        try:
+            # 서버 이름이 제공되지 않았다면 현재 서버 사용
+            if server_name is None and self.current_server_info:
+                server_name = self.current_server_info.get('NAME')
+
+            if not server_name:
+                logger.warning("연결 해제할 서버가 선택되지 않았습니다.")
+                return False
+
+            # 세션 관리자에서 세션 확인
+            session = self.session_manager.get_session(server_name)
+            if not session or not session.get('connected', False):
+                logger.info(f"서버 '{server_name}'는 이미 연결 해제되었습니다.")
+                return True
+
+            # 서버 매니저 정리
+            if hasattr(self, 'server_manager'):
+                # 세션 및 캐시 초기화
+                self.server_manager.clear_session()
+                del self.server_manager
+                logger.debug(f"서버 '{server_name}' 연결 해제")
+
+            # 세션 상태 업데이트
+            session['connected'] = False
+            session['last_disconnected'] = datetime.now()
+
+            # UI 상태 업데이트
+            self.update_ui_status("disconnected", f"{server_name} 연결 해제")
+            self.current_server_label.setText("현재 서버: 서버를 선택해 주세요")
+            self.current_server_info = None
+
+            # 연결 변경 시그널 발생
+            self.server_connection_changed.emit(server_name, False)
+
+            return True
+
+        except Exception as e:
+            logger.error(f"서버 '{server_name}' 연결 해제 중 오류 발생: {e}", exc_info=True)
+            return False
 
     def check_connection_health(self):
         if not self.current_server_info:

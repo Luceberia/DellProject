@@ -641,7 +641,9 @@ class DellIDRACMonitor(QMainWindow):
     def __init__(self):
         super().__init__()
         self._is_closing = False
-        self.setAttribute(Qt.WidgetAttribute.WA_DeleteOnClose, False)
+        
+        # 창 속성 설정
+        self.setAttribute(Qt.WidgetAttribute.WA_DeleteOnClose, True)
         self.setWindowTitle(f"Dell iDRAC Monitor")
         self.resize(500, 400)
         
@@ -650,7 +652,65 @@ class DellIDRACMonitor(QMainWindow):
         self.settings_dialog = ServerSettingsDialog(self, self.server_section, self)
         
         self.init_ui()
-        self.show()
+        
+        # 창을 화면 중앙에 배치
+        self.center()
+        
+        # 로깅
+        logger.info("메인 윈도우 초기화 완료")
+
+    def closeEvent(self, event: Optional[QCloseEvent]):
+        """창 닫기 이벤트 처리"""
+        if self._is_closing:
+            event.accept() if event else None
+            return
+
+        self._is_closing = True
+        
+        # 사용자에게 종료 확인
+        reply = QMessageBox.question(
+            self, 
+            "애플리케이션 종료", 
+            "애플리케이션을 종료하시겠습니까?", 
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+        )
+        
+        if reply == QMessageBox.StandardButton.Yes:
+            # 리소스 정리
+            self.cleanup()
+            
+            # 로깅
+            logger.info("애플리케이션 종료 프로세스 시작")
+            
+            # 이벤트 수락
+            event.accept() if event else None
+        else:
+            # 종료 취소
+            self._is_closing = False
+            event.ignore() if event else None
+
+    def cleanup(self):
+        """모든 리소스 정리"""
+        try:
+            # 서버 연결 해제
+            if hasattr(self, 'server_section'):
+                self.server_section.disconnect_all_servers()
+                logger.debug("서버 섹션 정리 완료")
+
+            # 기타 리소스 정리 작업
+            if hasattr(self, 'settings_dialog'):
+                self.settings_dialog.close()
+
+            # 로깅
+            logger.debug("모든 리소스 정리 완료")
+            logger.info("애플리케이션 종료 완료")
+
+        except Exception as e:
+            logger.error(f"리소스 정리 중 오류 발생: {e}", exc_info=True)
+
+        finally:
+            # 애플리케이션 종료
+            QCoreApplication.quit()
 
     def init_ui(self):
         # 메뉴바 생성
@@ -688,8 +748,6 @@ class DellIDRACMonitor(QMainWindow):
         import_action.triggered.connect(self.settings_dialog.import_server_settings)
         log_view_action.triggered.connect(self.view_log)
         system_info_action.triggered.connect(self.view_system_info)
-        
-        self.center()
         
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
@@ -778,61 +836,6 @@ class DellIDRACMonitor(QMainWindow):
             self._initialized = True
             self.check_server_settings()
 
-    def closeEvent(self, a0: Optional[QCloseEvent]) -> None:
-        """창 닫기 이벤트 처리"""
-        if not self._is_closing and a0 is not None:
-            self._is_closing = True
-            logger.info("애플리케이션 종료 프로세스 시작")
-            self.cleanup()
-        if a0 is not None:
-            super().closeEvent(a0)
-
-    def cleanup(self):
-        """모든 리소스 정리"""
-        try:
-            logger.debug("서버 연결 해제 중...")
-            # hardware_section 정리
-            if hasattr(self, 'hardware_section'):
-                if hasattr(self.hardware_section, 'server_manager') and self.hardware_section.server_manager:
-                    try:
-                        self.hardware_section.server_manager = None
-                    except Exception as e:
-                        logger.error(f"서버 매니저 정리 중 오류: {e}")
-                self.hardware_section.deleteLater()
-                self.hardware_section = None
-            
-            # server_section 정리
-            if hasattr(self, 'server_section'):
-                self.server_section.cleanup()
-                self.server_section.deleteLater()
-                self.server_section = None
-                
-            # 타이머 정리
-            if hasattr(self, 'update_timer'):
-                self.update_timer.stop()
-                self.update_timer.deleteLater()
-                self.update_timer = None
-                
-            # 서버 목록 정리
-            if hasattr(self, 'server_list'):
-                self.server_list.clear()
-                self.server_list.deleteLater()
-                self.server_list = None
-                
-            logger.debug("모든 리소스 정리 완료")
-            logger.info("애플리케이션 종료 완료")
-                
-            # Qt 애플리케이션 종료 - 마지막에 실행
-            app = QCoreApplication.instance()
-            if app:
-                app.quit()
-                
-        except Exception as e:
-            logger.error(f"종료 중 오류 발생: {e}")
-        finally:
-            self.setParent(None)
-            self.deleteLater()
-        
     def show_settings_dialog(self):
         """설정 창을 표시합니다."""
         if self.settings_dialog.exec():
