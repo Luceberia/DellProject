@@ -1,5 +1,7 @@
 # PyQt6 관련 파일
 *.abi3.so
+*.sip
+ui/**/_rc.py
 
 # Python
 __pycache__/
@@ -7,8 +9,6 @@ __pycache__/
 *$py.class
 
 # Distribution / packaging
-dist/
-build/
 *.egg-info/
 
 # IDE
@@ -22,6 +22,8 @@ build/
 # 리소스 파일
 resources/logs/
 *.log
+resources/**/*.cache
+resources/temp/
 
 # 컴파일된 바이너리
 *.dylib
@@ -33,6 +35,8 @@ build/
 
 # PyInstaller
 *.spec
+*.manifest
+*.toc
 
 # Version file (if auto-generated)
 version.py
@@ -50,6 +54,17 @@ DellIDRACMonitor/
 *.bak
 *.tmp
 *.swp
+
+# 네트워크 임시 파일
+network/**/*.temp
+network/cache/
+
+# 유틸리티 임시 파일
+utils/**/*.temp
+utils/cache/
+
+# 아이콘 캐시 파일
+icon/**/*.cache
 
 # 환경 설정
 .env
