@@ -819,10 +819,13 @@ def save_system_info(parent_dialog, server_manager):
         current_date = datetime.now().strftime('%Y%m%d')
         default_filename = f"{service_tag}_{current_date}.xlsx"
         
-        documents_path = os.path.join(os.path.expanduser("~"), "Documents")
-        default_path = os.path.join(documents_path, default_filename)
+        # 마지막 저장 위치 확인
+        if hasattr(parent_dialog, 'last_excel_directory') and parent_dialog.last_excel_directory and os.path.exists(parent_dialog.last_excel_directory):
+            default_path = os.path.join(parent_dialog.last_excel_directory, default_filename)
+        else:
+            documents_path = os.path.join(os.path.expanduser("~"), "Documents")
+            default_path = os.path.join(documents_path, default_filename)
 
-        progress_dialog.setValue(10)
         file_name, _ = QFileDialog.getSaveFileName(
             parent_dialog, 
             "시스템 설정 정보 저장",
@@ -831,6 +834,9 @@ def save_system_info(parent_dialog, server_manager):
         )
 
         if file_name:
+            # 선택된 디렉토리 저장
+            parent_dialog.last_excel_directory = os.path.dirname(file_name)
+            
             if not file_name.endswith('.xlsx'):
                 file_name += '.xlsx'
 

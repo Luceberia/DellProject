@@ -616,53 +616,185 @@ class DellServerManager:
             raise
 
     def fetch_firmware_inventory(self):
-        """전체 펌웨어 인벤토리 정보 조회"""
+        """펌웨어 인벤토리 정보 조회"""
         try:
-            response = requests.get(
+            response = self.session.get(
                 self.endpoints.firmware_inventory,
                 auth=self.auth,
-                verify=False
+                verify=False,
+                timeout=self.timeout
             )
             response.raise_for_status()
             return response.json()
-        except Exception as e:
+        except requests.exceptions.RequestException as e:
             logger.error(f"펌웨어 인벤토리 조회 실패: {str(e)}")
-            raise
+            return None
 
-    def fetch_firmware_component(self, component_id: str):
-        """특정 컴포넌트의 펌웨어 정보 조회"""
+    def update_firmware(self, image_uri: str, transfer_protocol: str = "HTTP"):
+        """펌웨어 업데이트 실행
+        
+        Args:
+            image_uri (str): 펌웨어 이미지의 URI
+            transfer_protocol (str): 전송 프로토콜 (HTTP, HTTPS, FTP 등)
+        """
         try:
-            response = requests.get(
-                self.endpoints.get_firmware_inventory_component_url(component_id),
+            payload = {
+                "ImageURI": image_uri,
+                "TransferProtocol": transfer_protocol
+            }
+            response = self.session.post(
+                self.endpoints.firmware_update,
                 auth=self.auth,
-                verify=False
+                verify=False,
+                timeout=self.timeout,
+                json=payload
             )
             response.raise_for_status()
             return response.json()
-        except Exception as e:
-            logger.error(f"펌웨어 컴포넌트 정보 조회 실패: {str(e)}")
-            raise
+        except requests.exceptions.RequestException as e:
+            logger.error(f"펌웨어 업데이트 실행 실패: {str(e)}")
+            return None
 
-    def fetch_network_virtualization_info(self, adapter_id: str, func_id: str):
-        """네트워크 가상화 설정 정보 조회"""
+    def rollback_firmware(self, component_id: str):
+        """펌웨어 롤백 실행
+        
+        Args:
+            component_id (str): 롤백할 컴포넌트 ID
+        """
         try:
-            url = self.endpoints.get_network_adapter_attributes_url(adapter_id, func_id)
-            response = requests.get(url, auth=self.auth, verify=False)
+            payload = {
+                "ComponentID": component_id,
+                "InstallOption": "Previous"
+            }
+            response = self.session.post(
+                self.endpoints.firmware_rollback,
+                auth=self.auth,
+                verify=False,
+                timeout=self.timeout,
+                json=payload
+            )
+            response.raise_for_status()
+            return response.json()
+        except requests.exceptions.RequestException as e:
+            logger.error(f"펌웨어 롤백 실행 실패: {str(e)}")
+            return None
+
+    def multipart_firmware_update(self, firmware_files: list):
+        """여러 컴포넌트의 펌웨어 동시 업데이트
+        
+        Args:
+            firmware_files (list): 업데이트할 펌웨어 파일 목록
+        """
+        try:
+            files = [('UpdateParameters', ('parameters.json', '{}', 'application/json'))]
+            for idx, firmware in enumerate(firmware_files):
+                files.append((f'UpdateFile{idx+1}', firmware))
+            
+            response = self.session.post(
+                self.endpoints.firmware_multipart_update,
+                auth=self.auth,
+                verify=False,
+                timeout=self.timeout,
+                files=files
+            )
+            response.raise_for_status()
+            return response.json()
+        except requests.exceptions.RequestException as e:
+            logger.error(f"멀티파트 펌웨어 업데이트 실패: {str(e)}")
+            return None
+
+    def get_firmware_queue(self):
+        """펌웨어 업데이트 대기열 조회"""
+        try:
+            response = self.session.get(
+                self.endpoints.firmware_queue,
+                auth=self.auth,
+                verify=False,
+                timeout=self.timeout
+            )
+            response.raise_for_status()
+            return response.json()
+        except requests.exceptions.RequestException as e:
+            logger.error(f"펌웨어 대기열 조회 실패: {str(e)}")
+            return None
+
+    def get_firmware_settings(self):
+        """펌웨어 업데이트 설정 조회"""
+        try:
+            response = self.session.get(
+                self.endpoints.firmware_settings,
+                auth=self.auth,
+                verify=False,
+                timeout=self.timeout
+            )
+            response.raise_for_status()
+            return response.json()
+        except requests.exceptions.RequestException as e:
+            logger.error(f"펌웨어 설정 조회 실패: {str(e)}")
+            return None
+
+    def update_firmware_settings(self, settings: dict):
+        """펌웨어 업데이트 설정 변경
+        
+        Args:
+            settings (dict): 변경할 설정 정보
+        """
+        try:
+            response = self.session.patch(
+                self.endpoints.firmware_settings,
+                auth=self.auth,
+                verify=False,
+                timeout=self.timeout,
+                json=settings
+            )
+            response.raise_for_status()
+            return response.json()
+        except requests.exceptions.RequestException as e:
+            logger.error(f"펌웨어 설정 변경 실패: {str(e)}")
+            return None
+
+    def fetch_job_queue(self):
+        """Job 큐 조회"""
+        try:
+            response = self.session.get(self.endpoints.job_collection, auth=self.auth, verify=False)
             response.raise_for_status()
             return response.json()
         except Exception as e:
-            logger.error(f"네트워크 가상화 설정 정보 조회 실패: {str(e)}")
+            logger.error(f"Job 큐 조회 실패: {str(e)}")
             raise
 
-    def fetch_all_network_settings(self, adapter_id: str, func_id: str):
-        """모든 네트워크 설정 정보 조회"""
+    def fetch_job_details(self, job_id):
+        """특정 Job 상세 정보 조회"""
         try:
-            url = self.endpoints.get_network_adapter_attributes_url(adapter_id, func_id)
-            response = requests.get(url, auth=self.auth, verify=False)
+            url = self.endpoints.get_job_details_url(job_id)
+            response = self.session.get(url, auth=self.auth, verify=False)
             response.raise_for_status()
             return response.json()
         except Exception as e:
-            logger.error(f"네트워크 설정 조회 실패: {str(e)}")
+            logger.error(f"Job 상세 정보 조회 실패 (Job ID: {job_id}): {str(e)}")
+            raise
+
+    def delete_job(self, job_id):
+        """특정 Job 삭제"""
+        try:
+            url = self.endpoints.get_job_details_url(job_id)
+            response = self.session.delete(url, auth=self.auth, verify=False)
+            response.raise_for_status()
+            return True
+        except Exception as e:
+            logger.error(f"Job 삭제 실패 (Job ID: {job_id}): {str(e)}")
+            raise
+
+    def clear_job_queue(self):
+        """전체 Job 큐 삭제"""
+        try:
+            url = f"{self.endpoints.job_collection}/Actions/JobService.DeleteJobQueue"
+            payload = {"JobID": "JID_CLEARALL"}
+            response = self.session.post(url, json=payload, auth=self.auth, verify=False)
+            response.raise_for_status()
+            return True
+        except Exception as e:
+            logger.error(f"Job 큐 삭제 실패: {str(e)}")
             raise
 
     def collect_tsr_log(self, progress_callback=None):
@@ -744,46 +876,114 @@ class DellServerManager:
             logger.error(f"TSR 로그 수집 중 오류 발생: {str(e)}")
             return None
 
-    def fetch_job_queue(self):
-        """Job 큐 조회"""
+    def fetch_firmware_component(self, component_id: str):
+        """특정 컴포넌트의 펌웨어 정보 조회"""
         try:
-            response = self.session.get(self.endpoints.job_collection, auth=self.auth, verify=False)
+            response = requests.get(
+                self.endpoints.get_firmware_inventory_component_url(component_id),
+                auth=self.auth,
+                verify=False
+            )
             response.raise_for_status()
             return response.json()
         except Exception as e:
-            logger.error(f"Job 큐 조회 실패: {str(e)}")
+            logger.error(f"펌웨어 컴포넌트 정보 조회 실패: {str(e)}")
             raise
 
-    def fetch_job_details(self, job_id):
-        """특정 Job 상세 정보 조회"""
+    def fetch_network_virtualization_info(self, adapter_id: str, func_id: str):
+        """네트워크 가상화 설정 정보 조회"""
         try:
-            url = self.endpoints.get_job_details_url(job_id)
-            response = self.session.get(url, auth=self.auth, verify=False)
+            url = self.endpoints.get_network_adapter_attributes_url(adapter_id, func_id)
+            response = requests.get(url, auth=self.auth, verify=False)
             response.raise_for_status()
             return response.json()
         except Exception as e:
-            logger.error(f"Job 상세 정보 조회 실패 (Job ID: {job_id}): {str(e)}")
+            logger.error(f"네트워크 가상화 설정 정보 조회 실패: {str(e)}")
             raise
 
-    def delete_job(self, job_id):
-        """특정 Job 삭제"""
+    def fetch_all_network_settings(self, adapter_id: str, func_id: str):
+        """모든 네트워크 설정 정보 조회"""
         try:
-            url = self.endpoints.get_job_details_url(job_id)
-            response = self.session.delete(url, auth=self.auth, verify=False)
+            url = self.endpoints.get_network_adapter_attributes_url(adapter_id, func_id)
+            response = requests.get(url, auth=self.auth, verify=False)
             response.raise_for_status()
-            return True
+            return response.json()
         except Exception as e:
-            logger.error(f"Job 삭제 실패 (Job ID: {job_id}): {str(e)}")
+            logger.error(f"네트워크 설정 조회 실패: {str(e)}")
             raise
 
-    def clear_job_queue(self):
-        """전체 Job 큐 삭제"""
+    def update_bios_settings(self, settings: dict) -> bool:
+        """
+        BIOS 설정을 변경합니다.
+
+        Args:
+            settings (dict): 변경할 BIOS 설정들의 딕셔너리
+                           예: {"BootMode": "Uefi", "EmbNic1": "Enabled"}
+
+        Returns:
+            bool: 설정 변경 작업이 성공적으로 큐에 추가되었는지 여부
+        """
         try:
-            url = f"{self.endpoints.job_collection}/Actions/JobService.DeleteJobQueue"
-            payload = {"JobID": "JID_CLEARALL"}
-            response = self.session.post(url, json=payload, auth=self.auth, verify=False)
-            response.raise_for_status()
-            return True
+            logger.info("BIOS 설정 변경 시도")
+            response = self.session.patch(
+                self.endpoints.bios_settings,
+                json={"Attributes": settings}
+            )
+            
+            if response.status_code in [200, 202]:
+                logger.info("BIOS 설정 변경 작업이 성공적으로 큐에 추가됨")
+                return True
+            else:
+                logger.error(f"BIOS 설정 변경 실패. 상태 코드: {response.status_code}")
+                return False
+                
         except Exception as e:
-            logger.error(f"Job 큐 삭제 실패: {str(e)}")
+            logger.error(f"BIOS 설정 변경 중 오류 발생: {str(e)}")
+            raise
+
+    def reset_bios(self) -> bool:
+        """
+        BIOS를 기본 설정으로 초기화합니다.
+
+        Returns:
+            bool: 리셋 작업이 성공적으로 큐에 추가되었는지 여부
+        """
+        try:
+            logger.info("BIOS 리셋 시도")
+            response = self.session.post(
+                self.endpoints.bios_reset,
+                json={}  # 빈 JSON 페이로드로 리셋 요청
+            )
+            
+            if response.status_code in [200, 202]:
+                logger.info("BIOS 리셋 작업이 성공적으로 큐에 추가됨")
+                return True
+            else:
+                logger.error(f"BIOS 리셋 실패. 상태 코드: {response.status_code}")
+                return False
+                
+        except Exception as e:
+            logger.error(f"BIOS 리셋 중 오류 발생: {str(e)}")
+            raise
+
+    def get_bios_settings(self) -> dict:
+        """
+        현재 BIOS 설정을 조회합니다.
+
+        Returns:
+            dict: 현재 BIOS 설정 정보
+        """
+        try:
+            logger.info("BIOS 설정 조회 시도")
+            response = self.session.get(self.endpoints.bios_settings)
+            
+            if response.status_code == 200:
+                logger.info("BIOS 설정 조회 성공")
+                return response.json().get('Attributes', {})
+            else:
+                logger.error(f"BIOS 설정 조회 실패. 상태 코드: {response.status_code}")
+                return {}
+                
+        except Exception as e:
+            logger.error(f"BIOS 설정 조회 중 오류 발생: {str(e)}")
             raise

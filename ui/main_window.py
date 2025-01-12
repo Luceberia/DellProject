@@ -667,27 +667,14 @@ class DellIDRACMonitor(QMainWindow):
 
         self._is_closing = True
         
-        # 사용자에게 종료 확인
-        reply = QMessageBox.question(
-            self, 
-            "애플리케이션 종료", 
-            "애플리케이션을 종료하시겠습니까?", 
-            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
-        )
+        # 리소스 정리
+        self.cleanup()
         
-        if reply == QMessageBox.StandardButton.Yes:
-            # 리소스 정리
-            self.cleanup()
-            
-            # 로깅
-            logger.info("애플리케이션 종료 프로세스 시작")
-            
-            # 이벤트 수락
-            event.accept() if event else None
-        else:
-            # 종료 취소
-            self._is_closing = False
-            event.ignore() if event else None
+        # 로깅
+        logger.info("애플리케이션 종료 프로세스 시작")
+        
+        # 이벤트 수락
+        event.accept() if event else None
 
     def cleanup(self):
         """모든 리소스 정리"""

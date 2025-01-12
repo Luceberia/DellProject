@@ -47,6 +47,11 @@ class URLPattern:
     # 펌웨어 관련 엔드포인트 추가
     FIRMWARE_INVENTORY = f"{UPDATE}/FirmwareInventory"
     FIRMWARE_INVENTORY_COMPONENTS = f"{UPDATE}/FirmwareInventory/{{component_id}}"
+    FIRMWARE_UPDATE = f"{UPDATE}/Actions/UpdateService.SimpleUpdate"
+    FIRMWARE_ROLLBACK = f"{UPDATE}/Actions/Oem/DellUpdateService.Install"
+    FIRMWARE_MULTIPART_UPDATE = f"{UPDATE}/Actions/UpdateService.MultipartUpload"
+    FIRMWARE_QUEUE = f"{UPDATE}/UpdateQueue"
+    FIRMWARE_SETTINGS = f"{UPDATE}/Oem/Dell/DellUpdateService.Setup"
 
     # iDRAC 관련 엔드포인트
     IDRAC_MAC_ADDRESS = f"{MANAGERS}/Oem/Dell/DellAttributes/iDRAC.Embedded.1"
@@ -64,6 +69,10 @@ class URLPattern:
     JOB_SERVICE = f"{BASE}/JobService"
     JOB_COLLECTION = f"{JOB_SERVICE}/Jobs"
     JOB_DETAILS = f"{JOB_COLLECTION}/{{job_id}}"
+
+    # BIOS 관련 엔드포인트
+    BIOS_SETTINGS = f"{SYSTEMS}/Bios/Settings"
+    BIOS_RESET = f"{SYSTEMS}/Bios/Actions/Bios.ResetBios"
 
 class RedfishEndpoints:
     def __init__(self, ip: str, port: str = "443"):
@@ -134,9 +143,18 @@ class RedfishEndpoints:
                 # 펌웨어 관련
                 '/redfish/v1/UpdateService/FirmwareInventory': '펌웨어 인벤토리 조회',
                 '/redfish/v1/UpdateService/FirmwareInventory/{component_id}': '펌웨어 인벤토리 조회',
+                '/redfish/v1/UpdateService/Actions/UpdateService.SimpleUpdate': '펌웨어 업데이트',
+                '/redfish/v1/UpdateService/Actions/Oem/DellUpdateService.Install': '펌웨어 롤백',
+                '/redfish/v1/UpdateService/Actions/UpdateService.MultipartUpload': '멀티파트 펌웨어 업데이트',
+                '/redfish/v1/UpdateService/UpdateQueue': '펌웨어 설치 대기열 관리',
+                '/redfish/v1/UpdateService/Oem/Dell/DellUpdateService.Setup': '펌웨어 업데이트 설정 관리',
 
                 # TSR LOG 수집 관련
                 '/redfish/v1/Managers/iDRAC.Embedded.1/Oem/Dell/DellLCService/Actions/DellLCService.ExportTechSupportReport': 'TSR 로그 수집',
+
+                # BIOS 관련
+                '/redfish/v1/Systems/System.Embedded.1/Bios/Settings': 'BIOS 설정 조회',
+                '/redfish/v1/Systems/System.Embedded.1/Bios/Actions/Bios.ResetBios': 'BIOS 리셋',
 
             }.get(pattern, '알 수 없는 요청')
         
@@ -269,6 +287,31 @@ class RedfishEndpoints:
         return self.get_url(URLPattern.FIRMWARE_INVENTORY_COMPONENTS.format(component_id=component_id))
 
     @property
+    def firmware_update(self) -> str:
+        """펌웨어 업데이트 URL"""
+        return self.get_url(URLPattern.FIRMWARE_UPDATE)
+
+    @property
+    def firmware_rollback(self) -> str:
+        """펌웨어 롤백 URL (이전 버전으로 되돌리기)"""
+        return self.get_url(URLPattern.FIRMWARE_ROLLBACK)
+
+    @property
+    def firmware_multipart_update(self) -> str:
+        """멀티파트 펌웨어 업데이트 URL (여러 컴포넌트 동시 업데이트)"""
+        return self.get_url(URLPattern.FIRMWARE_MULTIPART_UPDATE)
+
+    @property
+    def firmware_queue(self) -> str:
+        """펌웨어 설치 대기열 관리 URL"""
+        return self.get_url(URLPattern.FIRMWARE_QUEUE)
+
+    @property
+    def firmware_settings(self) -> str:
+        """펌웨어 업데이트 설정 관리 URL"""
+        return self.get_url(URLPattern.FIRMWARE_SETTINGS)
+
+    @property
     def managers(self) -> str:
         """매니저 정보 조회"""
         return self.get_url(URLPattern.MANAGERS)
@@ -362,3 +405,14 @@ class RedfishEndpoints:
     def get_job_details_url(self, job_id: str) -> str:
         """특정 Job 상세 정보 조회"""
         return self.get_url(URLPattern.JOB_DETAILS.format(job_id=job_id))
+
+    # BIOS 관련 엔드포인트
+    @property
+    def bios_settings(self) -> str:
+        """BIOS 설정 조회"""
+        return self.get_url(URLPattern.BIOS_SETTINGS)
+
+    @property
+    def bios_reset(self) -> str:
+        """BIOS 리셋"""
+        return self.get_url(URLPattern.BIOS_RESET)
