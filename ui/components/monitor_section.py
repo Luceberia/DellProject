@@ -1693,15 +1693,16 @@ def show_firmware_info(parent):
 
                     # 테이블 위젯 생성
                     table_widget = QTableWidget()
-                    table_widget.setColumnCount(5)
-                    table_widget.setHorizontalHeaderLabels(["구성 요소", "버전", "상태", "날짜", "비고"])
+                    table_widget.setColumnCount(6)
+                    table_widget.setHorizontalHeaderLabels(["구성 요소", "버전", "상태", "날짜", "재시작 필요", "비고"])
                     
                     # 컬럼 너비 설정
-                    table_widget.setColumnWidth(0, 300)  # 구성 요소
+                    table_widget.setColumnWidth(0, 250)  # 구성 요소
                     table_widget.setColumnWidth(1, 150)  # 버전
                     table_widget.setColumnWidth(2, 100)  # 상태
-                    table_widget.setColumnWidth(3, 200)  # 날짜
-                    table_widget.setColumnWidth(4, 200)  # 비고
+                    table_widget.setColumnWidth(3, 150)  # 날짜
+                    table_widget.setColumnWidth(4, 100)  # 재시작 필요
+                    table_widget.setColumnWidth(5, 200)  # 비고
                     
                     # 테이블 스타일 설정
                     table_widget.setAlternatingRowColors(True)
@@ -1709,13 +1710,14 @@ def show_firmware_info(parent):
                     table_widget.setEditTriggers(QTableWidget.EditTrigger.NoEditTriggers)
 
                     row = 0
+                    restart_required = False
                     for group_name, components in firmware_groups.items():
                         if components:
                             # 그룹 헤더 추가
                             table_widget.insertRow(row)
                             header_item = QTableWidgetItem(group_name)
                             header_item.setBackground(QColor("#E3F2FD"))
-                            for col in range(5):
+                            for col in range(6):
                                 table_widget.setItem(row, col, QTableWidgetItem(""))
                                 table_widget.item(row, col).setBackground(QColor("#E3F2FD"))
                             table_widget.setItem(row, 0, header_item)
@@ -1765,10 +1767,16 @@ def show_firmware_info(parent):
                                 date_item = QTableWidgetItem(install_date)
                                 table_widget.setItem(row, 3, date_item)
                                 
+                                # 재시작 필요 여부
+                                needs_restart = component.get('RebootRequired', False)
+                                restart_required = restart_required or needs_restart
+                                restart_item = QTableWidgetItem('예' if needs_restart else '아니오')
+                                table_widget.setItem(row, 4, restart_item)
+                                
                                 # 현재 설치됨 표시
                                 note_item = QTableWidgetItem("현재 설치됨")
                                 note_item.setForeground(QColor("#2E7D32"))
-                                table_widget.setItem(row, 4, note_item)
+                                table_widget.setItem(row, 5, note_item)
                                 
                                 row += 1
 
@@ -1806,13 +1814,13 @@ def show_firmware_info(parent):
                                 # 롤백 가능 표시
                                 note_item = QTableWidgetItem("롤백 가능")
                                 note_item.setForeground(QColor("#1976D2"))
-                                table_widget.setItem(row, 4, note_item)
+                                table_widget.setItem(row, 5, note_item)
                                 
                                 row += 1
 
                             # 그룹 사이에 빈 줄 추가
                             table_widget.insertRow(row)
-                            for col in range(5):
+                            for col in range(6):
                                 table_widget.setItem(row, col, QTableWidgetItem(""))
                             row += 1
                     
@@ -1882,7 +1890,7 @@ def show_firmware_info(parent):
                             # 구성 요소 이름과 버전 가져오기
                             component_name = table_widget.item(row, 0).text()
                             component_version = table_widget.item(row, 1).text()
-                            note = table_widget.item(row, 4).text()
+                            note = table_widget.item(row, 5).text()
                             
                             # 현재 설치된 버전은 롤백 불가
                             if note == "현재 설치됨":
@@ -1916,10 +1924,11 @@ def show_firmware_info(parent):
                                     QMessageBox.StandardButton.Ok
                                 )
 
-                    def show_queue_dialog():
-                        task_dialog = QDialog(parent)
-                        task_dialog.setWindowTitle("작업 관리")
-                        task_dialog.resize(900, 500)
+                    def show_queue_dialog():  # parent 매개변수 제거
+                        """작업 큐 관리 대화상자를 표시합니다."""
+                        dialog = QDialog(status_dialog)
+                        dialog.setWindowTitle("작업 관리")
+                        dialog.resize(900, 500)
                         
                         # 메인 레이아웃
                         layout = QVBoxLayout()
@@ -1928,26 +1937,20 @@ def show_firmware_info(parent):
                         filter_layout = QHBoxLayout()
                         
                         # 상태 필터
-                        status_layout = QHBoxLayout()
                         status_label = QLabel("상태:")
                         status_combo = QComboBox()
                         status_combo.addItems(["전체", "대기 중", "진행 중", "완료", "실패"])
-                        status_layout.addWidget(status_label)
-                        status_layout.addWidget(status_combo)
+                        filter_layout.addWidget(status_label)
+                        filter_layout.addWidget(status_combo)
                         
                         # 작업 종류 필터
-                        type_layout = QHBoxLayout()
                         type_label = QLabel("작업 종류:")
                         type_combo = QComboBox()
-                        type_combo.addItems(["전체", "펌웨어 업데이트", "펌웨어 롤백"])
-                        type_layout.addWidget(type_label)
-                        type_layout.addWidget(type_combo)
+                        type_combo.addItems(["전체", "펌웨어 업데이트", "펌웨어 롤백", "재시작"])
+                        filter_layout.addWidget(type_label)
+                        filter_layout.addWidget(type_combo)
                         
-                        filter_layout.addLayout(status_layout)
-                        filter_layout.addSpacing(20)
-                        filter_layout.addLayout(type_layout)
-                        filter_layout.addStretch()
-                        
+                        # 필터 레이아웃을 메인 레이아웃에 추가
                         layout.addLayout(filter_layout)
                         
                         # 작업 목록 테이블
@@ -1957,19 +1960,41 @@ def show_firmware_info(parent):
                             "작업 ID", "작업 종류", "구성 요소", "상태", 
                             "진행률", "시작 시각", "예정된 재시작"
                         ])
-                        
-                        # 테이블 스타일 및 데이터 설정 (이전 코드와 동일)
+                        table.setSelectionBehavior(QTableWidget.SelectionBehavior.SelectRows)
+                        table.setEditTriggers(QTableWidget.EditTrigger.NoEditTriggers)
+                        layout.addWidget(table)
                         
                         # 실제 작업 데이터 가져오기
                         try:
+                            server_manager = DellServerManager(
+                                ip=server_info['IP'],
+                                port=server_info['PORT'],
+                                auth=(server_info['USERNAME'], server_info['PASSWORD'])
+                            )
                             queue_data = server_manager.get_firmware_queue()
+                            
                             if queue_data and 'Members' in queue_data:
-                                table.setRowCount(len(queue_data['Members']))
-                                for row, job in enumerate(queue_data['Members']):
+                                jobs = queue_data['Members']
+                                table.setRowCount(len(jobs))
+                                for row, job in enumerate(jobs):
+                                    # 작업 ID
                                     table.setItem(row, 0, QTableWidgetItem(job.get('Id', '')))
-                                    table.setItem(row, 1, QTableWidgetItem(job.get('Name', '')))
+                                    
+                                    # 작업 종류
+                                    job_type = ''
+                                    job_name = job.get('Name', '').lower()
+                                    if 'update' in job_name:
+                                        job_type = '펌웨어 업데이트'
+                                    elif 'rollback' in job_name:
+                                        job_type = '펌웨어 롤백'
+                                    elif 'restart' in job_name:
+                                        job_type = '재시작'
+                                    table.setItem(row, 1, QTableWidgetItem(job_type))
+                                    
+                                    # 구성 요소
                                     table.setItem(row, 2, QTableWidgetItem(job.get('Component', '')))
                                     
+                                    # 상태
                                     status = job.get('JobState', '')
                                     status_item = QTableWidgetItem(status)
                                     if status == '완료':
@@ -1980,67 +2005,168 @@ def show_firmware_info(parent):
                                         status_item.setForeground(QColor("#B71C1C"))
                                     table.setItem(row, 3, status_item)
                                     
-                                    table.setItem(row, 4, QTableWidgetItem(f"{job.get('PercentComplete', 0)}%"))
-                                    table.setItem(row, 5, QTableWidgetItem(job.get('StartTime', '')))
-                                    table.setItem(row, 6, QTableWidgetItem(job.get('RebootTime', '')))
-                        except Exception as e:
-                            if '404' in str(e):
-                                QMessageBox.warning(
-                                    task_dialog, 
-                                    "알림", 
-                                    "현재 진행 중인 펌웨어 작업이 없거나\n"
-                                    "서버에서 작업 목록을 조회할 수 없습니다."
-                                )
+                                    # 진행률
+                                    progress = job.get('PercentComplete', '0')
+                                    table.setItem(row, 4, QTableWidgetItem(f"{progress}%"))
+                                    
+                                    # 시작 시각
+                                    start_time = job.get('StartTime', '')
+                                    table.setItem(row, 5, QTableWidgetItem(start_time))
+                                    
+                                    # 예정된 재시작
+                                    reboot_time = job.get('RebootTime', '')
+                                    table.setItem(row, 6, QTableWidgetItem(reboot_time))
                             else:
-                                QMessageBox.warning(
-                                    task_dialog, 
-                                    "경고", 
-                                    f"작업 목록을 불러오는 중 오류가 발생했습니다:\n{str(e)}"
+                                QMessageBox.information(
+                                    dialog,
+                                    "알림",
+                                    "현재 진행 중인 작업이 없습니다."
                                 )
-                        
-                        layout.addWidget(table)
+                                
+                        except Exception as e:
+                            logger.error(f"작업 목록 조회 실패: {str(e)}")
+                            ErrorDialog(
+                                "작업 목록 조회 실패",
+                                "작업 목록을 가져오는데 실패했습니다.",
+                                str(e),
+                                parent
+                            ).exec()
                         
                         # 하단 버튼
                         button_layout = QHBoxLayout()
-                        refresh_button = QPushButton("새로고침")
-                        cancel_button = QPushButton("작업 취소")
-                        button_layout.addWidget(refresh_button)
-                        button_layout.addStretch()
-                        button_layout.addWidget(cancel_button)
+                        refresh_btn = QPushButton("새로고침")
+                        refresh_btn.setFixedWidth(150)
+                        cancel_job_btn = QPushButton("작업 취소")
+                        cancel_job_btn.setFixedWidth(150)
                         
+                        button_layout.addWidget(refresh_btn)
+                        button_layout.addWidget(cancel_job_btn)
                         layout.addLayout(button_layout)
-                        task_dialog.setLayout(layout)
-                        task_dialog.exec()
+
+                        def refresh_job_list():
+                            """작업 목록을 새로고침합니다."""
+                            try:
+                                queue_data = server_manager.get_firmware_queue()
+                                table.clearContents()
+                                if queue_data and 'Members' in queue_data:
+                                    jobs = queue_data['Members']
+                                    table.setRowCount(len(jobs))
+                                    # ... (위의 작업 목록 표시 코드와 동일)
+                                else:
+                                    table.setRowCount(0)
+                                    QMessageBox.information(
+                                        dialog,
+                                        "알림",
+                                        "현재 진행 중인 작업이 없습니다."
+                                    )
+                            except Exception as e:
+                                logger.error(f"작업 목록 새로고침 실패: {str(e)}")
+                                ErrorDialog(
+                                    "새로고침 실패",
+                                    "작업 목록을 새로고침하는데 실패했습니다.",
+                                    str(e),
+                                    parent
+                                ).exec()
+
+                        def cancel_selected_job():
+                            """선택된 작업을 취소합니다."""
+                            selected_rows = table.selectedItems()
+                            if not selected_rows:
+                                QMessageBox.warning(
+                                    dialog,
+                                    "경고",
+                                    "취소할 작업을 선택해주세요."
+                                )
+                                return
+                            
+                            job_id = table.item(table.currentRow(), 0).text()
+                            status = table.item(table.currentRow(), 3).text()
+                            
+                            if status == '완료' or status == '실패':
+                                QMessageBox.warning(
+                                    dialog,
+                                    "경고",
+                                    "이미 완료되거나 실패한 작업은 취소할 수 없습니다."
+                                )
+                                return
+                            
+                            reply = QMessageBox.question(
+                                dialog,
+                                "작업 취소 확인",
+                                f"선택한 작업(ID: {job_id})을 취소하시겠습니까?",
+                                QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+                                QMessageBox.StandardButton.No
+                            )
+                            
+                            if reply == QMessageBox.StandardButton.Yes:
+                                try:
+                                    server_manager.cancel_firmware_job(job_id)
+                                    QMessageBox.information(
+                                        dialog,
+                                        "작업 취소 완료",
+                                        "작업이 취소되었습니다."
+                                    )
+                                    refresh_job_list()
+                                except Exception as e:
+                                    logger.error(f"작업 취소 실패: {str(e)}")
+                                    ErrorDialog(
+                                        "작업 취소 실패",
+                                        "작업을 취소하는데 실패했습니다.",
+                                        str(e),
+                                        parent
+                                    ).exec()
+
+                        # 버튼 연결
+                        refresh_btn.clicked.connect(lambda _: refresh_job_list())
+                        cancel_job_btn.clicked.connect(lambda _: cancel_selected_job())
+                        
+                        dialog.setLayout(layout)
+                        dialog.exec()
 
                     # 테이블 위젯 추가 후
                     layout.addWidget(table_widget)
-
-                    # 하단 버튼 레이아웃
+                    
+                    # 하단 버튼들
                     button_layout = QHBoxLayout()
-                    button_layout.addStretch()
 
                     # 펌웨어 업데이트 버튼
-                    update_button = QPushButton("펌웨어 업데이트")
+                    update_button = QPushButton("fw update")
                     update_button.setFixedWidth(150)
                     button_layout.addWidget(update_button)
 
-                    # 펌웨어 롤백 버튼
-                    rollback_button = QPushButton("펌웨어 롤백")
+                    # 펌웨어 로트백 버튼
+                    rollback_button = QPushButton("fw rollback")
                     rollback_button.setFixedWidth(150)
                     button_layout.addWidget(rollback_button)
 
                     # 작업 관리 버튼
-                    queue_button = QPushButton("작업 관리")
+                    queue_button = QPushButton("fw queue")
+                    queue_button.clicked.connect(show_queue_dialog)
                     queue_button.setFixedWidth(150)
                     button_layout.addWidget(queue_button)
 
-                    button_layout.addStretch()
+                    # 재시작 관련 버튼들을 추가
+                    if restart_required:
+                        restart_label = QLabel("일부 변경사항은 시스템 재시작이 필요합니다.")
+                        restart_label.setStyleSheet("color: red;")
+                        layout.addWidget(restart_label)
+                        
+                        schedule_restart_btn = QPushButton("재시작 예약")
+                        schedule_restart_btn.clicked.connect(show_restart_scheduler)
+                        schedule_restart_btn.setFixedWidth(150)
+                        
+                        immediate_restart_btn = QPushButton("즉시 재시작")
+                        immediate_restart_btn.clicked.connect(confirm_immediate_restart)
+                        immediate_restart_btn.setFixedWidth(150)
+                        
+                        button_layout.addWidget(schedule_restart_btn)
+                        button_layout.addWidget(immediate_restart_btn)
+                    
                     layout.addLayout(button_layout)
 
                     # 버튼 연결
                     update_button.clicked.connect(show_update_dialog)
                     rollback_button.clicked.connect(show_rollback_dialog)
-                    queue_button.clicked.connect(show_queue_dialog)
 
                     status_dialog.setLayout(layout)
                     status_dialog.exec()
@@ -2068,6 +2194,105 @@ def sort_drives(drive_info):
         return float('inf')
 
     return sorted(drive_info, key=sort_key)
+
+def show_restart_scheduler(parent):
+    """재시작 일정 예약 다이얼로그를 표시합니다."""
+    dialog = QDialog(parent)
+    dialog.setWindowTitle("시스템 재시작 예약")
+    layout = QVBoxLayout()
+    
+    # 날짜/시간 선택 위젯
+    date_time_edit = QDateTimeEdit()
+    date_time_edit.setDateTime(QDateTime.currentDateTime().addSecs(3600))  # 기본값: 1시간 후
+    date_time_edit.setMinimumDateTime(QDateTime.currentDateTime())
+    date_time_edit.setCalendarPopup(True)
+    layout.addWidget(QLabel("재시작 시간 선택:"))
+    layout.addWidget(date_time_edit)
+    
+    # 버튼
+    button_box = QDialogButtonBox(
+        QDialogButtonBox.StandardButton.Ok | 
+        QDialogButtonBox.StandardButton.Cancel
+    )
+    button_box.accepted.connect(lambda: schedule_restart(parent, date_time_edit.dateTime()))
+    button_box.accepted.connect(dialog.accept)
+    button_box.rejected.connect(dialog.reject)
+    layout.addWidget(button_box)
+    
+    dialog.setLayout(layout)
+    dialog.exec()
+
+def confirm_immediate_restart(parent):
+    """즉시 재시작 확인 다이얼로그를 표시합니다."""
+    msg_box = QMessageBox(parent)
+    msg_box.setIcon(QMessageBox.Icon.Warning)
+    msg_box.setWindowTitle("시스템 재시작 확인")
+    msg_box.setText("시스템을 즉시 재시작하시겠습니까?")
+    msg_box.setInformativeText("모든 작업이 중단되며, 재시작이 완료될 때까지 시스템에 접근할 수 없습니다.")
+    msg_box.setStandardButtons(
+        QMessageBox.StandardButton.Yes | 
+        QMessageBox.StandardButton.No
+    )
+    msg_box.setDefaultButton(QMessageBox.StandardButton.No)
+    
+    if msg_box.exec() == QMessageBox.StandardButton.Yes:
+        perform_restart(parent)
+
+def schedule_restart(parent, restart_time):
+    """시스템 재시작을 예약합니다."""
+    main_window = parent.window()
+    if hasattr(main_window, 'server_section'):
+        server_info = main_window.server_section.current_server_info
+        if server_info:
+            try:
+                server_manager = DellServerManager(
+                    ip=server_info['IP'],
+                    port=server_info['PORT'],
+                    auth=(server_info['USERNAME'], server_info['PASSWORD'])
+                )
+                # 재시작 예약 API 호출
+                server_manager.schedule_system_restart(restart_time)
+                QMessageBox.information(
+                    parent,
+                    "재시작 예약 완료",
+                    f"시스템 재시작이 {restart_time.toString('yyyy-MM-dd hh:mm')}에 예약되었습니다."
+                )
+            except Exception as e:
+                logger.error(f"재시작 예약 실패: {str(e)}")
+                ErrorDialog(
+                    "재시작 예약 실패",
+                    "시스템 재시작 예약에 실패했습니다.",
+                    str(e),
+                    parent
+                ).exec()
+
+def perform_restart(parent):
+    """시스템을 즉시 재시작합니다."""
+    main_window = parent.window()
+    if hasattr(main_window, 'server_section'):
+        server_info = main_window.server_section.current_server_info
+        if server_info:
+            try:
+                server_manager = DellServerManager(
+                    ip=server_info['IP'],
+                    port=server_info['PORT'],
+                    auth=(server_info['USERNAME'], server_info['PASSWORD'])
+                )
+                # 즉시 재시작 API 호출
+                server_manager.restart_system()
+                QMessageBox.information(
+                    parent,
+                    "재시작 시작",
+                    "시스템 재시작이 시작되었습니다. 잠시 후 다시 연결해주세요."
+                )
+            except Exception as e:
+                logger.error(f"재시작 실패: {str(e)}")
+                ErrorDialog(
+                    "재시작 실패",
+                    "시스템 재시작에 실패했습니다.",
+                    str(e),
+                    parent
+                ).exec()
 
 def show_log_popup(parent, log_type):
     logger.debug(f"{log_type.upper()} 로그 팝업창 열기 시도")

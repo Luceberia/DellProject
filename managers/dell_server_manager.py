@@ -1209,3 +1209,50 @@ class DellServerManager:
         except Exception as e:
             logger.error(f"펌웨어 업데이트 작업 취소 중 오류 발생: {str(e)}")
             raise
+
+    def restart_system(self):
+        """시스템을 즉시 재시작합니다."""
+        try:
+            # Redfish API를 사용하여 시스템 재시작
+            endpoint = f"{self.endpoints.base_url}/redfish/v1/Systems/System.Embedded.1/Actions/ComputerSystem.Reset"
+            payload = {"ResetType": "GracefulRestart"}
+            
+            response = self.session.post(
+                endpoint,
+                json=payload,
+                auth=self.auth,
+                verify=False,
+                timeout=self.timeout
+            )
+            response.raise_for_status()
+            logger.info("시스템 재시작 요청 성공")
+            return True
+        except Exception as e:
+            logger.error(f"시스템 재시작 실패: {str(e)}")
+            raise
+
+    def schedule_system_restart(self, restart_time):
+        """시스템 재시작을 예약합니다."""
+        try:
+            # iDRAC Job Service를 사용하여 재시작 작업 예약
+            endpoint = f"{self.endpoints.base_url}/redfish/v1/Managers/iDRAC.Embedded.1/Jobs"
+            payload = {
+                "JobName": "SystemRestart",
+                "ScheduledStartTime": restart_time.toString(Qt.ISODate),
+                "Command": "GracefulRestart"
+            }
+            
+            response = self.session.post(
+                endpoint,
+                json=payload,
+                auth=self.auth,
+                verify=False,
+                timeout=self.timeout
+            )
+            response.raise_for_status()
+            job_id = response.json().get('Id')
+            logger.info(f"시스템 재시작 예약 성공 (Job ID: {job_id})")
+            return job_id
+        except Exception as e:
+            logger.error(f"시스템 재시작 예약 실패: {str(e)}")
+            raise
