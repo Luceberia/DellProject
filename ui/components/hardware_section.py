@@ -716,7 +716,6 @@ def get_all_system_settings(parent, server_manager):
         nic_data = server_manager.fetch_network_adapters_info()
         
         # CPU 종류 확인 (bios_info에서 가져오기)
-        # 안전한 방식으로 CPU 브랜드 확인
         attributes = bios_info.get('Attributes', {})
         cpu_brand = attributes.get('Proc1Brand', '')
         is_amd_cpu = 'AMD' in cpu_brand
@@ -731,34 +730,68 @@ def get_all_system_settings(parent, server_manager):
             'System Service Tag': {'attr_name': 'SystemServiceTag', 'value': attributes.get('SystemServiceTag', 'N/A')}
         }
         
-        # Processor Settings
-        all_settings['Processor Settings'] = {
+        # Processor Settings - CPU 종류에 따라 다르게 설정
+        processor_settings = {
             'Logical Processor': {'attr_name': 'LogicalProc', 'value': attributes.get('LogicalProc', 'N/A')},
             'Virtualization Technology': {'attr_name': 'ProcVirtualization', 'value': attributes.get('ProcVirtualization', 'N/A')},
-            'Sub NUMA Cluster': {'attr_name': 'SubNumaCluster', 'value': attributes.get('SubNumaCluster', 'N/A')},
             'x2APIC Mode': {'attr_name': 'ProcX2Apic', 'value': attributes.get('ProcX2Apic', 'N/A')}
         }
+
+        if is_amd_cpu:
+            # AMD CPU 전용 설정
+            processor_settings.update({
+                'NUMA Nodes Per Socket': {'attr_name': 'NumaNodesPerSocket', 'value': attributes.get('NumaNodesPerSocket', 'N/A')},
+                'L3 Cache as NUMA Domain': {'attr_name': 'L3CacheAsNumaDomain', 'value': attributes.get('L3CacheAsNumaDomain', 'N/A')},
+                'MADT Core Enumeration': {'attr_name': 'MadtCoreEnumeration', 'value': attributes.get('MadtCoreEnumeration', 'N/A')},
+                'Configurable TDP': {'attr_name': 'ConfigTdp', 'value': attributes.get('ConfigTdp', 'N/A')},
+                'L1 Stream HW Prefetcher': {'attr_name': 'L1StreamHwPrefetcher', 'value': attributes.get('L1StreamHwPrefetcher', 'N/A')},
+                'L2 Stream HW Prefetcher': {'attr_name': 'L2StreamHwPrefetcher', 'value': attributes.get('L2StreamHwPrefetcher', 'N/A')},
+                'L1 Stride Prefetcher': {'attr_name': 'L1StridePrefetcher', 'value': attributes.get('L1StridePrefetcher', 'N/A')},
+                'L1 Region Prefetcher': {'attr_name': 'L1RegionPrefetcher', 'value': attributes.get('L1RegionPrefetcher', 'N/A')},
+                'L2 Up Down Prefetcher': {'attr_name': 'L2UpDownPrefetcher', 'value': attributes.get('L2UpDownPrefetcher', 'N/A')},
+                'Secure Memory Encryption': {'attr_name': 'SecureMemoryEncryption', 'value': attributes.get('SecureMemoryEncryption', 'N/A')},
+                'Minimum SEV non-ES ASID': {'attr_name': 'MinSevNonEsAsid', 'value': attributes.get('MinSevNonEsAsid', 'N/A')},
+                'Secure Nested Paging': {'attr_name': 'SecureNestedPaging', 'value': attributes.get('SecureNestedPaging', 'N/A')},
+                'SNP Memory Coverage': {'attr_name': 'SnpMemoryCoverage', 'value': attributes.get('SnpMemoryCoverage', 'N/A')},
+                'Transparent Secure Memory Encryption': {'attr_name': 'TransparentSecureMemoryEncryption', 'value': attributes.get('TransparentSecureMemoryEncryption', 'N/A')},
+            })
+        else:
+            # Intel CPU 전용 설정
+            processor_settings.update({
+                'Sub NUMA Cluster': {'attr_name': 'SubNumaCluster', 'value': attributes.get('SubNumaCluster', 'N/A')},
+            })
+
+        # x2APIC Mode는 공통 설정
+        processor_settings.update({
+            'x2APIC Mode': {'attr_name': 'ProcX2Apic', 'value': attributes.get('ProcX2Apic', 'N/A')}
+        })
+
+        all_settings['Processor Settings'] = processor_settings
+        
         # Boot Settings
         all_settings['Boot Settings'] = {
             'Boot mode': {'attr_name': 'BootMode', 'value': attributes.get('BootMode', 'N/A')}
         }
+        
         # Network Settings
         all_settings['Network Settings'] = {
-            'PXE Device1': {'attr_name': 'PxeDev1EnDis', 'value': attributes.get('PxeDev1EnDis', 'N/A'),},
-            'PXE Device1 NIC': {'attr_name': 'PxeDev1Interface', 'value': attributes.get('PxeDev1Interface', 'N/A'),},
-            'PXE Device2': {'attr_name': 'PxeDev2EnDis', 'value': attributes.get('PxeDev2EnDis', 'N/A'),},
-            'PXE Device2 NIC': {'attr_name': 'PxeDev2Interface', 'value': attributes.get('PxeDev2Interface', 'N/A'),},
-            'PXE Device3': {'attr_name': 'PxeDev3EnDis', 'value': attributes.get('PxeDev3EnDis', 'N/A'),},
-            'PXE Device3 NIC': {'attr_name': 'PxeDev3Interface', 'value': attributes.get('PxeDev3Interface', 'N/A'),},
-            'PXE Device4': {'attr_name': 'PxeDev4EnDis', 'value': attributes.get('PxeDev4EnDis', 'N/A'),},
-            'PXE Device4 NIC': {'attr_name': 'PxeDev4Interface', 'value': attributes.get('PxeDev4Interface', 'N/A'),},
+            'PXE Device1': {'attr_name': 'PxeDev1EnDis', 'value': attributes.get('PxeDev1EnDis', 'N/A')},
+            'PXE Device1 NIC': {'attr_name': 'PxeDev1Interface', 'value': attributes.get('PxeDev1Interface', 'N/A')},
+            'PXE Device2': {'attr_name': 'PxeDev2EnDis', 'value': attributes.get('PxeDev2EnDis', 'N/A')},
+            'PXE Device2 NIC': {'attr_name': 'PxeDev2Interface', 'value': attributes.get('PxeDev2Interface', 'N/A')},
+            'PXE Device3': {'attr_name': 'PxeDev3EnDis', 'value': attributes.get('PxeDev3EnDis', 'N/A')},
+            'PXE Device3 NIC': {'attr_name': 'PxeDev3Interface', 'value': attributes.get('PxeDev3Interface', 'N/A')},
+            'PXE Device4': {'attr_name': 'PxeDev4EnDis', 'value': attributes.get('PxeDev4EnDis', 'N/A')},
+            'PXE Device4 NIC': {'attr_name': 'PxeDev4Interface', 'value': attributes.get('PxeDev4Interface', 'N/A')}
         }
+        
         # Integrated Devices
         all_settings['Integrated Devices'] = {
-            'SR-IOV Global Enable': {'attr_name': 'SriovGlobalEnable', 'value': attributes.get('SriovGlobalEnable', 'N/A'),},
-            'OS Watchdog Timer': {'attr_name': 'OsWatchdogTimer', 'value': attributes.get('OsWatchdogTimer', 'N/A'),},
+            'SR-IOV Global Enable': {'attr_name': 'SriovGlobalEnable', 'value': attributes.get('SriovGlobalEnable', 'N/A')},
+            'OS Watchdog Timer': {'attr_name': 'OsWatchdogTimer', 'value': attributes.get('OsWatchdogTimer', 'N/A')}
         }
-        # 기본 System Profile Settings
+
+        # System Profile Settings
         system_profile_settings = {
             'System Profile': {'attr_name': 'SysProfile', 'value': attributes.get('SysProfile', 'N/A')},
             'CPU Power Management': {'attr_name': 'ProcPwrPerf', 'value': attributes.get('ProcPwrPerf', 'N/A')},
@@ -783,13 +816,52 @@ def get_all_system_settings(parent, server_manager):
                 'Boost FMax': {'attr_name': 'BoostFMax', 'value': attributes.get('BoostFMax', 'N/A')},
                 'Algorithm Performance Boost Disable': {'attr_name': 'ApbDis', 'value': attributes.get('ApbDis', 'N/A')}
             }
-            # 필요하다면 all_settings에 AMD 설정 추가
-            all_settings['AMD CPU Settings'] = amd_settings
+            system_profile_settings.update(amd_settings)
+
+        # System Profile Settings에 업데이트된 설정 할당
+        all_settings['System Profile Settings'] = system_profile_settings
+
+        # Miscellaneous Settings
+        all_settings['Miscellaneous Settings'] = {
+            'F1/F2 Prompt On Error': {'attr_name': 'ErrPrompt', 'value': attributes.get('ErrPrompt', 'N/A')}
+        }
+
+        # iDRAC Settings
+        all_settings['iDRAC Settings'] = {
+            'Mac Address': {'attr_name': 'NIC.1.MACAddress', 'value': idrac_info['Attributes'].get('NIC.1.MACAddress', 'N/A')},
+            'Enable IPv4': {'attr_name': 'IPv4.1.Enable', 'value': idrac_info['Attributes'].get('IPv4.1.Enable', 'N/A')},
+            'Enable DHCP': {'attr_name': 'IPv4.1.DHCPEnable', 'value': idrac_info['Attributes'].get('IPv4.1.DHCPEnable', 'N/A')},
+            'Static IP Address': {'attr_name': 'IPv4Static.1.Address', 'value': idrac_info['Attributes'].get('IPv4Static.1.Address', 'N/A')},
+            'Static Gateway': {'attr_name': 'IPv4Static.1.Gateway', 'value': idrac_info['Attributes'].get('IPv4Static.1.Gateway', 'N/A')},
+            'Static Subnet Mask': {'attr_name': 'IPv4Static.1.Netmask', 'value': idrac_info['Attributes'].get('IPv4Static.1.Netmask', 'N/A')},
+            'Enable IPMI Over LAN': {'attr_name': 'IPMILan.1.Enable', 'value': idrac_info['Attributes'].get('IPMILan.1.Enable', 'N/A')},
+            'Enable VLAN ID': {'attr_name': 'NIC.1.VLanEnable', 'value': idrac_info['Attributes'].get('NIC.1.VLanEnable', 'N/A')}
+        }
+
+        # Power Configuration
+        all_settings['Power Configuration'] = {
+            'Redundancy Policy': {'attr_name': 'ServerPwr.1.PSRedPolicy', 'value': idrac_pwr_info['Attributes'].get('ServerPwr.1.PSRedPolicy', 'N/A')},
+            'Enable Hot Spare': {'attr_name': 'ServerPwr.1.PSRapidOn', 'value': idrac_pwr_info['Attributes'].get('ServerPwr.1.PSRapidOn', 'N/A')}
+        }
+
+        # NIC Configuration
+        all_settings['NIC Configuration'] = {}
+        if nic_data and 'NetworkAdapters' in nic_data:
+            for adapter in nic_data['NetworkAdapters']:
+                for func in adapter.get('NetworkDeviceFunctions', []):
+                    if func_id := func.get('Id'):
+                        virt_info = server_manager.fetch_network_virtualization_info(
+                            adapter.get('Id'), func_id)
+                        if virt_info and 'Attributes' in virt_info:
+                            all_settings['NIC Configuration'][f'가상화 ({func_id})'] = {
+                                'attr_name': 'VirtualizationMode',
+                                'value': virt_info['Attributes'].get('VirtualizationMode', 'N/A')
+                            }
 
         return all_settings
-
     except Exception as e:
-        logger.error(f"시스템 설정 정보 조회 실패: {str(e)}")
+        if parent:
+            QMessageBox.critical(parent, "오류", f"시스템 설정을 가져오는 중 오류가 발생했습니다: {str(e)}")
         return {}
 
 def save_system_info(parent_dialog, server_manager):
@@ -819,13 +891,10 @@ def save_system_info(parent_dialog, server_manager):
         current_date = datetime.now().strftime('%Y%m%d')
         default_filename = f"{service_tag}_{current_date}.xlsx"
         
-        # 마지막 저장 위치 확인
-        if hasattr(parent_dialog, 'last_excel_directory') and parent_dialog.last_excel_directory and os.path.exists(parent_dialog.last_excel_directory):
-            default_path = os.path.join(parent_dialog.last_excel_directory, default_filename)
-        else:
-            documents_path = os.path.join(os.path.expanduser("~"), "Documents")
-            default_path = os.path.join(documents_path, default_filename)
+        documents_path = os.path.join(os.path.expanduser("~"), "Documents")
+        default_path = os.path.join(documents_path, default_filename)
 
+        progress_dialog.setValue(10)
         file_name, _ = QFileDialog.getSaveFileName(
             parent_dialog, 
             "시스템 설정 정보 저장",
@@ -834,9 +903,6 @@ def save_system_info(parent_dialog, server_manager):
         )
 
         if file_name:
-            # 선택된 디렉토리 저장
-            parent_dialog.last_excel_directory = os.path.dirname(file_name)
-            
             if not file_name.endswith('.xlsx'):
                 file_name += '.xlsx'
 

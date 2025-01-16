@@ -13,6 +13,7 @@ class URLPattern:
     
     # 시스템 관련 엔드포인트
     SYSTEM_BIOS = f"{SYSTEMS}/Bios"
+    BIOS_RESET = f"{SYSTEM_BIOS}/Actions/Bios.ResetBios"
     SYSTEM_PROCESSORS = f"{SYSTEMS}/Processors"
     SYSTEM_MEMORY = f"{SYSTEMS}/Memory"
     SYSTEM_STORAGE = f"{SYSTEMS}/Storage"
@@ -44,14 +45,14 @@ class URLPattern:
     # LICENSE 관련 엔드포인트
     LICENSE_INFO = f"{MANAGERS}/Oem/Dell/DellLicenses"
 
-    # 펌웨어 관련 엔드포인트 추가
+    # 펌웨어 관련 엔드포인트
     FIRMWARE_INVENTORY = f"{UPDATE}/FirmwareInventory"
     FIRMWARE_INVENTORY_COMPONENTS = f"{UPDATE}/FirmwareInventory/{{component_id}}"
     FIRMWARE_UPDATE = f"{UPDATE}/Actions/UpdateService.SimpleUpdate"
+    FIRMWARE_MULTIPART_UPDATE = f"{UPDATE}/Actions/Oem/DellUpdateService.MultipartUpload"
     FIRMWARE_ROLLBACK = f"{UPDATE}/Actions/Oem/DellUpdateService.Install"
-    FIRMWARE_MULTIPART_UPDATE = f"{UPDATE}/Actions/UpdateService.MultipartUpload"
-    FIRMWARE_QUEUE = f"{UPDATE}/UpdateQueue"
-    FIRMWARE_SETTINGS = f"{UPDATE}/Oem/Dell/DellUpdateService.Setup"
+    FIRMWARE_QUEUE = f"{UPDATE}/Jobs"
+    FIRMWARE_SETTINGS = f"{UPDATE}/Settings"
 
     # iDRAC 관련 엔드포인트
     IDRAC_MAC_ADDRESS = f"{MANAGERS}/Oem/Dell/DellAttributes/iDRAC.Embedded.1"

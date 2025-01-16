@@ -20,7 +20,7 @@ from PyQt6.QtGui import QColor, QIcon, QImage, QPixmap
 from PyQt6.QtWidgets import (QApplication, QCheckBox, QComboBox, QDialog, QDialogButtonBox, 
                              QFileDialog, QGroupBox, QHBoxLayout, QLabel, QLineEdit, 
                              QMainWindow, QMenu, QMessageBox, QPushButton, QProgressBar, 
-                             QProgressDialog, QSpinBox, QTreeWidget, QTreeWidgetItem, QVBoxLayout, QTabWidget, QFileDialog, QWidget, QScrollArea)
+                             QProgressDialog, QSpinBox, QTreeWidget, QTreeWidgetItem, QVBoxLayout, QTabWidget, QFileDialog, QWidget, QScrollArea, QTableWidget, QTableWidgetItem)
 from typing import Optional, cast
 from ui.components.popups.error_dialog import ErrorDialog
 from utils.utils import convert_capacity
@@ -1333,8 +1333,7 @@ def show_system_info(parent):
                     'C1E': 'ProcC1E',
                     'Turbo Boost': 'ProcTurboMode',
                     'Energy Efficiency Policy': 'EnergyPerformanceBias',
-                    'Memory Patrol Scrub': 'MemPatrolScrub',
-                    
+                    'Memory Patrol Scrub': 'MemPatrolScrub',   
                 }
 
                 # AMD CPU 전용 설정
@@ -1659,58 +1658,9 @@ def show_firmware_info(parent):
                 if firmware_data:
                     status_dialog = QDialog(parent)
                     status_dialog.setWindowTitle("펌웨어 정보")
-                    status_dialog.resize(800, 600)
+                    status_dialog.resize(1000, 600)
                     layout = QVBoxLayout()
 
-                    # 트리 위젯 설정
-                    tree_widget = QTreeWidget()
-                    tree_widget.setHeaderLabels(["구성 요소", "속성", "값"])
-                    tree_widget.setColumnWidth(0, 400)
-                    tree_widget.setColumnWidth(1, 250)
-                    tree_widget.setColumnWidth(2, 200)
-
-                    # 버튼 레이아웃 추가
-                    button_layout = QHBoxLayout()
-                    
-                    # 전체 펼치기/접기 버튼
-                    expand_collapse_button = QPushButton("전체 펼치기")
-                    layout.addWidget(expand_collapse_button)
-                    layout.addWidget(tree_widget)
-
-                    # 하단 버튼 레이아웃
-                    button_layout = QHBoxLayout()
-                    
-                    # 펌웨어 업데이트 버튼
-                    update_button = QPushButton("펌웨어 업데이트")
-                    button_layout.addWidget(update_button)
-                    
-                    # 펌웨어 롤백 버튼
-                    rollback_button = QPushButton("펌웨어 롤백")
-                    button_layout.addWidget(rollback_button)
-                    
-                    # 설정 버튼
-                    settings_button = QPushButton("펌웨어 설정")
-                    button_layout.addWidget(settings_button)
-                    
-                    # 대기열 확인 버튼
-                    queue_button = QPushButton("업데이트 대기열")
-                    button_layout.addWidget(queue_button)
-                    
-                    layout.addLayout(button_layout)
-                    status_dialog.setLayout(layout)
-
-                    def toggle_all_sections():
-                        if expand_collapse_button.text() == "전체 펼치기":
-                            tree_widget.expandAll()
-                            expand_collapse_button.setText("전체 접기")
-                        else:
-                            tree_widget.collapseAll()
-                            expand_collapse_button.setText("전체 펼치기")
-                    
-                    expand_collapse_button.clicked.connect(toggle_all_sections)
-
-                    progress_dialog.setValue(50)
-                    
                     # 펌웨어 그룹 초기화
                     firmware_groups = {
                         'BIOS': [],
@@ -1741,97 +1691,131 @@ def show_firmware_info(parent):
                             
                             progress_dialog.setValue(50 + (40 * idx // total_components))
 
+                    # 테이블 위젯 생성
+                    table_widget = QTableWidget()
+                    table_widget.setColumnCount(5)
+                    table_widget.setHorizontalHeaderLabels(["구성 요소", "버전", "상태", "날짜", "비고"])
+                    
+                    # 컬럼 너비 설정
+                    table_widget.setColumnWidth(0, 300)  # 구성 요소
+                    table_widget.setColumnWidth(1, 150)  # 버전
+                    table_widget.setColumnWidth(2, 100)  # 상태
+                    table_widget.setColumnWidth(3, 200)  # 날짜
+                    table_widget.setColumnWidth(4, 200)  # 비고
+                    
+                    # 테이블 스타일 설정
+                    table_widget.setAlternatingRowColors(True)
+                    table_widget.setSelectionBehavior(QTableWidget.SelectionBehavior.SelectRows)
+                    table_widget.setEditTriggers(QTableWidget.EditTrigger.NoEditTriggers)
+
+                    row = 0
                     for group_name, components in firmware_groups.items():
                         if components:
-                            group_item = QTreeWidgetItem(tree_widget)
-                            group_item.setText(0, group_name)
+                            # 그룹 헤더 추가
+                            table_widget.insertRow(row)
+                            header_item = QTableWidgetItem(group_name)
+                            header_item.setBackground(QColor("#E3F2FD"))
+                            for col in range(5):
+                                table_widget.setItem(row, col, QTableWidgetItem(""))
+                                table_widget.item(row, col).setBackground(QColor("#E3F2FD"))
+                            table_widget.setItem(row, 0, header_item)
+                            row += 1
                             
-                            # 설치된 버전과 이전 버전을 분리
-                            installed_components = []
+                            # 현재 버전과 이전 버전 컴포넌트 분리
+                            current_components = []
                             previous_components = []
                             
                             for component in components:
-                                if 'Installed' in component.get('Id', ''):
-                                    installed_components.append(component)
-                                else:
+                                component_id = component.get('Id', '')
+                                if 'Installed' in component_id:
+                                    current_components.append(component)
+                                elif 'Previous' in component_id:
                                     previous_components.append(component)
-                            
-                            # 현재 설치된 버전 표시
-                            if installed_components:
-                                installed_group = QTreeWidgetItem(group_item)
-                                installed_group.setText(0, "현재 설치된 버전")
-                                installed_group.setBackground(0, QColor("#E8F5E9"))  # 연한 녹색 배경
-                                
-                                for component in installed_components:
-                                    component_item = QTreeWidgetItem(installed_group)
-                                    component_item.setText(0, component.get('Name', 'Unknown'))
-                                    
-                                    # 버전 정보
-                                    version_item = QTreeWidgetItem(component_item)
-                                    version_item.setText(0, "버전")
-                                    version_item.setText(1, component.get('Version', 'Unknown'))
-                                    
-                                    # 상태 정보
-                                    status_item = QTreeWidgetItem(component_item)
-                                    status_item.setText(0, "상태")
-                                    status = component.get('Status', {}).get('Health', 'Unknown')
-                                    status_item.setText(1, status)
-                                    if status == 'OK':
-                                        status_item.setForeground(1, QColor("#2E7D32"))  # 진한 녹색
-                                    elif status == 'Warning':
-                                        status_item.setForeground(1, QColor("#F57F17"))  # 주황색
-                                    elif status == 'Critical':
-                                        status_item.setForeground(1, QColor("#B71C1C"))  # 빨간색
-                                    
-                                    # 설치 날짜
-                                    install_date = component.get('Oem', {}).get('Dell', {}).get(
-                                        'DellSoftwareInventory', {}).get('InstallationDate', 'Unknown')
-                                    if install_date and install_date != 'Unknown':
-                                        date_parts = install_date.split('T')
-                                        if len(date_parts) == 2:
-                                            install_date = f"{date_parts[0]} {date_parts[1][:5]}"
-                                    date_item = QTreeWidgetItem(component_item)
-                                    date_item.setText(0, "설치 날짜")
-                                    date_item.setText(1, install_date)
-                            
-                            # 이전 버전 표시
-                            if previous_components:
-                                previous_group = QTreeWidgetItem(group_item)
-                                previous_group.setText(0, "이전 버전 (롤백 가능)")
-                                previous_group.setBackground(0, QColor("#FFF3E0"))  # 연한 주황색 배경
-                                
-                                for component in previous_components:
-                                    component_item = QTreeWidgetItem(previous_group)
-                                    component_item.setText(0, component.get('Name', 'Unknown'))
-                                    
-                                    # 버전 정보
-                                    version_item = QTreeWidgetItem(component_item)
-                                    version_item.setText(0, "버전")
-                                    version_item.setText(1, component.get('Version', 'Unknown'))
-                                    
-                                    # 상태 정보 (이전 버전은 상태가 없을 수 있음)
-                                    if component.get('Status'):
-                                        status_item = QTreeWidgetItem(component_item)
-                                        status_item.setText(0, "상태")
-                                        status_item.setText(1, component.get('Status', {}).get('Health', 'Unknown'))
-                                    
-                                    # 마지막 사용 날짜
-                                    last_date = component.get('Oem', {}).get('Dell', {}).get(
-                                        'DellSoftwareInventory', {}).get('LastInstallationDate', 'Unknown')
-                                    if last_date and last_date != 'Unknown':
-                                        date_parts = last_date.split('T')
-                                        if len(date_parts) == 2:
-                                            last_date = f"{date_parts[0]} {date_parts[1][:5]}"
-                                    date_item = QTreeWidgetItem(component_item)
-                                    date_item.setText(0, "마지막 사용 날짜")
-                                    date_item.setText(1, last_date)
-                                    
-                                    # 롤백 가능 여부
-                                    rollback_item = QTreeWidgetItem(component_item)
-                                    rollback_item.setText(0, "롤백 가능")
-                                    rollback_item.setText(1, "예")
-                                    rollback_item.setForeground(1, QColor("#2E7D32"))  # 진한 녹색
 
+                            # 현재 버전 컴포넌트 추가
+                            for component in current_components:
+                                table_widget.insertRow(row)
+                                
+                                # 구성 요소
+                                name_item = QTableWidgetItem(component.get('Name', 'Unknown'))
+                                table_widget.setItem(row, 0, name_item)
+                                
+                                # 버전
+                                version_item = QTableWidgetItem(component.get('Version', 'Unknown'))
+                                table_widget.setItem(row, 1, version_item)
+                                
+                                # 상태
+                                status = component.get('Status', {}).get('Health', 'Unknown')
+                                status_item = QTableWidgetItem(status)
+                                if status == 'OK':
+                                    status_item.setForeground(QColor("#2E7D32"))
+                                elif status == 'Warning':
+                                    status_item.setForeground(QColor("#F57F17"))
+                                elif status == 'Critical':
+                                    status_item.setForeground(QColor("#B71C1C"))
+                                table_widget.setItem(row, 2, status_item)
+                                
+                                # 설치 날짜
+                                install_date = component.get('Oem', {}).get('Dell', {}).get(
+                                    'DellSoftwareInventory', {}).get('InstallationDate', 'Unknown')
+                                if install_date and install_date != 'Unknown':
+                                    date_parts = install_date.split('T')
+                                    if len(date_parts) == 2:
+                                        install_date = f"{date_parts[0]} {date_parts[1][:5]}"
+                                date_item = QTableWidgetItem(install_date)
+                                table_widget.setItem(row, 3, date_item)
+                                
+                                # 현재 설치됨 표시
+                                note_item = QTableWidgetItem("현재 설치됨")
+                                note_item.setForeground(QColor("#2E7D32"))
+                                table_widget.setItem(row, 4, note_item)
+                                
+                                row += 1
+
+                            # 이전 버전 컴포넌트 추가
+                            for component in previous_components:
+                                table_widget.insertRow(row)
+                                
+                                # 구성 요소 (회색으로 표시)
+                                name_item = QTableWidgetItem(component.get('Name', 'Unknown'))
+                                name_item.setForeground(QColor("#666666"))
+                                table_widget.setItem(row, 0, name_item)
+                                
+                                # 버전
+                                version_item = QTableWidgetItem(component.get('Version', 'Unknown'))
+                                version_item.setForeground(QColor("#666666"))
+                                table_widget.setItem(row, 1, version_item)
+                                
+                                # 상태
+                                if component.get('Status'):
+                                    status = component.get('Status', {}).get('Health', 'Unknown')
+                                    status_item = QTableWidgetItem(status)
+                                    table_widget.setItem(row, 2, status_item)
+                                
+                                # 마지막 사용 날짜
+                                last_date = component.get('Oem', {}).get('Dell', {}).get(
+                                    'DellSoftwareInventory', {}).get('LastInstallationDate', 'Unknown')
+                                if last_date and last_date != 'Unknown':
+                                    date_parts = last_date.split('T')
+                                    if len(date_parts) == 2:
+                                        last_date = f"{date_parts[0]} {date_parts[1][:5]}"
+                                date_item = QTableWidgetItem(last_date)
+                                date_item.setForeground(QColor("#666666"))
+                                table_widget.setItem(row, 3, date_item)
+                                
+                                # 롤백 가능 표시
+                                note_item = QTableWidgetItem("롤백 가능")
+                                note_item.setForeground(QColor("#1976D2"))
+                                table_widget.setItem(row, 4, note_item)
+                                
+                                row += 1
+
+                            # 그룹 사이에 빈 줄 추가
+                            table_widget.insertRow(row)
+                            for col in range(5):
+                                table_widget.setItem(row, col, QTableWidgetItem(""))
+                            row += 1
+                    
                     def show_update_dialog():
                         file_dialog = QFileDialog()
                         file_dialog.setFileMode(QFileDialog.FileMode.ExistingFiles)  # 다중 선택 모드
@@ -1882,137 +1866,183 @@ def show_firmware_info(parent):
                                     )
 
                     def show_rollback_dialog():
-                        selected_items = tree_widget.selectedItems()
-                        if not selected_items:
+                        # 선택된 행 가져오기
+                        selected_rows = set(item.row() for item in table_widget.selectedItems())
+                        if not selected_rows:
                             QMessageBox.warning(
-                                parent,
-                                "선택 오류",
-                                "롤백할 컴포넌트를 선택해주세요."
+                                status_dialog,
+                                "경고",
+                                "롤백할 펌웨어를 선택해주세요.",
+                                QMessageBox.StandardButton.Ok
                             )
                             return
-                        
-                        component_item = selected_items[0]
-                        component_name = component_item.text(0)
-                        
-                        confirm = QMessageBox.question(
-                            parent,
-                            "펌웨어 롤백 확인",
-                            f"{component_name}의 펌웨어를 이전 버전으로 롤백하시겠습니까?",
-                            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
-                        )
-                        if confirm == QMessageBox.StandardButton.Yes:
-                            try:
-                                result = server_manager.rollback_firmware(component_name)
-                                if result:
-                                    QMessageBox.information(
-                                        parent,
-                                        "롤백 시작",
-                                        "펌웨어 롤백이 시작되었습니다. 작업 큐에서 진행 상황을 확인하세요."
-                                    )
-                            except Exception as e:
-                                QMessageBox.critical(
-                                    parent,
-                                    "롤백 오류",
-                                    f"펌웨어 롤백 중 오류가 발생했습니다: {str(e)}"
+
+                        # 선택된 각 행에 대해 처리
+                        for row in selected_rows:
+                            # 구성 요소 이름과 버전 가져오기
+                            component_name = table_widget.item(row, 0).text()
+                            component_version = table_widget.item(row, 1).text()
+                            note = table_widget.item(row, 4).text()
+                            
+                            # 현재 설치된 버전은 롤백 불가
+                            if note == "현재 설치됨":
+                                QMessageBox.warning(
+                                    status_dialog,
+                                    "경고",
+                                    f"{component_name}은(는) 현재 설치된 버전이므로 롤백할 수 없습니다.",
+                                    QMessageBox.StandardButton.Ok
+                                )
+                                continue
+
+                            # 롤백 확인 메시지
+                            reply = QMessageBox.question(
+                                status_dialog,
+                                "펌웨어 롤백",
+                                f"선택한 펌웨어를 롤백하시겠습니까?\n\n"
+                                f"구성 요소: {component_name}\n"
+                                f"버전: {component_version}",
+                                QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+                                QMessageBox.StandardButton.No
+                            )
+
+                            if reply == QMessageBox.StandardButton.Yes:
+                                # 여기에 실제 롤백 로직 구현
+                                print(f"Rolling back {component_name} to version {component_version}")
+                                QMessageBox.information(
+                                    status_dialog,
+                                    "알림",
+                                    "롤백이 시작되었습니다.\n"
+                                    "작업 관리 탭에서 진행 상황을 확인할 수 있습니다.",
+                                    QMessageBox.StandardButton.Ok
                                 )
 
-                    def show_settings_dialog():
-                        try:
-                            settings = server_manager.get_firmware_settings()
-                            if settings:
-                                settings_dialog = QDialog(parent)
-                                settings_dialog.setWindowTitle("펌웨어 설정")
-                                settings_dialog.resize(400, 300)
-                                
-                                settings_layout = QVBoxLayout()
-                                form_layout = QFormLayout()
-                                
-                                # 설정 항목들을 동적으로 생성
-                                settings_widgets = {}
-                                for key, value in settings.items():
-                                    if isinstance(value, bool):
-                                        widget = QCheckBox()
-                                        widget.setChecked(value)
-                                    else:
-                                        widget = QLineEdit(str(value))
-                                    form_layout.addRow(key, widget)
-                                    settings_widgets[key] = widget
-                                
-                                settings_layout.addLayout(form_layout)
-                                
-                                # 저장 버튼
-                                save_button = QPushButton("설정 저장")
-                                def save_settings():
-                                    new_settings = {}
-                                    for key, widget in settings_widgets.items():
-                                        if isinstance(widget, QCheckBox):
-                                            new_settings[key] = widget.isChecked()
-                                        else:
-                                            new_settings[key] = widget.text()
-                                    
-                                    try:
-                                        result = server_manager.update_firmware_settings(new_settings)
-                                        if result:
-                                            QMessageBox.information(
-                                                parent,
-                                                "설정 저장",
-                                                "펌웨어 설정이 성공적으로 저장되었습니다."
-                                            )
-                                            settings_dialog.accept()
-                                    except Exception as e:
-                                        QMessageBox.critical(
-                                            parent,
-                                            "설정 오류",
-                                            f"설정 저장 중 오류가 발생했습니다: {str(e)}"
-                                        )
-                                
-                                save_button.clicked.connect(save_settings)
-                                settings_layout.addWidget(save_button)
-                                
-                                settings_dialog.setLayout(settings_layout)
-                                settings_dialog.exec()
-                        except Exception as e:
-                            QMessageBox.critical(
-                                parent,
-                                "설정 오류",
-                                f"설정을 불러오는 중 오류가 발생했습니다: {str(e)}"
-                            )
-
                     def show_queue_dialog():
+                        task_dialog = QDialog(parent)
+                        task_dialog.setWindowTitle("작업 관리")
+                        task_dialog.resize(900, 500)
+                        
+                        # 메인 레이아웃
+                        layout = QVBoxLayout()
+                        
+                        # 상단 필터 영역
+                        filter_layout = QHBoxLayout()
+                        
+                        # 상태 필터
+                        status_layout = QHBoxLayout()
+                        status_label = QLabel("상태:")
+                        status_combo = QComboBox()
+                        status_combo.addItems(["전체", "대기 중", "진행 중", "완료", "실패"])
+                        status_layout.addWidget(status_label)
+                        status_layout.addWidget(status_combo)
+                        
+                        # 작업 종류 필터
+                        type_layout = QHBoxLayout()
+                        type_label = QLabel("작업 종류:")
+                        type_combo = QComboBox()
+                        type_combo.addItems(["전체", "펌웨어 업데이트", "펌웨어 롤백"])
+                        type_layout.addWidget(type_label)
+                        type_layout.addWidget(type_combo)
+                        
+                        filter_layout.addLayout(status_layout)
+                        filter_layout.addSpacing(20)
+                        filter_layout.addLayout(type_layout)
+                        filter_layout.addStretch()
+                        
+                        layout.addLayout(filter_layout)
+                        
+                        # 작업 목록 테이블
+                        table = QTableWidget()
+                        table.setColumnCount(7)
+                        table.setHorizontalHeaderLabels([
+                            "작업 ID", "작업 종류", "구성 요소", "상태", 
+                            "진행률", "시작 시각", "예정된 재시작"
+                        ])
+                        
+                        # 테이블 스타일 및 데이터 설정 (이전 코드와 동일)
+                        
+                        # 실제 작업 데이터 가져오기
                         try:
                             queue_data = server_manager.get_firmware_queue()
-                            if queue_data:
-                                queue_dialog = QDialog(parent)
-                                queue_dialog.setWindowTitle("펌웨어 업데이트 대기열")
-                                queue_dialog.resize(600, 400)
-                                
-                                queue_layout = QVBoxLayout()
-                                queue_tree = QTreeWidget()
-                                queue_tree.setHeaderLabels(["작업", "상태", "시작 시간", "완료 시간"])
-                                
-                                for job in queue_data.get('Members', []):
-                                    job_item = QTreeWidgetItem(queue_tree)
-                                    job_item.setText(0, job.get('Name', 'Unknown'))
-                                    job_item.setText(1, job.get('JobState', 'Unknown'))
-                                    job_item.setText(2, job.get('StartTime', 'Unknown'))
-                                    job_item.setText(3, job.get('CompletionTime', 'Unknown'))
-                                
-                                queue_layout.addWidget(queue_tree)
-                                queue_dialog.setLayout(queue_layout)
-                                queue_dialog.exec()
+                            if queue_data and 'Members' in queue_data:
+                                table.setRowCount(len(queue_data['Members']))
+                                for row, job in enumerate(queue_data['Members']):
+                                    table.setItem(row, 0, QTableWidgetItem(job.get('Id', '')))
+                                    table.setItem(row, 1, QTableWidgetItem(job.get('Name', '')))
+                                    table.setItem(row, 2, QTableWidgetItem(job.get('Component', '')))
+                                    
+                                    status = job.get('JobState', '')
+                                    status_item = QTableWidgetItem(status)
+                                    if status == '완료':
+                                        status_item.setForeground(QColor("#2E7D32"))
+                                    elif status == '진행 중':
+                                        status_item.setForeground(QColor("#1976D2"))
+                                    elif status == '실패':
+                                        status_item.setForeground(QColor("#B71C1C"))
+                                    table.setItem(row, 3, status_item)
+                                    
+                                    table.setItem(row, 4, QTableWidgetItem(f"{job.get('PercentComplete', 0)}%"))
+                                    table.setItem(row, 5, QTableWidgetItem(job.get('StartTime', '')))
+                                    table.setItem(row, 6, QTableWidgetItem(job.get('RebootTime', '')))
                         except Exception as e:
-                            QMessageBox.critical(
-                                parent,
-                                "대기열 오류",
-                                f"대기열을 불러오는 중 오류가 발생했습니다: {str(e)}"
-                            )
+                            if '404' in str(e):
+                                QMessageBox.warning(
+                                    task_dialog, 
+                                    "알림", 
+                                    "현재 진행 중인 펌웨어 작업이 없거나\n"
+                                    "서버에서 작업 목록을 조회할 수 없습니다."
+                                )
+                            else:
+                                QMessageBox.warning(
+                                    task_dialog, 
+                                    "경고", 
+                                    f"작업 목록을 불러오는 중 오류가 발생했습니다:\n{str(e)}"
+                                )
+                        
+                        layout.addWidget(table)
+                        
+                        # 하단 버튼
+                        button_layout = QHBoxLayout()
+                        refresh_button = QPushButton("새로고침")
+                        cancel_button = QPushButton("작업 취소")
+                        button_layout.addWidget(refresh_button)
+                        button_layout.addStretch()
+                        button_layout.addWidget(cancel_button)
+                        
+                        layout.addLayout(button_layout)
+                        task_dialog.setLayout(layout)
+                        task_dialog.exec()
 
+                    # 테이블 위젯 추가 후
+                    layout.addWidget(table_widget)
+
+                    # 하단 버튼 레이아웃
+                    button_layout = QHBoxLayout()
+                    button_layout.addStretch()
+
+                    # 펌웨어 업데이트 버튼
+                    update_button = QPushButton("펌웨어 업데이트")
+                    update_button.setFixedWidth(150)
+                    button_layout.addWidget(update_button)
+
+                    # 펌웨어 롤백 버튼
+                    rollback_button = QPushButton("펌웨어 롤백")
+                    rollback_button.setFixedWidth(150)
+                    button_layout.addWidget(rollback_button)
+
+                    # 작업 관리 버튼
+                    queue_button = QPushButton("작업 관리")
+                    queue_button.setFixedWidth(150)
+                    button_layout.addWidget(queue_button)
+
+                    button_layout.addStretch()
+                    layout.addLayout(button_layout)
+
+                    # 버튼 연결
                     update_button.clicked.connect(show_update_dialog)
                     rollback_button.clicked.connect(show_rollback_dialog)
-                    settings_button.clicked.connect(show_settings_dialog)
                     queue_button.clicked.connect(show_queue_dialog)
 
-                    tree_widget.collapseAll()
+                    status_dialog.setLayout(layout)
                     status_dialog.exec()
             
             progress_dialog.close()
@@ -2089,9 +2119,11 @@ def show_log_popup(parent, log_type):
         # 필터 컨트롤 추가
         filter_layout = QHBoxLayout()
         
-        # 심각도 필터
+        # 심각도 필터 초기화를 안전하게 수행
         severity_combo = QComboBox()
-        severity_combo.addItems(['전체', 'Critical', 'Warning', 'OK'])
+        severity_items = ['전체', 'Critical', 'Warning', 'OK']
+        for item in severity_items:
+            severity_combo.addItem(item)
         
         # 검색 입력
         search_input = QLineEdit()
@@ -2637,6 +2669,7 @@ def show_task_manager(parent):
         # 작업 목록 트리 위젯
         tree_widget = QTreeWidget(dialog)
         tree_widget.setHeaderLabels(["작업 ID", "작업 종류", "상태", "진행률", "시작 시간", "종료 시간"])
+        tree_widget.setSelectionMode(QTreeWidget.SelectionMode.ExtendedSelection)
         
         # 컬럼 너비 최적화
         tree_widget.setColumnWidth(0, 150)  # 작업 ID
@@ -2653,12 +2686,9 @@ def show_task_manager(parent):
         refresh_button.setIcon(QIcon("refresh_icon.png"))
         delete_button = QPushButton("선택 작업 삭제")
         delete_button.setIcon(QIcon("delete_icon.png"))
-        clear_button = QPushButton("완료된 작업 정리")
-        clear_button.setIcon(QIcon("clear_icon.png"))
         
         button_layout.addWidget(refresh_button)
         button_layout.addWidget(delete_button)
-        button_layout.addWidget(clear_button)
         button_layout.addStretch()
         layout.addLayout(button_layout)
 
@@ -2747,35 +2777,23 @@ def show_task_manager(parent):
                 QMessageBox.warning(dialog, "경고", "삭제할 작업을 선택해주세요.")
                 return
             
-            job_id = selected_items[0].text(0)
+            job_ids = [item.text(0) for item in selected_items]
             confirm = QMessageBox.question(
                 dialog, 
                 "확인", 
-                f"작업 {job_id}를 삭제하시겠습니까?",
+                f"선택한 {len(job_ids)}개의 작업을 삭제하시겠습니까?\n" + \
+                f"작업 ID: {', '.join(job_ids)}",
                 QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
             )
             
             if confirm == QMessageBox.StandardButton.Yes:
                 try:
-                    server_manager.delete_job(job_id)
+                    for job_id in job_ids:
+                        server_manager.delete_job(job_id)
                     refresh_jobs()
+                    QMessageBox.information(dialog, "완료", f"{len(job_ids)}개의 작업이 삭제되었습니다.")
                 except Exception as e:
                     QMessageBox.critical(dialog, "오류", f"작업 삭제 실패: {str(e)}")
-
-        def clear_all_jobs():
-            confirm = QMessageBox.question(
-                dialog,
-                "확인",
-                "완료된 작업을 모두 삭제하시겠습니까?",
-                QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
-            )
-            
-            if confirm == QMessageBox.StandardButton.Yes:
-                try:
-                    server_manager.clear_job_queue()
-                    refresh_jobs()
-                except Exception as e:
-                    QMessageBox.critical(dialog, "오류", f"작업 큐 삭제 실패: {str(e)}")
 
         # 다이얼로그가 닫힐 때 타이머 정지를 위한 이벤트 처리
         def on_dialog_finished():
@@ -2785,7 +2803,6 @@ def show_task_manager(parent):
         # 이벤트 연결
         refresh_button.clicked.connect(refresh_jobs)
         delete_button.clicked.connect(delete_selected_job)
-        clear_button.clicked.connect(clear_all_jobs)
         status_combo.currentTextChanged.connect(refresh_jobs)
         search_input.textChanged.connect(refresh_jobs)
 

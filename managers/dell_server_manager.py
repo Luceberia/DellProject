@@ -454,7 +454,7 @@ class DellServerManager:
                                     )
                                     function_response.raise_for_status()
                                     functions.append(function_response.json())
-                        
+
                         # GPU 장치 식별 및 결과 추가
                         if device_info.get('DeviceType', '').upper() in ['GPU', 'VGA'] or \
                         device_info.get('ClassCode', '').startswith('0x03'):
@@ -785,18 +785,6 @@ class DellServerManager:
             logger.error(f"Job 삭제 실패 (Job ID: {job_id}): {str(e)}")
             raise
 
-    def clear_job_queue(self):
-        """전체 Job 큐 삭제"""
-        try:
-            url = f"{self.endpoints.job_collection}/Actions/JobService.DeleteJobQueue"
-            payload = {"JobID": "JID_CLEARALL"}
-            response = self.session.post(url, json=payload, auth=self.auth, verify=False)
-            response.raise_for_status()
-            return True
-        except Exception as e:
-            logger.error(f"Job 큐 삭제 실패: {str(e)}")
-            raise
-
     def collect_tsr_log(self, progress_callback=None):
         try:
             basic_info = self.fetch_basic_info()
@@ -952,11 +940,17 @@ class DellServerManager:
             logger.info("BIOS 리셋 시도")
             response = self.session.post(
                 self.endpoints.bios_reset,
-                json={}  # 빈 JSON 페이로드로 리셋 요청
+                json={},  # 빈 JSON 페이로드로 리셋 요청
+                auth=self.auth,
+                verify=False
             )
             
             if response.status_code in [200, 202]:
                 logger.info("BIOS 리셋 작업이 성공적으로 큐에 추가됨")
+                # 작업 ID 추출 및 로깅
+                if 'Location' in response.headers:
+                    job_uri = response.headers['Location']
+                    logger.info(f"BIOS 리셋 작업 ID: {job_uri}")
                 return True
             else:
                 logger.error(f"BIOS 리셋 실패. 상태 코드: {response.status_code}")
@@ -986,4 +980,232 @@ class DellServerManager:
                 
         except Exception as e:
             logger.error(f"BIOS 설정 조회 중 오류 발생: {str(e)}")
+            raise
+
+    def update_firmware(self, file_path: str) -> bool:
+        """
+        펌웨어 업데이트를 시작합니다.
+
+        Args:
+            file_path (str): 펌웨어 파일 경로
+
+        Returns:
+            bool: 업데이트 작업이 성공적으로 큐에 추가되었는지 여부
+        """
+        try:
+            with open(file_path, 'rb') as f:
+                files = {'file': f}
+                response = self.session.post(
+                    self.endpoints.firmware_update,
+                    files=files,
+                    auth=self.auth,
+                    verify=False
+                )
+                
+                if response.status_code in [200, 202]:
+                    logger.info("펌웨어 업데이트 작업이 성공적으로 큐에 추가됨")
+                    return True
+                else:
+                    logger.error(f"펌웨어 업데이트 실패. 상태 코드: {response.status_code}")
+                    return False
+                    
+        except Exception as e:
+            logger.error(f"펌웨어 업데이트 중 오류 발생: {str(e)}")
+            raise
+
+    def update_firmware_multipart(self, file_path: str) -> bool:
+        """
+        대용량 펌웨어 파일을 멀티파트 업로드로 업데이트합니다.
+
+        Args:
+            file_path (str): 펌웨어 파일 경로
+
+        Returns:
+            bool: 업데이트 작업이 성공적으로 큐에 추가되었는지 여부
+        """
+        try:
+            with open(file_path, 'rb') as f:
+                files = {'file': f}
+                response = self.session.post(
+                    self.endpoints.firmware_multipart_update,
+                    files=files,
+                    auth=self.auth,
+                    verify=False
+                )
+                
+                if response.status_code in [200, 202]:
+                    logger.info("멀티파트 펌웨어 업데이트 작업이 성공적으로 큐에 추가됨")
+                    return True
+                else:
+                    logger.error(f"멀티파트 펌웨어 업데이트 실패. 상태 코드: {response.status_code}")
+                    return False
+                    
+        except Exception as e:
+            logger.error(f"멀티파트 펌웨어 업데이트 중 오류 발생: {str(e)}")
+            raise
+
+    def get_firmware_rollback_list(self) -> list:
+        """
+        롤백 가능한 펌웨어 목록을 조회합니다.
+
+        Returns:
+            list: 롤백 가능한 펌웨어 목록
+        """
+        try:
+            response = self.session.get(
+                self.endpoints.firmware_inventory,
+                auth=self.auth,
+                verify=False
+            )
+            
+            if response.status_code == 200:
+                firmware_list = []
+                for member in response.json().get('Members', []):
+                    if member.get('RollbackSupported', False):
+                        firmware_list.append({
+                            'Id': member.get('Id'),
+                            'Name': member.get('Name'),
+                            'Version': member.get('Version')
+                        })
+                return firmware_list
+            else:
+                logger.error(f"펌웨어 목록 조회 실패. 상태 코드: {response.status_code}")
+                return []
+                
+        except Exception as e:
+            logger.error(f"펌웨어 목록 조회 중 오류 발생: {str(e)}")
+            raise
+
+    def rollback_firmware(self, firmware_id: str) -> bool:
+        """
+        특정 펌웨어를 이전 버전으로 롤백합니다.
+
+        Args:
+            firmware_id (str): 롤백할 펌웨어 ID
+
+        Returns:
+            bool: 롤백 작업이 성공적으로 큐에 추가되었는지 여부
+        """
+        try:
+            response = self.session.post(
+                self.endpoints.firmware_rollback,
+                json={'FirmwareId': firmware_id},
+                auth=self.auth,
+                verify=False
+            )
+            
+            if response.status_code in [200, 202]:
+                logger.info("펌웨어 롤백 작업이 성공적으로 큐에 추가됨")
+                return True
+            else:
+                logger.error(f"펌웨어 롤백 실패. 상태 코드: {response.status_code}")
+                return False
+                
+        except Exception as e:
+            logger.error(f"펌웨어 롤백 중 오류 발생: {str(e)}")
+            raise
+
+    def get_firmware_settings(self) -> dict:
+        """
+        펌웨어 업데이트 설정을 조회합니다.
+
+        Returns:
+            dict: 현재 펌웨어 설정
+        """
+        try:
+            response = self.session.get(
+                self.endpoints.firmware_settings,
+                auth=self.auth,
+                verify=False
+            )
+            
+            if response.status_code == 200:
+                return response.json()
+            else:
+                logger.error(f"펌웨어 설정 조회 실패. 상태 코드: {response.status_code}")
+                return {}
+                
+        except Exception as e:
+            logger.error(f"펌웨어 설정 조회 중 오류 발생: {str(e)}")
+            raise
+
+    def update_firmware_settings(self, settings: dict) -> bool:
+        """
+        펌웨어 업데이트 설정을 변경합니다.
+
+        Args:
+            settings (dict): 변경할 설정
+
+        Returns:
+            bool: 설정 변경 성공 여부
+        """
+        try:
+            response = self.session.patch(
+                self.endpoints.firmware_settings,
+                json=settings,
+                auth=self.auth,
+                verify=False
+            )
+            
+            if response.status_code in [200, 204]:
+                logger.info("펌웨어 설정이 성공적으로 업데이트됨")
+                return True
+            else:
+                logger.error(f"펌웨어 설정 업데이트 실패. 상태 코드: {response.status_code}")
+                return False
+                
+        except Exception as e:
+            logger.error(f"펌웨어 설정 업데이트 중 오류 발생: {str(e)}")
+            raise
+
+    def get_firmware_queue(self) -> list:
+        """
+        펌웨어 업데이트 대기열을 조회합니다.
+
+        Returns:
+            list: 대기열에 있는 작업 목록
+        """
+        try:
+            response = self.session.get(
+                self.endpoints.firmware_queue,
+                auth=self.auth,
+                verify=False
+            )
+            
+            if response.status_code == 200:
+                return response.json().get('Members', [])
+            else:
+                logger.error(f"펌웨어 대기열 조회 실패. 상태 코드: {response.status_code}")
+                return []
+                
+        except Exception as e:
+            logger.error(f"펌웨어 대기열 조회 중 오류 발생: {str(e)}")
+            raise
+
+    def cancel_firmware_update(self, job_id: str) -> bool:
+        """
+        진행 중인 펌웨어 업데이트를 취소합니다.
+
+        Args:
+            job_id (str): 취소할 작업 ID
+
+        Returns:
+            bool: 취소 성공 여부
+        """
+        try:
+            response = self.session.delete(
+                f"{self.endpoints.firmware_queue}/{job_id}",
+                auth=self.auth,
+                verify=False
+            )
+            
+            if response.status_code in [200, 204]:
+                logger.info(f"펌웨어 업데이트 작업 {job_id}가 성공적으로 취소됨")
+                return True
+            else:
+                logger.error(f"펌웨어 업데이트 작업 취소 실패. 상태 코드: {response.status_code}")
+                return False
+                
+        except Exception as e:
+            logger.error(f"펌웨어 업데이트 작업 취소 중 오류 발생: {str(e)}")
             raise
