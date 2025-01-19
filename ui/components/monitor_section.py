@@ -1372,7 +1372,9 @@ def show_system_info(parent):
 
                 nic_configuration_settings = {
                     'NIC ID': 'Id',
-                    '가상화 모드': 'VirtualizationMode'
+                    '가상화 모드': 'VirtualizationMode',
+                    '링크 속도': 'LnkSpeed',
+                    '부팅 프로토콜': 'LegacyBootProto'
                 }
 
                 # 섹션별 트리 아이템 생성
@@ -1402,18 +1404,29 @@ def show_system_info(parent):
                                     virt_info = server_manager.fetch_network_virtualization_info(
                                         adapter.get('Id'), func_id)
                                     if virt_info and 'Attributes' in virt_info:
-                                        child_item = QTreeWidgetItem(section_item)
-                                        child_item.setText(0, f"가상화 모드: {func_id}")
-                                        child_item.setText(1, "VirtualizationMode")
+                                        attrs = virt_info['Attributes']
                                         
-                                        virt_mode = virt_info['Attributes'].get('VirtualizationMode', 'N/A')
-                                        child_item.setText(2, virt_mode)
+                                        # NIC 포트 아이템 생성
+                                        port_item = QTreeWidgetItem(section_item)
+                                        port_item.setText(0, func_id)
                                         
-                                        # 툴팁 추가
-                                        tooltip_text = get_tooltip('VirtualizationMode')
-                                        child_item.setToolTip(0, tooltip_text)
-                                        child_item.setToolTip(1, tooltip_text)
-                                        child_item.setToolTip(2, tooltip_text)
+                                        # 가상화 모드
+                                        virt_mode_item = QTreeWidgetItem(port_item)
+                                        virt_mode_item.setText(1, "VirtualizationMode")
+                                        virt_mode_item.setText(2, attrs.get('VirtualizationMode', 'N/A'))
+                                        virt_mode_item.setToolTip(1, get_tooltip('VirtualizationMode'))
+                                        
+                                        # 링크 속도
+                                        speed_item = QTreeWidgetItem(port_item)
+                                        speed_item.setText(1, "LnkSpeed")
+                                        speed_item.setText(2, attrs.get('LnkSpeed', 'N/A'))
+                                        speed_item.setToolTip(1, get_tooltip('LnkSpeed'))
+                                        
+                                        # 부팅 프로토콜
+                                        boot_item = QTreeWidgetItem(port_item)
+                                        boot_item.setText(1, "LegacyBootProto")
+                                        boot_item.setText(2, attrs.get('LegacyBootProto', 'N/A'))
+                                        boot_item.setToolTip(1, get_tooltip('LegacyBootProto'))
                     
                     elif info_source and 'Attributes' in info_source:
                         # CPU 종류 확인
@@ -1601,7 +1614,9 @@ def get_tooltip(attr_name):
         "ServerPwr.1.PSRapidOn": "전원 공급 장치 핫 스페어 기능 활성화 여부",
         
         # NIC Configuration
-        "VirtualizationMode": "NIC 가상화 모드 설정"
+        "VirtualizationMode": "NIC 가상화 모드 설정",
+        "LnkSpeed": "NIC 링크 속도",
+        "LegacyBootProto": "NIC 부팅 프로토콜"
     }
     return tooltips.get(attr_name, "설정에 대한 추가 정보")
 

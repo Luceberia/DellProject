@@ -853,9 +853,25 @@ def get_all_system_settings(parent, server_manager):
                         virt_info = server_manager.fetch_network_virtualization_info(
                             adapter.get('Id'), func_id)
                         if virt_info and 'Attributes' in virt_info:
-                            all_settings['NIC Configuration'][f'가상화 ({func_id})'] = {
+                            attrs = virt_info['Attributes']
+                            
+                            # NIC 포트 ID 추가
+                            all_settings['NIC Configuration'][func_id] = {
+                                'attr_name': '',
+                                'value': ''
+                            }
+                            # 각 설정을 순서대로 추가
+                            all_settings['NIC Configuration'][f"{func_id}.VirtualizationMode"] = {
                                 'attr_name': 'VirtualizationMode',
-                                'value': virt_info['Attributes'].get('VirtualizationMode', 'N/A')
+                                'value': attrs.get('VirtualizationMode', 'N/A')
+                            }
+                            all_settings['NIC Configuration'][f"{func_id}.LnkSpeed"] = {
+                                'attr_name': 'LnkSpeed',
+                                'value': attrs.get('LnkSpeed', 'N/A')
+                            }
+                            all_settings['NIC Configuration'][f"{func_id}.LegacyBootProto"] = {
+                                'attr_name': 'LegacyBootProto',
+                                'value': attrs.get('LegacyBootProto', 'N/A')
                             }
 
         return all_settings
