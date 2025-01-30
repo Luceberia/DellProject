@@ -48,9 +48,9 @@ class URLPattern:
     # 펌웨어 관련 엔드포인트
     FIRMWARE_INVENTORY = f"{UPDATE}/FirmwareInventory"
     FIRMWARE_INVENTORY_COMPONENTS = f"{UPDATE}/FirmwareInventory/{{component_id}}"
-    FIRMWARE_UPDATE = f"{UPDATE}/Actions/UpdateService.SimpleUpdate"
+    FIRMWARE_UPDATE = f"{UPDATE}/Actions/Oem/DellUpdateService.Install"  # Dell 전용 Install 액션으로 변경
     FIRMWARE_MULTIPART_UPDATE = f"{UPDATE}/Actions/Oem/DellUpdateService.MultipartUpload"
-    FIRMWARE_ROLLBACK = f"{UPDATE}/Actions/Oem/DellUpdateService.Install"
+    FIRMWARE_ROLLBACK = f"{UPDATE}/Actions/Oem/DellUpdateService.Install"  # Install 액션은 업데이트와 동일
     FIRMWARE_QUEUE = f"{UPDATE}/Jobs"
     FIRMWARE_SETTINGS = f"{UPDATE}/Settings"
 

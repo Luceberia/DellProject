@@ -1,6 +1,8 @@
 import os
 import sys
 from datetime import datetime
+import pytz
+from dateutil import parser
 
 import pandas as pd
 import requests
@@ -880,6 +882,22 @@ def get_all_system_settings(parent, server_manager):
             QMessageBox.critical(parent, "오류", f"시스템 설정을 가져오는 중 오류가 발생했습니다: {str(e)}")
         return {}
 
+def format_firmware_date(date_str):
+    if not date_str or date_str == 'N/A':
+        return 'N/A'
+    try:
+        # 예: "2024-03-22T20:33:49Z" -> "2024-03-22 20:33"
+        if 'T' in date_str:
+            date_parts = date_str.split('T')
+            if len(date_parts) == 2:
+                date = date_parts[0]  # "2024-03-22"
+                time = date_parts[1][:5]  # "20:33"
+                return f"{date} {time}"
+        return date_str
+    except Exception as e:
+        logger.error(f"날짜 변환 중 오류 발생: {e}, date_str: {date_str}")
+        return date_str
+
 def save_system_info(parent_dialog, server_manager):
     if server_manager is None:
         error_dialog = ErrorDialog(
@@ -932,7 +950,7 @@ def save_system_info(parent_dialog, server_manager):
             progress_dialog.setLabelText("CPU 정보 수집 중...")
             # CPU 정보 수집 (CPU Socket)
             processors_data = server_manager.fetch_processors_info()
-            if processors_data.get('Members', []):
+            if processors_data.get('Members@odata.count', 0) > 0:
                 status_data.append({
                     '구성 요소': 'CPU 정보',
                     'Dell Attribute name': '',
@@ -951,7 +969,7 @@ def save_system_info(parent_dialog, server_manager):
                             verify=False
                         ).json()
                         
-                        socket_id = cpu_info.get('Id', 'N/A')
+                        socket_id = cpu_info.get('Id', '').split('.')[-1]
                         status_data.extend([
                             {'구성 요소': f'    CPU CPU.Socket.{socket_id}', 'Dell Attribute name': '', 'value': ''},
                             {'구성 요소': '        모델', 'Dell Attribute name': 'Model', 'value': cpu_info.get('Model', 'N/A')},
@@ -967,7 +985,7 @@ def save_system_info(parent_dialog, server_manager):
             progress_dialog.setLabelText("메모리 정보 수집 중...")
             # 메모리 정보 수집 (메모리 DIMM)
             memory_data = server_manager.fetch_memory_info()
-            if memory_data.get('Members', []):
+            if memory_data.get('Members@odata.count', 0) > 0:
                 status_data.append({
                     '구성 요소': '메모리 정보',
                     'Dell Attribute name': '',
@@ -1284,46 +1302,55 @@ def save_system_info(parent_dialog, server_manager):
                     "HBA": [],
                 }
                 
+                # 펌웨어 그룹 초기화
+                firmware_groups = {
+                    'BIOS': {'installed': None, 'previous': None},
+                    'iDRAC': {'installed': None, 'previous': None},
+                    'RAID': {'installed': None, 'previous': None},
+                    'NIC': [],
+                    'HBA': []
+                }
+
+                # 펌웨어 데이터를 그룹별로 분류
                 for member in firmware_data.get('Members', []):
                     if member_uri := member.get('@odata.id'):
                         component_id = member_uri.split('/')[-1]
-                        if (component_info := server_manager.fetch_firmware_component(component_id)):
-                            if 'BIOS' in component_id:
-                                components["BIOS 펌웨어"] = component_info
-                            elif 'iDRAC' in component_id:
-                                components["iDRAC 펌웨어"] = component_info
-                            elif 'PERC' in component_info.get('Name', ''):
-                                components["RAID"] = component_info
-                            elif 'FC.' in component_id or 'QLogic' in component_info.get('Name', ''):
-                                components["HBA"].append(component_info)
-                            elif 'NIC' in component_id:
-                                components["NIC"].append(component_info)
-                
-                def format_date(date_str):
-                    if date_str and date_str != 'N/A':
-                        date_parts = date_str.split('T')
-                        if len(date_parts) == 2:
-                            return f"{date_parts[0]} {date_parts[1][:5]}"
-                    return date_str
-                
-                # BIOS, iDRAC, RAID 정보 추가
-                for category in ["BIOS 펌웨어", "iDRAC 펌웨어", "RAID"]:
-                    component = components[category]
+                        component_info = server_manager.fetch_firmware_component(component_id)
+                        
+                        # Installed 버전과 Previous 버전 구분
+                        version_type = 'installed' if component_id.startswith('Installed-') else 'previous'
+                        
+                        if 'BIOS' in component_id:
+                            firmware_groups['BIOS'][version_type] = component_info
+                        elif 'iDRAC' in component_id:
+                            firmware_groups['iDRAC'][version_type] = component_info
+                        elif 'PERC' in component_info.get('Name', ''):
+                            firmware_groups['RAID'][version_type] = component_info
+                        elif 'FC.' in component_id or 'QLogic' in component_info.get('Name', ''):
+                            firmware_groups['HBA'].append(component_info)
+                        elif 'NIC' in component_id:
+                            firmware_groups['NIC'].append(component_info)
+
+                # BIOS, iDRAC, RAID 정보 추가 (installed 버전 우선)
+                for category, versions in [('BIOS 펌웨어', firmware_groups['BIOS']), 
+                                        ('iDRAC 펌웨어', firmware_groups['iDRAC']), 
+                                        ('RAID', firmware_groups['RAID'])]:
+                    component = versions['installed'] or versions['previous']  # installed가 없으면 previous 사용
                     if component:
                         name = component.get('Name', 'N/A')
                         version = component.get('Version', 'N/A')
-                        install_date = format_date(component.get('Oem', {}).get('Dell', {}).get(
-                            'DellSoftwareInventory', {}).get('InstallationDate', 'N/A'))
+                        install_date = component.get('Oem', {}).get('Dell', {}).get(
+                            'DellSoftwareInventory', {}).get('InstallationDate', 'N/A')
                         
                         firmware_rows.append({
                             '카테고리': category,
                             '장치명': name,
                             '현재 버전': version,
-                            '업데이트 날짜': install_date
+                            '업데이트 날짜': format_firmware_date(install_date)
                         })
 
                 # HBA 정보 추가
-                if components["HBA"]:
+                if firmware_groups["HBA"]:
                     firmware_rows.append({
                         '카테고리': 'HBA Card',
                         '장치명': '',
@@ -1332,14 +1359,13 @@ def save_system_info(parent_dialog, server_manager):
                     })
                     
                     hba_versions = {}
-                    for component in components["HBA"]:
+                    for component in firmware_groups["HBA"]:
                         name = component.get('Name', 'N/A')
                         if ' - ' in name:
                             name = name.split(' - ')[0]
                         
                         version = component.get('Version', 'N/A')
-                        install_date = format_date(component.get('Oem', {}).get('Dell', {}).get(
-                            'DellSoftwareInventory', {}).get('InstallationDate', 'N/A'))
+                        install_date = component.get('Oem', {}).get('Dell', {}).get('DellSoftwareInventory', {}).get('InstallationDate', 'N/A')
                         
                         if name not in hba_versions or version > hba_versions[name]['version']:
                             hba_versions[name] = {
@@ -1352,23 +1378,22 @@ def save_system_info(parent_dialog, server_manager):
                             '카테고리': '',
                             '장치명': name,
                             '현재 버전': info['version'],
-                            '업데이트 날짜': info['date']
+                            '업데이트 날짜': format_firmware_date(info['date'])
                         })
 
                 # NIC 정보 추가
-                if components["NIC"]:
+                if firmware_groups["NIC"]:
                     # NIC 버전 정보를 임시로 저장할 딕셔너리
                     nic_versions = {}
                     
                     # 각 NIC의 최신 버전 정보 수집
-                    for component in components["NIC"]:
+                    for component in firmware_groups["NIC"]:
                         name = component.get('Name', 'N/A')
                         if ' - ' in name:
                             name = name.split(' - ')[0]
                         
                         version = component.get('Version', 'N/A')
-                        install_date = format_date(component.get('Oem', {}).get('Dell', {}).get(
-                            'DellSoftwareInventory', {}).get('InstallationDate', 'N/A'))
+                        install_date = component.get('Oem', {}).get('Dell', {}).get('DellSoftwareInventory', {}).get('InstallationDate', 'N/A')
                         
                         # 기존 버전과 비교하여 최신 버전만 유지
                         if name not in nic_versions or version > nic_versions[name]['version']:
@@ -1392,7 +1417,7 @@ def save_system_info(parent_dialog, server_manager):
                             '카테고리': '',  # NIC 아래 항목은 빈 카테고리
                             '장치명': name,
                             '현재 버전': info['version'],
-                            '업데이트 날짜': info['date']
+                            '업데이트 날짜': format_firmware_date(info['date'])
                         })
             
                 # 데이터프레임 생성 및 엑셀 파일 저장

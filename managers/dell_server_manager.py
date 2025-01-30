@@ -630,29 +630,135 @@ class DellServerManager:
             logger.error(f"펌웨어 인벤토리 조회 실패: {str(e)}")
             return None
 
-    def update_firmware(self, image_uri: str, transfer_protocol: str = "HTTP"):
-        """펌웨어 업데이트 실행
-        
-        Args:
-            image_uri (str): 펌웨어 이미지의 URI
-            transfer_protocol (str): 전송 프로토콜 (HTTP, HTTPS, FTP 등)
-        """
+    def update_firmware(self, file_path: str = None, image_uri: str = None, transfer_protocol: str = "HTTP"):
+        """펌웨어 업데이트를 시작합니다."""
         try:
-            payload = {
-                "ImageURI": image_uri,
-                "TransferProtocol": transfer_protocol
-            }
-            response = self.session.post(
-                self.endpoints.firmware_update,
-                auth=self.auth,
-                verify=False,
-                timeout=self.timeout,
-                json=payload
-            )
-            response.raise_for_status()
-            return response.json()
+            if file_path and os.path.exists(file_path):
+                # 파일 정보 로깅
+                file_size = os.path.getsize(file_path)
+                _, ext = os.path.splitext(file_path)
+                logger.debug(f"[펌웨어 업데이트] 파일 정보:")
+                logger.debug(f" - 파일 경로: {file_path}")
+                logger.debug(f" - 파일 크기: {file_size} bytes")
+                logger.debug(f" - 파일 형식: {ext}")
+                
+                if ext.lower() not in ['.exe', '.d7', '.d8', '.d9', '.pm', '.sc']:
+                    logger.error(f"지원되지 않는 파일 형식입니다: {ext}")
+                    return None
+
+                # Dell Update Service Install 엔드포인트 사용
+                import base64
+                with open(file_path, 'rb') as f:
+                    encoded = base64.b64encode(f.read()).decode()
+                
+                headers = {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'X-Auth-Token': self.auth[1] if isinstance(self.auth, tuple) else None
+                }
+                
+                payload = {
+                    "SoftwareIdentityURIs": [],  # 펌웨어 ID 목록 (선택사항)
+                    "ShareParameters": {
+                        "Target": "ALL",  # 모든 구성 요소 업데이트
+                        "IPAddress": "",  # 로컬 업데이트이므로 비워둠
+                        "ShareName": "",
+                        "UserName": "",
+                        "Password": ""
+                    },
+                    "ImageFile": encoded,
+                    "ImportOptions": "Include"  # 모든 구성 요소 포함
+                }
+                
+                # 요청 정보 로깅
+                logger.debug(f"[펌웨어 업데이트] Dell Update Service 요청 정보:")
+                logger.debug(f" - URL: {self.endpoints.firmware_rollback}")  # firmware_rollback이 DellUpdateService.Install 엔드포인트
+                logger.debug(f" - 헤더: {headers}")
+                logger.debug(f" - 파일명: {os.path.basename(file_path)}")
+                logger.debug(f" - Payload 크기: {len(encoded)} bytes")
+                
+                response = self.session.post(
+                    self.endpoints.firmware_rollback,  # DellUpdateService.Install 엔드포인트 사용
+                    auth=self.auth,
+                    verify=False,
+                    json=payload,
+                    headers=headers,
+                    timeout=300
+                )
+                
+                # 응답 정보 로깅
+                logger.debug(f"[펌웨어 업데이트] 응답 정보:")
+                logger.debug(f" - 상태 코드: {response.status_code}")
+                logger.debug(f" - 응답 헤더: {dict(response.headers)}")
+                logger.debug(f" - 응답 내용: {response.text}")
+                
+                response.raise_for_status()
+                return response.json()
+                    
+            elif image_uri:
+                # 원격 URI를 통한 업데이트는 SimpleUpdate 사용
+                headers = {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+                payload = {
+                    "ImageURI": image_uri,
+                    "TransferProtocol": transfer_protocol
+                }
+                
+                # 원격 URI 요청 정보 로깅
+                logger.debug(f"[펌웨어 업데이트] 원격 URI 요청 정보:")
+                logger.debug(f" - URL: {self.endpoints.firmware_update}")
+                logger.debug(f" - 헤더: {headers}")
+                logger.debug(f" - Payload: {payload}")
+                
+                response = self.session.post(
+                    self.endpoints.firmware_update,
+                    auth=self.auth,
+                    verify=False,
+                    json=payload,
+                    headers=headers,
+                    timeout=self.timeout
+                )
+                
+                # 원격 URI 응답 정보 로깅
+                logger.debug(f"[펌웨어 업데이트] 원격 URI 응답 정보:")
+                logger.debug(f" - 상태 코드: {response.status_code}")
+                logger.debug(f" - 응답 헤더: {dict(response.headers)}")
+                logger.debug(f" - 응답 내용: {response.text}")
+                
+                response.raise_for_status()
+                return response.json()
+            else:
+                raise ValueError("file_path 또는 image_uri 중 하나는 반드시 제공되어야 합니다.")
+            
         except requests.exceptions.RequestException as e:
-            logger.error(f"펌웨어 업데이트 실행 실패: {str(e)}")
+            if e.response is not None:
+                status_code = e.response.status_code
+                error_message = str(e.response.text) if hasattr(e.response, 'text') else str(e)
+                
+                # 에러 상세 정보 로깅
+                logger.debug(f"[펌웨어 업데이트] 에러 상세 정보:")
+                logger.debug(f" - 상태 코드: {status_code}")
+                logger.debug(f" - 에러 메시지: {error_message}")
+                logger.debug(f" - 요청 URL: {e.response.url}")
+                logger.debug(f" - 요청 메소드: {e.response.request.method}")
+                logger.debug(f" - 요청 헤더: {dict(e.response.request.headers)}")
+                if hasattr(e.response.request, 'body'):
+                    logger.debug(f" - 요청 본문: {e.response.request.body}")
+                
+                if status_code == 404:
+                    logger.error(f"펌웨어 업데이트 엔드포인트를 찾을 수 없습니다. iDRAC 버전을 확인해주세요.\n상세 오류: {error_message}")
+                elif status_code == 400:
+                    logger.error(f"잘못된 요청입니다. 펌웨어 파일이나 URI가 올바른지 확인해주세요.\n상세 오류: {error_message}")
+                else:
+                    logger.error(f"펌웨어 업데이트 실패 (상태 코드: {status_code}): {error_message}")
+            else:
+                logger.error(f"펌웨어 업데이트 실패: {str(e)}")
+            return None
+        except Exception as e:
+            logger.error(f"예기치 않은 오류 발생: {str(e)}")
+            logger.debug(f"[펌웨어 업데이트] 예외 정보:", exc_info=True)
             return None
 
     def rollback_firmware(self, component_id: str):
@@ -679,43 +785,64 @@ class DellServerManager:
             logger.error(f"펌웨어 롤백 실행 실패: {str(e)}")
             return None
 
-    def multipart_firmware_update(self, firmware_files: list):
-        """여러 컴포넌트의 펌웨어 동시 업데이트
-        
-        Args:
-            firmware_files (list): 업데이트할 펌웨어 파일 목록
+    def multipart_firmware_update(self, file_path):
+        """대용량 펌웨어 파일을 업데이트합니다.
+        이 메소드는 더 이상 멀티파트 업로드를 시도하지 않고, 
+        대신 update_firmware 메소드를 호출합니다.
         """
-        try:
-            files = [('UpdateParameters', ('parameters.json', '{}', 'application/json'))]
-            for idx, firmware in enumerate(firmware_files):
-                files.append((f'UpdateFile{idx+1}', firmware))
-            
-            response = self.session.post(
-                self.endpoints.firmware_multipart_update,
-                auth=self.auth,
-                verify=False,
-                timeout=self.timeout,
-                files=files
-            )
-            response.raise_for_status()
-            return response.json()
-        except requests.exceptions.RequestException as e:
-            logger.error(f"멀티파트 펌웨어 업데이트 실패: {str(e)}")
-            return None
+        if isinstance(file_path, list):
+            results = []
+            for single_file in file_path:
+                result = self.update_firmware(file_path=single_file)
+                results.append(result)
+            return results
+        else:
+            return self.update_firmware(file_path=file_path)
 
     def get_firmware_queue(self):
         """펌웨어 업데이트 대기열 조회"""
         try:
-            response = self.session.get(
-                self.endpoints.firmware_queue,
-                auth=self.auth,
-                verify=False,
-                timeout=self.timeout
-            )
-            response.raise_for_status()
-            return response.json()
+            # 먼저 기본 Jobs 엔드포인트 시도
+            try:
+                response = self.session.get(
+                    self.endpoints.firmware_queue,
+                    auth=self.auth,
+                    verify=False,
+                    timeout=self.timeout
+                )
+                response.raise_for_status()
+                return response.json()
+            except requests.exceptions.RequestException as e:
+                if e.response and e.response.status_code == 404:
+                    # 대체 엔드포인트 시도
+                    alt_endpoints = [
+                        f"{self.endpoints.base_url}/redfish/v1/Managers/iDRAC.Embedded.1/Jobs",
+                        f"{self.endpoints.base_url}/redfish/v1/JobService/Jobs",
+                        f"{self.endpoints.base_url}/redfish/v1/TaskService/Tasks"
+                    ]
+                    
+                    for endpoint in alt_endpoints:
+                        try:
+                            response = self.session.get(
+                                endpoint,
+                                auth=self.auth,
+                                verify=False,
+                                timeout=self.timeout
+                            )
+                            response.raise_for_status()
+                            return response.json()
+                        except:
+                            continue
+                    
+                    logger.error("펌웨어 대기열 조회 실패. 지원되는 Jobs 엔드포인트를 찾을 수 없습니다.")
+                    return None
+                else:
+                    raise
         except requests.exceptions.RequestException as e:
             logger.error(f"펌웨어 대기열 조회 실패: {str(e)}")
+            return None
+        except Exception as e:
+            logger.error(f"예기치 않은 오류 발생: {str(e)}")
             return None
 
     def get_firmware_settings(self):

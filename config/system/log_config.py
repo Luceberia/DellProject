@@ -31,6 +31,10 @@ class ConnectionLogFilter(logging.Filter):
 
     def filter(self, record):
         try:
+
+            # 펌웨어 업데이트 관련 로그는 항상 허용
+            if "[펌웨어 업데이트]" in str(record.msg):
+                return True
             if "연결 상태 업데이트" in str(record.msg) or "서버 연결 성공" in str(record.msg):
                 if ("연결 끊김" in str(record.msg) or "서버 연결 거부됨" in str(record.msg)) and self.is_connected:
                     self.is_connected = False
@@ -140,9 +144,10 @@ def setup_logging():
     logger.logger.addHandler(file_handler)
     
     console_handler = logging.StreamHandler()
-    console_handler.setLevel(logging.INFO)
+    console_handler.setLevel(logging.DEBUG)  # 콘솔 로그 레벨을 DEBUG로 변경
     console_handler.setFormatter(formatter)
     console_handler.addFilter(default_server_filter)
+    console_handler.addFilter(connection_filter)  # 콘솔에도 동일한 필터 적용
     logger.logger.addHandler(console_handler)
     
     return logger

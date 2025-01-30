@@ -1312,13 +1312,13 @@ def show_system_info(parent):
                 
                 network_settings = {
                     'PXE Device1': 'PxeDev1EnDis',
-                    'NIC ID': 'PxeDev1Interface',
+                    'NIC ID 1': 'PxeDev1Interface',
                     'PXE Device2': 'PxeDev2EnDis',
-                    'NIC ID': 'PxeDev2Interface',
+                    'NIC ID 2': 'PxeDev2Interface',
                     'PXE Device3': 'PxeDev3EnDis',
-                    'NIC ID': 'PxeDev3Interface',
+                    'NIC ID 3': 'PxeDev3Interface',
                     'PXE Device4': 'PxeDev4EnDis',
-                    'NIC ID': 'PxeDev4Interface'
+                    'NIC ID 4': 'PxeDev4Interface'
                 }
                 
                 integrated_devices = {

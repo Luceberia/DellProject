@@ -399,14 +399,39 @@ class ServerSection(QGroupBox):
     def update_log_count(self):
         if not hasattr(self, 'server_manager'):
             return
+            
         try:
             sel_entries = self.server_manager.fetch_sel_entries()
-            count = len(sel_entries.get('Members', []))
-            self.update_log_ui(count)
-            self.logger.debug(f"SEL 로그 카운트 업데이트: {count}")
+            if not sel_entries:
+                logger.warning("SEL 로그 엔트리가 없습니다.")
+                return
+                
+            entries = sel_entries.get('Members', [])
+            count = len(entries)
+            
+            # 벨 버튼이 없으면 리턴
+            bell_button = self.tools_buttons.get("🔔 0")
+            if not bell_button:
+                logger.warning("벨 버튼을 찾을 수 없습니다.")
+                return
+            
+            try:
+                current_count = int(bell_button.text().split()[1])
+            except (IndexError, ValueError):
+                logger.warning("현재 카운트를 파싱할 수 없습니다.")
+                current_count = 0
+            
+            # 단순히 현재 로그 수를 반영
+            if count != current_count:
+                bell_button.setText(f"🔔 {count}")
+                logger.debug(f"SEL 로그 카운트 변경: {current_count} → {count}")
+                
+                # 툴팁 업데이트
+                current_time = QDateTime.currentDateTime().toString("yyyy-MM-dd hh:mm:ss")
+                bell_button.setToolTip(f"마지막 업데이트: {current_time}")
+                
         except Exception as e:
-            self.logger.error(f"SEL 로그 카운트 업데이트 실패: {str(e)}")
-            self.update_log_ui(0)
+            logger.error(f"SEL 로그 카운트 업데이트 실패: {str(e)}")
 
     def update_log_ui(self, count):
         bell_button = self.tools_buttons["🔔 0"]
