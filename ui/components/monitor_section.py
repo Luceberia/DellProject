@@ -24,6 +24,7 @@ from PyQt6.QtWidgets import (QApplication, QCheckBox, QComboBox, QDialog, QDialo
 from typing import Optional, cast
 from ui.components.popups.error_dialog import ErrorDialog
 from utils.utils import convert_capacity
+from utils.cafe24 import cafe24_manager
 
 logger = setup_logging()
 
@@ -171,6 +172,20 @@ def show_ssh_command_dialog(parent):
                 "needs_confirm": False,
                 "is_tsr": True  # TSR 로그 수집임을 표시
             }
+        },
+        "카페24": {
+            "카페24 관리": {
+                "command": "",  # 실제 명령어는 선택된 옵션에 따라 동적으로 생성
+                "needs_input": False,
+                "has_options": True,
+                "options": [
+                    {"label": "패스워드 기본값으로 변경 (default = calvin, 패스워드 정책 자동 변경)", "value": "option1"},
+                    {"label": "패스워드 직접 입력하여 변경 (패스워드 정책 자동 변경)", "value": "option1_custom", "needs_input": True, "input_prompt": "새로운 패스워드를 입력하세요"},
+                    {"label": "논리 프로세서 설정 조회", "value": "option2"},
+                    {"label": "BIOS 부트 모드 조회", "value": "option3"},
+                    {"label": "프로파일 설정 조회", "value": "option4"}
+                ]
+            }
         }
     }
     
@@ -246,6 +261,39 @@ def show_ssh_command_dialog(parent):
     tree.expandAll()
     layout.addWidget(tree)
     
+    # 옵션 체크박스를 저장할 위젯
+    options_widget = QWidget()
+    options_layout = QVBoxLayout()
+    options_widget.setLayout(options_layout)
+    options_widget.hide()
+    layout.addWidget(options_widget)
+    
+    def show_options(item):
+        command_info = item.data(0, Qt.ItemDataRole.UserRole)
+        if command_info and command_info.get('has_options'):
+            options_layout.removeWidget(options_widget)
+            for i in reversed(range(options_layout.count())): 
+                options_layout.itemAt(i).widget().setParent(None)
+            
+            for option in command_info['options']:
+                checkbox = QCheckBox(option['label'])
+                checkbox.setProperty('value', option['value'])  # value 속성 저장
+                if option.get('needs_input'):
+                    input_field = QLineEdit()
+                    input_field.setPlaceholderText(option.get('input_prompt', ''))
+                    options_layout.addWidget(checkbox)
+                    options_layout.addWidget(input_field)
+                else:
+                    options_layout.addWidget(checkbox)
+            
+            options_widget.show()
+        else:
+            options_widget.hide()
+    
+    # 아이템 선택 변경 이벤트 연결
+    tree.itemClicked.connect(show_options)
+    tree.itemDoubleClicked.connect(show_options)
+    
     # 확인/취소 버튼
     button_box = QDialogButtonBox(
         QDialogButtonBox.StandardButton.Ok | 
@@ -274,6 +322,42 @@ def show_ssh_command_dialog(parent):
     
     if not command_info:  # 카테고리가 선택된 경우
         return True, None
+        
+    # 카페24 명령어 처리
+    if command_info.get('has_options'):
+        selected_options = []
+        custom_inputs = {}
+        
+        for i in range(options_layout.count()):
+            widget = options_layout.itemAt(i).widget()
+            if isinstance(widget, QWidget) and widget.layout():
+                # 입력 필드가 있는 옵션의 경우
+                h_layout = widget.layout()
+                checkbox = None
+                input_field = None
+                
+                # 수평 레이아웃에서 체크박스와 입력 필드 찾기
+                for j in range(h_layout.count()):
+                    item = h_layout.itemAt(j).widget()
+                    if isinstance(item, QCheckBox):
+                        checkbox = item
+                    elif isinstance(item, QLineEdit):
+                        input_field = item
+                
+                if checkbox and checkbox.isChecked():
+                    value = checkbox.property('value')
+                    selected_options.append(value)
+                    if input_field and input_field.text():
+                        custom_inputs[value] = input_field.text()
+            
+            elif isinstance(widget, QCheckBox):
+                # 일반 체크박스의 경우
+                if widget.isChecked():
+                    selected_options.append(widget.property('value'))
+        
+        if selected_options:
+            command_info = command_info.copy()
+            command_info['command'] = cafe24_manager.execute_command(selected_options, custom_inputs)
         
     return True, command_info
 
@@ -1978,7 +2062,7 @@ def show_firmware_info(parent):
                         table.setSelectionBehavior(QTableWidget.SelectionBehavior.SelectRows)
                         table.setEditTriggers(QTableWidget.EditTrigger.NoEditTriggers)
                         layout.addWidget(table)
-                        
+
                         # 실제 작업 데이터 가져오기
                         try:
                             server_manager = DellServerManager(
@@ -2699,7 +2783,7 @@ def show_log_popup(parent, log_type):
                 "모든 SEL 로그를 삭제하시겠습니까?",
                 QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
             )
-            
+
             if confirm == QMessageBox.StandardButton.Yes:
                 try:
                     server_manager.clear_sel_logs()

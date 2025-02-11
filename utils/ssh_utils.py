@@ -4,6 +4,59 @@ from config.system.log_config import setup_logging
 
 logger = setup_logging()
 
+def setup_ssh_config():
+    """SSH 설정을 초기화하고 iDRAC 서버에 대한 설정을 추가합니다."""
+    try:
+        import os
+        from pathlib import Path
+        
+        # SSH 설정 디렉토리 및 파일 경로
+        ssh_dir = Path.home() / '.ssh'
+        config_file = ssh_dir / 'config'
+        
+        # .ssh 디렉토리가 없으면 생성
+        if not ssh_dir.exists():
+            ssh_dir.mkdir(mode=0o700)
+        
+        # 기존 설정 읽기
+        config_content = ""
+        if config_file.exists():
+            with open(config_file, 'r') as f:
+                config_content = f.read()
+        
+        # Dell iDRAC 설정이 없으면 추가
+        configs_to_add = []
+        
+        if 'Host 169.254.*' not in config_content:
+            configs_to_add.append("""
+# Dell iDRAC 서버 설정
+Host 169.254.*
+    StrictHostKeyChecking no
+    UserKnownHostsFile /dev/null
+    LogLevel ERROR""")
+            
+        if 'Host 127.0.0.1' not in config_content:
+            configs_to_add.append("""
+# 로컬호스트 설정
+Host 127.0.0.1
+    StrictHostKeyChecking no
+    UserKnownHostsFile /dev/null
+    LogLevel ERROR""")
+            
+        if configs_to_add:
+            # 설정 파일에 추가
+            with open(config_file, 'a') as f:
+                f.write('\n'.join(configs_to_add))
+            
+            # 권한 설정
+            config_file.chmod(0o600)
+            
+            logger.info("SSH 설정이 추가되었습니다.")
+    
+    except Exception as e:
+        logger.error(f"SSH 설정 초기화 실패: {str(e)}")
+        raise
+
 def open_ssh_terminal(host, username, key_path="~/.ssh/id_rsa", password=None, command=None):
     try:
         system = platform.system()

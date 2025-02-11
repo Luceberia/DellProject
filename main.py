@@ -80,6 +80,12 @@ class ApplicationInitializer:
     def initialize_resources(self):
         """리소스 및 디렉토리 초기화"""
         try:
+            from utils.ssh_utils import setup_ssh_config
+            
+            # SSH 설정 초기화
+            setup_ssh_config()
+            
+            # 리소스 디렉토리 초기화
             result = ResourceManager.setup_directories()
             if not result:
                 raise Exception("리소스 디렉토리 초기화 실패")
