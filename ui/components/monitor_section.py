@@ -138,6 +138,120 @@ def show_hostname_input_dialog(parent):
         return hostname_input.text()
     return None
 
+def show_options(item):
+    """옵션 UI를 표시합니다."""
+    try:
+        command_info = item.data(0, Qt.ItemDataRole.UserRole)
+        if command_info and command_info.get('has_options'):
+            # 옵션 위젯 찾기
+            dialog = item.treeWidget().window()
+            options_widget = dialog.findChild(QWidget, "options_widget")
+            if not options_widget:
+                return
+                
+            options_layout = options_widget.layout()
+            
+            # 기존 옵션들 제거
+            while options_layout.count():
+                child = options_layout.takeAt(0)
+                if child.widget():
+                    child.widget().deleteLater()
+            
+            # 새 옵션들 추가
+            for option in command_info['options']:
+                if option.get('needs_input'):
+                    # 입력이 필요한 옵션은 수평 레이아웃 사용
+                    option_widget = QWidget()
+                    option_layout = QHBoxLayout()
+                    option_layout.setContentsMargins(0, 0, 0, 0)
+                    
+                    checkbox = QCheckBox(option['label'])
+                    checkbox.setProperty('value', option['value'])
+                    checkbox.setProperty('needs_input', True)
+                    
+                    input_field = QLineEdit()
+                    input_field.setPlaceholderText(option.get('input_prompt', ''))
+                    input_field.setEnabled(False)
+                    
+                    # 체크박스 상태에 따라 입력 필드 활성화/비활성화
+                    def update_input_state(state, input_widget):
+                        input_widget.setEnabled(state == Qt.CheckState.Checked)
+                        if not state == Qt.CheckState.Checked:
+                            input_widget.clear()
+                    
+                    checkbox.stateChanged.connect(lambda state, field=input_field: update_input_state(state, field))
+                    
+                    option_layout.addWidget(checkbox)
+                    option_layout.addWidget(input_field)
+                    option_widget.setLayout(option_layout)
+                    options_layout.addWidget(option_widget)
+                else:
+                    checkbox = QCheckBox(option['label'])
+                    checkbox.setProperty('value', option['value'])
+                    options_layout.addWidget(checkbox)
+            
+            options_widget.show()
+        else:
+            dialog = item.treeWidget().window()
+            options_widget = dialog.findChild(QWidget, "options_widget")
+            if options_widget:
+                options_widget.hide()
+    except Exception as e:
+        logger.error(f"옵션 UI 표시 중 오류 발생: {e}")
+        QMessageBox.critical(None, "오류", f"옵션 UI 표시 중 오류가 발생했습니다: {e}")
+
+def add_to_favorites(command_name, favorites, settings, update_ui_callback):
+    """즐겨찾기에 명령어를 추가합니다."""
+    try:
+        if command_name not in favorites:
+            favorites.append(command_name)
+            settings.setValue('ssh_favorites', favorites)
+            settings.sync()
+            if update_ui_callback:
+                update_ui_callback()
+    except Exception as e:
+        logger.error(f"즐겨찾기 추가 중 오류 발생: {e}")
+        QMessageBox.critical(None, "오류", f"즐겨찾기 추가 중 오류가 발생했습니다: {e}")
+
+def remove_from_favorites(command_name, favorites, settings, update_ui_callback):
+    """즐겨찾기에서 명령어를 제거합니다."""
+    try:
+        if command_name in favorites:
+            favorites.remove(command_name)
+            settings.setValue('ssh_favorites', favorites)
+            settings.sync()
+            if update_ui_callback:
+                update_ui_callback()
+    except Exception as e:
+        logger.error(f"즐겨찾기 제거 중 오류 발생: {e}")
+        QMessageBox.critical(None, "오류", f"즐겨찾기 제거 중 오류가 발생했습니다: {e}")
+
+def handle_favorite_click(dialog, command_map, command_name):
+    """즐겨찾기 항목 클릭 처리"""
+    try:
+        # command_map에서 해당 명령어 찾기
+        for category in command_map.values():
+            for cmd_name, cmd_info in category.items():
+                if cmd_name == command_name:
+                    # 트리에서 해당 항목 선택
+                    root = dialog.findChild(QTreeWidget)
+                    if root:
+                        # 모든 최상위 항목을 순회
+                        for i in range(root.topLevelItemCount()):
+                            category_item = root.topLevelItem(i)
+                            # 카테고리의 모든 자식 항목을 순회
+                            for j in range(category_item.childCount()):
+                                command_item = category_item.child(j)
+                                if command_item.text(0) == command_name:
+                                    root.setCurrentItem(command_item)
+                                    # 옵션이 있는 경우 옵션 UI 표시
+                                    if cmd_info.get('has_options'):
+                                        show_options(command_item)
+                                    return
+    except Exception as e:
+        logger.error(f"즐겨찾기 클릭 처리 중 오류 발생: {e}")
+        QMessageBox.critical(dialog, "오류", f"즐겨찾기 처리 중 오류가 발생했습니다: {e}")
+
 def show_ssh_command_dialog(parent):
     dialog = QDialog(parent)
     dialog.setWindowTitle("SSH 명령어 선택")
@@ -229,7 +343,7 @@ def show_ssh_command_dialog(parent):
             return
             
         command_info = item.data(0, Qt.ItemDataRole.UserRole)
-        if not command_info:  # 카테고리인 경우
+        if not command_info:  # 카테고리가 선택된 경우
             return
             
         menu = QMenu()
@@ -263,33 +377,12 @@ def show_ssh_command_dialog(parent):
     
     # 옵션 체크박스를 저장할 위젯
     options_widget = QWidget()
+    options_widget.setObjectName("options_widget")  # 위젯 이름 설정
     options_layout = QVBoxLayout()
     options_widget.setLayout(options_layout)
     options_widget.hide()
     layout.addWidget(options_widget)
-    
-    def show_options(item):
-        command_info = item.data(0, Qt.ItemDataRole.UserRole)
-        if command_info and command_info.get('has_options'):
-            options_layout.removeWidget(options_widget)
-            for i in reversed(range(options_layout.count())): 
-                options_layout.itemAt(i).widget().setParent(None)
-            
-            for option in command_info['options']:
-                checkbox = QCheckBox(option['label'])
-                checkbox.setProperty('value', option['value'])  # value 속성 저장
-                if option.get('needs_input'):
-                    input_field = QLineEdit()
-                    input_field.setPlaceholderText(option.get('input_prompt', ''))
-                    options_layout.addWidget(checkbox)
-                    options_layout.addWidget(input_field)
-                else:
-                    options_layout.addWidget(checkbox)
-            
-            options_widget.show()
-        else:
-            options_widget.hide()
-    
+        
     # 아이템 선택 변경 이벤트 연결
     tree.itemClicked.connect(show_options)
     tree.itemDoubleClicked.connect(show_options)
@@ -308,11 +401,11 @@ def show_ssh_command_dialog(parent):
     # 대화상자 실행 및 결과 반환
     result = dialog.exec()
     
-    # Cancel 버튼을 눌렀을 때
+    # Cancel 버튼을 눌렀으면 종료
     if result == QDialog.DialogCode.Rejected:
         return False, None
     
-    # OK 버튼을 눌렀을 때
+    # OK 버튼을 눌렀으면
     selected_items = tree.selectedItems()
     if not selected_items:
         return True, None
