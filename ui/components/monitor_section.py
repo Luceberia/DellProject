@@ -293,11 +293,16 @@ def show_ssh_command_dialog(parent):
                 "needs_input": False,
                 "has_options": True,
                 "options": [
-                    {"label": "패스워드 기본값으로 변경 (default = calvin, 패스워드 정책 자동 변경)", "value": "option1"},
-                    {"label": "패스워드 직접 입력하여 변경 (패스워드 정책 자동 변경)", "value": "option1_custom", "needs_input": True, "input_prompt": "새로운 패스워드를 입력하세요"},
+                    {"label": "패스워드 정책 확인", "value": "check_policy"},
+                    {"label": "패스워드 기본값으로 변경 (default = calvin)", "value": "option1"},
+                    {"label": "패스워드 직접 입력하여 변경", "value": "option1_custom", "needs_input": True, "input_prompt": "새로운 패스워드를 입력하세요"},
                     {"label": "논리 프로세서 설정 조회", "value": "option2"},
+                    {"label": "논리 프로세서 설정 Disabled로 변경", "value": "option2_set"},
                     {"label": "BIOS 부트 모드 조회", "value": "option3"},
-                    {"label": "프로파일 설정 조회", "value": "option4"}
+                    {"label": "BIOS 모드로 변경", "value": "option3_set"},
+                    {"label": "프로파일 설정 조회", "value": "option4"},
+                    {"label": "프로파일 설정 Performance로 변경", "value": "option4_set"},
+                    {"label": "BIOS 설정 적용을 위한 시스템 재시작", "value": "option5"}
                 ]
             }
         }
@@ -2154,7 +2159,6 @@ def show_firmware_info(parent):
                         ])
                         table.setSelectionBehavior(QTableWidget.SelectionBehavior.SelectRows)
                         table.setEditTriggers(QTableWidget.EditTrigger.NoEditTriggers)
-                        layout.addWidget(table)
 
                         # 실제 작업 데이터 가져오기
                         try:
