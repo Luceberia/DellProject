@@ -16,6 +16,8 @@ class Cafe24Manager:
             "option4": self._handle_option4,
             "option4_set": self._handle_option4_set,
             "option5": self._handle_option5,
+            "check_all": self._handle_check_all,
+            "set_all": self._handle_set_all,
         }
         
         # 패스워드 정책 레벨 설명
@@ -117,6 +119,34 @@ class Cafe24Manager:
         return (
             "echo '변경된 BIOS 설정을 적용하기 위해 시스템을 재시작합니다.' && "
             "racadm jobqueue create BIOS.Setup.1-1 -r pwrcycle && exit"
+        )
+    
+    def _handle_check_all(self, _=None) -> str:
+        """모든 설정 조회 (논리 프로세서, BIOS 부트 모드, 프로파일 설정)"""
+        return (
+            "echo '=== logical processor setting ===' && "
+            "racadm get BIOS.ProcSettings.LogicalProc && "
+            "echo '\n=== BIOS Boot Mode ===' && "
+            "racadm get BIOS.BiosBootSettings.BootMode && "
+            "echo '\n=== profile setting ===' && "
+            "racadm get BIOS.SysProfileSettings.ProcPwrPerf && "
+            "exit"
+        )
+    
+    def _handle_set_all(self, _=None) -> str:
+        """모든 설정 변경 (논리 프로세서 Disabled, BIOS 모드, 프로파일 Performance)"""
+        return (
+            "echo '=== logical processor setting ===' && "
+            "racadm set BIOS.ProcSettings.LogicalProc Disabled && "
+            "racadm get BIOS.ProcSettings.LogicalProc && "
+            "echo '\n=== BIOS Boot Mode ===' && "
+            "racadm set BIOS.BiosBootSettings.BootMode Bios && "
+            "racadm get BIOS.BiosBootSettings.BootMode && "
+            "echo '\n=== profile setting ===' && "
+            "racadm set BIOS.SysProfileSettings.ProcPwrPerf Performance && "
+            "racadm get BIOS.SysProfileSettings.ProcPwrPerf && "
+            "echo '\n=== done ===' && "
+            "exit"
         )
 
 # 싱글톤 인스턴스 생성

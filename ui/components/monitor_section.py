@@ -296,6 +296,8 @@ def show_ssh_command_dialog(parent):
                     {"label": "패스워드 정책 확인", "value": "check_policy"},
                     {"label": "패스워드 기본값으로 변경 (default = calvin)", "value": "option1"},
                     {"label": "패스워드 직접 입력하여 변경", "value": "option1_custom", "needs_input": True, "input_prompt": "새로운 패스워드를 입력하세요"},
+                    {"label": "전체 설정 조회 (논리 프로세서/BIOS/프로파일)", "value": "check_all"},
+                    {"label": "전체 설정 변경 (Disabled/BIOS/Performance)", "value": "set_all"},
                     {"label": "논리 프로세서 설정 조회", "value": "option2"},
                     {"label": "논리 프로세서 설정 Disabled로 변경", "value": "option2_set"},
                     {"label": "BIOS 부트 모드 조회", "value": "option3"},
