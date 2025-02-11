@@ -1433,8 +1433,8 @@ def show_system_info(parent):
                         cpu_brand = info_source['Attributes'].get('Proc1Brand', '')
                         is_amd_cpu = 'AMD' in cpu_brand
 
-                        # AMD CPU인 경우에만 추가 설정 병합
-                        if is_amd_cpu:
+                        # AMD CPU이고 System Profile Settings 섹션인 경우에만 추가 설정 병합
+                        if is_amd_cpu and section_name == "System Profile Settings":
                             settings_dict.update(amd_specific_settings)
 
                         for display_name, attr_name in settings_dict.items():
@@ -2112,7 +2112,7 @@ def show_firmware_info(parent):
                                 QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
                                 QMessageBox.StandardButton.No
                             )
-                            
+
                             if reply == QMessageBox.StandardButton.Yes:
                                 try:
                                     server_manager.cancel_firmware_job(job_id)
