@@ -416,14 +416,19 @@ class HardwareInfoWidget(QWidget):
                             else:
                                 cpu_count["⚠️"] += 1
                     
-                    status_parts = []
-                    for icon, count in cpu_count.items():
-                        if count > 0:
-                            status_parts.append(f"{count}{icon}")
+                    # 상태 텍스트 업데이트
+                    status_text = "CPU: "
+                    if cpu_count["✅"] > 0:
+                        status_text += f"{cpu_count['✅']}✅"
+                    if cpu_count["⚠️"] > 0:
+                        status_text += f"+{cpu_count['⚠️']}"
+                    if cpu_count["❌"] > 0:
+                        status_text += f" (❌{cpu_count['❌']})"
                     
-                    status_text = "CPU: " + " ".join(status_parts)
+                    # 상세보기 아이콘 추가
                     if cpu_count["❌"] > 0 or cpu_count["⚠️"] > 0:
                         status_text += " (상세보기 ℹ️)"
+                    
                     self.status_labels['CPU'].setText(status_text)
         except Exception as e:
             self.status_labels['CPU'].setText("CPU: 오류")
@@ -435,6 +440,7 @@ class HardwareInfoWidget(QWidget):
                 memory_data = self.server_manager.fetch_memory_info()
                 if memory_data.get('Members@odata.count', 0) > 0:
                     mem_count = {"✅": 0, "❌": 0, "⚠️": 0}
+                    total_capacity_gb = 0
                     
                     for member in memory_data.get('Members', []):
                         member_uri = member.get('@odata.id')
@@ -449,6 +455,11 @@ class HardwareInfoWidget(QWidget):
                             health = status.get('Health')
                             enabled = memory_info.get('Enabled', True)
                             
+                            # 메모리 용량 계산 (MB를 GB로 변환)
+                            capacity_mb = memory_info.get('CapacityMiB', 0)
+                            if capacity_mb > 0:
+                                total_capacity_gb += capacity_mb / 1024
+                            
                             if not enabled or status.get('State') == 'Offline':
                                 mem_count["❌"] += 1
                             elif health == 'OK':
@@ -456,14 +467,23 @@ class HardwareInfoWidget(QWidget):
                             else:
                                 mem_count["⚠️"] += 1
                     
-                    status_parts = []
-                    for icon, count in mem_count.items():
-                        if count > 0:
-                            status_parts.append(f"{count}{icon}")
+                    # 상태 텍스트 업데이트 (총 용량 포함)
+                    status_text = "MEM: "
+                    if mem_count["✅"] > 0:
+                        status_text += f"{mem_count['✅']}✅"
+                    if mem_count["⚠️"] > 0:
+                        status_text += f"+{mem_count['⚠️']}"
+                    if mem_count["❌"] > 0:
+                        status_text += f" (❌{mem_count['❌']})"
                     
-                    status_text = "MEM: " + " ".join(status_parts)
+                    # 총 용량 추가 (소수점 1자리까지)
+                    if total_capacity_gb > 0:
+                        status_text += f" ({total_capacity_gb:.1f}GB)"
+                    
+                    # 상세보기 아이콘 추가
                     if mem_count["❌"] > 0 or mem_count["⚠️"] > 0:
                         status_text += " (상세보기 ℹ️)"
+                    
                     self.status_labels['MEM'].setText(status_text)
         except Exception as e:
             self.status_labels['MEM'].setText("MEM: 오류")
@@ -502,35 +522,42 @@ class HardwareInfoWidget(QWidget):
 
     def _update_psu_status(self):
         try:
-            power_data = self.server_manager.fetch_psu_info()
-            if power_data and 'PowerSupplies' in power_data:
-                psu_count = {"✅": 0, "❌": 0, "⚠️": 0}
-                
-                for psu in power_data.get('PowerSupplies', []):
-                    status = psu.get('Status', {})
-                    if status.get('State') == 'Enabled':
-                        health = status.get('Health', 'Unknown')
-                        if health == 'OK':
-                            psu_count["✅"] += 1
-                        elif health == 'Critical':
+            if self.server_manager is not None:
+                power_data = self.server_manager.fetch_psu_info()
+                if power_data and 'PowerSupplies' in power_data:
+                    psu_count = {"✅": 0, "❌": 0, "⚠️": 0}
+                    
+                    for psu in power_data['PowerSupplies']:
+                        status = psu.get('Status', {})
+                        health = status.get('Health')
+                        state = status.get('State')
+                        
+                        if state == 'Absent':
+                            continue
+                        elif state != 'Enabled' or health == 'Critical':
                             psu_count["❌"] += 1
+                        elif health == 'OK':
+                            psu_count["✅"] += 1
                         else:
                             psu_count["⚠️"] += 1
-                
-                status_parts = []
-                for icon, count in psu_count.items():
-                    if count > 0:
-                        status_parts.append(f"{count}{icon}")
-                
-                status_text = "PWR: " + " ".join(status_parts)
-                if psu_count["❌"] > 0 or psu_count["⚠️"] > 0:
-                    status_text += " (상세보기 ℹ️)"
-                self.status_labels['PWR'].setText(status_text)
-            else:
-                self.status_labels['PWR'].setText("PWR: --")
+                    
+                    # 상태 텍스트 업데이트
+                    status_text = "PWR: "
+                    if psu_count["✅"] > 0:
+                        status_text += f"{psu_count['✅']}✅"
+                    if psu_count["⚠️"] > 0:
+                        status_text += f"+{psu_count['⚠️']}"
+                    if psu_count["❌"] > 0:
+                        status_text += f" (❌{psu_count['❌']})"
+                    
+                    # 상세보기 아이콘 추가
+                    if psu_count["❌"] > 0 or psu_count["⚠️"] > 0:
+                        status_text += " (상세보기 ℹ️)"
+                    
+                    self.status_labels['PWR'].setText(status_text)
         except Exception as e:
             self.status_labels['PWR'].setText("PWR: 오류")
-            logger.error(f"PSU 상태 업데이트 실패: {e}")
+            logger.error(f"전원 공급 장치 상태 업데이트 실패: {e}")
 
     def _update_status_label(self, component, statuses):
         if statuses:
@@ -547,7 +574,7 @@ class HardwareInfoWidget(QWidget):
 
     def show_component_details(self, component_type):
         try:
-            if self.server_manager is None:
+            if not self.server_manager:
                 return
                 
             info = {}

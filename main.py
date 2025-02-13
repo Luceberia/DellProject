@@ -9,10 +9,12 @@ sys.path.insert(0, project_root)
 
 from PyQt6.QtWidgets import QApplication, QProgressDialog, QMessageBox
 from PyQt6.QtCore import Qt, QTimer
-
-from config.system.app_config import ResourceManager
 from config.system.log_config import setup_logging
 from ui.main_window import DellIDRACMonitor
+from utils.network_utils import check_internet_connection
+from updater import check_for_updates
+from version import __version__
+from config.system.app_config import ResourceManager
 
 class ApplicationInitializer:
     def __init__(self, app: QApplication):
@@ -22,6 +24,7 @@ class ApplicationInitializer:
         self.initialization_steps = [
             ("시스템 리소스 초기화", self.initialize_resources),
             ("로깅 시스템 설정", self.setup_logging),
+            ("네트워크 연결 확인", self.check_network),
             ("UI 구성 요소 준비", self.prepare_ui_components)
         ]
 
@@ -101,6 +104,22 @@ class ApplicationInitializer:
         except Exception as e:
             self.logger.error(f"로깅 시스템 설정 실패: {e}")
             raise
+
+    def check_network(self):
+        """네트워크 연결 상태를 확인합니다."""
+        is_connected, message = check_internet_connection()
+        self.logger.info(message)
+        
+        if not is_connected:
+            QMessageBox.warning(
+                None,
+                "네트워크 알림",
+                "인터넷 연결이 감지되지 않았습니다.\n버전 업데이트를 하려면 인터넷을 연결 해 주세요.\n또는 현재 버전을 클릭하면 조회가 가능합니다.",
+                QMessageBox.StandardButton.Ok
+            )
+        else:
+            # 인터넷이 연결되어 있으면 버전 업데이트 확인
+            check_for_updates(__version__)
 
     def prepare_ui_components(self):
         """UI 구성 요소 준비"""
